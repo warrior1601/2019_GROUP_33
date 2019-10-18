@@ -1,4 +1,4 @@
-Jedidiah Paterson - Team Lead 
-Chayanis - Most Impotant 
-Junaid - Decision Maker
-Chang - Code writer
+Jedidiah Paterson - Team Lead 14336031
+Chayanis - Most Impotant 20208124
+Junaid - Decision Maker 14326724
+Chang - Code writer 20029241
