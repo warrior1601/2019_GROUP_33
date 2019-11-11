@@ -25,7 +25,6 @@ test_2.SetVector(Coord_2);
 cout<<"This is Vector 1"<<endl;
 *Coord_3 = test.GetVector(Coord_3);
 cout<<Coord_3[0]<<Coord_3[1]<<Coord_3[2]<<endl;
-test.SetVector(Coord_7);
 
 cout<<"This is Vector 2"<<endl;
 *Coord_4 = test_2.GetVector(Coord_4);
