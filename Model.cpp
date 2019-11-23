@@ -59,6 +59,10 @@ int Model::readfile(string path) //read the model file
 	this->totalvalue_v = i_v;
 	this->totalvalue_m =i_m;
 
+    convert_vector();
+    convert_cell_h();
+    convert_cell_p();
+    convert_cell_t();
 }
 
 int Model::readfile_binary(string binary_path) //check the binary file
@@ -101,7 +105,7 @@ int Model::savefile_binary(string save_path) //save the loaded model as binary f
 }
 
 
-double** Model::getvector()
+void Model::convert_vector()
 {
     int i=Vectore.size();
     int n=0;
@@ -187,9 +191,11 @@ double** Model::getvector()
         vector_pass[n][2]=Z;
         n++;
     }
+}
 
-        return vector_pass;
-
+double** Model::getvector()
+{
+    return vector_pass;
 }
 
 string** Model::getmaterial()
@@ -282,41 +288,43 @@ void Model::display_Vec()
 
 void Model::display_Cell()  //show the type of each cell and total number
 {
-	for (int i = 0; i < totalvalue_c; ++i)
+	for (int n = 0; n < totalvalue_c; ++n)
 	{
-		if (Cell[i][4]=='t')
+		if (Cell[n][4]=='t'|Cell[n][5]=='t'|Cell[n][6]=='t')
 		{
-			cout << "c" << i << ":Tetrahedron" << endl;
+			cout << "c" << n << ":Tetrahedron" << endl;
 		}
-		if (Cell[i][4] == 'h')
+		if (Cell[n][4]=='p'|Cell[n][5]=='p'|Cell[n][6]=='p')
 		{
-			cout << "c" << i << ":Hexahedron" << endl;
+			cout << "c" << n << ":Hexahedron" << endl;
 		}
-		if (Cell[i][4] == 'p')
+		if (Cell[n][4]=='h'|Cell[n][5]=='h'|Cell[n][6]=='h')
 		{
-			cout << "c" << i << ":Pyramid" << endl;
+			cout << "c" << n << ":Pyramid" << endl;
 		}
 	}
 
 	cout << "The total value for the cell is:" << totalvalue_c<< endl;
 }
 
-string** Model::getcell_t()
+void Model::convert_cell_t()
 {
-    //char material;
     int i=totalvalue_c;
-    int number=0;
+    number_t=0;
     int space[6];
-    string** cell_t=new string*[i];
+    cell_t=new string*[i];
+    cell_ot=new double*[i];
     for(int m=0;m<i;m++)
     {
         cell_t[m]=new string[5];
+        cell_ot[m]=new double[4];
     }
     for(int n=0;n<i;n++)
     {
         //material=Cell[n][4];
        // cout<<Cell[1][4]<<endl;
        // cout<<n<<endl;
+        string x_1,x_2,x_3,x_4="";
         if(Cell[n][4]=='t'|Cell[n][5]=='t'|Cell[n][6]=='t')
         {
             int position=2;
@@ -339,7 +347,7 @@ string** Model::getcell_t()
                 }
                 else
                 {
-                    cell_t[number][0]+=Cell[n][read_p];
+                    cell_t[number_t][0]+=Cell[n][read_p];
                 }
             }
 
@@ -352,7 +360,8 @@ string** Model::getcell_t()
                 }
                 else
                 {
-                    cell_t[number][1]+=Cell[n][read_p];
+                    cell_t[number_t][1]+=Cell[n][read_p];
+                    x_1+=Cell[n][read_p];
                 }
             }
 
@@ -365,7 +374,8 @@ string** Model::getcell_t()
                 }
                 else
                 {
-                    cell_t[number][2]+=Cell[n][read_p];
+                    cell_t[number_t][2]+=Cell[n][read_p];
+                    x_2+=Cell[n][read_p];
                 }
             }
 
@@ -378,7 +388,8 @@ string** Model::getcell_t()
                 }
                 else
                 {
-                    cell_t[number][3]+=Cell[n][read_p];
+                    cell_t[number_t][3]+=Cell[n][read_p];
+                    x_3+=Cell[n][read_p];
                 }
             }
 
@@ -391,31 +402,37 @@ string** Model::getcell_t()
                 }
                 else
                 {
-                    cell_t[number][4]+=Cell[n][read_p];
+                    cell_t[number_t][4]+=Cell[n][read_p];
+                    x_4+=Cell[n][read_p];
                 }
             }
-            number++;
+            cell_ot[number_t][0]=atof(x_1.c_str());
+            cell_ot[number_t][1]=atof(x_2.c_str());
+            cell_ot[number_t][2]=atof(x_3.c_str());
+            cell_ot[number_t][3]=atof(x_4.c_str());
+            number_t++;
         }
     }
-    return cell_t;
 }
 
-string** Model::getcell_p()
+void Model::convert_cell_p()
 {
-    //char material;
     int i=totalvalue_c;
-    int number=0;
+    number_p=0;
     int space[7];
-    string** cell_p=new string*[i];
+    cell_p=new string*[i];
+    cell_op=new double*[i];
     for(int m=0;m<i;m++)
     {
         cell_p[m]=new string[6];
+        cell_op[m]=new double[5];
     }
     for(int n=0;n<i;n++)
     {
         //material=Cell[n][4];
        // cout<<Cell[1][4]<<endl;
        // cout<<n<<endl;
+        string x_1,x_2,x_3,x_4,x_5="";
         if(Cell[n][4]=='p'|Cell[n][5]=='p'|Cell[n][6]=='p')
         {
             int position=2;
@@ -438,7 +455,7 @@ string** Model::getcell_p()
                 }
                 else
                 {
-                    cell_p[number][0]+=Cell[n][read_p];
+                    cell_p[number_p][0]+=Cell[n][read_p];
                 }
             }
 
@@ -451,7 +468,8 @@ string** Model::getcell_p()
                 }
                 else
                 {
-                    cell_p[number][1]+=Cell[n][read_p];
+                    cell_p[number_p][1]+=Cell[n][read_p];
+                    x_1+=Cell[n][read_p];
                 }
             }
             for(int v_2=space[3];v_2<space[4];v_2++)
@@ -463,7 +481,8 @@ string** Model::getcell_p()
                 }
                 else
                 {
-                    cell_p[number][2]+=Cell[n][read_p];
+                    cell_p[number_p][2]+=Cell[n][read_p];
+                    x_2+=Cell[n][read_p];
                 }
             }
 
@@ -476,7 +495,8 @@ string** Model::getcell_p()
                 }
                 else
                 {
-                    cell_p[number][3]+=Cell[n][read_p];
+                    cell_p[number_p][3]+=Cell[n][read_p];
+                    x_3+=Cell[n][read_p];
                 }
             }
 
@@ -489,7 +509,8 @@ string** Model::getcell_p()
                 }
                 else
                 {
-                    cell_p[number][4]+=Cell[n][read_p];
+                    cell_p[number_p][4]+=Cell[n][read_p];
+                    x_4+=Cell[n][read_p];
                 }
             }
 
@@ -502,31 +523,38 @@ string** Model::getcell_p()
                 }
                 else
                 {
-                    cell_p[number][5]+=Cell[n][read_p];
+                    cell_p[number_p][5]+=Cell[n][read_p];
+                    x_5+=Cell[n][read_p];
                 }
             }
-            number++;
+            cell_op[number_p][0]=atof(x_1.c_str());
+            cell_op[number_p][1]=atof(x_2.c_str());
+            cell_op[number_p][2]=atof(x_3.c_str());
+            cell_op[number_p][3]=atof(x_4.c_str());
+            cell_op[number_p][4]=atof(x_5.c_str());
+            number_p++;
         }
     }
-    return cell_p;
 }
 
-string** Model::getcell_h()
+void Model::convert_cell_h()
 {
-    //char material;
     int i=totalvalue_c;
-    int number=0;
+    number_h=0;
     int space[10];
-    string** cell_h=new string*[i];
+    cell_h=new string*[i];
+    cell_oh=new double*[i];
     for(int m=0;m<i;m++)
     {
         cell_h[m]=new string[9];
+        cell_oh[m]=new double[8];
     }
     for(int n=0;n<i;n++)
     {
         //material=Cell[n][4];
        // cout<<Cell[1][4]<<endl;
        // cout<<n<<endl;
+       string x_1,x_2,x_3,x_4,x_5,x_6,x_7,x_8="";
         if(Cell[n][4]=='h'|Cell[n][5]=='h'|Cell[n][6]=='h')
         {
             int position=2;
@@ -549,7 +577,7 @@ string** Model::getcell_h()
                 }
                 else
                 {
-                    cell_h[number][0]+=Cell[n][read_p];
+                    cell_h[number_h][0]+=Cell[n][read_p];
                 }
             }
 
@@ -562,7 +590,8 @@ string** Model::getcell_h()
                 }
                 else
                 {
-                    cell_h[number][1]+=Cell[n][read_p];
+                    cell_h[number_h][1]+=Cell[n][read_p];
+                    x_1+=Cell[n][read_p];
                 }
             }
             for(int v_2=space[3];v_2<space[4];v_2++)
@@ -574,7 +603,8 @@ string** Model::getcell_h()
                 }
                 else
                 {
-                    cell_h[number][2]+=Cell[n][read_p];
+                    cell_h[number_h][2]+=Cell[n][read_p];
+                    x_2+=Cell[n][read_p];
                 }
             }
 
@@ -587,7 +617,8 @@ string** Model::getcell_h()
                 }
                 else
                 {
-                    cell_h[number][3]+=Cell[n][read_p];
+                    cell_h[number_h][3]+=Cell[n][read_p];
+                    x_3+=Cell[n][read_p];
                 }
             }
 
@@ -600,7 +631,8 @@ string** Model::getcell_h()
                 }
                 else
                 {
-                    cell_h[number][4]+=Cell[n][read_p];
+                    cell_h[number_h][4]+=Cell[n][read_p];
+                    x_4+=Cell[n][read_p];
                 }
             }
 
@@ -613,7 +645,8 @@ string** Model::getcell_h()
                 }
                 else
                 {
-                    cell_h[number][5]+=Cell[n][read_p];
+                    cell_h[number_h][5]+=Cell[n][read_p];
+                    x_5+=Cell[n][read_p];
                 }
             }
 
@@ -626,7 +659,8 @@ string** Model::getcell_h()
                 }
                 else
                 {
-                    cell_h[number][6]+=Cell[n][read_p];
+                    cell_h[number_h][6]+=Cell[n][read_p];
+                    x_6+=Cell[n][read_p];
                 }
             }
 
@@ -639,7 +673,8 @@ string** Model::getcell_h()
                 }
                 else
                 {
-                    cell_h[number][7]+=Cell[n][read_p];
+                    cell_h[number_h][7]+=Cell[n][read_p];
+                    x_7+=Cell[n][read_p];
                 }
             }
 
@@ -652,11 +687,97 @@ string** Model::getcell_h()
                 }
                 else
                 {
-                    cell_h[number][8]+=Cell[n][read_p];
+                    cell_h[number_h][8]+=Cell[n][read_p];
+                    x_8+=Cell[n][read_p];
                 }
             }
-            number++;
+            cell_oh[number_h][0]=atof(x_1.c_str());
+            cell_oh[number_h][1]=atof(x_2.c_str());
+            cell_oh[number_h][2]=atof(x_3.c_str());
+            cell_oh[number_h][3]=atof(x_4.c_str());
+            cell_oh[number_h][4]=atof(x_5.c_str());
+            cell_oh[number_h][5]=atof(x_6.c_str());
+            cell_oh[number_h][6]=atof(x_7.c_str());
+            cell_oh[number_h][7]=atof(x_8.c_str());
+            number_h++;
+            //cout<<cell_oh[number_h][0]<<endl;
         }
     }
+}
+
+string** Model::getcell_t()
+{
+    return cell_t;
+}
+
+string** Model::getcell_p()
+{
+    return cell_p;
+}
+
+string** Model::getcell_h()
+{
     return cell_h;
+}
+
+double* Model::getcenter()
+{
+    center=new double[3];
+    int i=totalvalue_c;
+    double x=0;
+    double y=0;
+    double z=0;
+    int a=0;
+    int number=0;
+    if(cell_t[0][0]!="")
+    {
+        for(int n=0;n<number_t;n++)
+        {
+            for(int m=0;m<4;m++)
+            {
+                a=0;
+                a=cell_ot[n][m];
+                x+=vector_pass[a][0];
+                y+=vector_pass[a][1];
+                z+=vector_pass[a][2];
+                number++;
+            }
+        }
+    }
+    if(cell_p[0][0]!="")
+    {
+        for(int n=0;n<number_p;n++)
+        {
+            for(int m=0;m<5;m++)
+            {
+                a=0;
+                a=cell_op[n][m];
+                x+=vector_pass[a][0];
+                y+=vector_pass[a][1];
+                z+=vector_pass[a][2];
+                number++;
+            }
+        }
+    }
+    if(cell_h[0][0]!="")
+    {
+        for(int n=0;n<number_h;n++)
+        {
+            for(int m=0;m<8;m++)
+            {
+                a=0;
+                a=cell_oh[n][m];
+                x+=vector_pass[a][0];
+                y+=vector_pass[a][1];
+                z+=vector_pass[a][2];
+                number++;
+                cout<<number<<":"<<x<<endl;
+            }
+        }
+    }
+    center[0]=x/number;
+    center[1]=y/number;
+    center[2]=z/number;
+
+    return center;
 }

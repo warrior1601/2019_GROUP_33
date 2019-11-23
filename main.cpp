@@ -47,6 +47,13 @@ int main()
        cout<<c[100][7]<<endl;
    }
     */
+    double* p;
+    p=test.getcenter();
+    cout<<p[0]<<":"<<p[1]<<":"<<p[2]<<endl;
+
+    test.display_Vec();
+    test.display_Cell();
+
 }
 
 
