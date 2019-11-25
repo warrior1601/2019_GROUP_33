@@ -5,12 +5,22 @@ class Vectors
 {
 
 private:
-    float *Coordinates;
+    //float *Coordinates;
+
+    float X_Coord;
+    float Y_Coord;
+    float Z_Coord;
+
+
 
 public:
     Vectors(); //Constructor
     ~Vectors(); //destructor
-    void SetVector(float *Coord);
+    //void SetVector(float *Coord);
+    void SetVector(float aX_Coord, float aY_Coord, float aZ_Coord);
+    void SetX_Vector(float aX_Coord);
+    void SetY_Vector(float aY_Coord);
+    void SetZ_Vector(float aZ_Coord);
     float GetXVector();
     float GetYVector();
     float GetZVector();

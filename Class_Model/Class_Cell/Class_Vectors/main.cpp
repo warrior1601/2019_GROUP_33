@@ -5,18 +5,22 @@ using namespace std;
 
 int main()
 {
-    float Coord[3]   = {2,3,4};
-    float Coord_2[3] = {5,6,7};
+    //float Coord[3]   = {2,3,4};
+    //float Coord_2[3] = {5,6,7};
 
     Vectors test;
     Vectors test_2;
     Vectors test_3;
 
-    test.SetVector(Coord);
-    test_2.SetVector(Coord_2);
+    test.SetVector(2, 3, 4);
+    test_2.SetVector(5, 6, 7);
 
     cout<<"This is Vector 1"<<endl;
     cout<<test<<endl;
+
+    cout<<"This is Vector 1.5 Copied"<<endl;
+    Vectors test_1_5 = test;
+    cout<<test_1_5<<endl;
 
     cout<<"This is Vector 2"<<endl;
     cout<<test_2<<endl;
@@ -53,4 +57,13 @@ int main()
 
     cout<<"Verifying that Vector 1 is unchanged"<<endl;
     cout<<test<<endl;
+
+    Vectors test_8;
+    test_8.SetX_Vector(8.8);
+    test_8.SetY_Vector(9.8);
+    test_8.SetZ_Vector(10.8);
+    cout<<"This is Vector 8"<<endl;
+    cout<<"Verifying Set functions work"<<endl;
+    cout<<test_8<<endl;
+
 }
