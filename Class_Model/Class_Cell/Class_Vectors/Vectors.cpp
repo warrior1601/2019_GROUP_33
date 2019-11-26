@@ -107,11 +107,11 @@ Vectors Vectors::Vector_Product(const Vectors& aVectors)
     return Vector_Prduct;
 }
 
-std::ostream& operator<< (std::ostream&, Vectors& aVectors)
+std::ostream& operator<< (std::ostream&,const Vectors& aVectors)
 {
-    std::cout << "X = "<<aVectors.GetXVector();
-    std::cout << " Y = "<<aVectors.GetYVector();
-    std::cout << " Z = "<<aVectors.GetZVector();
+    std::cout << "X = "<<aVectors.X_Coord;
+    std::cout << " Y = "<<aVectors.Y_Coord;
+    std::cout << " Z = "<<aVectors.Z_Coord<<std::endl;
 
     return std::cout;
 }

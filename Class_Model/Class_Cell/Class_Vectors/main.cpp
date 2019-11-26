@@ -5,9 +5,6 @@ using namespace std;
 
 int main()
 {
-    //float Coord[3]   = {2,3,4};
-    //float Coord_2[3] = {5,6,7};
-
     Vectors test;
     Vectors test_2;
     Vectors test_3;
