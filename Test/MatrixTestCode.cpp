@@ -10,7 +10,7 @@
 //  functionality of the object
 //
 
-#include "Materail.h"
+#include "Material.h"
 #include "Vectors.h"
 #include "Matrix.hpp"
 #include "Cell.hpp"
@@ -63,9 +63,8 @@ int main()
     std::cout << "Matrix multiplication using *=\n" << BlankMatrix << std::endl;
     
     
-    Vectors someVertex;
-    someVertex.SetVector(1,2,3);
-    Vectors OutputVertex = someMatrix * someVertex;
+    Vectors someVector(1,2,3);
+    Vectors OutputVertex = someMatrix * someVector;
     std::cout << "\nMatrix and vertex multiplication\n" << OutputVertex << std::endl;
     
     

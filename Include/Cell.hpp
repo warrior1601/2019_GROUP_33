@@ -14,7 +14,7 @@
 #ifndef Cell_hpp
 #define Cell_hpp
 
-#include "Materail.h"
+#include "Material.h"
 #include "Vectors.h"
 #include <vector>
 
