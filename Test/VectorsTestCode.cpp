@@ -1,66 +1,99 @@
 
 #include <iostream>
 #include "Vectors.h"
+
+//
+//  VectorsTestCode.cpp
+//  Computing Project
+//
+//  Created by Jedidiah Paterson on 27/11/2019.
+//  Copyright © 2019 Jedidiah Paterson. All rights reserved.
+//  This File contains a suitable test for all functions declared
+//  in the "Vectors.h" header file. The correct way to implement
+//  the functions is demonstrated in this test file.
+
+
 using namespace std;
 
 int main()
 {
-    Vectors test;
-    Vectors test_2;
-    Vectors test_3;
+    Vectors Test;
+    cout<<"Blank Constructor"<<endl;
+    cout<<Test<<endl;
 
-    test.SetVector(2, 3, 4);
-    test_2.SetVector(5, 6, 7);
+    Vectors Test_1(1);
+    cout<<"X Only Constructor"<<endl;
+    cout<<Test_1<<endl;
 
-    cout<<"This is Vector 1"<<endl;
-    cout<<test<<endl;
+    Vectors Test_2(1,2);
+    cout<<"X and Y Only Constructor"<<endl;
+    cout<<Test_2<<endl;
 
-    cout<<"This is Vector 1.5 Copied"<<endl;
-    Vectors test_1_5 = test;
-    cout<<test_1_5<<endl;
+    Vectors Test_3(1, 2, 3);
+    cout<<"X, Y, and Z Constructor"<<endl;
+    cout<<Test_3<<endl;
 
-    cout<<"This is Vector 2"<<endl;
-    cout<<test_2<<endl;
+    Test.SetVector(4,5,6);
+    cout<<"X, Y, and Z Set Function"<<endl;
+    cout<<Test<<endl;
 
-    cout<<"This is Vector 3"<<" Vector 1 + Vector 2"<<endl;
-    test_3 = test + test_2;
-    cout<<test_3<<endl;
+    Vectors Test_4;
+    Test_4.SetX_Vector(7);
+    Test_4.SetY_Vector(8);
+    Test_4.SetZ_Vector(9);
+    cout<<"Set Functions Individual Test"<<endl;
+    cout<<Test_4<<endl;
 
-    cout<<"This is Vector 4"<<" Vector 2 - Vector 1"<<endl;
-    Vectors test_4 = test_2 - test;
-    cout<<test_4<<endl;
-
-    cout<<"This is Vector 5 Vector Product"<<endl;
-    Vectors test_5 = test.Vector_Product(test_2);
-    cout<<test_5<<endl;
-
-    float test_6 = test.Scalar_Product(test_2);
-    cout<<"This is Scalar Product of Vector 2"<<endl;
-    cout<<test_6<<endl;
-
-    cout<<"This is Vector 1"<<endl;
-    cout<<test<<endl;
-
-    float X = test.GetXVector();
-    float Y = test.GetYVector();
-    float Z = test.GetZVector();
-
-    cout<<"Verifying Get function works"<<endl;
+    float X = Test_4.GetXVector();
+    float Y = Test_4.GetYVector();
+    float Z = Test_4.GetZVector();
+    cout<<"Testing Get Functions"<<endl;
     cout<<"X = "<<X<<" Y = "<<Y<<" Z = "<<Z<<endl;
 
-    cout<<"Vector 1 divided by 2"<<endl;
-    Vectors test_7 = test.Vector_Divide_By_Number(2);
-    cout<<test_7<<endl;
+    cout<<"Testing operator = " <<endl;
+    cout<<Test<<endl;
+    cout<<Test_4<<endl;
+    cout<<"This Sets the First Vector Equal To The Second Vector"<<endl;
+    Test = Test_4;
+    cout<<Test<<endl;
 
-    cout<<"Verifying that Vector 1 is unchanged"<<endl;
-    cout<<test<<endl;
 
-    Vectors test_8;
-    test_8.SetX_Vector(8.8);
-    test_8.SetY_Vector(9.8);
-    test_8.SetZ_Vector(10.8);
-    cout<<"This is Vector 8"<<endl;
-    cout<<"Verifying Set functions work"<<endl;
-    cout<<test_8<<endl;
+    cout<<"Testing operator +"<<endl;
+    cout<<Test<<endl;
+    cout<<Test_4<<endl;
+    cout<<"Add Together The Two Vectors Above"<<endl;
+    Test_2 = Test + Test_4;
+    cout<<Test_2<<endl;
 
+    cout<<"Testing operator -"<<endl;
+    cout<<Test_4<<endl;
+    cout<<Test_2<<endl;
+    cout<<"Subtract The Two Vectors Above"<<endl;
+    Test_3 = Test_4 - Test_2;
+    cout<<Test_3<<endl;
+
+    cout<<"Testing Dividing By A Number"<<endl;
+    cout<<Test_4<<endl;
+    cout<<"Divide Above By 7"<<endl;
+    Test_2 = Test_4/7;
+    cout<<Test_2<<endl;
+
+    cout<<"Testing Multiplying By A Number"<<endl;
+    cout<<Test_2<<endl;
+    cout<<"Multiply Above By 7"<<endl;
+    Test_2 = Test_2*7;
+    cout<<Test_2<<endl;
+
+    cout<<"Cross Product Polymorphism"<<endl;
+    Test_3.SetVector(4,5,6);
+    cout<<Test_4<< Test_3<<endl;
+    cout<<"Below is the Cross Product of the Above Two"<<endl;
+    Test_2 = Test_4*Test_3;
+    cout<<Test_2<<endl;
+
+    cout<<"Scalar Product Testing"<<endl;
+    cout<<Test_3 << Test_4<<endl;
+    cout<<"Below is the Scalar Product of the Above Two"<<endl;
+    float Scalar = Test_3.Scalar_Product(Test_4);
+    cout<<Scalar<<endl;
 }
