@@ -53,7 +53,7 @@ Tetrahedron::~Tetrahedron(void) {}
 //Custom std::cout function
 std::ostream& operator<< (std::ostream& Output, const Tetrahedron& aTetrahedron)
 {
-    Output << "V0 = " << aTetrahedron.V0 << "V1 = " << aTetrahedron.V1 << "V2 = " << aTetrahedron.V2 << "V3 = " << aTetrahedron.V3; // << "Material " << aTetrahedron.theMaterial << std::endl;
+    Output << "V0 = " << aTetrahedron.V0 << "V1 = " << aTetrahedron.V1 << "V2 = " << aTetrahedron.V2 << "V3 = " << aTetrahedron.V3 << "Material " << aTetrahedron.theMaterial << std::endl;
     
     return Output;
 }
@@ -131,12 +131,12 @@ float Tetrahedron::Get_Volume(void)
     
     //Volume is calculated using the triple scalar product formula
     
-    return abs( a.Scalar_Product( b.Vector_Product(c) ) / 6.0 );
+    return abs( a.Scalar_Product( b * c) ) / 6.0;
 }
 
 float Tetrahedron::Get_Weight(void)
 {
-    return Get_Volume() * (float)theMaterial.getdensity();
+    return Get_Volume() * (float)theMaterial.GetDensity();
 }
 
 Vectors Tetrahedron::Get_Centre_Of_Gravity(void)
@@ -197,7 +197,7 @@ Pyramid::~Pyramid(void) { }
 //Custom std::cout function
 std::ostream& operator<< (std::ostream& Output, const Pyramid& aPyramid)
 {
-    Output << "V0 = " << aPyramid.V0 << "V1 = " << aPyramid.V1 << "V2 = " << aPyramid.V2 << "V3 = " << aPyramid.V3 << "V4 = " << aPyramid.V4; // << "Material " << aPyramid.theMaterial << std::endl;
+    Output << "V0 = " << aPyramid.V0 << "V1 = " << aPyramid.V1 << "V2 = " << aPyramid.V2 << "V3 = " << aPyramid.V3 << "V4 = " << aPyramid.V4 << "Material " << aPyramid.theMaterial << std::endl;
     
     return Output;
 }
@@ -283,7 +283,7 @@ float Pyramid::Get_Volume(void)
 
 float Pyramid::Get_Weight(void)
 {
-    return Get_Volume() * (float)theMaterial.getdensity();
+    return Get_Volume() * (float)theMaterial.GetDensity();
 }
 
 Vectors Pyramid::Get_Centre_Of_Gravity(void)
@@ -304,10 +304,8 @@ Vectors Pyramid::Get_Centre_Of_Gravity(void)
     Vectors aCentroid = a.Get_Centre_Of_Gravity();
     Vectors bCentroid = b.Get_Centre_Of_Gravity();
     
-    Vectors Centroid = (aCentroid + bCentroid);
-    
-    Centroid = Centroid.Vector_Divide_By_Number(2.0);
-    
+    Vectors Centroid = (aCentroid + bCentroid) / 2.0;
+        
     return Centroid;
 }
 
@@ -350,7 +348,7 @@ Hexahedron::~Hexahedron(void) {}
 //Custom std::cout function
 std::ostream& operator<< (std::ostream& Output, const Hexahedron& aHexahedron)
 {
-    Output << "V0 = " << aHexahedron.V0 << "V1 = " << aHexahedron.V1 << "V2 = " << aHexahedron.V2 << "V3 = " << aHexahedron.V3 << "V4 = " << aHexahedron.V4 << "V5 = " << aHexahedron.V5 << "V6 = " << aHexahedron.V6 << "V7 = " << aHexahedron.V7; // << "Material " << aHexahedron.theMaterial << std::endl;
+    Output << "V0 = " << aHexahedron.V0 << "V1 = " << aHexahedron.V1 << "V2 = " << aHexahedron.V2 << "V3 = " << aHexahedron.V3 << "V4 = " << aHexahedron.V4 << "V5 = " << aHexahedron.V5 << "V6 = " << aHexahedron.V6 << "V7 = " << aHexahedron.V7 << "Material " << aHexahedron.theMaterial << std::endl;
     
     return Output;
 }
@@ -453,7 +451,7 @@ float Hexahedron::Get_Volume(void)
 
 float Hexahedron::Get_Weight(void)
 {
-    return Get_Volume() * (float)theMaterial.getdensity();
+    return Get_Volume() * (float)theMaterial.GetDensity();
 }
 
 Vectors Hexahedron::Get_Centre_Of_Gravity(void)
@@ -473,8 +471,7 @@ Vectors Hexahedron::Get_Centre_Of_Gravity(void)
     Pyramid b(V0, V1, V5, V4, V6, theMaterial);
     Pyramid c(V0, V3, V7, V4, V6, theMaterial);
     
-    Vectors Centroid = ( a.Get_Centre_Of_Gravity() + b.Get_Centre_Of_Gravity() + c.Get_Centre_Of_Gravity() );
-    Centroid = Centroid.Vector_Divide_By_Number(3);
+    Vectors Centroid = ( a.Get_Centre_Of_Gravity() + b.Get_Centre_Of_Gravity() + c.Get_Centre_Of_Gravity() ) / 3.0;
     
     return Centroid;
 }
