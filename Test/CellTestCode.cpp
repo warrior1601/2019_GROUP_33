@@ -11,7 +11,7 @@
 //  functionality of the object
 //
 
-#include "Materail.h"
+#include "Material.h"
 #include "Vectors.h"
 #include "Cell.hpp"
 
@@ -19,22 +19,14 @@ int main()
 {
     std::cout << "------------------------------Cell.hpp Test Code------------------------------" << std::endl;
 
-    Vectors aVectors;
-    aVectors.SetVector(1,2,3);
-    Vectors bVectors;
-    bVectors.SetVector(4,5,6);
-    Vectors cVectors;
-    cVectors.SetVector(7,8,9);
-    Vectors dVectors;
-    dVectors.SetVector(10,11,12);
-    Vectors eVectors;
-    eVectors.SetVector(13,14,15);
-    Vectors fVectors;
-    fVectors.SetVector(16,17,18);
-    Vectors gVectors;
-    gVectors.SetVector(19,20,21);
-    Vectors hVectors;
-    hVectors.SetVector(22,23,24);
+    Vectors aVectors(1,2,3);
+    Vectors bVectors(4,5,6);
+    Vectors cVectors(7,8,9);
+    Vectors dVectors(10,11,12);
+    Vectors eVectors(13,14,15);
+    Vectors fVectors(16,17,18);
+    Vectors gVectors(19,20,21);
+    Vectors hVectors(22,23,24);
     Material Aluminium(5650, "Aluminium", "99A1FF", 0);
     
     
@@ -52,20 +44,15 @@ int main()
     someTetrahedron.Set_V3(dVectors);
     someTetrahedron.Set_Material(Aluminium);
 
-    std::cout << "Set and get functions\nV0 = " << someTetrahedron.Get_V0() << "V1 = " << someTetrahedron.Get_V1() << "V2 = " << someTetrahedron.Get_V2() << "V3 = " << someTetrahedron.Get_V3() << std::endl;
-    //std::cout << "Material " << someTetrahedron.Get_Material() << "\n" << std::endl;
+    std::cout << "Set and get functions\nV0 = " << someTetrahedron.Get_V0() << "V1 = " << someTetrahedron.Get_V1() << "V2 = " << someTetrahedron.Get_V2() << "V3 = " << someTetrahedron.Get_V3() << "Material " << someTetrahedron.Get_Material() << "\n" << std::endl;
     
     Tetrahedron TetraCopyConstructor(someTetrahedron);
     std::cout << "Copy constructor\n" << TetraCopyConstructor << std::endl;
 
-    Vectors V0_Tetra;
-    V0_Tetra.SetVector(2,0,1);
-    Vectors V1_Tetra;
-    V1_Tetra.SetVector(-1,1,1);
-    Vectors V2_Tetra;
-    V2_Tetra.SetVector(1,0,2);
-    Vectors V3_Tetra;
-    V3_Tetra.SetVector(3,1,4);
+    Vectors V0_Tetra(2,0,1);
+    Vectors V1_Tetra(-1,1,1);
+    Vectors V2_Tetra(1,0,2);
+    Vectors V3_Tetra(3,1,4);
     Material Titanium(1500, "Titanium", "64FF15", 1);
 
     Tetrahedron anotherTetrahedron(V0_Tetra, V1_Tetra, V2_Tetra, V3_Tetra, Titanium);
@@ -98,22 +85,16 @@ int main()
     somePyramid.Set_V4(eVectors);
     somePyramid.Set_Material(Aluminium);
 
-    std::cout << "Set and get functions\nV0 = " << somePyramid.Get_V0() << "V1 = " << somePyramid.Get_V1() << "V2 = " << somePyramid.Get_V2() << "V3 = " << somePyramid.Get_V3() << "V4 = " << somePyramid.Get_V4() << std::endl;
-    //std::cout << "Material " << somePyramid.Get_Material() << "\n" << std::endl;
+    std::cout << "Set and get functions\nV0 = " << somePyramid.Get_V0() << "V1 = " << somePyramid.Get_V1() << "V2 = " << somePyramid.Get_V2() << "V3 = " << somePyramid.Get_V3() << "V4 = " << somePyramid.Get_V4() << "Material " << somePyramid.Get_Material() << "\n" << std::endl;
     
     Pyramid PyraCopyConstructor(somePyramid);
     std::cout << "Copy constructor\n" << PyraCopyConstructor << std::endl;
 
-    Vectors V0_Pyra;
-    V0_Pyra.SetVector(0,0,0);
-    Vectors V1_Pyra;
-    V1_Pyra.SetVector(5,0,0);
-    Vectors V2_Pyra;
-    V2_Pyra.SetVector(5,0,5);
-    Vectors V3_Pyra;
-    V3_Pyra.SetVector(0,0,5);
-    Vectors V4_Pyra;
-    V4_Pyra.SetVector(2.5,6,2.5);
+    Vectors V0_Pyra(0,0,0);
+    Vectors V1_Pyra(5,0,0);
+    Vectors V2_Pyra(5,0,5);
+    Vectors V3_Pyra(0,0,5);
+    Vectors V4_Pyra(2.5,6,2.5);
     Material Iron(7310, "Iron", "EF5690", 2);
 
     Pyramid anotherPyramid(V0_Pyra, V1_Pyra, V2_Pyra, V3_Pyra, V4_Pyra, Iron);
@@ -149,28 +130,19 @@ int main()
     someHexahedron.Set_V7(hVectors);
     someHexahedron.Set_Material(Aluminium);
 
-    std::cout << "Set and get functions\nV0 = " << someHexahedron.Get_V0() << "V1 = " << someHexahedron.Get_V1() << "V2 = " << someHexahedron.Get_V2() << "V3 = " << someHexahedron.Get_V3() << "V4 = " << someHexahedron.Get_V4() << "V5 = " << someHexahedron.Get_V5() << "V6 = " << someHexahedron.Get_V6() << "V7 = " << someHexahedron.Get_V7() << std::endl;
-    //std::cout << "Material " << someHexahedron.Get_Material() << "\n" << std::endl;
+    std::cout << "Set and get functions\nV0 = " << someHexahedron.Get_V0() << "V1 = " << someHexahedron.Get_V1() << "V2 = " << someHexahedron.Get_V2() << "V3 = " << someHexahedron.Get_V3() << "V4 = " << someHexahedron.Get_V4() << "V5 = " << someHexahedron.Get_V5() << "V6 = " << someHexahedron.Get_V6() << "V7 = " << someHexahedron.Get_V7() << "Material " << someHexahedron.Get_Material() << "\n" << std::endl;
     
     Hexahedron HexaCopyConstructor(someHexahedron);
     std::cout << "Copy constructor\n" << HexaCopyConstructor << std::endl;
 
-    Vectors V0_Hex;
-    V0_Hex.SetVector(0,0,0);
-    Vectors V1_Hex;
-    V1_Hex.SetVector(10,0,0);
-    Vectors V2_Hex;
-    V2_Hex.SetVector(10,0,10);
-    Vectors V3_Hex;
-    V3_Hex.SetVector(0,0,10);
-    Vectors V4_Hex;
-    V4_Hex.SetVector(0,10,0);
-    Vectors V5_Hex;
-    V5_Hex.SetVector(10,10,0);
-    Vectors V6_Hex;
-    V6_Hex.SetVector(10,10,10);
-    Vectors V7_Hex;
-    V7_Hex.SetVector(0,10,10);
+    Vectors V0_Hex(0,0,0);
+    Vectors V1_Hex(10,0,0);
+    Vectors V2_Hex(10,0,10);
+    Vectors V3_Hex(0,0,10);
+    Vectors V4_Hex(0,10,0);
+    Vectors V5_Hex(10,10,0);
+    Vectors V6_Hex(10,10,10);
+    Vectors V7_Hex(0,10,10);
     Material Steel(9980, "Steel", "AC64AC", 3);
 
     Hexahedron anotherHexahedron(V0_Hex, V1_Hex, V2_Hex, V3_Hex, V4_Hex, V5_Hex, V6_Hex, V7_Hex, Steel);
