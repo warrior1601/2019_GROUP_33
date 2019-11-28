@@ -2,7 +2,7 @@
 //  Cell.cpp
 //  Computing Project
 //
-//  Created by Junaid Afzal on 16/11/2019.
+//  Created by Junaid Afzal on 10/11/2019.
 //  Copyright © 2019 Junaid Afzal. All rights reserved.
 //
 //  This source file contains implementations the object Cell and
@@ -10,14 +10,35 @@
 //
 
 #include "Cell.hpp"
+#include "Matrix.hpp"
 #include <cmath>
 
 //Default values of an uninitialised Cell object functions
-float Cell::Get_Volume(void) { return 0; }
+float Cell::Get_Volume(void)
+{
+    std::cout << "No implementation of calculating volume for this object" << std::endl;
+    return 0;
+    
+}
 
-float Cell::Get_Weight(void) { return 0; }
+float Cell::Get_Weight(void)
+{
+    std::cout << "No implementation of weight volume for this object" << std::endl;
+    return 0;
+}
 
-Vectors Cell::Get_Centre_Of_Gravity() { Vectors temp; return temp; }
+Vectors Cell::Get_Centre_Of_Gravity()
+{
+    std::cout << "No implementation of calculating centre of gravity for this object" << std::endl;
+    Vectors temp;
+    return temp;
+    
+}
+
+void Cell::Rotate(float Rotation_In_Degrees, char Axis_Of_Rotation)
+{
+    std::cout << "No implementation of rotating this object" << std::endl;
+}
 
 
 
@@ -131,7 +152,7 @@ float Tetrahedron::Get_Volume(void)
     
     //Volume is calculated using the triple scalar product formula
     
-    return abs( a.Scalar_Product( b * c) ) / 6.0;
+    return abs( a.Scalar_Product( b * c ) / 6.0 );
 }
 
 float Tetrahedron::Get_Weight(void)
@@ -149,8 +170,8 @@ Vectors Tetrahedron::Get_Centre_Of_Gravity(void)
     //
     //         V0
     
-    //Centroid = centre of gravity assuming uniform density across object
-    //It is calculated by finding the average of each co-ordinate
+    //Centroid = centre of gravity, assuming uniform density across object, and
+    //is calculated by finding the average of each co-ordinate
     
     Vectors Centroid;
     
@@ -159,6 +180,28 @@ Vectors Tetrahedron::Get_Centre_Of_Gravity(void)
     Centroid.SetZ_Vector( ( V0.GetZVector() + V1.GetZVector() + V2.GetZVector() + V3.GetZVector() ) / 4.0 );
     
     return Centroid;
+}
+    
+
+void Tetrahedron::Rotate(float Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Centre_Of_Rotation)
+{
+    //Rotates tetrahedron an amount of degrees about it's centre along the X, Y or Z axis
+    
+    //Create a rotation matrix based on degrees and axis of rotation
+    Matrix3x3 RotationMatrix;
+    RotationMatrix.Initialise_As_Rotation_Matrix(Rotation_In_Degrees, Axis_Of_Rotation);
+        
+    V0 = (RotationMatrix * (V0 - Centre_Of_Rotation)) + Centre_Of_Rotation;
+    V1 = (RotationMatrix * (V1 - Centre_Of_Rotation)) + Centre_Of_Rotation;
+    V2 = (RotationMatrix * (V2 - Centre_Of_Rotation)) + Centre_Of_Rotation;
+    V3 = (RotationMatrix * (V3 - Centre_Of_Rotation)) + Centre_Of_Rotation;
+    
+    //Subtract centre of hexahedron from all vertices to move centre of hexahedron to the origin
+    //                           ^^^^^^^^^^^^
+    //Apply rotation matrix to all vertcies
+    //      ^^^^^^^^^^^^
+    //Add centre of hexahedron to all vertices to move centre of hexahedron back to where it was
+    //                                                    ^^^^^^^^^^^^
 }
 
 
@@ -274,7 +317,8 @@ float Pyramid::Get_Volume(void)
     //
     //    V0         V1
     
-    //Split the pyramid along V0 - V4 - V2 "line" to create two tetrahedrons
+    //Split the pyramid along V0 - V4 - V2 "line" to create two tetrahedrons and calculate
+    //the volume of two tetrahedrons and add them together
     Tetrahedron a(V0, V2, V3, V4, theMaterial);
     Tetrahedron b(V0, V1, V2, V4, theMaterial);
     
@@ -296,8 +340,9 @@ Vectors Pyramid::Get_Centre_Of_Gravity(void)
     //
     //    V0         V1
     
-    //Split the pyramid along V0 - V4 - V2 "line" to create two tetrahedrons and find centroid of each
-    //Then centroid of pyramid will be the average/midpoint of the tetrahedron centroids as they have equal volume and therefore equal weight
+    //Split the pyramid along V0 - V4 - V2 "line" to create two tetrahedrons and calculate centre of gravity of each one
+    //The two tetrahedrons will have the same volume, thus the same weight and thus the centre of gravity of the pyramid will
+    //be the midpoint between the two centres of gravities of the two tetrahedrons
     Tetrahedron a(V0, V2, V3, V4, theMaterial);
     Tetrahedron b(V0, V1, V2, V4, theMaterial);
     
@@ -305,8 +350,30 @@ Vectors Pyramid::Get_Centre_Of_Gravity(void)
     Vectors bCentroid = b.Get_Centre_Of_Gravity();
     
     Vectors Centroid = (aCentroid + bCentroid) / 2.0;
-        
+    
     return Centroid;
+}
+    
+void Pyramid::Rotate(float Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Centre_Of_Rotation)
+{
+    //Rotates pyramid an amount of degrees about it's centre along the X, Y or Z axis
+    
+    //Create a rotation matrix based on degrees and axis of rotation
+    Matrix3x3 RotationMatrix;
+    RotationMatrix.Initialise_As_Rotation_Matrix(Rotation_In_Degrees, Axis_Of_Rotation);
+            
+    V0 = (RotationMatrix * (V0 - Centre_Of_Rotation)) + Centre_Of_Rotation;
+    V1 = (RotationMatrix * (V1 - Centre_Of_Rotation)) + Centre_Of_Rotation;
+    V2 = (RotationMatrix * (V2 - Centre_Of_Rotation)) + Centre_Of_Rotation;
+    V3 = (RotationMatrix * (V3 - Centre_Of_Rotation)) + Centre_Of_Rotation;
+    V4 = (RotationMatrix * (V4 - Centre_Of_Rotation)) + Centre_Of_Rotation;
+    
+    //Subtract centre of hexahedron from all vertices to move centre of hexahedron to the origin
+    //                           ^^^^^^^^^^^^
+    //Apply rotation matrix to all vertcies
+    //      ^^^^^^^^^^^^
+    //Add centre of hexahedron to all vertices to move centre of hexahedron back to where it was
+    //                                                    ^^^^^^^^^^^^
 }
 
 
@@ -464,7 +531,7 @@ Vectors Hexahedron::Get_Centre_Of_Gravity(void)
     //
     //    V0/V4         V1/V5
     
-    //Split the hexahedron in to three pyramids and find centroid of each
+    //Split the hexahedron in to three pyramids and find centre of gravity of each
     //See http://mathcentral.uregina.ca/QQ/database/QQ.09.06/siva1.html for more info
     //Then centroid of hexahedron will be the average/midpoint of the pyramid centroids as they have equal volume and therefore equal weight
     Pyramid a(V0, V1, V2, V3, V6, theMaterial);
@@ -474,4 +541,29 @@ Vectors Hexahedron::Get_Centre_Of_Gravity(void)
     Vectors Centroid = ( a.Get_Centre_Of_Gravity() + b.Get_Centre_Of_Gravity() + c.Get_Centre_Of_Gravity() ) / 3.0;
     
     return Centroid;
+}
+    
+void Hexahedron::Rotate(float Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Centre_Of_Rotation)
+{
+    //Rotates hexahedron an amount of degrees about it's centre along the X, Y or Z axis
+    
+    //Create a rotation matrix based on degrees and axis of rotation
+    Matrix3x3 RotationMatrix;
+    RotationMatrix.Initialise_As_Rotation_Matrix(Rotation_In_Degrees, Axis_Of_Rotation);
+                                 
+    V0 = (RotationMatrix * (V0 - Centre_Of_Rotation)) + Centre_Of_Rotation;
+    V1 = (RotationMatrix * (V1 - Centre_Of_Rotation)) + Centre_Of_Rotation;
+    V2 = (RotationMatrix * (V2 - Centre_Of_Rotation)) + Centre_Of_Rotation;
+    V3 = (RotationMatrix * (V3 - Centre_Of_Rotation)) + Centre_Of_Rotation;
+    V4 = (RotationMatrix * (V4 - Centre_Of_Rotation)) + Centre_Of_Rotation;
+    V5 = (RotationMatrix * (V5 - Centre_Of_Rotation)) + Centre_Of_Rotation;
+    V6 = (RotationMatrix * (V6 - Centre_Of_Rotation)) + Centre_Of_Rotation;
+    V7 = (RotationMatrix * (V7 - Centre_Of_Rotation)) + Centre_Of_Rotation;
+    
+    //Subtract centre of hexahedron from all vertices to move centre of hexahedron to the origin
+    //                           ^^^^^^^^^^^^
+    //Apply rotation matrix to all vertcies
+    //      ^^^^^^^^^^^^
+    //Add centre of hexahedron to all vertices to move centre of hexahedron back to where it was
+    //                                                    ^^^^^^^^^^^^
 }
