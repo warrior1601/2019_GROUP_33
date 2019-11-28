@@ -79,9 +79,24 @@ public:
     float Get_Matrix_Data_9(void);
     
     //Matrix3x3 specific functions
+   
+    //For column vectors, each of these basic vector rotations appears counterclockwise
+    //when the axis about which they occur points toward the observer, the coordinate system is
+    //right-handed, and the angle θ is positive. See https://en.wikipedia.org/wiki/Rotation_matrix for more info
+    
+    //Note that the rotation occurs with respect to the origin. Therefore, if rotation around the
+    //objects centre is required, the object must be translated such that the centre of the object
+    //is at the origin.
     void Initialise_As_Rotation_Matrix(float Rotation_In_Degrees, char Axis_Of_Rotation);//
+    
+    
     void Transpose_Matrix(void);
+    
+    //Using Sarrus' Rule, see https://en.wikipedia.org/wiki/Rule_of_Sarrus for more info
     float Get_Determinant(void);
+    
+    //Method is as follows - Replace each element in matrix by it's co-factor;
+    //trasnpose the matirx; and Divide matrix data by determinant
     void Inverse_Matrix(void);
     
 private:

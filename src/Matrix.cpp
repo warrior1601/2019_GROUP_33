@@ -305,18 +305,18 @@ float Matrix3x3::Get_Matrix_Data_9(void) { return MatrixData[2][2]; }
 void Matrix3x3::Initialise_As_Rotation_Matrix(float Rotation_In_Degrees, char Axis_Of_Rotation)
 {
     //For column vectors, each of these basic vector rotations appears counterclockwise
-    //when the axis about which they occur points toward the observer, the coordinate system
-    //is right-handed, and the angle θ is positive.
-    //Source: https://en.wikipedia.org/wiki/Rotation_matrix
+    //when the axis about which they occur points toward the observer, the coordinate system is
+    //right-handed, and the angle θ is positive. See https://en.wikipedia.org/wiki/Rotation_matrix for more info
+    
+    //Note that the rotation occurs with respect to the origin. Therefore, if rotation around the
+    //objects centre is required, the object must be translated such that the centre of the object
+    //is at the origin.
      
     float Rotation_In_Radians = Rotation_In_Degrees * M_PI / 180.0;
     
-    //The next two if statements exist to round the value of cosine or sine
-    //down to 0 as otherwise the values would be an extremely small number. This
-    //is probably due to rounding errors in M_PI and std::cos/std::sin and
-    //only occur when the functions should be = 0.
-  
-    //Note object must be centred at origin for rotation matrix to work correctly
+    //The next two if statements exist to round the value of cosine or sine down to 0 as otherwise the
+    //values would be an extremely small number. This is probably due to rounding errors in M_PI and
+    //std::cos/std::sin and only occur when the functions should be = 0.
     
     float cosineValue = std::cos(Rotation_In_Radians);
     if(cosineValue < 0.0001)
@@ -387,8 +387,7 @@ void Matrix3x3::Transpose_Matrix(void)
 
 float Matrix3x3::Get_Determinant(void)
 {
-    //Using Sarrus' Rule
-    //Source: https://en.wikipedia.org/wiki/Rule_of_Sarrus
+    //Using Sarrus' Rule, see https://en.wikipedia.org/wiki/Rule_of_Sarrus for more info
     
     return MatrixData[0][0]*MatrixData[1][1]*MatrixData[2][2] +
            MatrixData[0][1]*MatrixData[1][2]*MatrixData[2][0] +

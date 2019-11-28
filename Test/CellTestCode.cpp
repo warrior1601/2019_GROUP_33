@@ -27,7 +27,7 @@ int main()
     Vectors fVectors(16,17,18);
     Vectors gVectors(19,20,21);
     Vectors hVectors(22,23,24);
-    Material Aluminium(5650, "Aluminium", "99A1FF", 0);
+    Material Aluminium(0, 5650, "99A1FF", "Aluminium");
     
     
     
@@ -53,7 +53,7 @@ int main()
     Vectors V1_Tetra(-1,1,1);
     Vectors V2_Tetra(1,0,2);
     Vectors V3_Tetra(3,1,4);
-    Material Titanium(1500, "Titanium", "64FF15", 1);
+    Material Titanium(1, 1500, "64FF15", "Titanium");
 
     Tetrahedron anotherTetrahedron(V0_Tetra, V1_Tetra, V2_Tetra, V3_Tetra, Titanium);
     std::cout << "Non blank constructor\n" << anotherTetrahedron << std::endl;
@@ -66,6 +66,9 @@ int main()
     std::cout << "Weight of tetrahedron\t" << someTetrahedron.Get_Weight() << std::endl;
 
     std::cout << "Centre of gravity of tetrahedron\t\t" << someTetrahedron.Get_Centre_Of_Gravity();
+    
+    anotherTetrahedron.Rotate(90, 'y', anotherTetrahedron.Get_Centre_Of_Gravity());
+    std::cout << "\n\nRotation of operator= output tetrahedron 90 degrees along the y axis and around the geometric centre\n" << anotherTetrahedron << std::endl;
 
     
 
@@ -95,7 +98,7 @@ int main()
     Vectors V2_Pyra(5,0,5);
     Vectors V3_Pyra(0,0,5);
     Vectors V4_Pyra(2.5,6,2.5);
-    Material Iron(7310, "Iron", "EF5690", 2);
+    Material Iron(2, 7310, "EF5690", "Iron");
 
     Pyramid anotherPyramid(V0_Pyra, V1_Pyra, V2_Pyra, V3_Pyra, V4_Pyra, Iron);
     std::cout << "Non blank constructor\n" << anotherPyramid << std::endl;
@@ -108,6 +111,9 @@ int main()
     std::cout << "Weight of pyramid\t" << somePyramid.Get_Weight() << std::endl;
 
     std::cout << "Centre of gravity of pyramid\t\t" << somePyramid.Get_Centre_Of_Gravity();
+    
+    anotherPyramid.Rotate(90, 'y', anotherPyramid.Get_Centre_Of_Gravity());
+    std::cout << "\n\nRotation of operator= output pyramid 90 degrees along the y axis and around the geometric centre\n" << anotherPyramid << std::endl;
 
     
     
@@ -143,7 +149,7 @@ int main()
     Vectors V5_Hex(10,10,0);
     Vectors V6_Hex(10,10,10);
     Vectors V7_Hex(0,10,10);
-    Material Steel(9980, "Steel", "AC64AC", 3);
+    Material Steel(3, 9980, "AC64AC", "Steel");
 
     Hexahedron anotherHexahedron(V0_Hex, V1_Hex, V2_Hex, V3_Hex, V4_Hex, V5_Hex, V6_Hex, V7_Hex, Steel);
     std::cout << "Non blank constructor\n" << anotherHexahedron << std::endl;
@@ -156,6 +162,9 @@ int main()
     std::cout << "Weight of hexahedron\t" << someHexahedron.Get_Weight() << std::endl;
 
     std::cout << "Centre of gravity of hexahedron\t\t" << someHexahedron.Get_Centre_Of_Gravity();
+    
+    anotherHexahedron.Rotate(90, 'y', anotherHexahedron.Get_Centre_Of_Gravity());
+    std::cout << "\n\nRotation of operator= output hexahedron 90 degrees along the y axis and around the geometric centre\n" << anotherHexahedron << std::endl;
     
     return 0;
 }
