@@ -7,8 +7,8 @@
 using namespace std;
 int main()
 {
-	Model test;
-	test.readfile("E:\\ExampleModel2.mod");
+	Model test("E:\\ExampleModel2.mod");
+	//test.readfile();
 
     //test.display_Cell();
 
@@ -47,12 +47,12 @@ int main()
        cout<<c[100][7]<<endl;
    }
     */
-    double* p;
+   double* p;
     p=test.getcenter();
     cout<<p[0]<<":"<<p[1]<<":"<<p[2]<<endl;
 
-    test.display_Vec();
-    test.display_Cell();
+    //test.display_Vec();
+    //test.display_Cell();
 
 }
 
