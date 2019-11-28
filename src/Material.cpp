@@ -1,32 +1,96 @@
 #include <iostream>
 #include "Material.h"
+//
+//  Material.cpp
+//  Computing Project
+//
+//  Created by Chayanis Kulanumphol on 27/11/2019.
+//  This file contains the definitions of functions for the Class
+//  Material.
 
-//Default Value
+using namespace std;
+
+
+//-------------Constructors------------//
+
 Material::Material()
 {
-
+    this->ID = 0;
+    this->Density = 0;
+    this->Colour = "N/A";
+    this->Name = "N/A";
 }
 
-
-Material::Material( float Density, const std::string &Name, const std::string &Colour, int ID)
+Material::Material(int ID)
 {
+    this->ID = ID;
+    this->Density = 0;
+    this->Colour = "N/A";
+    this->Name = "N/A";
+}
+
+Material::Material(int ID, float Density)
+{
+    this->ID = ID;
+    this->Density = Density;
+    this->Colour = "N/A";
+    this->Name = "N/A";
+}
+
+Material::Material(int ID, float Density, const std::string &Colour)
+{
+    this->ID = ID;
+    this->Density = Density;
+    this->Colour = Colour;
+    this->Name = "N/A";
+}
+
+Material::Material(int ID, float Density, const std::string &Colour, const std::string &Name)
+{
+    this->ID = ID;
     this->Density = Density;
     this->Colour = Colour;
     this->Name = Name;
+}
+
+//--------------Destructor-------------//
+Material::~Material() {}
+
+//-------------Set Functions-----------//
+
+void Material::SetID(int ID)
+{
     this->ID = ID;
 }
-//Destructor
-Material::~Material()
-{
 
-}
-//Create Material by Setup Function
-void Material::SetMaterial( float Density, const std::string &Name, const std::string &Colour, int ID)
+void Material::SetDensity(float Density)
 {
+    this->Density = Density;
+}
+
+void Material::SetColour(const std::string &Colour)
+{
+    this->Colour = Colour;
+}
+
+void Material::SetName(const std::string &Name)
+{
+    this->Name = Name;
+}
+
+void Material::SetMaterial(int ID, float Density, const std::string &Colour, const std::string &Name)
+{
+    this->ID = ID;
     this->Density = Density;
     this->Colour = Colour;
     this->Name = Name;
-    this->ID = ID;
+}
+
+//-------------Get Functions-----------//
+
+int Material::GetID()
+{
+    return (ID);
 }
 
 float Material::GetDensity()
@@ -43,27 +107,8 @@ string Material::GetName()
 {
     return (Name);
 }
-int Material::GetID()
-{
-    return (ID);
-}
 
-void Material::SetDensity(float Density)
-{
-    this->Density = Density;
-}
-void Material::SetName(const std::string &Name)
-{
-    this->Name = Name;
-}
-void Material::SetColour(const std::string &Colour)
-{
-    this->Colour = Colour;
-}
-void Material::SetID(int ID)
-{
-    this->ID = ID;
-}
+//-----------Friend Functions----------//
 
 std::ostream& operator<< (std::ostream&,const Material& aMaterial)
 {
