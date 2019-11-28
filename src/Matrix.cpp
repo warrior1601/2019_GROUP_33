@@ -315,6 +315,8 @@ void Matrix3x3::Initialise_As_Rotation_Matrix(float Rotation_In_Degrees, char Ax
     //down to 0 as otherwise the values would be an extremely small number. This
     //is probably due to rounding errors in M_PI and std::cos/std::sin and
     //only occur when the functions should be = 0.
+  
+    //Note object must be centred at origin for rotation matrix to work correctly
     
     float cosineValue = std::cos(Rotation_In_Radians);
     if(cosineValue < 0.0001)
