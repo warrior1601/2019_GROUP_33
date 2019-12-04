@@ -9,26 +9,13 @@
 using namespace std;
 
 
-Model::Model()
+Model::Model(string path)
 {
-	cout<<"Model has been created"<<endl;
-
-}
-
-Model::~Model()
-{
-	cout << "Model has been realeased" << endl;
-}
-
-
-int Model::readfile(string path) //read the model file
-{
-	//string *filepath = path;
 	ifstream file;
 	file.open(path, ios::in);
 
 	if (!file.is_open()) {
-		return 0;
+		cout<<"error"<<endl;
 	}
 	string strLine;
 	int i_c=0,i_v=0,i_m;
@@ -60,9 +47,53 @@ int Model::readfile(string path) //read the model file
 	this->totalvalue_m =i_m;
 
     convert_vector();
+    convert_material();
     convert_cell_h();
     convert_cell_p();
     convert_cell_t();
+    cal_center();
+	cout<<"Model has been created"<<endl;
+
+}
+
+Model::~Model()
+{
+    vector<string>().swap(Material);
+    vector<string>().swap(Vectore);
+    vector<string>().swap(Cell);
+    vector<string>().swap(Content_file);
+
+    for(int i=0;i<totalvalue_v;i++)
+    {
+        delete[]vector_pass[i];
+    }
+    delete[]vector_pass;
+
+    for(int i=0;i<totalvalue_m;i++)
+    {
+        delete[]material_pass[i];
+    }
+    delete[]material_pass;
+
+    for(int i=0;i<totalvalue_c;i++)
+    {
+        delete[]cell_t[i];
+        delete[]cell_ot[i];
+        delete[]cell_p[i];
+        delete[]cell_op[i];
+        delete[]cell_h[i];
+        delete[]cell_oh[i];
+
+    }
+    delete[]cell_t;
+    delete[]cell_ot;
+    delete[]cell_p;
+    delete[]cell_op;
+    delete[]cell_h;
+    delete[]cell_oh;
+
+    delete[]center;
+	cout << "Model has been realeased" << endl;
 }
 
 int Model::readfile_binary(string binary_path) //check the binary file
@@ -111,8 +142,8 @@ void Model::convert_vector()
     int n=0;
     int space[3];
     //double vector_pass[i][3];
-    vector_pass= new double*[i];
-    for(size_t j=0;j<i;j++)
+    vector_pass= new double*[totalvalue_v];
+    for(size_t j=0;j<totalvalue_v;j++)
     {
         vector_pass[j]=new double[3];
     }
@@ -198,7 +229,7 @@ double** Model::getvector()
     return vector_pass;
 }
 
-string** Model::getmaterial()
+void Model::convert_material()
 {
     int i=Material.size();
     int n=0;
@@ -275,11 +306,12 @@ string** Model::getmaterial()
         }
                 n++;
     }
-                return material_pass;
-
 }
 
-
+string** Model::getmaterial()
+{
+    return material_pass;
+}
 void Model::display_Vec()
 {
 	cout << "The total number of Vector in this Model is:" << this->totalvalue_v << endl;
@@ -296,11 +328,11 @@ void Model::display_Cell()  //show the type of each cell and total number
 		}
 		if (Cell[n][4]=='p'|Cell[n][5]=='p'|Cell[n][6]=='p')
 		{
-			cout << "c" << n << ":Hexahedron" << endl;
+			cout << "c" << n << ":Pyramid" << endl;
 		}
 		if (Cell[n][4]=='h'|Cell[n][5]=='h'|Cell[n][6]=='h')
 		{
-			cout << "c" << n << ":Pyramid" << endl;
+			cout << "c" << n << ":Hexahedron" << endl;
 		}
 	}
 
@@ -324,7 +356,7 @@ void Model::convert_cell_t()
         //material=Cell[n][4];
        // cout<<Cell[1][4]<<endl;
        // cout<<n<<endl;
-        string x_1,x_2,x_3,x_4="";
+        string x_0,x_1,x_2,x_3,x_4="";
         if(Cell[n][4]=='t'|Cell[n][5]=='t'|Cell[n][6]=='t')
         {
             int position=2;
@@ -348,6 +380,7 @@ void Model::convert_cell_t()
                 else
                 {
                     cell_t[number_t][0]+=Cell[n][read_p];
+                    x_0+=Cell[n][read_p];
                 }
             }
 
@@ -720,7 +753,7 @@ string** Model::getcell_h()
     return cell_h;
 }
 
-double* Model::getcenter()
+void Model::cal_center()
 {
     center=new double[3];
     int i=totalvalue_c;
@@ -771,13 +804,16 @@ double* Model::getcenter()
                 y+=vector_pass[a][1];
                 z+=vector_pass[a][2];
                 number++;
-                cout<<number<<":"<<x<<endl;
+                //cout<<number<<":"<<x<<endl;
             }
         }
     }
     center[0]=x/number;
     center[1]=y/number;
     center[2]=z/number;
+}
 
+double* Model::getcenter()
+{
     return center;
 }
