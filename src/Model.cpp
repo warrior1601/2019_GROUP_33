@@ -12,6 +12,7 @@
 #include <fstream>
 #include <iomanip>
 #include <string>
+#include <algorithm>
 
 //Constructors and destructors
 Model::Model(const Model& aModel)
