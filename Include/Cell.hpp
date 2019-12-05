@@ -10,6 +10,14 @@
 //  of a shape, while the sub-objects conatin the specific member
 //  functions.
 //
+//  Each sub-object contains the appropriate number of vertices, Vectors order
+//  and material. Note that VectorsOrder represents the Vectors IDs that the sub-objects
+//  contains, with the position of the Vectors ID in the array representing its Vectors.
+//  E.g. if VectorsOrder[1] = 5 then Vectors V1 get its value from the Vectors with ID = 5.
+//
+//  VectorsOrder exists to allow the object Model to keep track of which IDs the Vectors
+//  get their values from.
+//
 
 #ifndef Cell_hpp
 #define Cell_hpp
@@ -37,7 +45,7 @@ private:
 class Tetrahedron:public Cell {
 public:
     //Constructors and destructors
-    Tetrahedron(const Vectors& aV0, const Vectors& aV1, const Vectors& aV2, const Vectors& aV3, const Material& aMaterial);
+    Tetrahedron(const Vectors& aV0, const Vectors& aV1, const Vectors& aV2, const Vectors& aV3, const std::vector<int>& aVectorsOrder, const Material& aMaterial);
     Tetrahedron(const Tetrahedron& aTetrahedron);
     Tetrahedron(void);
     ~Tetrahedron(void);
@@ -53,6 +61,7 @@ public:
     void Set_V1(const Vectors& aVectors);
     void Set_V2(const Vectors& aVectors);
     void Set_V3(const Vectors& aVectors);
+    void Set_Vectors_Order(const std::vector<int>& aVectorsOrder);
     void Set_Material(const Material& aMaterial);
     
     //Get functions
@@ -60,6 +69,7 @@ public:
     Vectors Get_V1(void);
     Vectors Get_V2(void);
     Vectors Get_V3(void);
+    std::vector<int> Get_Vectors_Order(void);
     Material Get_Material(void);
     
     //Tetrahedron specific functions
@@ -81,6 +91,7 @@ public:
     
 private:
     Vectors V0, V1, V2, V3;
+    std::vector<int> VectorsOrder;
     Material theMaterial;
     
     //Top down view of Vectors numbering assumption
@@ -100,7 +111,7 @@ private:
 class Pyramid:public Cell {
 public:
     //Constructors and destructors
-    Pyramid(const Vectors& aV0, const Vectors& aV1, const Vectors& aV2, const Vectors& aV3, const Vectors& aV4, const Material& aMaterial);
+    Pyramid(const Vectors& aV0, const Vectors& aV1, const Vectors& aV2, const Vectors& aV3, const Vectors& aV4, const std::vector<int>& aVectorsOrder, const Material& aMaterial);
     Pyramid(const Pyramid& aPyramid);
     Pyramid(void);
     ~Pyramid(void);
@@ -117,6 +128,7 @@ public:
     void Set_V2(const Vectors& aVectors);
     void Set_V3(const Vectors& aVectors);
     void Set_V4(const Vectors& aVectors);
+    void Set_Vectors_Order(const std::vector<int>& aVectorsOrder);
     void Set_Material(const Material& aMaterial);
     
     //Get functions
@@ -125,6 +137,7 @@ public:
     Vectors Get_V2(void);
     Vectors Get_V3(void);
     Vectors Get_V4(void);
+    std::vector<int> Get_Vectors_Order(void);
     Material Get_Material(void);
     
     //Pyramid specific functions
@@ -148,6 +161,7 @@ public:
     
 private:
     Vectors V0, V1, V2, V3, V4;
+    std::vector<int> VectorsOrder;
     Material theMaterial;
     
     //Top down view of Vectors numbering assumption
@@ -167,7 +181,7 @@ private:
 class Hexahedron:public Cell {
 public:
     //Constructors and destructors
-    Hexahedron(const Vectors& aV0, const Vectors& aV1, const Vectors& aV2, const Vectors& aV3, const Vectors& aV4, const Vectors& aV5, const Vectors& aV6, const Vectors& aV7, const Material& aMaterial);
+    Hexahedron(const Vectors& aV0, const Vectors& aV1, const Vectors& aV2, const Vectors& aV3, const Vectors& aV4, const Vectors& aV5, const Vectors& aV6, const Vectors& aV7, const std::vector<int>& aVectorsOrder, const Material& aMaterial);
     Hexahedron(const Hexahedron& aHexahedron);
     Hexahedron(void);
     ~Hexahedron(void);
@@ -187,6 +201,7 @@ public:
     void Set_V5(const Vectors& aVectors);
     void Set_V6(const Vectors& aVectors);
     void Set_V7(const Vectors& aVectors);
+    void Set_Vectors_Order(const std::vector<int>& aVectorsOrder);
     void Set_Material(const Material& aMaterial);
     
     //Get functions
@@ -198,6 +213,7 @@ public:
     Vectors Get_V5(void);
     Vectors Get_V6(void);
     Vectors Get_V7(void);
+    std::vector<int> Get_Vectors_Order(void);
     Material Get_Material(void);
     
     //Hexahedron specific functions
@@ -222,6 +238,7 @@ public:
     
 private:
     Vectors V0, V1, V2, V3, V4, V5, V6, V7;
+    std::vector<int> VectorsOrder;
     Material theMaterial;
     
     //Top down view of Vectors numbering assumption
