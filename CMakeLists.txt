@@ -1,33 +1,74 @@
 # MaterialTestCode_cmake/CMkaeList.txt
-
 cmake_minimum_required( VERSION 2.8)
+project( Compputing_Project )
 
-project( MaterialTestCode )
+# This CMakeList file will load all the individual class executable files in one series of commands
+####################################################################################################
+# THE REQUIRE COMMANDS ARE AT THE LOCATED AT THE BOTTOM OF THE FILE WITH
+# THE *.bat FILE NEEDS TO BE CHECKS FOR YOUR VERSION OF MICRSOFT VISUAL STUDIO
+####################################################################################################
 
-#project( VectorsTestCode )
-
-#This project contains a library
-
-add_library( Material SHARED "src/Material.cpp" )
-add_library( Vectors SHARED "src/Vectors.cpp" )
-add_library( Matrix SHARED "src/Matrix.cpp;src/Vectors.cpp" )
-add_library( Cell SHARED "src/Cell.cpp;src/Matrix.cpp;src/Vectors.cpp;src/Material.cpp" )
-add_library( Model SHARED "src/Model.cpp;src/Cell.cpp;src/Matrix.cpp;src/Vectors.cpp;src/Material.cpp" )
+# This project contains many headerfiles the "include_directories" sets the path for the header files
+# To be located
 
 include_directories( include )
+
+# Addition of the Libraries needs to have the required headers for each class that is included to ensure
+# That the library is built correctly
+
+add_library( Material src/Material.cpp; "include/Material.h" )
+add_library( Vectors src/Vectors.cpp; include/Vectors.h )
+add_library( Matrix src/Matrix.cpp; src/Vectors.cpp; include/Matrix.hpp; include/Vectors.h )
+add_library( Cell src/Cell.cpp; src/Matrix.cpp; src/Vectors.cpp; src/Material.cpp; include/Cell.hpp; include/Matrix.hpp; include/Vectors.h; include/Material.h )
+add_library( Model src/Model.cpp; src/Cell.cpp; src/Matrix.cpp; src/Vectors.cpp; src/Material.cpp; include/Model.hpp; include/Cell.hpp; include/Matrix.hpp; include/Vectors.h; include/Material.h )
+
+if( NOT BUILD_SHARED_LIBS )
+add_definitions( -Dmaths_STATIC )
+endif()
+
+# This creates the .exe file for each test code
 
 add_executable( MaterialTestCode Test/MaterialTestCode.cpp  )
 add_executable( VectorsTestCode Test/VectorsTestCode.cpp  )
 add_executable( MatrixTestCode Test/MatrixTestCode.cpp  )
 add_executable( CellTestCode Test/CellTestCode.cpp  )
 add_executable( ModelTestCode Test/ModelTestCode.cpp  )
-#
+
+# This links the libraries to the .exe file
+
 target_link_libraries( MaterialTestCode Material )
 target_link_libraries( VectorsTestCode Vectors )
 target_link_libraries( MatrixTestCode Matrix )
 target_link_libraries( CellTestCode Cell )
 target_link_libraries( ModelTestCode Model )
 
-#
-# cmake -G "MinGW Makefiles" -DBUILD_SHARED_LIBS=ON ..
-# mingw32-make
+####################################################################################################
+# IMPORTANT****************************TO COMPILE WITH MinGW*******************************IMPORTANT
+# After Down loading the github repo you will need to make a build folder
+# (assuming that this file will be Named 2019_GROUP_33)
+# In command promt
+# Navigate to dir ..\2019_GROUP_33)
+# enter command> mkdir build
+# enter command> cd build
+# enter command> cmake -G "MinGW Makefiles" -DBUILD_SHARED_LIBS=ON ..
+# "This will build Libraries for the source files that are dynamiclly linked to the *.exe files"
+# enter command> mingw32-make
+# "Now the executables will be created and can be testd through the command window"
+# enter command> MaterialTestCode.exe (or anyother classes test code)
+####################################################################################################
+# IMPORTANT*************************TO COMPILE WITH Visual Studio**************************IMPORTANT
+# After Down loading the github repo you will need to make a build folder
+# (assuming that this file will be Named 2019_GROUP_33)
+# In command promt
+# Navigate to dir ..\2019_GROUP_33)
+# enter command> mkdir build
+# enter command> cd build
+#####################################################################################################
+# Commands need to be tailored to match you version of Visual Studio
+# enter command> cmake -G "Visual Studio 15 2017 Win64" ..
+# !!NOTE!!bat file for visual stuido is similar to below might not be the same
+# enter command> "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" amd64
+# enter command> msbuild Compputing_Project.sln
+# enter command> cd debug
+# The execuable files for the TEST code will be located here and can be entered via command prompt as follows
+# enter command> MaterialTestCode.exe (or anyother classes test code)
