@@ -54,7 +54,7 @@ int main()
 
 
     Model aModelOfThreeHexahedrons;
-    aModelOfThreeHexahedrons.Load_Model("aModelOfThreeHexahedrons.txt");
+    aModelOfThreeHexahedrons.Load_Model("ExampleModel1.mod");
     std::cout << "\n\nLoad Model function\n" << aModelOfThreeHexahedrons << std::endl;
 
 
