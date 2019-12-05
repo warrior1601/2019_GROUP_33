@@ -18,7 +18,7 @@
 Model::Model(const Model& aModel)
 {
     manyMaterials = aModel.manyMaterials;
-    manyVertices = aModel.manyVertices;
+    manyVectors = aModel.manyVectors;
     manyTetrahedrons = aModel.manyTetrahedrons;
     manyPyramids = aModel.manyPyramids;
     manyHexahedrons = aModel.manyHexahedrons;
@@ -41,9 +41,9 @@ std::ostream& operator<< (std::ostream& Output, const Model& aModel)
     for (unsigned int i = 0; i < aModel.manyMaterials.size(); i++)
         Output << aModel.manyMaterials[i];
     
-    Output << "\nVertices" << std::endl;
-    for (unsigned int i = 0; i < aModel.manyVertices.size(); i++)
-        Output << std::right << "V" << std::setw(4) << i << "   " << aModel.manyVertices[i];
+    Output << "\nVectors" << std::endl;
+    for (unsigned int i = 0; i < aModel.manyVectors.size(); i++)
+        Output << std::right << "V" << std::setw(4) << i << "   " << aModel.manyVectors[i];
     
     Output << "\nCells " << std::endl;
     
@@ -63,7 +63,7 @@ std::ostream& operator<< (std::ostream& Output, const Model& aModel)
     
     Output << "\nTotal number of cells = " << aModel.manyTetrahedrons.size() + aModel.manyPyramids.size() + aModel.manyHexahedrons.size() << std::endl;
     
-    Output << "Total number of vertices = ******TO BE CODED******" << std::endl;
+    Output << "Total number of Vectors = " << aModel.manyVectors.size() << std::endl;
  
     return Output;
 }
@@ -81,7 +81,7 @@ Model& Model::operator = (const Model& aModel)
     else
     {
         manyMaterials = aModel.manyMaterials;
-        manyVertices = aModel.manyVertices;
+        manyVectors = aModel.manyVectors;
         manyTetrahedrons = aModel.manyTetrahedrons;
         manyPyramids = aModel.manyPyramids;
         manyHexahedrons = aModel.manyHexahedrons;
@@ -212,13 +212,13 @@ void Model::Load_Model(const std::string& FilePath)
                                     exit(1);
                                 }
                                 
-                                if (VectorsID < manyVertices.size())
+                                if (VectorsID < manyVectors.size())
                                 {
-                                    std::cout << "Error due to duplicate Vectors ID\n" << currentLine << "   is trying to overwrite   " << "v " << VectorsID << " " << manyVertices[VectorsID].GetXVector() << " " << manyVertices[VectorsID].GetYVector() << " " << manyVertices[VectorsID].GetZVector() << "\n" << std::endl;
+                                    std::cout << "Error due to duplicate Vectors ID\n" << currentLine << "   is trying to overwrite   " << "v " << VectorsID << " " << manyVectors[VectorsID].GetXVector() << " " << manyVectors[VectorsID].GetYVector() << " " << manyVectors[VectorsID].GetZVector() << "\n" << std::endl;
                                     exit(1);
                                 }
                                 
-                                if (VectorsID > manyVertices.size())
+                                if (VectorsID > manyVectors.size())
                                 {
                                     std::cout << "Error due to non sequential Vectors ID\n" << currentLine << "\n" << std::endl;
                                     exit(1);
@@ -249,7 +249,7 @@ void Model::Load_Model(const std::string& FilePath)
                 
                 temp.SetZ_Vector(std::stof(Placeholder, nullptr)); //Last value is not proceeded by a space and so will remain in 'Placeholder' after for loop
                 
-                manyVertices.push_back(temp); //All variables of temp have been assigned and so can be added to Vectors list
+                manyVectors.push_back(temp); //All variables of temp have been assigned and so can be added to Vectors list
             }
             
             else if (currentLine[0] == 'c') //Read in a shape
@@ -355,7 +355,7 @@ void Model::Load_Model(const std::string& FilePath)
                 if (currentCellType == 't') //Read in tetrahedron
                 {
                     Tetrahedron temp; //This will temporarily hold tetrahedron variables until all variables have been read in, at which point it will be added to the tetrahedron list
-                    std::vector<int> aVectorsOrder; //The vertices being used by the tetrahedron from the models perspective
+                    std::vector<int> aVectorsOrder; //The Vectors being used by the tetrahedron from the models perspective
                     
                     for (unsigned int currentPosition = 0, spaceCount = 0; currentPosition < currentLine.size(); currentPosition++) //Iterate across the line
                     {
@@ -378,13 +378,13 @@ void Model::Load_Model(const std::string& FilePath)
                                 case 4: { //Read in V0
                                     int VectorsID = std::stoi(Placeholder, nullptr, 10);
                                     
-                                    if (VectorsID < 0 || VectorsID > (manyVertices.size() - 1)) //Check if Vectors ID actually exists
+                                    if (VectorsID < 0 || VectorsID > (manyVectors.size() - 1)) //Check if Vectors ID actually exists
                                     {
                                         std::cout << "Error due to invalid Vectors ID\n" << currentLine << "\n" << std::endl;
                                         exit(1);
                                     }
                                     
-                                    temp.Set_V0(manyVertices[VectorsID]); //Set Vectors
+                                    temp.Set_V0(manyVectors[VectorsID]); //Set Vectors
                                     aVectorsOrder.push_back(VectorsID); //Store Vectors ID for when saving model
                                     break;
                                 }
@@ -392,13 +392,13 @@ void Model::Load_Model(const std::string& FilePath)
                                 case 5: { //Read in V1
                                     int VectorsID = std::stoi(Placeholder, nullptr, 10);
                                     
-                                    if (VectorsID < 0 || VectorsID > (manyVertices.size() - 1)) //Check if Vectors ID actually exists
+                                    if (VectorsID < 0 || VectorsID > (manyVectors.size() - 1)) //Check if Vectors ID actually exists
                                     {
                                         std::cout << "Error due to invalid Vectors ID\n" << currentLine << "\n" << std::endl;
                                         exit(1);
                                     }
                                     
-                                    temp.Set_V1(manyVertices[VectorsID]); //Set Vectors
+                                    temp.Set_V1(manyVectors[VectorsID]); //Set Vectors
                                     aVectorsOrder.push_back(VectorsID); //Store Vectors ID for when saving model
                                     break;
                                 }
@@ -406,13 +406,13 @@ void Model::Load_Model(const std::string& FilePath)
                                 case 6: { //Read in V2
                                     int VectorsID = std::stoi(Placeholder, nullptr, 10);
                                     
-                                    if (VectorsID < 0 || VectorsID > (manyVertices.size() - 1)) //Check if Vectors ID actually exists
+                                    if (VectorsID < 0 || VectorsID > (manyVectors.size() - 1)) //Check if Vectors ID actually exists
                                     {
                                         std::cout << "Error due to invalid Vectors ID\n" << currentLine << "\n" << std::endl;
                                         exit(1);
                                     }
                                     
-                                    temp.Set_V2(manyVertices[VectorsID]); //Set Vectors
+                                    temp.Set_V2(manyVectors[VectorsID]); //Set Vectors
                                     aVectorsOrder.push_back(VectorsID); //Store Vectors ID for when saving model
                                     break;
                                 }
@@ -431,13 +431,13 @@ void Model::Load_Model(const std::string& FilePath)
                     
                     int VectorsID = std::stoi(Placeholder, nullptr, 10); //Read in V3
                         
-                    if (VectorsID < 0 || VectorsID > (manyVertices.size() - 1)) //Check if Vectors ID actually exists
+                    if (VectorsID < 0 || VectorsID > (manyVectors.size() - 1)) //Check if Vectors ID actually exists
                     {
                         std::cout << "Error due to invalid Vectors ID\n" << currentLine << "\n" << std::endl;
                         exit(1);
                     }
                     
-                    temp.Set_V3(manyVertices[VectorsID]); //Set Vectors
+                    temp.Set_V3(manyVectors[VectorsID]); //Set Vectors
                     
                     aVectorsOrder.push_back(VectorsID); //Store Vectors ID for when saving model
                     temp.Set_Vectors_Order(aVectorsOrder);
@@ -448,7 +448,7 @@ void Model::Load_Model(const std::string& FilePath)
                 if (currentCellType == 'p') //Read in pyramid
                 {
                     Pyramid temp; //This will temporarily hold pyramid variables until all variables have been read in, at which point it will be added to the pyramid list
-                    std::vector<int> aVectorsOrder; //The vertices being used by the tetrahedron from the models perspective
+                    std::vector<int> aVectorsOrder; //The Vectors being used by the tetrahedron from the models perspective
                     
                     for (int currentPosition = 0, spaceCount = 0; currentPosition < currentLine.size(); currentPosition++) //Iterate across the line
                     {
@@ -471,13 +471,13 @@ void Model::Load_Model(const std::string& FilePath)
                                 case 4:  { //Read in V0
                                     int VectorsID = std::stoi(Placeholder, nullptr, 10);
                                                                    
-                                    if (VectorsID < 0 || VectorsID > (manyVertices.size() - 1)) //Check if Vectors ID actually exists
+                                    if (VectorsID < 0 || VectorsID > (manyVectors.size() - 1)) //Check if Vectors ID actually exists
                                     {
                                         std::cout << "Error due to invalid Vectors ID\n" << currentLine << "\n" << std::endl;
                                         exit(1);
                                     }
                                                                    
-                                    temp.Set_V0(manyVertices[VectorsID]);
+                                    temp.Set_V0(manyVectors[VectorsID]);
                                     aVectorsOrder.push_back(VectorsID);
                                     break;
                                 }
@@ -485,13 +485,13 @@ void Model::Load_Model(const std::string& FilePath)
                                 case 5: { //Read in V1
                                     int VectorsID = std::stoi(Placeholder, nullptr, 10);
                                                                    
-                                    if (VectorsID < 0 || VectorsID > (manyVertices.size() - 1)) //Check if Vectors ID actually exists
+                                    if (VectorsID < 0 || VectorsID > (manyVectors.size() - 1)) //Check if Vectors ID actually exists
                                     {
                                         std::cout << "Error due to invalid Vectors ID\n" << currentLine << "\n" << std::endl;
                                         exit(1);
                                     }
                                                                    
-                                    temp.Set_V1(manyVertices[VectorsID]);
+                                    temp.Set_V1(manyVectors[VectorsID]);
                                     aVectorsOrder.push_back(VectorsID);
                                     break;
                                 }
@@ -499,13 +499,13 @@ void Model::Load_Model(const std::string& FilePath)
                                 case 6: { //Read in V2
                                     int VectorsID = std::stoi(Placeholder, nullptr, 10);
                                                                    
-                                    if (VectorsID < 0 || VectorsID > (manyVertices.size() - 1)) //Check if Vectors ID actually exists
+                                    if (VectorsID < 0 || VectorsID > (manyVectors.size() - 1)) //Check if Vectors ID actually exists
                                     {
                                         std::cout << "Error due to invalid Vectors ID\n" << currentLine << "\n" << std::endl;
                                         exit(1);
                                     }
                                                                    
-                                    temp.Set_V2(manyVertices[VectorsID]);
+                                    temp.Set_V2(manyVectors[VectorsID]);
                                     aVectorsOrder.push_back(VectorsID);
                                     break;
                                 }
@@ -513,13 +513,13 @@ void Model::Load_Model(const std::string& FilePath)
                                 case 7: { //Read in V3
                                     int VectorsID = std::stoi(Placeholder, nullptr, 10);
                                                                    
-                                    if (VectorsID < 0 || VectorsID > (manyVertices.size() - 1)) //Check if Vectors ID actually exists
+                                    if (VectorsID < 0 || VectorsID > (manyVectors.size() - 1)) //Check if Vectors ID actually exists
                                     {
                                         std::cout << "Error due to invalid Vectors ID\n" << currentLine << "\n" << std::endl;
                                         exit(1);
                                     }
                                                                    
-                                    temp.Set_V3(manyVertices[VectorsID]);
+                                    temp.Set_V3(manyVectors[VectorsID]);
                                     aVectorsOrder.push_back(VectorsID);
                                     break;
                                 }
@@ -538,13 +538,13 @@ void Model::Load_Model(const std::string& FilePath)
                     
                     int VectorsID = std::stoi(Placeholder, nullptr, 10); //Read in V4
                                                        
-                    if (VectorsID < 0 || VectorsID > (manyVertices.size() - 1)) //Check if Vectors ID actually exists
+                    if (VectorsID < 0 || VectorsID > (manyVectors.size() - 1)) //Check if Vectors ID actually exists
                     {
                         std::cout << "Error due to invalid Vectors ID\n" << currentLine << "\n" << std::endl;
                         exit(1);
                     }
                                                        
-                    temp.Set_V4(manyVertices[VectorsID]); //Set Vectors
+                    temp.Set_V4(manyVectors[VectorsID]); //Set Vectors
                    
                     aVectorsOrder.push_back(VectorsID); //Store Vectors ID for when saving model
                     temp.Set_Vectors_Order(aVectorsOrder);
@@ -555,7 +555,7 @@ void Model::Load_Model(const std::string& FilePath)
                 if (currentCellType == 'h') //Read in hexahedron
                 {
                     Hexahedron temp; //This will temporarily hold hexahedron variables until all variables have been read in, at which point it will be added to the hexahedron list
-                    std::vector<int> aVectorsOrder; //The vertices being used by the hexahedron from the models perspective
+                    std::vector<int> aVectorsOrder; //The Vectors being used by the hexahedron from the models perspective
                     
                     for (unsigned int currentPosition = 0, spaceCount = 0; currentPosition < currentLine.size(); currentPosition++) //Iterate across the line
                     {
@@ -578,13 +578,13 @@ void Model::Load_Model(const std::string& FilePath)
                                 case 4: { //Read in V0
                                     int VectorsID = std::stoi(Placeholder, nullptr, 10);
                                                                    
-                                    if (VectorsID < 0 || VectorsID > (manyVertices.size() - 1)) //Check if Vectors ID actually exists
+                                    if (VectorsID < 0 || VectorsID > (manyVectors.size() - 1)) //Check if Vectors ID actually exists
                                     {
                                         std::cout << "Error due to invalid Vectors ID\n" << currentLine << "\n" << std::endl;
                                         exit(1);
                                     }
                                                                    
-                                    temp.Set_V0(manyVertices[VectorsID]);
+                                    temp.Set_V0(manyVectors[VectorsID]);
                                     aVectorsOrder.push_back(VectorsID);
                                     break;
                                 }
@@ -592,13 +592,13 @@ void Model::Load_Model(const std::string& FilePath)
                                 case 5: { //Read in V1
                                     int VectorsID = std::stoi(Placeholder, nullptr, 10);
                                                                    
-                                    if (VectorsID < 0 || VectorsID > (manyVertices.size() - 1)) //Check if Vectors ID actually exists
+                                    if (VectorsID < 0 || VectorsID > (manyVectors.size() - 1)) //Check if Vectors ID actually exists
                                     {
                                         std::cout << "Error due to invalid Vectors ID\n" << currentLine << "\n" << std::endl;
                                         exit(1);
                                     }
                                                                    
-                                    temp.Set_V1(manyVertices[VectorsID]); //Set Vectors
+                                    temp.Set_V1(manyVectors[VectorsID]); //Set Vectors
                                     aVectorsOrder.push_back(VectorsID); //Store Vectors ID for when saving model
                                     break;
                                 }
@@ -606,13 +606,13 @@ void Model::Load_Model(const std::string& FilePath)
                                 case 6: { //Read in V2
                                     int VectorsID = std::stoi(Placeholder, nullptr, 10);
                                                                    
-                                    if (VectorsID < 0 || VectorsID > (manyVertices.size() - 1)) //Check if Vectors ID actually exists
+                                    if (VectorsID < 0 || VectorsID > (manyVectors.size() - 1)) //Check if Vectors ID actually exists
                                     {
                                         std::cout << "Error due to invalid Vectors ID\n" << currentLine << "\n" << std::endl;
                                         exit(1);
                                     }
                                                                    
-                                    temp.Set_V2(manyVertices[VectorsID]); //Set Vectors
+                                    temp.Set_V2(manyVectors[VectorsID]); //Set Vectors
                                     aVectorsOrder.push_back(VectorsID); //Store Vectors ID for when saving model
                                     break;
                                 }
@@ -620,13 +620,13 @@ void Model::Load_Model(const std::string& FilePath)
                                 case 7: { //Read in V3
                                     int VectorsID = std::stoi(Placeholder, nullptr, 10);
                                                                    
-                                    if (VectorsID < 0 || VectorsID > (manyVertices.size() - 1)) //Check if Vectors ID actually exists
+                                    if (VectorsID < 0 || VectorsID > (manyVectors.size() - 1)) //Check if Vectors ID actually exists
                                     {
                                         std::cout << "Error due to invalid Vectors ID\n" << currentLine << "\n" << std::endl;
                                         exit(1);
                                     }
                                                                    
-                                    temp.Set_V3(manyVertices[VectorsID]); //Set Vectors
+                                    temp.Set_V3(manyVectors[VectorsID]); //Set Vectors
                                     aVectorsOrder.push_back(VectorsID); //Store Vectors ID for when saving model
                                     break;
                                 }
@@ -634,13 +634,13 @@ void Model::Load_Model(const std::string& FilePath)
                                 case 8: { //Read in V4
                                     int VectorsID = std::stoi(Placeholder, nullptr, 10);
                                                                    
-                                    if (VectorsID < 0 || VectorsID > (manyVertices.size() - 1)) //Check if Vectors ID actually exists
+                                    if (VectorsID < 0 || VectorsID > (manyVectors.size() - 1)) //Check if Vectors ID actually exists
                                     {
                                         std::cout << "Error due to invalid Vectors ID\n" << currentLine << "\n" << std::endl;
                                         exit(1);
                                     }
                                                                    
-                                    temp.Set_V4(manyVertices[VectorsID]); //Set Vectors
+                                    temp.Set_V4(manyVectors[VectorsID]); //Set Vectors
                                     aVectorsOrder.push_back(VectorsID); //Store Vectors ID for when saving model
                                     break;
                                 }
@@ -648,13 +648,13 @@ void Model::Load_Model(const std::string& FilePath)
                                 case 9: { //Read in V5
                                     int VectorsID = std::stoi(Placeholder, nullptr, 10);
                                                                    
-                                    if (VectorsID < 0 || VectorsID > (manyVertices.size() - 1)) //Check if Vectors ID actually exists
+                                    if (VectorsID < 0 || VectorsID > (manyVectors.size() - 1)) //Check if Vectors ID actually exists
                                     {
                                         std::cout << "Error due to invalid Vectors ID\n" << currentLine << "\n" << std::endl;
                                         exit(1);
                                     }
                                                                    
-                                    temp.Set_V5(manyVertices[VectorsID]); //Set Vectors
+                                    temp.Set_V5(manyVectors[VectorsID]); //Set Vectors
                                     aVectorsOrder.push_back(VectorsID); //Store Vectors ID for when saving model
                                     break;
                                 }
@@ -662,13 +662,13 @@ void Model::Load_Model(const std::string& FilePath)
                                 case 10: { //Read in V6
                                     int VectorsID = std::stoi(Placeholder, nullptr, 10);
                                                                    
-                                    if (VectorsID < 0 || VectorsID > (manyVertices.size() - 1)) //Check if Vectors ID actually exists
+                                    if (VectorsID < 0 || VectorsID > (manyVectors.size() - 1)) //Check if Vectors ID actually exists
                                     {
                                         std::cout << "Error due to invalid Vectors ID\n" << currentLine << "\n" << std::endl;
                                         exit(1);
                                     }
                                                                    
-                                    temp.Set_V6(manyVertices[VectorsID]); //Set Vectors
+                                    temp.Set_V6(manyVectors[VectorsID]); //Set Vectors
                                     aVectorsOrder.push_back(VectorsID); //Store Vectors ID for when saving model
                                     break;
                                 }
@@ -687,13 +687,13 @@ void Model::Load_Model(const std::string& FilePath)
                 
                     int VectorsID = std::stoi(Placeholder, nullptr, 10); //Read in V7
                                                        
-                    if (VectorsID < 0 || VectorsID > (manyVertices.size() - 1)) //Check if Vectors ID actually exists
+                    if (VectorsID < 0 || VectorsID > (manyVectors.size() - 1)) //Check if Vectors ID actually exists
                     {
                         std::cout << "Error due to invalid Vectors ID\n" << currentLine << "\n" << std::endl;
                         exit(1);
                     }
                                                        
-                    temp.Set_V7(manyVertices[VectorsID]); //Set Vectors
+                    temp.Set_V7(manyVectors[VectorsID]); //Set Vectors
                     
                     aVectorsOrder.push_back(VectorsID); //Store Vectors ID for when saving model
                     temp.Set_Vectors_Order(aVectorsOrder);
@@ -727,11 +727,11 @@ void Model::Save_Model(const std::string& FilePath)
             myFile << "m " << manyMaterials[i].GetID() << " " << manyMaterials[i].GetDensity() << " " << manyMaterials[i].GetColour() <<  " " << manyMaterials[i].GetName() << std::endl;
         }
         
-        myFile << "\n# Vertices (v, Vectors ID, X, Y, Z)" << std::endl;
+        myFile << "\n# Vectors (v, Vectors ID, X, Y, Z)" << std::endl;
         
-        for (unsigned int i = 0; i < manyVertices.size(); i++)
+        for (unsigned int i = 0; i < manyVectors.size(); i++)
         {
-            myFile << "v " << i << " " << std::dec <<  manyVertices[i].GetXVector() << " " << manyVertices[i].GetYVector() << " " << manyVertices[i].GetZVector() << std::endl;
+            myFile << "v " << i << " " << std::dec <<  manyVectors[i].GetXVector() << " " << manyVectors[i].GetYVector() << " " << manyVectors[i].GetZVector() << std::endl;
         }
         
         myFile << "\n# Cells (c, Cell ID, Cell Type, Material ID, Vectors ID, Vectors ID, Vectors ID, Vectors ID...)" << std::endl;
@@ -775,7 +775,7 @@ void Model::Save_Model(const std::string& FilePath)
 
 void Model::Set_Materials(const std::vector<Material>& someMaterials) { manyMaterials = someMaterials; }
 
-void Model::Set_Vertices(const std::vector<Vectors>& someVertices) { manyVertices = someVertices; }
+void Model::Set_Vectors(const std::vector<Vectors>& someVectors) { manyVectors = someVectors; }
 
 void Model::Set_Tetrahedrons(const std::vector<Tetrahedron>& someTetrahedrons) { manyTetrahedrons = someTetrahedrons; }
 
@@ -791,7 +791,7 @@ void Model::Set_Cell_Order(const std::string& someCellOrder) { cellOrder = someC
 
 std::vector<Material> Model::Get_Materials(void) { return manyMaterials; }
 
-std::vector<Vectors> Model::Get_Vertices(void) { return manyVertices; }
+std::vector<Vectors> Model::Get_Vectors(void) { return manyVectors; }
 
 std::vector<Tetrahedron> Model::Get_Tetrahedrons(void) { return manyTetrahedrons; }
 
@@ -939,17 +939,17 @@ Vectors Model::Get_Overall_Dimensions(void)
     
 void Model::Rotate(float Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Centre_Of_Rotation)
 {
-    //Rotate all object with respect to centre of rotation and update manyVertices
-    //list with new vertices
+    //Rotate all object with respect to centre of rotation and update manyVectors
+    //list with new Vectors
     for(unsigned int i = 0; i < manyTetrahedrons.size(); i++)
     {
         manyTetrahedrons[i].Rotate(Rotation_In_Degrees, Axis_Of_Rotation, Centre_Of_Rotation);
         
         std::vector<int> CurrentVectorsOrder = manyTetrahedrons[i].Get_Vectors_Order();
-        manyVertices[CurrentVectorsOrder[0]] = manyTetrahedrons[i].Get_V0();
-        manyVertices[CurrentVectorsOrder[1]] = manyTetrahedrons[i].Get_V1();
-        manyVertices[CurrentVectorsOrder[2]] = manyTetrahedrons[i].Get_V2();
-        manyVertices[CurrentVectorsOrder[3]] = manyTetrahedrons[i].Get_V3();
+        manyVectors[CurrentVectorsOrder[0]] = manyTetrahedrons[i].Get_V0();
+        manyVectors[CurrentVectorsOrder[1]] = manyTetrahedrons[i].Get_V1();
+        manyVectors[CurrentVectorsOrder[2]] = manyTetrahedrons[i].Get_V2();
+        manyVectors[CurrentVectorsOrder[3]] = manyTetrahedrons[i].Get_V3();
     }
         
     for(unsigned int i = 0; i < manyPyramids.size(); i++)
@@ -957,11 +957,11 @@ void Model::Rotate(float Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Cen
         manyPyramids[i].Rotate(Rotation_In_Degrees, Axis_Of_Rotation, Centre_Of_Rotation);
     
         std::vector<int> CurrentVectorsOrder = manyPyramids[i].Get_Vectors_Order();
-        manyVertices[CurrentVectorsOrder[0]] = manyPyramids[i].Get_V0();
-        manyVertices[CurrentVectorsOrder[1]] = manyPyramids[i].Get_V1();
-        manyVertices[CurrentVectorsOrder[2]] = manyPyramids[i].Get_V2();
-        manyVertices[CurrentVectorsOrder[3]] = manyPyramids[i].Get_V3();
-        manyVertices[CurrentVectorsOrder[4]] = manyPyramids[i].Get_V4();
+        manyVectors[CurrentVectorsOrder[0]] = manyPyramids[i].Get_V0();
+        manyVectors[CurrentVectorsOrder[1]] = manyPyramids[i].Get_V1();
+        manyVectors[CurrentVectorsOrder[2]] = manyPyramids[i].Get_V2();
+        manyVectors[CurrentVectorsOrder[3]] = manyPyramids[i].Get_V3();
+        manyVectors[CurrentVectorsOrder[4]] = manyPyramids[i].Get_V4();
     }
     
     for(unsigned int i = 0; i < manyHexahedrons.size(); i++)
@@ -969,14 +969,14 @@ void Model::Rotate(float Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Cen
         manyHexahedrons[i].Rotate(Rotation_In_Degrees, Axis_Of_Rotation, Centre_Of_Rotation);
     
         std::vector<int> CurrentVectorsOrder = manyHexahedrons[i].Get_Vectors_Order();
-        manyVertices[CurrentVectorsOrder[0]] = manyHexahedrons[i].Get_V0();
-        manyVertices[CurrentVectorsOrder[1]] = manyHexahedrons[i].Get_V1();
-        manyVertices[CurrentVectorsOrder[2]] = manyHexahedrons[i].Get_V2();
-        manyVertices[CurrentVectorsOrder[3]] = manyHexahedrons[i].Get_V3();
-        manyVertices[CurrentVectorsOrder[4]] = manyHexahedrons[i].Get_V4();
-        manyVertices[CurrentVectorsOrder[5]] = manyHexahedrons[i].Get_V5();
-        manyVertices[CurrentVectorsOrder[6]] = manyHexahedrons[i].Get_V6();
-        manyVertices[CurrentVectorsOrder[7]] = manyHexahedrons[i].Get_V7();
+        manyVectors[CurrentVectorsOrder[0]] = manyHexahedrons[i].Get_V0();
+        manyVectors[CurrentVectorsOrder[1]] = manyHexahedrons[i].Get_V1();
+        manyVectors[CurrentVectorsOrder[2]] = manyHexahedrons[i].Get_V2();
+        manyVectors[CurrentVectorsOrder[3]] = manyHexahedrons[i].Get_V3();
+        manyVectors[CurrentVectorsOrder[4]] = manyHexahedrons[i].Get_V4();
+        manyVectors[CurrentVectorsOrder[5]] = manyHexahedrons[i].Get_V5();
+        manyVectors[CurrentVectorsOrder[6]] = manyHexahedrons[i].Get_V6();
+        manyVectors[CurrentVectorsOrder[7]] = manyHexahedrons[i].Get_V7();
     }
 }
 
@@ -984,74 +984,74 @@ void Model::Rotate(float Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Cen
 
     
 //Private Member Functions
-std::vector<int> Model::Get_Vertices_Being_Used(void)
+std::vector<int> Model::Get_Vectors_Being_Used(void)
 {
     //The next three for loops determines which vectors are being used by cycling through each type of cell and
     //the vector IDs for each cell
-    std::vector<int> VerticesBeingUsed;
+    std::vector<int> VectorsBeingUsed;
     
     for (unsigned int i = 0; i < manyTetrahedrons.size(); i++) //Cycle through tetrahedrons
     {
-        for (unsigned int j = 0; j < manyTetrahedrons[i].Get_Vectors_Order().size(); j++) //Cycle through the vertices being used for that particular tetrahedron
+        for (unsigned int j = 0; j < manyTetrahedrons[i].Get_Vectors_Order().size(); j++) //Cycle through the Vectors being used for that particular tetrahedron
         {
             int currentVectorsID = manyTetrahedrons[i].Get_Vectors_Order()[j];
         
-            //If currentVectorsID has already been recorded in VerticesBeingUsed then continue to next iteration
-            if (std::find( VerticesBeingUsed.begin(), VerticesBeingUsed.end(), currentVectorsID ) != VerticesBeingUsed.end())
+            //If currentVectorsID has already been recorded in VectorsBeingUsed then continue to next iteration
+            if (std::find( VectorsBeingUsed.begin(), VectorsBeingUsed.end(), currentVectorsID ) != VectorsBeingUsed.end())
                 continue;
                 
             else
-                VerticesBeingUsed.push_back(currentVectorsID);
+                VectorsBeingUsed.push_back(currentVectorsID);
         }
     }
     
     for (unsigned int i = 0; i < manyPyramids.size(); i++) //Cycle through pyramids
     {
-        for (unsigned int j = 0; j < manyPyramids[i].Get_Vectors_Order().size(); j++) //Cycle through the vertices being used for that particular pyramid
+        for (unsigned int j = 0; j < manyPyramids[i].Get_Vectors_Order().size(); j++) //Cycle through the Vectors being used for that particular pyramid
         {
             int currentVectorsID = manyPyramids[i].Get_Vectors_Order()[j];
         
-            if (std::find(VerticesBeingUsed.begin(), VerticesBeingUsed.end(), currentVectorsID) != VerticesBeingUsed.end())
+            if (std::find(VectorsBeingUsed.begin(), VectorsBeingUsed.end(), currentVectorsID) != VectorsBeingUsed.end())
                 continue;
                 
             else
-                VerticesBeingUsed.push_back(currentVectorsID);
+                VectorsBeingUsed.push_back(currentVectorsID);
         }
     }
     
     for (unsigned int i = 0; i < manyHexahedrons.size(); i++) //Cycle through hexahedrons
     {
-        for (unsigned int j = 0; j < manyHexahedrons[i].Get_Vectors_Order().size(); j++) //Cycle through the vertices being used for that particular hexahedron
+        for (unsigned int j = 0; j < manyHexahedrons[i].Get_Vectors_Order().size(); j++) //Cycle through the Vectors being used for that particular hexahedron
         {
             int currentVectorsID = manyHexahedrons[i].Get_Vectors_Order()[j];
         
-            if (std::find(VerticesBeingUsed.begin(), VerticesBeingUsed.end(), currentVectorsID) != VerticesBeingUsed.end())
+            if (std::find(VectorsBeingUsed.begin(), VectorsBeingUsed.end(), currentVectorsID) != VectorsBeingUsed.end())
                 continue;
                 
             else
-                VerticesBeingUsed.push_back(currentVectorsID);
+                VectorsBeingUsed.push_back(currentVectorsID);
         }
     }
     
-    return VerticesBeingUsed;
+    return VectorsBeingUsed;
 }
 
 
 std::vector<Vectors> Model::Get_Min_Max(void)
 {
-    //This function returns two vertices that represent the opposing corners of a hexahedron that contains the model
+    //This function returns two Vectors that represent the opposing corners of a hexahedron that contains the model
     //or in other words the most positive and most negative co-ordinates of the model
     
     Vectors Minimum(0,0,0), Maximum(0,0,0);
     std::vector<Vectors> MinMax = {Minimum, Maximum};
-    std::vector<int> VerticesBeingUsed = Get_Vertices_Being_Used();
+    std::vector<int> VectorsBeingUsed = Get_Vectors_Being_Used();
     
-    //This for loop cycles through all vertices (that are being used) and finds the min and max values of
+    //This for loop cycles through all Vectors (that are being used) and finds the min and max values of
     //X, Y, and Z and assign them to the correct Vectors
         
-    for (unsigned int i = 0; i < VerticesBeingUsed.size(); i++)
+    for (unsigned int i = 0; i < VectorsBeingUsed.size(); i++)
     {
-        Vectors CurrentVectors = manyVertices[VerticesBeingUsed[i]];
+        Vectors CurrentVectors = manyVectors[VectorsBeingUsed[i]];
     
         if (CurrentVectors.GetXVector() < MinMax[0].GetXVector())
             MinMax[0].SetX_Vector(CurrentVectors.GetXVector());

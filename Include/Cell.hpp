@@ -10,7 +10,7 @@
 //  of a shape, while the sub-objects conatin the specific member
 //  functions.
 //
-//  Each sub-object contains the appropriate number of vertices, Vectors order
+//  Each sub-object contains the appropriate number of Vectors, Vectors order
 //  and material. Note that VectorsOrder represents the Vectors IDs that the sub-objects
 //  contains, with the position of the Vectors ID in the array representing its Vectors.
 //  E.g. if VectorsOrder[1] = 5 then Vectors V1 get its value from the Vectors with ID = 5.
@@ -85,8 +85,8 @@ public:
     
     //Rotates tetrahedron clockwise an amount of degrees about it's centre of rotation along the X, Y or Z axis. Method is as follows -
     //Create a rotation matrix based on degrees and axis of rotation and then subtracts centre of
-    //tetrahedron from all vertices to move centre of tetrahedron to the origin. Then apply rotation matrix
-    //to all vertcies. Then add centre of tetrahedron to all vertices to move centre of tetrahedron back to where it was
+    //tetrahedron from all Vectors to move centre of tetrahedron to the origin. Then apply rotation matrix
+    //to all vertcies. Then add centre of tetrahedron to all Vectors to move centre of tetrahedron back to where it was
     void Rotate(float Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Centre_Of_Rotation);
     
 private:
@@ -155,8 +155,8 @@ public:
     
     //Rotates pyramid clockwise an amount of degrees about it's centre of rotation along the X, Y or Z axis. Method is as follows -
     //Create a rotation matrix based on degrees and axis of rotation and then subtracts centre of
-    //pyramid from all vertices to move centre of pyramid to the origin. Then apply rotation matrix
-    //to all vertcies. Then add centre of pyramid to all vertices to move centre of pyramid back to where it was
+    //pyramid from all Vectors to move centre of pyramid to the origin. Then apply rotation matrix
+    //to all vertcies. Then add centre of pyramid to all Vectors to move centre of pyramid back to where it was
     void Rotate(float Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Centre_Of_Rotation);
     
 private:
@@ -232,8 +232,8 @@ public:
     
     //Rotates hexahedron clockwise an amount of degrees about it's centre of rotation along the X, Y or Z axis. Method is as follows -
     //Create a rotation matrix based on degrees and axis of rotation and then subtracts centre of
-    //hexahedron from all vertices to move centre of hexahedron to the origin. Then apply rotation matrix
-    //to all vertcies. Then add centre of hexahedron to all vertices to move centre of hexahedron back to where it was
+    //hexahedron from all Vectors to move centre of hexahedron to the origin. Then apply rotation matrix
+    //to all vertcies. Then add centre of hexahedron to all Vectors to move centre of hexahedron back to where it was
     void Rotate(float Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Centre_Of_Rotation);
     
 private:

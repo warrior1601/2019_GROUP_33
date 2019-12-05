@@ -64,8 +64,8 @@ int main()
     
     
     Vectors someVector(1,2,3);
-    Vectors OutputVertex = someMatrix * someVector;
-    std::cout << "\nMatrix and vertex multiplication\n" << OutputVertex << std::endl;
+    Vectors OutputVectors = someMatrix * someVector;
+    std::cout << "\nMatrix and Vectors multiplication\n" << OutputVectors << std::endl;
     
     
     OutputMatrix = someMatrix + 10;

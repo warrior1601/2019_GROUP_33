@@ -37,7 +37,7 @@ Vectors Cell::Get_Centre_Of_Gravity()
 
 void Cell::Rotate(float Rotation_In_Degrees, char Axis_Of_Rotation)
 {
-    std::cout << "No implementation of rotating this object" << std::endl;
+    std::cout << "No implementation for rotating this object" << std::endl;
 }
 
 
@@ -202,11 +202,11 @@ void Tetrahedron::Rotate(float Rotation_In_Degrees, char Axis_Of_Rotation, Vecto
     V2 = (RotationMatrix * (V2 - Centre_Of_Rotation)) + Centre_Of_Rotation;
     V3 = (RotationMatrix * (V3 - Centre_Of_Rotation)) + Centre_Of_Rotation;
     
-    //Subtract centre of hexahedron from all vertices to move centre of hexahedron to the origin
+    //Subtract centre of hexahedron from all Vectors to move centre of hexahedron to the origin
     //                           ^^^^^^^^^^^^
     //Apply rotation matrix to all vertcies
     //      ^^^^^^^^^^^^
-    //Add centre of hexahedron to all vertices to move centre of hexahedron back to where it was
+    //Add centre of hexahedron to all Vectors to move centre of hexahedron back to where it was
     //                                                    ^^^^^^^^^^^^
 }
 
@@ -380,11 +380,11 @@ void Pyramid::Rotate(float Rotation_In_Degrees, char Axis_Of_Rotation, Vectors C
     V3 = (RotationMatrix * (V3 - Centre_Of_Rotation)) + Centre_Of_Rotation;
     V4 = (RotationMatrix * (V4 - Centre_Of_Rotation)) + Centre_Of_Rotation;
     
-    //Subtract centre of hexahedron from all vertices to move centre of hexahedron to the origin
+    //Subtract centre of hexahedron from all Vectors to move centre of hexahedron to the origin
     //                           ^^^^^^^^^^^^
     //Apply rotation matrix to all vertcies
     //      ^^^^^^^^^^^^
-    //Add centre of hexahedron to all vertices to move centre of hexahedron back to where it was
+    //Add centre of hexahedron to all Vectors to move centre of hexahedron back to where it was
     //                                                    ^^^^^^^^^^^^
 }
 
@@ -578,10 +578,10 @@ void Hexahedron::Rotate(float Rotation_In_Degrees, char Axis_Of_Rotation, Vector
     V6 = (RotationMatrix * (V6 - Centre_Of_Rotation)) + Centre_Of_Rotation;
     V7 = (RotationMatrix * (V7 - Centre_Of_Rotation)) + Centre_Of_Rotation;
     
-    //Subtract centre of hexahedron from all vertices to move centre of hexahedron to the origin
+    //Subtract centre of hexahedron from all Vectors to move centre of hexahedron to the origin
     //                           ^^^^^^^^^^^^
     //Apply rotation matrix to all vertcies
     //      ^^^^^^^^^^^^
-    //Add centre of hexahedron to all vertices to move centre of hexahedron back to where it was
+    //Add centre of hexahedron to all Vectors to move centre of hexahedron back to where it was
     //                                                    ^^^^^^^^^^^^
 }

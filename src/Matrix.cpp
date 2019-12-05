@@ -9,6 +9,8 @@
 //
 
 #include "Matrix.hpp"
+#define _USE_MATH_DEFINES
+#include <math.h>
 #include <cmath>
 
 //Constructors and destructors

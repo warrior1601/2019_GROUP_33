@@ -112,7 +112,7 @@ public:
     //Square root of the summation of the square of X, Y and Z
     float Get_Magnitude(void);
     
-    //Magnitude of the difference between it and aVertex
+    //Magnitude of the difference between it and aVectors
     float Get_Distance_To(const Vectors& aVectors);
 
      //-----------Friend Functions----------//
