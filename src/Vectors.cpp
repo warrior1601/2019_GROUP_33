@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 #include "Vectors.h"
 
 //
@@ -6,7 +7,7 @@
 //  Computing Project
 //
 //  Created by Jedidiah Paterson on 27/11/2019.
-//  Copyright © 2019 Jedidiah Paterson. All rights reserved.
+//  Copyright ï¿½ 2019 Jedidiah Paterson. All rights reserved.
 //  This file contains the definitions of functions for the Class
 //  Vectors.
 
@@ -164,6 +165,22 @@ float Vectors::Scalar_Product(const Vectors& aVectors)
               + this->Z_Coord * aVectors.Z_Coord;
 
     return Scalar;
+}
+
+float Vectors::Get_Magnitude(void)
+{
+    return sqrt(X_Coord*X_Coord + Y_Coord*Y_Coord + Z_Coord*Z_Coord);
+}
+
+float Vectors::Get_Distance_To(const Vectors& aVectors)
+{
+    Vectors Difference;
+    
+    Difference.X_Coord = X_Coord - aVectors.X_Coord;
+    Difference.Y_Coord = Y_Coord - aVectors.Y_Coord;
+    Difference.Z_Coord = Z_Coord - aVectors.Z_Coord;
+    
+    return Difference.Get_Magnitude();
 }
 
 std::ostream& operator<< (std::ostream&,const Vectors& aVectors)

@@ -5,7 +5,7 @@
 //  Computing Project
 //
 //  Created by Jedidiah Paterson on 27/11/2019.
-//  Copyright © 2019 Jedidiah Paterson. All rights reserved.
+//  Copyright ï¿½ 2019 Jedidiah Paterson. All rights reserved.
 //
 //  This header file contains the object Vectors. The Vectors class have
 //  Members of X_Coord,Y_Coord, and Z_Coord that are the 3-dimensional
@@ -108,6 +108,12 @@ public:
      */
 
     float Scalar_Product(const Vectors& aVectors);
+    
+    //Square root of the summation of the square of X, Y and Z
+    float Get_Magnitude(void);
+    
+    //Magnitude of the difference between it and aVertex
+    float Get_Distance_To(const Vectors& aVectors);
 
      //-----------Friend Functions----------//
 

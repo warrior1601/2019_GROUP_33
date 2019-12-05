@@ -319,11 +319,11 @@ void Matrix3x3::Initialise_As_Rotation_Matrix(float Rotation_In_Degrees, char Ax
     //std::cos/std::sin and only occur when the functions should be = 0.
     
     float cosineValue = std::cos(Rotation_In_Radians);
-    if(cosineValue < 0.0001)
+    if(cosineValue < 0.0001 && cosineValue > -0.0001)
         cosineValue = 0;
     
     float sineValue = std::sin(Rotation_In_Radians);
-    if(sineValue < 0.0001)
+    if(sineValue < 0.0001 && sineValue > -0.0001)
         sineValue = 0;
     
     switch (Axis_Of_Rotation) {

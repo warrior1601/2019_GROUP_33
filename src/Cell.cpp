@@ -52,7 +52,7 @@ void Cell::Rotate(float Rotation_In_Degrees, char Axis_Of_Rotation)
 //------------------------------------------------------------------------TETRAHEDRON MEMBER FUNCTIONS------------------------------------------------------------------------//
 
 //Constructors and destructors
-Tetrahedron::Tetrahedron(const Vectors& aV0, const Vectors& aV1, const Vectors& aV2, const Vectors& aV3, const Material& aMaterial) { V0 = aV0; V1 = aV1; V2 = aV2; V3 = aV3; theMaterial = aMaterial; }
+Tetrahedron::Tetrahedron(const Vectors& aV0, const Vectors& aV1, const Vectors& aV2, const Vectors& aV3, const std::vector<int>& aVectorsOrder, const Material& aMaterial) { V0 = aV0; V1 = aV1; V2 = aV2; V3 = aV3; VectorsOrder = aVectorsOrder; theMaterial = aMaterial; }
 
 Tetrahedron::Tetrahedron(const Tetrahedron& aTetrahedron)
 {
@@ -60,6 +60,7 @@ Tetrahedron::Tetrahedron(const Tetrahedron& aTetrahedron)
     V1 = aTetrahedron.V1;
     V2 = aTetrahedron.V2;
     V3 = aTetrahedron.V3;
+    VectorsOrder = aTetrahedron.VectorsOrder;
     theMaterial = aTetrahedron.theMaterial;
 }
 
@@ -95,6 +96,7 @@ Tetrahedron& Tetrahedron::operator = (const Tetrahedron& aTetrahedron)
         V1 = aTetrahedron.V1;
         V2 = aTetrahedron.V2;
         V3 = aTetrahedron.V3;
+        VectorsOrder = aTetrahedron.VectorsOrder;
         theMaterial = aTetrahedron.theMaterial;
         
         return(*this);
@@ -114,6 +116,8 @@ void Tetrahedron::Set_V2(const Vectors& aVectors) { V2 = aVectors; }
 
 void Tetrahedron::Set_V3(const Vectors& aVectors) { V3 = aVectors; }
 
+void Tetrahedron::Set_Vectors_Order(const std::vector<int>& aVectorsOrder) { VectorsOrder = aVectorsOrder; }
+
 void Tetrahedron::Set_Material(const Material& aMaterial) { theMaterial = aMaterial; }
 
 
@@ -128,6 +132,8 @@ Vectors Tetrahedron::Get_V1(void) { return V1; }
 Vectors Tetrahedron::Get_V2(void) { return V2; }
 
 Vectors Tetrahedron::Get_V3(void) { return V3; }
+
+std::vector<int> Tetrahedron::Get_Vectors_Order(void) { return VectorsOrder; }
 
 Material Tetrahedron::Get_Material(void) { return theMaterial; }
 
@@ -216,7 +222,7 @@ void Tetrahedron::Rotate(float Rotation_In_Degrees, char Axis_Of_Rotation, Vecto
 //------------------------------------------------------------------------PYRAMID MEMBER FUNCTIONS------------------------------------------------------------------------//
 
 //Constructors and destructors
-Pyramid::Pyramid(const Vectors& aV0, const Vectors& aV1, const Vectors& aV2, const Vectors& aV3, const Vectors& aV4, const Material& aMaterial) { V0 = aV0; V1 = aV1; V2 = aV2; V3 = aV3; V4 = aV4; theMaterial = aMaterial; }
+Pyramid::Pyramid(const Vectors& aV0, const Vectors& aV1, const Vectors& aV2, const Vectors& aV3, const Vectors& aV4, const std::vector<int>& aVectorsOrder, const Material& aMaterial) { V0 = aV0; V1 = aV1; V2 = aV2; V3 = aV3; V4 = aV4; VectorsOrder = aVectorsOrder; theMaterial = aMaterial; }
     
 Pyramid::Pyramid(const Pyramid& aPyramid)
 {
@@ -225,6 +231,7 @@ Pyramid::Pyramid(const Pyramid& aPyramid)
     V2 = aPyramid.V2;
     V3 = aPyramid.V3;
     V4 = aPyramid.V4;
+    VectorsOrder = aPyramid.VectorsOrder;
     theMaterial = aPyramid.theMaterial;
 }
 
@@ -262,6 +269,7 @@ Pyramid& Pyramid::operator = (const Pyramid& aPyramid)
         V2 = aPyramid.V2;
         V3 = aPyramid.V3;
         V4 = aPyramid.V4;
+        VectorsOrder = aPyramid.VectorsOrder;
         theMaterial = aPyramid.theMaterial;
         
         return(*this);
@@ -283,6 +291,8 @@ void Pyramid::Set_V3(const Vectors& aVectors) { V3 = aVectors; }
 
 void Pyramid::Set_V4(const Vectors& aVectors) { V4 = aVectors; }
 
+void Pyramid::Set_Vectors_Order(const std::vector<int>& aVectorsOrder) { VectorsOrder = aVectorsOrder; }
+
 void Pyramid::Set_Material(const Material& aMaterial) { theMaterial = aMaterial; }
 
 
@@ -299,6 +309,8 @@ Vectors Pyramid::Get_V2(void) { return V2; }
 Vectors Pyramid::Get_V3(void) { return V3; }
 
 Vectors Pyramid::Get_V4(void) { return V4; }
+
+std::vector<int> Pyramid::Get_Vectors_Order(void) { return VectorsOrder; }
 
 Material Pyramid::Get_Material(void) { return theMaterial; }
 
@@ -319,8 +331,8 @@ float Pyramid::Get_Volume(void)
     
     //Split the pyramid along V0 - V4 - V2 "line" to create two tetrahedrons and calculate
     //the volume of two tetrahedrons and add them together
-    Tetrahedron a(V0, V2, V3, V4, theMaterial);
-    Tetrahedron b(V0, V1, V2, V4, theMaterial);
+    Tetrahedron a(V0, V2, V3, V4, VectorsOrder, theMaterial);
+    Tetrahedron b(V0, V1, V2, V4, VectorsOrder, theMaterial);
     
     return a.Get_Volume() + b.Get_Volume();
 }
@@ -343,8 +355,8 @@ Vectors Pyramid::Get_Centre_Of_Gravity(void)
     //Split the pyramid along V0 - V4 - V2 "line" to create two tetrahedrons and calculate centre of gravity of each one
     //The two tetrahedrons will have the same volume, thus the same weight and thus the centre of gravity of the pyramid will
     //be the midpoint between the two centres of gravities of the two tetrahedrons
-    Tetrahedron a(V0, V2, V3, V4, theMaterial);
-    Tetrahedron b(V0, V1, V2, V4, theMaterial);
+    Tetrahedron a(V0, V2, V3, V4, VectorsOrder, theMaterial);
+    Tetrahedron b(V0, V1, V2, V4, VectorsOrder, theMaterial);
     
     Vectors aCentroid = a.Get_Centre_Of_Gravity();
     Vectors bCentroid = b.Get_Centre_Of_Gravity();
@@ -388,8 +400,8 @@ void Pyramid::Rotate(float Rotation_In_Degrees, char Axis_Of_Rotation, Vectors C
 //------------------------------------------------------------------------HEXAHEDRON MEMBER FUNCTIONS------------------------------------------------------------------------//
 
 //Constructors and destructors
-Hexahedron::Hexahedron(const Vectors& aV0, const Vectors& aV1, const Vectors& aV2, const Vectors& aV3, const Vectors& aV4, const Vectors& aV5, const Vectors& aV6, const Vectors& aV7, const Material& aMaterial)
-{ V0 = aV0; V1 = aV1; V2 = aV2; V3 = aV3; V4 = aV4; V5 = aV5; V6 = aV6; V7 = aV7; theMaterial = aMaterial; }
+Hexahedron::Hexahedron(const Vectors& aV0, const Vectors& aV1, const Vectors& aV2, const Vectors& aV3, const Vectors& aV4, const Vectors& aV5, const Vectors& aV6, const Vectors& aV7, const std::vector<int>& aVectorsOrder, const Material& aMaterial)
+{ V0 = aV0; V1 = aV1; V2 = aV2; V3 = aV3; V4 = aV4; V5 = aV5; V6 = aV6; V7 = aV7; VectorsOrder = aVectorsOrder; theMaterial = aMaterial; }
     
 Hexahedron::Hexahedron(const Hexahedron& aHexahedron)
 {
@@ -401,6 +413,7 @@ Hexahedron::Hexahedron(const Hexahedron& aHexahedron)
     V5 = aHexahedron.V5;
     V6 = aHexahedron.V6;
     V7 = aHexahedron.V7;
+    VectorsOrder = aHexahedron.VectorsOrder;
     theMaterial = aHexahedron.theMaterial;
 }
 
@@ -440,6 +453,7 @@ Hexahedron& Hexahedron::operator= (const Hexahedron& aHexahedron)
         V5 = aHexahedron.V5;
         V6 = aHexahedron.V6;
         V7 = aHexahedron.V7;
+        VectorsOrder = aHexahedron.VectorsOrder;
         theMaterial = aHexahedron.theMaterial;
         
         return(*this);
@@ -467,6 +481,8 @@ void Hexahedron::Set_V6(const Vectors& aVectors) { V6 = aVectors; }
 
 void Hexahedron::Set_V7(const Vectors& aVectors) { V7 = aVectors; }
 
+void Hexahedron::Set_Vectors_Order(const std::vector<int>& aVectorsOrder) { VectorsOrder = aVectorsOrder; }
+
 void Hexahedron::Set_Material(const Material& aMaterial) { theMaterial = aMaterial; }
 
 
@@ -490,6 +506,8 @@ Vectors Hexahedron::Get_V6(void) { return V6; }
 
 Vectors Hexahedron::Get_V7(void) { return V7; }
 
+std::vector<int> Hexahedron::Get_Vectors_Order(void) { return VectorsOrder; }
+
 Material Hexahedron::Get_Material(void) { return theMaterial; }
 
 
@@ -509,9 +527,9 @@ float Hexahedron::Get_Volume(void)
     
     //Split the hexahedron in to three pyramids and find volume of each
     //See http://mathcentral.uregina.ca/QQ/database/QQ.09.06/siva1.html for more info
-    Pyramid a(V0, V1, V2, V3, V6, theMaterial);
-    Pyramid b(V0, V1, V5, V4, V6, theMaterial);
-    Pyramid c(V0, V3, V7, V4, V6, theMaterial);
+    Pyramid a(V0, V1, V2, V3, V6, VectorsOrder, theMaterial);
+    Pyramid b(V0, V1, V5, V4, V6, VectorsOrder, theMaterial);
+    Pyramid c(V0, V3, V7, V4, V6, VectorsOrder, theMaterial);
     
     return a.Get_Volume() + b.Get_Volume() + c.Get_Volume();
 }
@@ -534,9 +552,9 @@ Vectors Hexahedron::Get_Centre_Of_Gravity(void)
     //Split the hexahedron in to three pyramids and find centre of gravity of each
     //See http://mathcentral.uregina.ca/QQ/database/QQ.09.06/siva1.html for more info
     //Then centroid of hexahedron will be the average/midpoint of the pyramid centroids as they have equal volume and therefore equal weight
-    Pyramid a(V0, V1, V2, V3, V6, theMaterial);
-    Pyramid b(V0, V1, V5, V4, V6, theMaterial);
-    Pyramid c(V0, V3, V7, V4, V6, theMaterial);
+    Pyramid a(V0, V1, V2, V3, V6, VectorsOrder, theMaterial);
+    Pyramid b(V0, V1, V5, V4, V6, VectorsOrder, theMaterial);
+    Pyramid c(V0, V3, V7, V4, V6, VectorsOrder, theMaterial);
     
     Vectors Centroid = ( a.Get_Centre_Of_Gravity() + b.Get_Centre_Of_Gravity() + c.Get_Centre_Of_Gravity() ) / 3.0;
     
