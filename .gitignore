@@ -12,6 +12,7 @@
 *.filters
 *.vcxproj
 build/
+Computing_Project/
   
 
 CMakeCache.txt

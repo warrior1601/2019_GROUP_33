@@ -27,7 +27,7 @@ int main()
     Vectors fVectors(16,17,18);
     Vectors gVectors(19,20,21);
     Vectors hVectors(22,23,24);
-    std::vector<int> anIrrelaventVectorOrder;
+    std::vector<int> anIrrelevantVectorOrder;
     Material Aluminium(0, 5650, "99A1FF", "Aluminium");
     
     
@@ -56,7 +56,7 @@ int main()
     Vectors V3_Tetra(3,1,4);
     Material Titanium(1, 1500, "64FF15", "Titanium");
 
-    Tetrahedron anotherTetrahedron(V0_Tetra, V1_Tetra, V2_Tetra, V3_Tetra, anIrrelaventVectorOrder, Titanium);
+    Tetrahedron anotherTetrahedron(V0_Tetra, V1_Tetra, V2_Tetra, V3_Tetra, anIrrelevantVectorOrder, Titanium);
     std::cout << "Non blank constructor\n" << anotherTetrahedron << std::endl;
 
     someTetrahedron = anotherTetrahedron;
@@ -101,7 +101,7 @@ int main()
     Vectors V4_Pyra(2.5,6,2.5);
     Material Iron(2, 7310, "EF5690", "Iron");
 
-    Pyramid anotherPyramid(V0_Pyra, V1_Pyra, V2_Pyra, V3_Pyra, V4_Pyra, anIrrelaventVectorOrder, Iron);
+    Pyramid anotherPyramid(V0_Pyra, V1_Pyra, V2_Pyra, V3_Pyra, V4_Pyra, anIrrelevantVectorOrder, Iron);
     std::cout << "Non blank constructor\n" << anotherPyramid << std::endl;
 
     somePyramid = anotherPyramid;
@@ -152,7 +152,7 @@ int main()
     Vectors V7_Hex(0,10,10);
     Material Steel(3, 9980, "AC64AC", "Steel");
 
-    Hexahedron anotherHexahedron(V0_Hex, V1_Hex, V2_Hex, V3_Hex, V4_Hex, V5_Hex, V6_Hex, V7_Hex, anIrrelaventVectorOrder, Steel);
+    Hexahedron anotherHexahedron(V0_Hex, V1_Hex, V2_Hex, V3_Hex, V4_Hex, V5_Hex, V6_Hex, V7_Hex, anIrrelevantVectorOrder, Steel);
     std::cout << "Non blank constructor\n" << anotherHexahedron << std::endl;
 
     someHexahedron = anotherHexahedron;

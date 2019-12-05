@@ -1,9 +1,9 @@
-# Materials (m, Material ID, Density, RGB, Name)
+# materials
 m 0 8960 b87373 copper
 m 1 2700 bcbcbc aluminium
 m 2 3200 FF0024 steel
 
-# Vertices (v, Vectors ID, X, Y, Z)
+# vertex (a vector)
 v 0 2 0 1
 v 1 -1 1 1
 v 2 1 0 2
@@ -33,7 +33,9 @@ v 25 20 10 10
 v 26 20 10 20
 v 27 0 10 20
 
-# Cells (c, Cell ID, Cell Type, Material ID, Vectors ID, Vectors ID, Vectors ID, Vectors ID...)
+# cells to be created
+# c 0 t 0 0 1 2 3
+# c 1 p 1 4 5 6 7 8
 c 0 h 0 4 9 10 11 12 13 14 15
 c 1 h 0 9 16 17 10 13 18 19 14
 c 2 h 0 20 21 22 23 24 25 26 27

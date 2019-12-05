@@ -35,14 +35,14 @@ public:
     void Save_Model(const std::string& FilePath);
     
     void Set_Materials(const std::vector<Material>& someMaterials);
-    void Set_Vertices(const std::vector<Vectors>& someVertices);
+    void Set_Vectors(const std::vector<Vectors>& someVectors);
     void Set_Tetrahedrons(const std::vector<Tetrahedron>& someTetrahedrons);
     void Set_Pyramids(const std::vector<Pyramid>& somePyramids);
     void Set_Hexahedrons(const std::vector<Hexahedron>& someHexahedrons);
     void Set_Cell_Order(const std::string& someCellOrder);
     
     std::vector<Material> Get_Materials(void);
-    std::vector<Vectors> Get_Vertices(void);
+    std::vector<Vectors> Get_Vectors(void);
     std::vector<Tetrahedron> Get_Tetrahedrons(void);
     std::vector<Pyramid> Get_Pyramids(void);
     std::vector<Hexahedron> Get_Hexahedrons(void);
@@ -68,20 +68,20 @@ public:
     //Get_Min_Max() is called and the difference between the min and max values is the overall dimension
     Vectors Get_Overall_Dimensions(void);
     
-    //Goes through every shape and rotates it about the centre of rotation and also updates the manyVertices
-    //list with the new vertices
+    //Goes through every shape and rotates it about the centre of rotation and also updates the manyVectors
+    //list with the new Vectors
     void Rotate(float Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Centre_Of_Rotation);
     
 private:
     std::vector<Material> manyMaterials;                //Material position = Material ID
-    std::vector<Vectors> manyVertices;                   //Vectors position = Vectors ID
+    std::vector<Vectors> manyVectors;                   //Vectors position = Vectors ID
     std::vector<Tetrahedron> manyTetrahedrons;
     std::vector<Pyramid> manyPyramids;
     std::vector<Hexahedron> manyHexahedrons;
     std::string cellOrder;                              //This represents the order in which the cells were created from the load file
     
-    //Required funtions for Get_Geometric_Centre() and Get_Overall_Dimensions() that returns the most positive and most negative vertices
-    std::vector<int> Get_Vertices_Being_Used(void);
+    //Required funtions for Get_Geometric_Centre() and Get_Overall_Dimensions() that returns the most positive and most negative Vectors
+    std::vector<int> Get_Vectors_Being_Used(void);
     std::vector<Vectors> Get_Min_Max(void);
 };
 
