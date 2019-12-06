@@ -26,7 +26,7 @@ private:
      */
 
     int ID;
-    float Density;
+    double Density;
     std::string Colour;
     std::string Name;
 
@@ -39,9 +39,9 @@ public:
 //-------------Constructors------------//
     Material(); //Blank Constructor
     Material(int ID); //Constructor receiving only an ID number
-    Material(int ID, float Density); //Constructor receiving ID and Density only
-    Material(int ID, float Density, const std::string &Colour); //Constructor receiving ID, Density, Colour only
-    Material(int ID, float Density, const std::string &Colour, const std::string &Name); //Constructor receiving all members for Material
+    Material(int ID, double Density); //Constructor receiving ID and Density only
+    Material(int ID, double Density, const std::string &Colour); //Constructor receiving ID, Density, Colour only
+    Material(int ID, double Density, const std::string &Colour, const std::string &Name); //Constructor receiving all members for Material
 
 //--------------Destructor-------------//
     ~Material();
@@ -55,10 +55,10 @@ public:
      */
 
     void SetID(int ID);
-    void SetDensity(float Density);
+    void SetDensity(double Density);
     void SetColour(const std::string &Colour);
     void SetName(const std::string &Name);
-    void SetMaterial(int ID, float Density, const std::string &Colour,const std::string &Name);
+    void SetMaterial(int ID, double Density, const std::string &Colour,const std::string &Name);
 
 //-------------Get Functions-----------//
 
@@ -68,7 +68,7 @@ public:
      */
 
     int GetID();
-    float GetDensity();
+    double GetDensity();
     std::string GetColour();
     std::string GetName();
 

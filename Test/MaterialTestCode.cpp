@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Material.h"
+#include "../Include/Material.h"
 //
 //  MaterialTestCode.cpp
 //  Computing Project
@@ -41,7 +41,7 @@ int main()
     cout<<test<<endl;
 
     int ID = 0;
-    float Density = 0;
+    double Density = 0;
     string Colour = "N/A";
     string Name = "N/A";
 

@@ -1,6 +1,6 @@
 
 #include <iostream>
-#include "Vectors.h"
+#include "../Include/Vectors.h"
 
 //
 //  VectorsTestCode.cpp
@@ -44,9 +44,9 @@ int main()
     cout<<"Set Functions Individual Test"<<endl;
     cout<<Test_4<<endl;
 
-    float X = Test_4.GetXVector();
-    float Y = Test_4.GetYVector();
-    float Z = Test_4.GetZVector();
+    double X = Test_4.GetXVector();
+    double Y = Test_4.GetYVector();
+    double Z = Test_4.GetZVector();
     cout<<"Testing Get Functions"<<endl;
     cout<<"X = "<<X<<" Y = "<<Y<<" Z = "<<Z<<endl;
 
@@ -94,6 +94,6 @@ int main()
     cout<<"Scalar Product Testing"<<endl;
     cout<<Test_3 << Test_4<<endl;
     cout<<"Below is the Scalar Product of the Above Two"<<endl;
-    float Scalar = Test_3.Scalar_Product(Test_4);
+    double Scalar = Test_3.Scalar_Product(Test_4);
     cout<<Scalar<<endl;
 }

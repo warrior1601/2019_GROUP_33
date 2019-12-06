@@ -1,4 +1,4 @@
-# MaterialTestCode_cmake/CMkaeList.txt
+# CMakeList.txt
 cmake_minimum_required( VERSION 2.8)
 project( Computing_Project )
 
@@ -63,7 +63,7 @@ target_link_libraries( ModelTestCode Model )
 # IMPORTANT*************************TO COMPILE WITH Visual Studio**************************IMPORTANT
 # After Down loading the github repo you will need to make a build folder
 # (assuming that this file will be Named 2019_GROUP_33)
-# In command promt
+# In command prompt
 # Navigate to dir ..\2019_GROUP_33)
 # enter command> mkdir build
 # enter command> cd build

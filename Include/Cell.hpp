@@ -22,17 +22,17 @@
 #ifndef Cell_hpp
 #define Cell_hpp
 
-#include "Material.h"
-#include "Vectors.h"
+#include "../Include/Material.h"
+#include "../Include/Vectors.h"
 #include <vector>
 
 class Cell {
 public:
     //Cell specific functions
-    virtual float Get_Volume(void);
-    virtual float Get_Weight(void);
+    virtual double Get_Volume(void);
+    virtual double Get_Weight(void);
     virtual Vectors Get_Centre_Of_Gravity(void);
-    virtual void Rotate(float Rotation_In_Degrees, char Axis_Of_Rotation);
+    virtual void Rotate(double Rotation_In_Degrees, char Axis_Of_Rotation);
     
 private:
     
@@ -75,10 +75,10 @@ public:
     //Tetrahedron specific functions
     
     //Volume is calculated using the triple scalar product formula
-    virtual float Get_Volume(void);
+    virtual double Get_Volume(void);
     
     //Weight = Volume * Density
-    virtual float Get_Weight(void);
+    virtual double Get_Weight(void);
     
     //Centroid = centre of gravity, assuming uniform density across object, and is calculated by finding the average of each co-ordinate
     virtual Vectors Get_Centre_Of_Gravity(void);
@@ -87,7 +87,7 @@ public:
     //Create a rotation matrix based on degrees and axis of rotation and then subtracts centre of
     //tetrahedron from all Vectors to move centre of tetrahedron to the origin. Then apply rotation matrix
     //to all vertcies. Then add centre of tetrahedron to all Vectors to move centre of tetrahedron back to where it was
-    void Rotate(float Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Centre_Of_Rotation);
+    void Rotate(double Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Centre_Of_Rotation);
     
 private:
     Vectors V0, V1, V2, V3;
@@ -143,10 +143,10 @@ public:
     //Pyramid specific functions
     
     //Split the pyramid along V0 - V4 - V2 "line" to create two tetrahedrons and calculate the volume of two tetrahedrons and add them together
-    virtual float Get_Volume(void);
+    virtual double Get_Volume(void);
     
     //Weight = Volume * Density
-    virtual float Get_Weight(void);
+    virtual double Get_Weight(void);
     
     //Split the pyramid along V0 - V4 - V2 "line" to create two tetrahedrons and calculate centre of gravity of each one
     //The two tetrahedrons will have the same volume, thus the same weight and thus the centre of gravity of the pyramid will
@@ -157,7 +157,7 @@ public:
     //Create a rotation matrix based on degrees and axis of rotation and then subtracts centre of
     //pyramid from all Vectors to move centre of pyramid to the origin. Then apply rotation matrix
     //to all vertcies. Then add centre of pyramid to all Vectors to move centre of pyramid back to where it was
-    void Rotate(float Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Centre_Of_Rotation);
+    void Rotate(double Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Centre_Of_Rotation);
     
 private:
     Vectors V0, V1, V2, V3, V4;
@@ -220,10 +220,10 @@ public:
     
     //Split the hexahedron in to three pyramids and find volume of each
     //See http://mathcentral.uregina.ca/QQ/database/QQ.09.06/siva1.html for more info
-    virtual float Get_Volume(void);
+    virtual double Get_Volume(void);
     
     //Weight = Volume * Density
-    virtual float Get_Weight(void);
+    virtual double Get_Weight(void);
     
     //Split the hexahedron in to three pyramids and find centre of gravity of each
     //See http://mathcentral.uregina.ca/QQ/database/QQ.09.06/siva1.html for more info
@@ -234,7 +234,7 @@ public:
     //Create a rotation matrix based on degrees and axis of rotation and then subtracts centre of
     //hexahedron from all Vectors to move centre of hexahedron to the origin. Then apply rotation matrix
     //to all vertcies. Then add centre of hexahedron to all Vectors to move centre of hexahedron back to where it was
-    void Rotate(float Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Centre_Of_Rotation);
+    void Rotate(double Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Centre_Of_Rotation);
     
 private:
     Vectors V0, V1, V2, V3, V4, V5, V6, V7;

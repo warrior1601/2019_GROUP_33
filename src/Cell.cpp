@@ -9,19 +9,19 @@
 //  the sub-objects Tetrahedron, Pyramid and Hexahedron.
 //
 
-#include "Cell.hpp"
-#include "Matrix.hpp"
+#include "../Include/Cell.hpp"
+#include "../Include/Matrix.hpp"
 #include <cmath>
 
 //Default values of an uninitialised Cell object functions
-float Cell::Get_Volume(void)
+double Cell::Get_Volume(void)
 {
     std::cout << "No implementation of calculating volume for this object" << std::endl;
     return 0;
     
 }
 
-float Cell::Get_Weight(void)
+double Cell::Get_Weight(void)
 {
     std::cout << "No implementation of weight volume for this object" << std::endl;
     return 0;
@@ -35,7 +35,7 @@ Vectors Cell::Get_Centre_Of_Gravity()
     
 }
 
-void Cell::Rotate(float Rotation_In_Degrees, char Axis_Of_Rotation)
+void Cell::Rotate(double Rotation_In_Degrees, char Axis_Of_Rotation)
 {
     std::cout << "No implementation for rotating this object" << std::endl;
 }
@@ -142,7 +142,7 @@ Material Tetrahedron::Get_Material(void) { return theMaterial; }
 
 
 //Tetrahedron specific functions
-float Tetrahedron::Get_Volume(void)
+double Tetrahedron::Get_Volume(void)
 {
     //Top down view of Vectors numbering assumption
     //
@@ -161,9 +161,9 @@ float Tetrahedron::Get_Volume(void)
     return abs( a.Scalar_Product( b * c ) / 6.0 );
 }
 
-float Tetrahedron::Get_Weight(void)
+double Tetrahedron::Get_Weight(void)
 {
-    return Get_Volume() * (float)theMaterial.GetDensity();
+    return Get_Volume() * theMaterial.GetDensity();
 }
 
 Vectors Tetrahedron::Get_Centre_Of_Gravity(void)
@@ -189,7 +189,7 @@ Vectors Tetrahedron::Get_Centre_Of_Gravity(void)
 }
     
 
-void Tetrahedron::Rotate(float Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Centre_Of_Rotation)
+void Tetrahedron::Rotate(double Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Centre_Of_Rotation)
 {
     //Rotates tetrahedron an amount of degrees about it's centre along the X, Y or Z axis
     
@@ -319,7 +319,7 @@ Material Pyramid::Get_Material(void) { return theMaterial; }
 
 
 //Pyramid specific functions
-float Pyramid::Get_Volume(void)
+double Pyramid::Get_Volume(void)
 {
     //Top down view of Vectors numbering assumption
     //
@@ -337,9 +337,9 @@ float Pyramid::Get_Volume(void)
     return a.Get_Volume() + b.Get_Volume();
 }
 
-float Pyramid::Get_Weight(void)
+double Pyramid::Get_Weight(void)
 {
-    return Get_Volume() * (float)theMaterial.GetDensity();
+    return Get_Volume() * (double)theMaterial.GetDensity();
 }
 
 Vectors Pyramid::Get_Centre_Of_Gravity(void)
@@ -366,7 +366,7 @@ Vectors Pyramid::Get_Centre_Of_Gravity(void)
     return Centroid;
 }
     
-void Pyramid::Rotate(float Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Centre_Of_Rotation)
+void Pyramid::Rotate(double Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Centre_Of_Rotation)
 {
     //Rotates pyramid an amount of degrees about it's centre along the X, Y or Z axis
     
@@ -515,7 +515,7 @@ Material Hexahedron::Get_Material(void) { return theMaterial; }
 
 
 //Hexahedron specific functions
-float Hexahedron::Get_Volume(void)
+double Hexahedron::Get_Volume(void)
 {
     //Top down view of Vectors numbering assumption
     //
@@ -534,9 +534,9 @@ float Hexahedron::Get_Volume(void)
     return a.Get_Volume() + b.Get_Volume() + c.Get_Volume();
 }
 
-float Hexahedron::Get_Weight(void)
+double Hexahedron::Get_Weight(void)
 {
-    return Get_Volume() * (float)theMaterial.GetDensity();
+    return Get_Volume() * (double)theMaterial.GetDensity();
 }
 
 Vectors Hexahedron::Get_Centre_Of_Gravity(void)
@@ -561,7 +561,7 @@ Vectors Hexahedron::Get_Centre_Of_Gravity(void)
     return Centroid;
 }
     
-void Hexahedron::Rotate(float Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Centre_Of_Rotation)
+void Hexahedron::Rotate(double Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Centre_Of_Rotation)
 {
     //Rotates hexahedron an amount of degrees about it's centre along the X, Y or Z axis
     

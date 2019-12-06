@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Material.h"
+#include "../Include/Material.h"
 //
 //  Material.cpp
 //  Computing Project
@@ -29,7 +29,7 @@ Material::Material(int ID)
     this->Name = "N/A";
 }
 
-Material::Material(int ID, float Density)
+Material::Material(int ID, double Density)
 {
     this->ID = ID;
     this->Density = Density;
@@ -37,7 +37,7 @@ Material::Material(int ID, float Density)
     this->Name = "N/A";
 }
 
-Material::Material(int ID, float Density, const std::string &Colour)
+Material::Material(int ID, double Density, const std::string &Colour)
 {
     this->ID = ID;
     this->Density = Density;
@@ -45,7 +45,7 @@ Material::Material(int ID, float Density, const std::string &Colour)
     this->Name = "N/A";
 }
 
-Material::Material(int ID, float Density, const std::string &Colour, const std::string &Name)
+Material::Material(int ID, double Density, const std::string &Colour, const std::string &Name)
 {
     this->ID = ID;
     this->Density = Density;
@@ -63,7 +63,7 @@ void Material::SetID(int ID)
     this->ID = ID;
 }
 
-void Material::SetDensity(float Density)
+void Material::SetDensity(double Density)
 {
     this->Density = Density;
 }
@@ -78,7 +78,7 @@ void Material::SetName(const std::string &Name)
     this->Name = Name;
 }
 
-void Material::SetMaterial(int ID, float Density, const std::string &Colour, const std::string &Name)
+void Material::SetMaterial(int ID, double Density, const std::string &Colour, const std::string &Name)
 {
     this->ID = ID;
     this->Density = Density;
@@ -93,7 +93,7 @@ int Material::GetID()
     return (ID);
 }
 
-float Material::GetDensity()
+double Material::GetDensity()
 {
     return (Density);
 }
