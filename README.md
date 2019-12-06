@@ -1,6 +1,6 @@
-<h1> 2019_GROUP_33
+<h1> 2019_GROUP_33</h1>
  
-<h6> Design Team :
+<h6> Design Team :</h6>
  
   * Junaid Afzal
   * Jedidiah Paterson
