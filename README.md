@@ -1,9 +1,11 @@
 <h1> 2019_GROUP_33
-<h2> Team Members :
+ 
+<h2> Design Teeam :
  
   * Junaid Afzal
   * Jedidiah Paterson
   * Chanyanis Kulanumphol
   * Chang XING
-#Read carefully
+
+<h3>Read carefully
 
