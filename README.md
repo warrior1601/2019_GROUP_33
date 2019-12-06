@@ -8,4 +8,7 @@
   * Chang XING
 
 <h3>Read carefully
+ 
+   * Intructions to for downloading and complining this file are detailed below.
+   
 
