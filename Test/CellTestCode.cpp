@@ -11,9 +11,9 @@
 //  functionality of the object
 //
 
-#include "Material.h"
-#include "Vectors.h"
-#include "Cell.hpp"
+#include "../Include/Material.h"
+#include "../Include/Vectors.h"
+#include "../Include/Cell.hpp"
 
 int main()
 {

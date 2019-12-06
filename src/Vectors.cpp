@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cmath>
-#include "Vectors.h"
+#include "../Include/Vectors.h"
 
 //
 //  Vectors.cpp
@@ -23,19 +23,19 @@ Vectors::Vectors()
     Z_Coord = 0;
 }
 
-Vectors::Vectors(float aX_Coord)
+Vectors::Vectors(double aX_Coord)
 {
     X_Coord = aX_Coord;
     Y_Coord = 0;
     Z_Coord = 0;
 }
-Vectors::Vectors(float aX_Coord, float aY_Coord)
+Vectors::Vectors(double aX_Coord, double aY_Coord)
 {
     X_Coord = aX_Coord;
     Y_Coord = aY_Coord;
     Z_Coord = 0;
 }
-Vectors::Vectors(float aX_Coord, float aY_Coord, float aZ_Coord)
+Vectors::Vectors(double aX_Coord, double aY_Coord, double aZ_Coord)
 {
     X_Coord = aX_Coord;
     Y_Coord = aY_Coord;
@@ -48,22 +48,22 @@ Vectors::~Vectors() {}
 
 //-------------Set Functions-----------//
 
-void Vectors::SetX_Vector(float aX_Coord)
+void Vectors::SetX_Vector(double aX_Coord)
 {
     this->X_Coord = aX_Coord;
 }
 
-void Vectors::SetY_Vector(float aY_Coord)
+void Vectors::SetY_Vector(double aY_Coord)
 {
     this->Y_Coord = aY_Coord;
 }
 
-void Vectors::SetZ_Vector(float aZ_Coord)
+void Vectors::SetZ_Vector(double aZ_Coord)
 {
     this->Z_Coord = aZ_Coord;
 }
 
-void Vectors::SetVector(float aX_Coord, float aY_Coord, float aZ_Coord)
+void Vectors::SetVector(double aX_Coord, double aY_Coord, double aZ_Coord)
 {
     this->X_Coord = aX_Coord;
     this->Y_Coord = aY_Coord;
@@ -72,17 +72,17 @@ void Vectors::SetVector(float aX_Coord, float aY_Coord, float aZ_Coord)
 
 //-------------Get Functions-----------//
 
-float Vectors::GetXVector()
+double Vectors::GetXVector()
 {
     return (this->X_Coord);
 }
 
-float Vectors::GetYVector()
+double Vectors::GetYVector()
 {
     return (this->Y_Coord);
 }
 
-float Vectors::GetZVector()
+double Vectors::GetZVector()
 {
     return (this->Z_Coord);
 }
@@ -121,7 +121,7 @@ Vectors Vectors::operator-(const Vectors& subtract)
     return subtracted;
 }
 
-Vectors Vectors::operator/(const float& Divide)
+Vectors Vectors::operator/(const double& Divide)
 {
     Vectors Divided;
 
@@ -132,7 +132,7 @@ Vectors Vectors::operator/(const float& Divide)
     return Divided;
 }
 
-Vectors Vectors::operator*(const float& Multiply_By)
+Vectors Vectors::operator*(const double& Multiply_By)
 {
     Vectors Multiply;
 
@@ -156,9 +156,9 @@ Vectors Vectors::operator*(const Vectors& aVectors)
 
 //-------Special Member Functions------//
 
-float Vectors::Scalar_Product(const Vectors& aVectors)
+double Vectors::Scalar_Product(const Vectors& aVectors)
 {
-    float Scalar;
+    double Scalar;
 
     Scalar =  this->X_Coord * aVectors.X_Coord
               + this->Y_Coord * aVectors.Y_Coord
@@ -167,12 +167,12 @@ float Vectors::Scalar_Product(const Vectors& aVectors)
     return Scalar;
 }
 
-float Vectors::Get_Magnitude(void)
+double Vectors::Get_Magnitude(void)
 {
     return sqrt(X_Coord*X_Coord + Y_Coord*Y_Coord + Z_Coord*Z_Coord);
 }
 
-float Vectors::Get_Distance_To(const Vectors& aVectors)
+double Vectors::Get_Distance_To(const Vectors& aVectors)
 {
     Vectors Difference;
     

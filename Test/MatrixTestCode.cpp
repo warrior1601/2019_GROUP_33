@@ -10,10 +10,10 @@
 //  functionality of the object
 //
 
-#include "Material.h"
-#include "Vectors.h"
-#include "Matrix.hpp"
-#include "Cell.hpp"
+#include "../Include/Material.h"
+#include "../Include/Vectors.h"
+#include "../Include/Matrix.hpp"
+#include "../Include/Cell.hpp"
 
 int main()
 {

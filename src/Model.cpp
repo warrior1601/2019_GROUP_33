@@ -8,7 +8,7 @@
 //  This source file contains the implementation of the object Model
 //
 
-#include "Model.hpp"
+#include "../Include/Model.hpp"
 #include <fstream>
 #include <iomanip>
 #include <string>
@@ -148,7 +148,7 @@ void Model::Load_Model(const std::string& FilePath)
                             }
                                 
                             case 2: { //Read in density
-                                int Density = std::stoi(Placeholder, nullptr, 10);
+                                double Density = std::stof(Placeholder, nullptr);
                                 
                                 if (Density <= 0)
                                 {
@@ -806,9 +806,9 @@ std::string Model::Get_Cell_Order(void) { return cellOrder; }
 
 
 //Model specific functions
-float Model::Get_Volume(void)
+double Model::Get_Volume(void)
 {
-    float totalVolume = 0;
+    double totalVolume = 0;
     
     for (unsigned int i = 0; i < manyTetrahedrons.size(); i++)
         totalVolume += manyTetrahedrons[i].Get_Volume();
@@ -822,9 +822,9 @@ float Model::Get_Volume(void)
     return totalVolume;
 }
 
-float Model::Get_Weight(void)
+double Model::Get_Weight(void)
 {
-    float totalWeight = 0;
+    double totalWeight = 0;
     
     for (unsigned int i = 0; i < manyTetrahedrons.size(); i++)
         totalWeight += manyTetrahedrons[i].Get_Weight();
@@ -841,7 +841,7 @@ float Model::Get_Weight(void)
 Vectors Model::Get_Centre_Of_Gravity(void)
 {
     std::vector<Vectors> CentresOfGravities;
-    std::vector<float> CentresOfGravitiesWeights;
+    std::vector<double> CentresOfGravitiesWeights;
     
     //The next three for loops stores all centres of gravities of all object and its weight
     //at the same point in two arrays
@@ -869,15 +869,15 @@ Vectors Model::Get_Centre_Of_Gravity(void)
     while (CentresOfGravities.size() != 1)
     {
         std::vector<Vectors> newCentresOfGravities;
-        std::vector<float> newCentresOfGravitiesWeights;
+        std::vector<double> newCentresOfGravitiesWeights;
         
         if ((CentresOfGravities.size() % 2) == 0) //If even then there will be pairs for all COGs
         {
             for (unsigned int i = 0, j = 1; j < CentresOfGravities.size(); i += 2, j += 2)
             {
-                float TotalDistance = CentresOfGravities[i].Get_Distance_To(CentresOfGravities[j]);
+                double TotalDistance = CentresOfGravities[i].Get_Distance_To(CentresOfGravities[j]);
                 
-                float iDistance = TotalDistance / (CentresOfGravitiesWeights[i]/CentresOfGravitiesWeights[j] + 1);
+                double iDistance = TotalDistance / (CentresOfGravitiesWeights[i]/CentresOfGravitiesWeights[j] + 1);
                 
                 Vectors iToj = CentresOfGravities[j] - CentresOfGravities[i];
                 
@@ -893,9 +893,9 @@ Vectors Model::Get_Centre_Of_Gravity(void)
             for (unsigned int i = 0, j = 1; j < CentresOfGravities.size() - 1; i += 2, j += 2) //If odd then there will be n pairs + 1
             {
                 
-                float TotalDistance = CentresOfGravities[i].Get_Distance_To(CentresOfGravities[j]);
+                double TotalDistance = CentresOfGravities[i].Get_Distance_To(CentresOfGravities[j]);
                 
-                float iDistance = TotalDistance / (CentresOfGravitiesWeights[i]/CentresOfGravitiesWeights[j] + 1);
+                double iDistance = TotalDistance / (CentresOfGravitiesWeights[i]/CentresOfGravitiesWeights[j] + 1);
                 
                 Vectors iToj = CentresOfGravities[j] - CentresOfGravities[i];
                 
@@ -937,7 +937,7 @@ Vectors Model::Get_Overall_Dimensions(void)
     return MinMax[1] - MinMax[0]; //Overall dimensions = difference between min and max values
 }
     
-void Model::Rotate(float Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Centre_Of_Rotation)
+void Model::Rotate(double Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Centre_Of_Rotation)
 {
     //Rotate all object with respect to centre of rotation and update manyVectors
     //list with new Vectors

@@ -13,9 +13,9 @@
 #ifndef Model_hpp
 #define Model_hpp
 
-#include "Material.h"
-#include "Vectors.h"
-#include "Cell.hpp"
+#include "../Include/Material.h"
+#include "../Include/Vectors.h"
+#include "../Include/Cell.hpp"
 
 class Model {
 public:
@@ -51,10 +51,10 @@ public:
     //Model specific functions
     
     //Summation of all the volumes of all the shapes in model
-    float Get_Volume(void);
+	double Get_Volume(void);
     
     //Summation of all the weights of all the shapes in model
-    float Get_Weight(void);
+	double Get_Weight(void);
     
     //First find all COGs and their corresponding weight. Then take two COGs and treat is as a
     //fulcrum problem and try to balance the weights. The position of the fulcrum will be the new
@@ -70,7 +70,7 @@ public:
     
     //Goes through every shape and rotates it about the centre of rotation and also updates the manyVectors
     //list with the new Vectors
-    void Rotate(float Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Centre_Of_Rotation);
+    void Rotate(double Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Centre_Of_Rotation);
     
 private:
     std::vector<Material> manyMaterials;                //Material position = Material ID

@@ -8,15 +8,15 @@
 //  This source file contains the implementation of the object Matrix3x3
 //
 
-#include "Matrix.hpp"
+#include "../Include/Matrix.hpp"
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include <cmath>
 
 //Constructors and destructors
-Matrix3x3::Matrix3x3(const float& One, const float& Two, const float& Three,
-                     const float& Four, const float& Five, const float& Six,
-                     const float& Seven, const float& Eight, const float& Nine)
+Matrix3x3::Matrix3x3(const double& One, const double& Two, const double& Three,
+                     const double& Four, const double& Five, const double& Six,
+                     const double& Seven, const double& Eight, const double& Nine)
 {    
     MatrixData[0].push_back(One);
     MatrixData[0].push_back(Two);
@@ -133,7 +133,7 @@ Vectors Matrix3x3::operator* (const Vectors& aVectors)
 
 
 
-Matrix3x3 Matrix3x3::operator+ (const float& aNumber)
+Matrix3x3 Matrix3x3::operator+ (const double& aNumber)
 {
     Matrix3x3 NumberAddition;
     
@@ -144,7 +144,7 @@ Matrix3x3 Matrix3x3::operator+ (const float& aNumber)
     return NumberAddition;
 }
 
-Matrix3x3 Matrix3x3::operator- (const float& aNumber)
+Matrix3x3 Matrix3x3::operator- (const double& aNumber)
 {
     Matrix3x3 NumberSubtraction;
     
@@ -155,7 +155,7 @@ Matrix3x3 Matrix3x3::operator- (const float& aNumber)
     return NumberSubtraction;
 }
 
-Matrix3x3 Matrix3x3::operator* (const float& aNumber)
+Matrix3x3 Matrix3x3::operator* (const double& aNumber)
 {
     Matrix3x3 NumberMultiplication;
     
@@ -166,7 +166,7 @@ Matrix3x3 Matrix3x3::operator* (const float& aNumber)
     return NumberMultiplication;
 }
 
-Matrix3x3 Matrix3x3::operator/ (const float& aNumber)
+Matrix3x3 Matrix3x3::operator/ (const double& aNumber)
 {
     Matrix3x3 NumberDivision;
     
@@ -201,7 +201,7 @@ Matrix3x3& Matrix3x3::operator-= (const Matrix3x3& aMatrix3x3)
 
 Matrix3x3& Matrix3x3::operator*= (const Matrix3x3& aMatrix3x3)
 {
-    std::vector< std::vector<float> > CopyOfMatrixData(MatrixData);
+    std::vector< std::vector<double> > CopyOfMatrixData(MatrixData);
     
     for (unsigned int i = 0; i < 3; i++)        //Loops through all rows
         for(unsigned int j = 0; j < 3; j++)     //Loops through all columns in this row
@@ -216,7 +216,7 @@ Matrix3x3& Matrix3x3::operator*= (const Matrix3x3& aMatrix3x3)
 
 
 
-Matrix3x3 Matrix3x3::operator+= (const float& aNumber)
+Matrix3x3 Matrix3x3::operator+= (const double& aNumber)
 {
     for (unsigned int i = 0; i < 3; i++)        //Loops through all rows
         for(unsigned int j = 0; j < 3; j++)     //Loops through all columns in this row
@@ -225,7 +225,7 @@ Matrix3x3 Matrix3x3::operator+= (const float& aNumber)
     return *this;
 }
 
-Matrix3x3 Matrix3x3::operator-= (const float& aNumber)
+Matrix3x3 Matrix3x3::operator-= (const double& aNumber)
 {
     for (unsigned int i = 0; i < 3; i++)        //Loops through all rows
         for(unsigned int j = 0; j < 3; j++)     //Loops through all columns in this row
@@ -234,7 +234,7 @@ Matrix3x3 Matrix3x3::operator-= (const float& aNumber)
     return *this;
 }
 
-Matrix3x3 Matrix3x3::operator*= (const float& aNumber)
+Matrix3x3 Matrix3x3::operator*= (const double& aNumber)
 {
     for (unsigned int i = 0; i < 3; i++)        //Loops through all rows
         for(unsigned int j = 0; j < 3; j++)     //Loops through all columns in this row
@@ -243,7 +243,7 @@ Matrix3x3 Matrix3x3::operator*= (const float& aNumber)
     return *this;
 }
 
-Matrix3x3 Matrix3x3::operator/= (const float& aNumber)
+Matrix3x3 Matrix3x3::operator/= (const double& aNumber)
 {
     for (unsigned int i = 0; i < 3; i++)        //Loops through all rows
         for(unsigned int j = 0; j < 3; j++)     //Loops through all columns in this row
@@ -257,54 +257,54 @@ Matrix3x3 Matrix3x3::operator/= (const float& aNumber)
 
 
 //Set and get functions
-void Matrix3x3::Set_MatrixData(std::vector< std::vector<float> >& aMatrixData) { MatrixData = aMatrixData; }
+void Matrix3x3::Set_MatrixData(std::vector< std::vector<double> >& aMatrixData) { MatrixData = aMatrixData; }
 
-void Matrix3x3::Set_Matrix_Data_1(const float& aMatrixNumber) { MatrixData[0][0] = aMatrixNumber; }
+void Matrix3x3::Set_Matrix_Data_1(const double& aMatrixNumber) { MatrixData[0][0] = aMatrixNumber; }
 
-void Matrix3x3::Set_Matrix_Data_2(const float& aMatrixNumber) { MatrixData[0][1] = aMatrixNumber; }
+void Matrix3x3::Set_Matrix_Data_2(const double& aMatrixNumber) { MatrixData[0][1] = aMatrixNumber; }
 
-void Matrix3x3::Set_Matrix_Data_3(const float& aMatrixNumber) { MatrixData[0][2] = aMatrixNumber; }
+void Matrix3x3::Set_Matrix_Data_3(const double& aMatrixNumber) { MatrixData[0][2] = aMatrixNumber; }
 
-void Matrix3x3::Set_Matrix_Data_4(const float& aMatrixNumber) { MatrixData[1][0] = aMatrixNumber; }
+void Matrix3x3::Set_Matrix_Data_4(const double& aMatrixNumber) { MatrixData[1][0] = aMatrixNumber; }
 
-void Matrix3x3::Set_Matrix_Data_5(const float& aMatrixNumber) { MatrixData[1][1] = aMatrixNumber; }
+void Matrix3x3::Set_Matrix_Data_5(const double& aMatrixNumber) { MatrixData[1][1] = aMatrixNumber; }
 
-void Matrix3x3::Set_Matrix_Data_6(const float& aMatrixNumber) { MatrixData[1][2] = aMatrixNumber; }
+void Matrix3x3::Set_Matrix_Data_6(const double& aMatrixNumber) { MatrixData[1][2] = aMatrixNumber; }
 
-void Matrix3x3::Set_Matrix_Data_7(const float& aMatrixNumber) { MatrixData[2][0] = aMatrixNumber; }
+void Matrix3x3::Set_Matrix_Data_7(const double& aMatrixNumber) { MatrixData[2][0] = aMatrixNumber; }
 
-void Matrix3x3::Set_Matrix_Data_8(const float& aMatrixNumber) { MatrixData[2][1] = aMatrixNumber; }
+void Matrix3x3::Set_Matrix_Data_8(const double& aMatrixNumber) { MatrixData[2][1] = aMatrixNumber; }
 
-void Matrix3x3::Set_Matrix_Data_9(const float& aMatrixNumber) { MatrixData[2][2] = aMatrixNumber; }
+void Matrix3x3::Set_Matrix_Data_9(const double& aMatrixNumber) { MatrixData[2][2] = aMatrixNumber; }
 
 
 
-std::vector< std::vector<float> > Matrix3x3::Get_MatrixData(void) { return MatrixData; }
+std::vector< std::vector<double> > Matrix3x3::Get_MatrixData(void) { return MatrixData; }
 
-float Matrix3x3::Get_Matrix_Data_1(void) { return MatrixData[0][0]; }
+double Matrix3x3::Get_Matrix_Data_1(void) { return MatrixData[0][0]; }
 
-float Matrix3x3::Get_Matrix_Data_2(void) { return MatrixData[0][1]; }
+double Matrix3x3::Get_Matrix_Data_2(void) { return MatrixData[0][1]; }
 
-float Matrix3x3::Get_Matrix_Data_3(void) { return MatrixData[0][2]; }
+double Matrix3x3::Get_Matrix_Data_3(void) { return MatrixData[0][2]; }
 
-float Matrix3x3::Get_Matrix_Data_4(void) { return MatrixData[1][0]; }
+double Matrix3x3::Get_Matrix_Data_4(void) { return MatrixData[1][0]; }
 
-float Matrix3x3::Get_Matrix_Data_5(void) { return MatrixData[1][1]; }
+double Matrix3x3::Get_Matrix_Data_5(void) { return MatrixData[1][1]; }
 
-float Matrix3x3::Get_Matrix_Data_6(void) { return MatrixData[1][2]; }
+double Matrix3x3::Get_Matrix_Data_6(void) { return MatrixData[1][2]; }
 
-float Matrix3x3::Get_Matrix_Data_7(void) { return MatrixData[2][0]; }
+double Matrix3x3::Get_Matrix_Data_7(void) { return MatrixData[2][0]; }
 
-float Matrix3x3::Get_Matrix_Data_8(void) { return MatrixData[2][1]; }
+double Matrix3x3::Get_Matrix_Data_8(void) { return MatrixData[2][1]; }
 
-float Matrix3x3::Get_Matrix_Data_9(void) { return MatrixData[2][2]; }
+double Matrix3x3::Get_Matrix_Data_9(void) { return MatrixData[2][2]; }
 
 
 
 
 
 //Matrix3x3 specific functions
-void Matrix3x3::Initialise_As_Rotation_Matrix(float Rotation_In_Degrees, char Axis_Of_Rotation)
+void Matrix3x3::Initialise_As_Rotation_Matrix(double Rotation_In_Degrees, char Axis_Of_Rotation)
 {
     //For column vectors, each of these basic vector rotations appears counterclockwise
     //when the axis about which they occur points toward the observer, the coordinate system is
@@ -314,17 +314,17 @@ void Matrix3x3::Initialise_As_Rotation_Matrix(float Rotation_In_Degrees, char Ax
     //objects centre is required, the object must be translated such that the centre of the object
     //is at the origin.
      
-    float Rotation_In_Radians = Rotation_In_Degrees * M_PI / 180.0;
+    double Rotation_In_Radians = Rotation_In_Degrees * M_PI / 180.0;
     
     //The next two if statements exist to round the value of cosine or sine down to 0 as otherwise the
     //values would be an extremely small number. This is probably due to rounding errors in M_PI and
     //std::cos/std::sin and only occur when the functions should be = 0.
     
-    float cosineValue = std::cos(Rotation_In_Radians);
+    double cosineValue = std::cos(Rotation_In_Radians);
     if(cosineValue < 0.0001 && cosineValue > -0.0001)
         cosineValue = 0;
     
-    float sineValue = std::sin(Rotation_In_Radians);
+    double sineValue = std::sin(Rotation_In_Radians);
     if(sineValue < 0.0001 && sineValue > -0.0001)
         sineValue = 0;
     
@@ -380,14 +380,14 @@ void Matrix3x3::Initialise_As_Rotation_Matrix(float Rotation_In_Degrees, char Ax
 void Matrix3x3::Transpose_Matrix(void)
 {
     //Copy of matrix data is made as some values will be overwritten before they are used
-    std::vector< std::vector<float> > CopyOfMatrixData = MatrixData;
+    std::vector< std::vector<double> > CopyOfMatrixData = MatrixData;
     
     for (unsigned int i = 0; i < 3; i++)        //Loops through all rows
         for(unsigned int j = 0; j < 3; j++)     //Loops through all columns in this row
             MatrixData[i][j] = CopyOfMatrixData[j][i];
 }
 
-float Matrix3x3::Get_Determinant(void)
+double Matrix3x3::Get_Determinant(void)
 {
     //Using Sarrus' Rule, see https://en.wikipedia.org/wiki/Rule_of_Sarrus for more info
     
@@ -401,7 +401,7 @@ float Matrix3x3::Get_Determinant(void)
 
 void Matrix3x3::Inverse_Matrix(void)
 {
-    float DeterminantofMatrix = Get_Determinant(); //Store value now as matrix data will be changed
+    double DeterminantofMatrix = Get_Determinant(); //Store value now as matrix data will be changed
     
     if (DeterminantofMatrix == 0)
     {
@@ -412,7 +412,7 @@ void Matrix3x3::Inverse_Matrix(void)
     else
     {
         //Copy of matrix data is made as some values will be overwritten before they are used
-        std::vector< std::vector<float> > CopyOfMatrixData = MatrixData;
+        std::vector< std::vector<double> > CopyOfMatrixData = MatrixData;
         
         //Replace each element in matrix by it's co-factor
         MatrixData[0][0] = +(CopyOfMatrixData[1][1]*CopyOfMatrixData[2][2] - CopyOfMatrixData[1][2]*CopyOfMatrixData[2][1]);

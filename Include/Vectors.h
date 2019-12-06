@@ -24,9 +24,9 @@ private:
      * Be accessed via friend or class functions
      */
 
-    float X_Coord;
-    float Y_Coord;
-    float Z_Coord;
+    double X_Coord;
+    double Y_Coord;
+    double Z_Coord;
 
 public:
     /*
@@ -37,9 +37,9 @@ public:
     //-------------Constructors------------//
 
     Vectors(); // Blank Constructor
-    Vectors(float aX_Coord); //Constructor with only one variable passed to the function
-    Vectors(float aX_Coord, float aY_Coord); // Constructor with two variables passed to the function
-    Vectors(float aX_Coord, float aY_Coord, float aZ_Coord);// Constructor with all possible variable passed to the function
+    Vectors(double aX_Coord); //Constructor with only one variable passed to the function
+    Vectors(double aX_Coord, double aY_Coord); // Constructor with two variables passed to the function
+    Vectors(double aX_Coord, double aY_Coord, double aZ_Coord);// Constructor with all possible variable passed to the function
 
     //--------------Destructor-------------//
 
@@ -53,10 +53,10 @@ public:
      * Three members at once
      */
 
-    void SetX_Vector(float aX_Coord);
-    void SetY_Vector(float aY_Coord);
-    void SetZ_Vector(float aZ_Coord);
-    void SetVector(float aX_Coord, float aY_Coord, float aZ_Coord);
+    void SetX_Vector(double aX_Coord);
+    void SetY_Vector(double aY_Coord);
+    void SetZ_Vector(double aZ_Coord);
+    void SetVector(double aX_Coord, double aY_Coord, double aZ_Coord);
 
     //-------------Get Functions-----------//
 
@@ -65,9 +65,9 @@ public:
      * Stored in the Vector Member to be used
      */
 
-    float GetXVector();
-    float GetYVector();
-    float GetZVector();
+    double GetXVector();
+    double GetYVector();
+    double GetZVector();
 
     //-----Operator Overload Functions-----//
 
@@ -82,8 +82,8 @@ public:
     Vectors operator=(const Vectors& Copy);
     Vectors operator+(const Vectors& Add);
     Vectors operator-(const Vectors& Subtract);
-    Vectors operator/(const float& Divide);
-    Vectors operator*(const float& Multiply);
+    Vectors operator/(const double& Divide);
+    Vectors operator*(const double& Multiply);
 
     /*
      * To find the Vector (Cross) product the following functions are applied
@@ -102,18 +102,18 @@ public:
     /*
      * To find the scalar(Dot) product the following function is applied
      * Y = (Ax * Bx) + (Ay * By) + (Az + Bz)
-     * Y is returned as a scalar product (single float value) not a Vectors
+     * Y is returned as a scalar product (single double value) not a Vectors
      * For more information on scalar products visit
      * https://www.mathsisfun.com/algebra/vectors-dot-product.html
      */
 
-    float Scalar_Product(const Vectors& aVectors);
+    double Scalar_Product(const Vectors& aVectors);
     
     //Square root of the summation of the square of X, Y and Z
-    float Get_Magnitude(void);
+    double Get_Magnitude(void);
     
     //Magnitude of the difference between it and aVectors
-    float Get_Distance_To(const Vectors& aVectors);
+    double Get_Distance_To(const Vectors& aVectors);
 
      //-----------Friend Functions----------//
 
