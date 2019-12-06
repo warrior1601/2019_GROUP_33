@@ -7,7 +7,7 @@
   * Chanyanis Kulanumphol
   * Chang XING
 
-### Read carefully
+### Read Carefully
  
    * Intructions for downloading and complining this file are detailed below.
    * When downloading as a zip file or cloning the repository DO NOT rename the files or directories.
@@ -66,8 +66,8 @@
     * Commands need to be tailored to match you version of Visual Studio
     * enter command> cmake -G "Visual Studio 15 2017 Win64" ..
 
-<h4>!!NOTE!!</h4> 
-    * .bat file for visual stuido is similar to below might not be the same
+#### !!NOTE!! .bat file for visual stuido is similar to below might not be the same
+##    Microsoft Visual Studio Continued
     * enter command> "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" amd64
     * This sets the PATH for the compiler if you already have this set up in on your system enviroment you may note need to do this
     * enter command> msbuild Computing_Project.sln
