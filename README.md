@@ -46,7 +46,7 @@
     * enter command> cd build
     * enter command> cmake -G "MinGW Makefiles" -DBUILD_SHARED_LIBS=ON ..
     * This will build libraries for the source files that are dynamically linked to the *.exe files
-    * enter command> mingw32-make
+    * enter command> _mingw32-make_
     * The executable files will be located here and can be entered via command prompt as follows
     * enter command> MaterialTestCode.exe (or any other classes test code)
 
