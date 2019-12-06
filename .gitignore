@@ -96,3 +96,4 @@ ipch/
 *.vsp
 *.vspx
 *.sap
+.DS_Store
