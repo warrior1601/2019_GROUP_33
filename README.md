@@ -69,7 +69,7 @@
 #### !!NOTE!! .bat file for visual stuido is similar to below might not be the same
 ##    Microsoft Visual Studio Continued
     * enter command> "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" amd64
-    * This sets the PATH for the compiler if you already have this set up in on your system enviroment you may note need to do this
+    * This sets the PATH for the Visual Studio compiler if you already have this set up in your system enviroment you may note need to do this
     * enter command> msbuild Computing_Project.sln
     * enter command> cd debug
     * The execuable files for the TEST code will be located here and can be entered via command prompt as follows
