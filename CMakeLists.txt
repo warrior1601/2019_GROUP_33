@@ -42,6 +42,40 @@ target_link_libraries( MatrixTestCode Matrix )
 target_link_libraries( CellTestCode Cell )
 target_link_libraries( ModelTestCode Model )
 
+
+ADD_CUSTOM_COMMAND(TARGET ModelTestCode POST_BUILD
+                   COMMAND ${CMAKE_COMMAND} -E copy
+                       ${CMAKE_CURRENT_SOURCE_DIR}/Model_Files/ExampleModel1.mod
+                       ${CMAKE_CURRENT_SOURCE_DIR}/build/ExampleModel1.mod)
+
+ADD_CUSTOM_COMMAND(TARGET ModelTestCode POST_BUILD
+                   COMMAND ${CMAKE_COMMAND} -E copy
+                       ${CMAKE_CURRENT_SOURCE_DIR}/Model_Files/ExampleModel2.mod
+                       ${CMAKE_CURRENT_SOURCE_DIR}/build/ExampleModel2.mod)
+
+ADD_CUSTOM_COMMAND(TARGET ModelTestCode POST_BUILD
+                   COMMAND ${CMAKE_COMMAND} -E copy
+                       ${CMAKE_CURRENT_SOURCE_DIR}/Model_Files/ExampleModel3.mod
+                       ${CMAKE_CURRENT_SOURCE_DIR}/build/ExampleModel3.mod)
+
+
+ADD_CUSTOM_COMMAND(TARGET ModelTestCode POST_BUILD
+                   COMMAND ${CMAKE_COMMAND} -E copy
+                       ${CMAKE_CURRENT_SOURCE_DIR}/Model_Files/ExampleModel1.mod
+                       ${CMAKE_CURRENT_SOURCE_DIR}/build/Debug/ExampleModel1.mod)
+
+ADD_CUSTOM_COMMAND(TARGET ModelTestCode POST_BUILD
+                   COMMAND ${CMAKE_COMMAND} -E copy
+                       ${CMAKE_CURRENT_SOURCE_DIR}/Model_Files/ExampleModel2.mod
+                       ${CMAKE_CURRENT_SOURCE_DIR}/build/Debug/ExampleModel2.mod)
+
+ADD_CUSTOM_COMMAND(TARGET ModelTestCode POST_BUILD
+                   COMMAND ${CMAKE_COMMAND} -E copy
+                       ${CMAKE_CURRENT_SOURCE_DIR}/Model_Files/ExampleModel3.mod
+                       ${CMAKE_CURRENT_SOURCE_DIR}/build/Debug/ExampleModel3.mod)
+
+
+
 ####################################################################################################
 
 #IMPORTANT****************************TO COMPILE WITH MinGW*******************************IMPORTANT
