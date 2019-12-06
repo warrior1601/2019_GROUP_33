@@ -32,13 +32,28 @@ int main()
     std::vector<int> anIrrelevantVectorsOrder;
     Material Steel (0, 9980, "1A6428" , "Steel");
     Hexahedron someHexahedron(V0_Hex, V1_Hex, V2_Hex, V3_Hex, V4_Hex, V5_Hex, V6_Hex, V7_Hex, anIrrelevantVectorsOrder, Steel);
-    std::vector<Material> manyMaterials = {Steel};
-    std::vector<Vectors> manyVectors = {V0_Hex, V1_Hex, V2_Hex, V3_Hex, V4_Hex, V5_Hex, V6_Hex, V7_Hex};
+    
+    std::vector<Material> manyMaterials;
+    manyMaterials.push_back(Steel);
+    
+    std::vector<Vectors> manyVectors;
+    manyVectors.push_back(V0_Hex);
+    manyVectors.push_back(V1_Hex);
+    manyVectors.push_back(V2_Hex);
+    manyVectors.push_back(V3_Hex);
+    manyVectors.push_back(V4_Hex);
+    manyVectors.push_back(V5_Hex);
+    manyVectors.push_back(V6_Hex);
+    manyVectors.push_back(V7_Hex);
+
+    
     std::vector<Tetrahedron> manyTetrahedrons;
     std::vector<Pyramid> manyPyramids;
-    std::vector<Hexahedron> manyHexahedrons = {someHexahedron};
-    std::string cellOrder = {'h'};
-
+    std::vector<Hexahedron> manyHexahedrons;
+    manyHexahedrons.push_back(someHexahedron);
+    std::string cellOrder;
+    cellOrder.push_back('h');
+    
     ManualModel.Set_Materials(manyMaterials);
     ManualModel.Set_Vectors(manyVectors);
     ManualModel.Set_Tetrahedrons(manyTetrahedrons);

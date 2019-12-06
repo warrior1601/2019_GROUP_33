@@ -32,7 +32,7 @@ public:
     virtual double Get_Volume(void);
     virtual double Get_Weight(void);
     virtual Vectors Get_Centre_Of_Gravity(void);
-    virtual void Rotate(double Rotation_In_Degrees, char Axis_Of_Rotation);
+    virtual void Rotate(double Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Centre_Of_Rotation);
     
 private:
     
