@@ -35,7 +35,7 @@ Vectors Cell::Get_Centre_Of_Gravity()
     
 }
 
-void Cell::Rotate(double Rotation_In_Degrees, char Axis_Of_Rotation)
+void Cell::Rotate(double Rotation_In_Degrees, char Axis_Of_Rotatio, Vectors Centre_Of_Rotationn)
 {
     std::cout << "No implementation for rotating this object" << std::endl;
 }

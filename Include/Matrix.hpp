@@ -100,7 +100,7 @@ public:
     void Inverse_Matrix(void);
     
 private:
-    std::vector< std::vector<double> > MatrixData {3}; //3 is required for initialisation
+    std::vector< std::vector<double> > MatrixData; //3 is required for initialisation
 };
 
 #endif // Matrix_hpp

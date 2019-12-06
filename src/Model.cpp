@@ -1043,7 +1043,9 @@ std::vector<Vectors> Model::Get_Min_Max(void)
     //or in other words the most positive and most negative co-ordinates of the model
     
     Vectors Minimum(0,0,0), Maximum(0,0,0);
-    std::vector<Vectors> MinMax = {Minimum, Maximum};
+    std::vector<Vectors> MinMax;
+    MinMax.push_back(Minimum);
+    MinMax.push_back(Maximum);
     std::vector<int> VectorsBeingUsed = Get_Vectors_Being_Used();
     
     //This for loop cycles through all Vectors (that are being used) and finds the min and max values of
