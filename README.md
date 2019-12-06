@@ -7,7 +7,7 @@
   * Chanyanis Kulanumphol
   * Chang XING
 
-###Read carefully
+### Read carefully
  
    * Intructions for downloading and complining this file are detailed below.
    * When downloading as a zip file or cloning the repository DO NOT rename the files or directories.
@@ -43,5 +43,53 @@
 
 
 # Important notes about compiling with CMake
-##   * MinGW Compiler  
-     * 
+### All Test files are genorated with one CMakeList.txt
+##    MinGW Compiler  
+    * After Down loading the github repo you will need to make a build folder
+    * (assuming that this file will be Named 2019_GROUP_33)
+    * Open cmmand promt and Navigate to dir ..\2019_GROUP_33
+    * enter command> mkdir build
+    * enter command> cd build
+    * enter command> cmake -G "MinGW Makefiles" -DBUILD_SHARED_LIBS=ON ..
+    * This will build Libraries for the source files that are dynamiclly linked to the *.exe files
+    * enter command> mingw32-make
+    * Now the executables will be created and can be testd through the command window
+    * enter command> MaterialTestCode.exe (or anyother classes test code)
+
+##    Microsoft Visual Studio
+    * After Down loading the github repo you will need to make a build folder
+    * (assuming that this file will be Named 2019_GROUP_33)
+    * In command prompt
+    * Navigate to dir ..\2019_GROUP_33
+    * enter command> mkdir build
+    * enter command> cd build
+    * Commands need to be tailored to match you version of Visual Studio
+    * enter command> cmake -G "Visual Studio 15 2017 Win64" ..
+
+<h4>!!NOTE!!</h4> 
+    * .bat file for visual stuido is similar to below might not be the same
+    * enter command> "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" amd64
+    * This sets the PATH for the compiler if you already have this set up in on your system enviroment you may note need to do this
+    * enter command> msbuild Computing_Project.sln
+    * enter command> cd debug
+    * The execuable files for the TEST code will be located here and can be entered via command prompt as follows
+    * enter command> MaterialTestCode.exe (or anyother classes test code)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

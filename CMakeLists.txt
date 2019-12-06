@@ -49,13 +49,13 @@ target_link_libraries( ModelTestCode Model )
 # After Down loading the github repo you will need to make a build folder
 # (assuming that this file will be Named 2019_GROUP_33)
 # In command promt
-# Navigate to dir ..\2019_GROUP_33)
+# Navigate to dir ..\2019_GROUP_33
 # enter command> mkdir build
 # enter command> cd build
 # enter command> cmake -G "MinGW Makefiles" -DBUILD_SHARED_LIBS=ON ..
-# "This will build Libraries for the source files that are dynamiclly linked to the *.exe files"
+# This will build Libraries for the source files that are dynamiclly linked to the *.exe files
 # enter command> mingw32-make
-# "Now the executables will be created and can be testd through the command window"
+# Now the executables will be created and can be testd through the command window
 # enter command> MaterialTestCode.exe (or anyother classes test code)
 
 ####################################################################################################
