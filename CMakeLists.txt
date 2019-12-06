@@ -64,7 +64,7 @@ target_link_libraries( ModelTestCode Model )
 # After Downloading the GitHub repo you will need to make a build folder
 # (assuming that this file will be Named 2019_GROUP_33)
 # In command prompt
-# Navigate to dir ..\2019_GROUP_33)
+# Navigate to dir ..\2019_GROUP_33
 # enter command> mkdir build
 # enter command> cd build
 # Commands need to be tailored to match you version of Visual Studio
@@ -76,3 +76,19 @@ target_link_libraries( ModelTestCode Model )
 # enter command> cd debug
 # The executable files for the TEST code will be located here and can be entered via command prompt as follows
 # enter command> MaterialTestCode.exe (or any other classes test code)
+
+####################################################################################################
+
+# IMPORTANT*************************TO COMPILE WITH XCODE on MacOS*************************IMPORTANT
+
+# After Downloading the GitHub repo you will need to make a build folder
+# (assuming that this file will be Named 2019_GROUP_33)
+# In command prompt
+# Navigate to dir ..\2019_GROUP_33
+# enter command> mkdir build
+# enter command> cd build
+# enter command> cmake -G "Xcode" -DBUILD_SHARED_LIBS=ON ..
+# ener commadnd> xcodebuild -scheme ALL_BUILD build
+# enter command> cd debug
+# The executable files for the TEST code will be located in the debug dir
+
