@@ -1,14 +1,14 @@
 # 2019_GROUP_33
  
-###### Design Team :
  
+ 
+###### Design Team :
   * Junaid Afzal
   * Jedidiah Paterson
   * Chanyanis Kulanumphol
   * Chang XING
 
 ### Read Carefully
- 
    * Instructions for downloading and compiling this file are detailed below.
    * When downloading as a zip file or cloning the repository DO NOT rename the files or directories.
    * Renaming files or directories will cause build errors when trying to compile.
@@ -19,70 +19,60 @@
    
 #### Model Explained
    * A Model is a 3-dimenional shape that can be comprised of many smaller shapes referred to as cells. 
-   * Class Cells further differentiates into smaller subclasses of hexahedral, pyramid, and tetrahedral. 
-   * Each Cell is defined by the number of vertices they have and of the material they are comprised. Tetrahedras have 4,  pyramids have 5, and hexahedrals have 6. 
+   * Class Cell further differentiates into smaller sub-classes of tetrahedron, pyramid, hexahedron. 
+   * Each Cell is defined by it's number of vertices and material. Tetrahedras have 4,  pyramids have 5, and hexahedrals have 6. 
    * Each vertex is described as a Vector in this project that has a X-Y-Z coordinate. 
-   * A material has describing features that includes Color, Density, and Name.
-   * This allows the model to be made of many different cells, each cell having its own dimensions and material type. 
+   * A material includes it's colour, density and name.
+   * This allows the model to be made of many different cells, with each cell having its own dimensions and material type. 
 
 #### Functions
-   * The user can create new and change material types of color, density and name
-   * Create new vectors and change vectors
-   * Add, subtract, multiply, obtain magnitude of, and get distance to a vector
-   * Create new cells 
-   * Calculate the weight of each cell
-   * Calculate the volume of the cell
-   * Calculate the center of the gravity of the cell 
-   * Rotate a cell around its X, Y, or Z axis
-   * Create new model of the model
-   * Calculate the volume of the model
-   * Calculate the weight of the model
-   * Calculate the center of gravity of the model
-   * Calculate the overall dimensions of the model
-   * Rotate the entire model around its X, Y, or Z axis
+   * Create and edit materials
+   * Create and edit vectors
+   * Vector functions include - add vectors, subtract vectors, multiply vectors, obtain magnitude of vector, and get distance to another vector
+   * Create and edit cells 
+   * Cell function include - calculating the weight, calculating the volume, calculating the center of gravity of a cell, rotating a cell around an X, Y, or Z axis centered on a vector point
+   * Create and edit model
+   * Model functions include - calculating the volume of the model, calculating the weight of the model, calculating the center of gravity of the model, calculating the overall dimensions of the model, rotating the entire model around an X, Y, or Z axis centered on a vector point
+
 
 
 # Important notes about compiling with CMake
 ### All Test files are generated with one CMakeList.txt
 ##    MinGW Compiler  
-    * After Downloading the GitHub repo you will need to make a build folder
+    * After downloading the GitHub repo you will need to make a build folder
     * (assuming that this file will be Named 2019_GROUP_33)
-    * Open command prompt and Navigate to dir ..\2019_GROUP_33
+    * Open command prompt and navigate to dir ..\2019_GROUP_33
     * enter command> mkdir build
     * enter command> cd build
     * enter command> cmake -G "MinGW Makefiles" -DBUILD_SHARED_LIBS=ON ..
-    * This will build Libraries for the source files that are dynamically linked to the *.exe files
+    * This will build libraries for the source files that are dynamically linked to the *.exe files
     * enter command> mingw32-make
-    * Now the executables will be created and can be tested through the command window
+    * The executable files will be located here and can be entered via command prompt as follows
     * enter command> MaterialTestCode.exe (or any other classes test code)
 
 ##    Microsoft Visual Studio
-    * After Down loading the GitHub repo you will need to make a build folder
+    * After downloading the GitHub repo you will need to make a build folder
     * (assuming that this file will be Named 2019_GROUP_33)
-    * In command prompt
-    * Navigate to dir ..\2019_GROUP_33
+    * Open command prompt and navigate to dir ..\2019_GROUP_33
     * enter command> mkdir build
     * enter command> cd build
     * Commands need to be tailored to match you version of Visual Studio
     * enter command> cmake -G "Visual Studio 15 2017 Win64" ..
-
-#### !!NOTE!! .bat file for visual studio is similar to below might not be the same
-##    Microsoft Visual Studio Continued
+    #################### Note that the path for the .bat file below may need changing for your visual studio version ####################
     * enter command> "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" amd64
-    * This sets the PATH for the Visual Studio compiler if you already have this set up in your system environment you may not need to do this
+    * This sets the PATH for the Visual Studio compiler
     * enter command> msbuild Computing_Project.sln
     * enter command> cd debug
-    * The executable files for the TEST code will be located here and can be entered via command prompt as follows
+    * The executable files will be located here and can be entered via command prompt as follows
     * enter command> MaterialTestCode.exe (or any other classes test code)
 
 ## Xcode Compiler on MacOS
     * After Downloading the GitHub repo you will need to make a build folder
     * (assuming that this file will be Named 2019_GROUP_33)
-    * In command prompt
-    * Navigate to dir ..\2019_GROUP_33
+    * Open command prompt and navigate to dir ..\2019_GROUP_33
     * enter command> mkdir build
     * enter command> cd build
     * enter command> cmake -G "Xcode" -DBUILD_SHARED_LIBS=ON ..
     * ener commadnd> xcodebuild -scheme ALL_BUILD build
     * enter command> cd debug
-    * The executable files for the TEST code will be located in the debug dir
+    * The executable files will be located in the debug dir
