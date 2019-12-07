@@ -148,7 +148,7 @@ void Model::Load_Model(const std::string& FilePath)
                             }
                                 
                             case 2: { //Read in density
-                                double Density = std::stof(Placeholder, nullptr);
+                                double Density = std::stod(Placeholder, nullptr);
                                 
                                 if (Density <= 0)
                                 {
@@ -228,11 +228,11 @@ void Model::Load_Model(const std::string& FilePath)
                             }
                                 
                             case 2: //Read in X value
-                                temp.SetX_Vector(std::stof(Placeholder, nullptr));
+                                temp.SetX_Vector(std::stod(Placeholder, nullptr));
                                 break;
                                 
                             case 3: //Read in Y value
-                                temp.SetY_Vector(std::stof(Placeholder, nullptr));
+                                temp.SetY_Vector(std::stod(Placeholder, nullptr));
                                 break;
                                 
                             default:
@@ -247,7 +247,7 @@ void Model::Load_Model(const std::string& FilePath)
                     Placeholder.push_back(currentLine[currentPosition]); //If current position in current line is NOT a space then read in the value
                 }
                 
-                temp.SetZ_Vector(std::stof(Placeholder, nullptr)); //Last value is not proceeded by a space and so will remain in 'Placeholder' after for loop
+                temp.SetZ_Vector(std::stod(Placeholder, nullptr)); //Last value is not proceeded by a space and so will remain in 'Placeholder' after for loop
                 
                 manyVectors.push_back(temp); //All variables of temp have been assigned and so can be added to Vectors list
             }
