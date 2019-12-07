@@ -10,6 +10,7 @@
 |Jedidiah|GitHub Repo restructred as advised by Junaid and test main.cpp files renamed to TESTCODE*.cpp| 11/26/19 |
 |Chang   |Push of Model class that get the center of Model | 11/26/19 |
 |Junaid  |Reminder of how to comment code and what is proffessional | 11/26/19 |
+|Junaid  |Matrix Class Comleted | 11/26/19
 |Jedidiah|Discussion on Model class it still does not include other classes | 11/27/19 |
 |Jedidiah|Tried to used Model class code to utilize other classes |12/6/19 |
 |Juniad  |Rewrote Model Clas code to use other classes |12/6/19 |
