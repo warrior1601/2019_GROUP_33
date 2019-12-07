@@ -147,4 +147,8 @@ ADD_CUSTOM_COMMAND(TARGET ModelTestCode POST_BUILD
 # enter command> cmake -G "Xcode" -DBUILD_SHARED_LIBS=ON ..
 # enter command> xcodebuild -scheme ALL_BUILD build
 # enter command> cd debug
-# The executable files will be located in the debug directory
+# Open the Xcode project file
+# At the top left, next to the run and stop buttons, click on the ALL_BUILD button
+# Then click on the desired executable - which will contain TestCode in file name
+# Then click run and open the debug area to see output
+# Repeat for all executables  

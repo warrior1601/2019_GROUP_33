@@ -13,7 +13,7 @@
 #include <math.h>
 #include <cmath>
 
-//Constructors and destructors
+//Constructors and destructor
 Matrix3x3::Matrix3x3(const double& One, const double& Two, const double& Three,
                      const double& Four, const double& Five, const double& Six,
                      const double& Seven, const double& Eight, const double& Nine)

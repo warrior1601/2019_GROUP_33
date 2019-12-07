@@ -14,7 +14,7 @@
 #include <string>
 #include <algorithm>
 
-//Constructors and destructors
+//Constructors and destructor
 Model::Model(const Model& aModel)
 {
     manyMaterials = aModel.manyMaterials;
