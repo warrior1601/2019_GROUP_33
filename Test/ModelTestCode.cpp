@@ -111,24 +111,23 @@ int main()
     
 	std::cout << "Note that Model_Two.txt and the Save_File_Of_Model_Two_UnRotated.txt are the same model and thus contain the same information" << std::endl;
     
-    
+   
     Model Example1;
     Example1.Load_Model("ExampleModel1.mod");
     std::cout << "\n\n\n---ExampleModel1.mod Model---\n" << Example1 << std::endl;
-    std::cout << "Centre of gravity =\t" << Example1.Get_Centre_Of_Gravity() << "Geometric centre =\t" << Example1.Get_Geometric_Centre() << "Overall dimensions =\t" << Example1.Get_Overall_Dimensions() << std::endl;
+    std::cout << "Centre of gravity =\t" << Example1.Get_Centre_Of_Gravity() << "Geometric centre =\t" << Example1.Get_Geometric_Centre() << "Overall dimensions =\t" << Example1.Get_Overall_Dimensions() << "Overall Weight =\t" << Example1.Get_Weight() << std::endl;
     
     
     Model Example2;
     Example2.Load_Model("ExampleModel2.mod");
     std::cout << "\n\n\n---ExampleModel2.mod Model---\n" << Example2 << std::endl;
-    std::cout << "Centre of gravity =\t" << Example2.Get_Centre_Of_Gravity() << "Geometric centre =\t" << Example2.Get_Geometric_Centre() << "Overall dimensions =\t" << Example2.Get_Overall_Dimensions() << std::endl;
+    std::cout << "Centre of gravity =\t" << Example2.Get_Centre_Of_Gravity() << "Geometric centre =\t" << Example2.Get_Geometric_Centre() << "Overall dimensions =\t" << Example2.Get_Overall_Dimensions() << "Overall Weight =\t" << Example2.Get_Weight() << std::endl;
     
     
     Model Example3;
     Example3.Load_Model("ExampleModel3.mod");
     std::cout << "\n\n\n---ExampleModel3.mod Model---\n" << Example3 << std::endl;
-    std::cout << "Centre of gravity =\t" << Example3.Get_Centre_Of_Gravity() << "Geometric centre =\t" << Example3.Get_Geometric_Centre() << "Overall dimensions =\t" << Example3.Get_Overall_Dimensions() << std::endl;
+    std::cout << "Geometric centre =\t" << Example3.Get_Geometric_Centre() << "Centre of gravity =\t" << Example3.Get_Centre_Of_Gravity() << "Overall dimensions =\t" << Example3.Get_Overall_Dimensions() << "Overall Weight =\t" << Example3.Get_Weight() << std::endl;
 
-    
     return 0;
 }

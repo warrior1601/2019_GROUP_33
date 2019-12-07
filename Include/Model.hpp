@@ -19,7 +19,7 @@
 
 class Model {
 public:
-    //Constructors and destructors
+    //Constructors and destructor
     Model(const Model& aModel);
     Model(void);
     ~Model(void);

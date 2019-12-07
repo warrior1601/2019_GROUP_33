@@ -124,11 +124,11 @@ ADD_CUSTOM_COMMAND(TARGET ModelTestCode POST_BUILD
 # enter command> mkdir build
 # enter command> cd build
 # Commands need to be tailored to match you version of Visual Studio
-# enter command> cmake -G "Visual Studio 15 2017 Win64" ..
+# enter command> cmake -G "Visual Studio 15 2017 Win64" ..        or      cmake -G "Visual Studio 16 2019" .. 
 
 ################ Note that the path for the .bat file below may need changing for your visual studio version ################
 
-# enter command> "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" amd64
+# enter command> "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" amd64        or        "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86_amd64
 # This sets the PATH for the Visual Studio compiler
 # enter command> msbuild Computing_Project.sln
 # enter command> cd debug
@@ -147,4 +147,8 @@ ADD_CUSTOM_COMMAND(TARGET ModelTestCode POST_BUILD
 # enter command> cmake -G "Xcode" -DBUILD_SHARED_LIBS=ON ..
 # enter command> xcodebuild -scheme ALL_BUILD build
 # enter command> cd debug
-# The executable files will be located in the debug directory
+# Open the Xcode project file
+# At the top left, next to the run and stop buttons, click on the ALL_BUILD button
+# Then click on the desired executable - which will contain TestCode in file name
+# Then click run and open the debug area to see output
+# Repeat for all executables  
