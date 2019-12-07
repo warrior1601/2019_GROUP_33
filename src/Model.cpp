@@ -1042,11 +1042,9 @@ std::vector<Vectors> Model::Get_Min_Max(void)
     //This function returns two Vectors that represent the opposing corners of a hexahedron that contains the model
     //or in other words the most positive and most negative co-ordinates of the model
     
-    Vectors Minimum(0,0,0), Maximum(0,0,0);
-    std::vector<Vectors> MinMax;
-    MinMax.push_back(Minimum);
-    MinMax.push_back(Maximum);
-    std::vector<int> VectorsBeingUsed = Get_Vectors_Being_Used();
+	std::vector<int> VectorsBeingUsed = Get_Vectors_Being_Used();
+	Vectors Minimum = manyVectors[VectorsBeingUsed[0]];
+	Vectors Maximum = manyVectors[VectorsBeingUsed[0]];
     
     //This for loop cycles through all Vectors (that are being used) and finds the min and max values of
     //X, Y, and Z and assign them to the correct Vectors
@@ -1055,24 +1053,28 @@ std::vector<Vectors> Model::Get_Min_Max(void)
     {
         Vectors CurrentVectors = manyVectors[VectorsBeingUsed[i]];
     
-        if (CurrentVectors.GetXVector() < MinMax[0].GetXVector())
-            MinMax[0].SetX_Vector(CurrentVectors.GetXVector());
+        if (CurrentVectors.GetXVector() < Minimum.GetXVector())
+			Minimum.SetX_Vector(CurrentVectors.GetXVector());
         
-        else if (CurrentVectors.GetXVector() > MinMax[1].GetXVector())
-            MinMax[1].SetX_Vector(CurrentVectors.GetXVector());
+        else if (CurrentVectors.GetXVector() > Maximum.GetXVector())
+			Maximum.SetX_Vector(CurrentVectors.GetXVector());
         
-        if (CurrentVectors.GetYVector() < MinMax[0].GetYVector())
-            MinMax[0].SetY_Vector(CurrentVectors.GetYVector());
+        if (CurrentVectors.GetYVector() < Minimum.GetYVector())
+			Minimum.SetY_Vector(CurrentVectors.GetYVector());
         
-        else if (CurrentVectors.GetYVector() > MinMax[1].GetYVector())
-            MinMax[1].SetY_Vector(CurrentVectors.GetYVector());
+        else if (CurrentVectors.GetYVector() > Maximum.GetYVector())
+			Maximum.SetY_Vector(CurrentVectors.GetYVector());
 
-        if (CurrentVectors.GetZVector() < MinMax[0].GetZVector())
-            MinMax[0].SetZ_Vector(CurrentVectors.GetZVector());
+        if (CurrentVectors.GetZVector() < Minimum.GetZVector())
+			Minimum.SetZ_Vector(CurrentVectors.GetZVector());
         
-        else if (CurrentVectors.GetZVector() > MinMax[1].GetZVector())
-            MinMax[1].SetZ_Vector(CurrentVectors.GetZVector());
+        else if (CurrentVectors.GetZVector() > Maximum.GetZVector())
+			Maximum.SetZ_Vector(CurrentVectors.GetZVector());
     }
     
+	std::vector<Vectors> MinMax;
+	MinMax.push_back(Minimum);
+	MinMax.push_back(Maximum);
+
     return MinMax;
 }

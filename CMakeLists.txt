@@ -124,11 +124,11 @@ ADD_CUSTOM_COMMAND(TARGET ModelTestCode POST_BUILD
 # enter command> mkdir build
 # enter command> cd build
 # Commands need to be tailored to match you version of Visual Studio
-# enter command> cmake -G "Visual Studio 15 2017 Win64" ..
+# enter command> cmake -G "Visual Studio 15 2017 Win64" ..        or      cmake -G "Visual Studio 16 2019" .. 
 
 ################ Note that the path for the .bat file below may need changing for your visual studio version ################
 
-# enter command> "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" amd64
+# enter command> "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" amd64        or        "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86_amd64
 # This sets the PATH for the Visual Studio compiler
 # enter command> msbuild Computing_Project.sln
 # enter command> cd debug
