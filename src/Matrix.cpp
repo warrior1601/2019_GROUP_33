@@ -17,7 +17,13 @@
 Matrix3x3::Matrix3x3(const double& One, const double& Two, const double& Three,
                      const double& Four, const double& Five, const double& Six,
                      const double& Seven, const double& Eight, const double& Nine)
-{    
+{
+    std::vector<double> Rows;
+    //Add 3 rows
+    MatrixData.push_back(Rows);
+    MatrixData.push_back(Rows);
+    MatrixData.push_back(Rows);
+    
     MatrixData[0].push_back(One);
     MatrixData[0].push_back(Two);
     MatrixData[0].push_back(Three);
@@ -35,6 +41,12 @@ Matrix3x3::Matrix3x3(const Matrix3x3& aMatrix3x3) { MatrixData = aMatrix3x3.Matr
 
 Matrix3x3::Matrix3x3(void)
 {
+    std::vector<double> Rows;
+    //Add 3 rows
+    MatrixData.push_back(Rows);
+    MatrixData.push_back(Rows);
+    MatrixData.push_back(Rows);
+    
     //Add 0 to all rows so no indexing errors occur
     for (unsigned int i = 0; i < 3; i++)        //Loops through all rows
         for(unsigned int j = 0; j < 3; j++)     //Loops through all columns in this row

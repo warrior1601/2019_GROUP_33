@@ -32,13 +32,28 @@ int main()
     std::vector<int> anIrrelevantVectorsOrder;
     Material Steel (0, 9980, "1A6428" , "Steel");
     Hexahedron someHexahedron(V0_Hex, V1_Hex, V2_Hex, V3_Hex, V4_Hex, V5_Hex, V6_Hex, V7_Hex, anIrrelevantVectorsOrder, Steel);
-    std::vector<Material> manyMaterials = {Steel};
-    std::vector<Vectors> manyVectors = {V0_Hex, V1_Hex, V2_Hex, V3_Hex, V4_Hex, V5_Hex, V6_Hex, V7_Hex};
+    
+    std::vector<Material> manyMaterials;
+    manyMaterials.push_back(Steel);
+    
+    std::vector<Vectors> manyVectors;
+    manyVectors.push_back(V0_Hex);
+    manyVectors.push_back(V1_Hex);
+    manyVectors.push_back(V2_Hex);
+    manyVectors.push_back(V3_Hex);
+    manyVectors.push_back(V4_Hex);
+    manyVectors.push_back(V5_Hex);
+    manyVectors.push_back(V6_Hex);
+    manyVectors.push_back(V7_Hex);
+
+    
     std::vector<Tetrahedron> manyTetrahedrons;
     std::vector<Pyramid> manyPyramids;
-    std::vector<Hexahedron> manyHexahedrons = {someHexahedron};
-    std::string cellOrder = {'h'};
-
+    std::vector<Hexahedron> manyHexahedrons;
+    manyHexahedrons.push_back(someHexahedron);
+    std::string cellOrder;
+    cellOrder.push_back('h');
+    
     ManualModel.Set_Materials(manyMaterials);
     ManualModel.Set_Vectors(manyVectors);
     ManualModel.Set_Tetrahedrons(manyTetrahedrons);
@@ -51,14 +66,10 @@ int main()
 
     Model CopyConstructor(ManualModel);
     std::cout << "\n\n---Copy constructor---\n" << CopyConstructor << std::endl;
-
-
-	std::string Model_Path;
-	std::cout << "Please enter the path for Model_One.txt" << std::endl;
-	std::cin >> Model_Path;
+    
 	
 	Model ModelOne;
-	ModelOne.Load_Model(Model_Path);
+	ModelOne.Load_Model("Model_One.txt");
     std::cout << "\n\n---Load Model function---\n" << ModelOne << std::endl;
 
 
@@ -66,22 +77,15 @@ int main()
     std::cout << "\n\n---Operator=---\n" << BlankModel << std::endl;
 
 
-    std::cout << "\n\n---Model properties of ModelOne---" << "\nVolume of model = " << ModelOne.Get_Volume() << "\nWeight of model = " << ModelOne.Get_Weight() << "\nCentre of gravity of model = " << ModelOne.Get_Centre_Of_Gravity() << "Geometric centre of model = " << ModelOne.Get_Geometric_Centre() << "Overall dimensions of model = " << ModelOne.Get_Overall_Dimensions() << std::endl;
+    std::cout << "\n\n---Model properties of Model_One.txt---" << "\nVolume of model = " << ModelOne.Get_Volume() << "\nWeight of model = " << ModelOne.Get_Weight() << "\nCentre of gravity of model = " << ModelOne.Get_Centre_Of_Gravity() << "Geometric centre of model = " << ModelOne.Get_Geometric_Centre() << "Overall dimensions of model = " << ModelOne.Get_Overall_Dimensions() << std::endl;
 
 
-	std::cout << "Please enter the path for Save_File_Of_Model_One.txt" << std::endl;
-	std::cin >> Model_Path;
-
-    ModelOne.Save_Model(Model_Path);
+    ModelOne.Save_Model("Save_File_Of_Model_One.txt");
     std::cout << "\n\nCheck directory for the save file which contains all model info, in the propriety\nformat, of the loaded model Model_One.txt\n(Note that any comments from loaded file will be discarded)\n" << std::endl;
-        
-        
-        
-	std::cout << "Please enter the path for Model_Two.txt" << std::endl;
-	std::cin >> Model_Path;
+
 
     Model ModelTwo;
-    ModelTwo.Load_Model(Model_Path);
+    ModelTwo.Load_Model("Model_Two.txt");
     std::cout << "\n\n---Model_Two.txt model before rotation---\n" << ModelTwo << std::endl;
     std::cout << "Centre of gravity =\t" << ModelTwo.Get_Centre_Of_Gravity() << "Geometric centre =\t" << ModelTwo.Get_Geometric_Centre() << "Overall dimensions =\t" << ModelTwo.Get_Overall_Dimensions() << std::endl;
         
@@ -92,10 +96,7 @@ int main()
     std::cout << "Centre of gravity =\t" << ModelTwo.Get_Centre_Of_Gravity() << "Geometric centre =\t" << ModelTwo.Get_Geometric_Centre() << "Overall dimensions =\t" << ModelTwo.Get_Overall_Dimensions() << std::endl;
 
 
-	std::cout << "Please enter the path for Save_File_Of_Model_Two_Rotated.txt" << std::endl;
-	std::cin >> Model_Path;
-
-    ModelTwo.Save_Model(Model_Path);
+    ModelTwo.Save_Model("Save_File_Of_Model_Two_Rotated.txt");
     std::cout << "\n\nCheck directory for save file which contains all model info, in the propriety\nformat, of the loaded model Model_Two.txt after rotation" << std::endl;
         
 
@@ -104,13 +105,30 @@ int main()
     std::cout << "\n\n\n---Model_Two.txt model after un-rotation---\n" << ModelTwo << std::endl;
     std::cout << "Centre of gravity =\t" << ModelTwo.Get_Centre_Of_Gravity() << "Geometric centre =\t" << ModelTwo.Get_Geometric_Centre() << "Overall dimensions =\t" << ModelTwo.Get_Overall_Dimensions() << std::endl;
 
-	std::cout << "Please enter the path for Save_File_Of_Model_Two_UnRotated.txt" << std::endl;
-	std::cin >> Model_Path;
 
-    ModelTwo.Save_Model(Model_Path);
-    std::cout << "\n\nCheck directory for the save file which contains all model info, in the propriety\nformat, of the loaded model  Model_Two.txt after rotation and then un rotation\n" << std::endl;
+    ModelTwo.Save_Model("Save_File_Of_Model_Two_Un-Rotated.txt");
+    std::cout << "\n\nCheck directory for the save file which contains all model info, in the propriety\nformat, of the loaded model  Model_Two.txt after rotation and then un-rotation\n" << std::endl;
     
-	std::cout << "Note that Model_Two.txt and the Save_File_Of_Model_Two_UnRotated.txt are the same model and thus contain the same information" << "\n\n\n" << std::endl;
+	std::cout << "Note that Model_Two.txt and the Save_File_Of_Model_Two_UnRotated.txt are the same model and thus contain the same information" << std::endl;
+    
+    
+    Model Example1;
+    Example1.Load_Model("ExampleModel1.mod");
+    std::cout << "\n\n\n---ExampleModel1.mod Model---\n" << Example1 << std::endl;
+    std::cout << "Centre of gravity =\t" << Example1.Get_Centre_Of_Gravity() << "Geometric centre =\t" << Example1.Get_Geometric_Centre() << "Overall dimensions =\t" << Example1.Get_Overall_Dimensions() << std::endl;
+    
+    
+    Model Example2;
+    Example2.Load_Model("ExampleModel2.mod");
+    std::cout << "\n\n\n---ExampleModel2.mod Model---\n" << Example2 << std::endl;
+    std::cout << "Centre of gravity =\t" << Example2.Get_Centre_Of_Gravity() << "Geometric centre =\t" << Example2.Get_Geometric_Centre() << "Overall dimensions =\t" << Example2.Get_Overall_Dimensions() << std::endl;
+    
+    
+    Model Example3;
+    Example3.Load_Model("ExampleModel3.mod");
+    std::cout << "\n\n\n---ExampleModel3.mod Model---\n" << Example3 << std::endl;
+    std::cout << "Centre of gravity =\t" << Example3.Get_Centre_Of_Gravity() << "Geometric centre =\t" << Example3.Get_Geometric_Centre() << "Overall dimensions =\t" << Example3.Get_Overall_Dimensions() << std::endl;
 
+    
     return 0;
 }
