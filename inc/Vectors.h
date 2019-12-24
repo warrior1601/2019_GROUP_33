@@ -1,5 +1,3 @@
-#ifndef VECTORS_H_INCLUDED
-#define VECTORS_H_INCLUDED
 //
 //  Vectors.h
 //  Computing Project
@@ -11,6 +9,10 @@
 //  Members of X_Coord,Y_Coord, and Z_Coord that are the 3-dimensional
 //  Coordinates of each point for a parent class for this project that
 //  Class is named Cell
+//
+
+#ifndef VECTORS_H_INCLUDED
+#define VECTORS_H_INCLUDED
 
 #include <iostream>
 
@@ -117,7 +119,8 @@ public:
 
      //-----------Friend Functions----------//
 
-    friend std::ostream& operator<< (std::ostream&, const Vectors& aVectors);
+    friend std::ostream& operator<< (std::ostream& Output, const Vectors& aVectors);
+    
     friend class Matrix3x3;
 };
 

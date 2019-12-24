@@ -9,8 +9,8 @@
 //  the sub-objects Tetrahedron, Pyramid and Hexahedron.
 //
 
-#include "../Include/Cell.hpp"
-#include "../Include/Matrix.hpp"
+#include "../inc/Cell.hpp"
+#include "../inc/Matrix.hpp"
 #include <cmath>
 
 //------------------------------------------------------------------------CELL MEMBER FUNCTIONS------------------------------------------------------------------------//

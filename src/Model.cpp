@@ -8,7 +8,7 @@
 //  This source file contains the implementation of the object Model
 //
 
-#include "../Include/Model.hpp"
+#include "../inc/Model.hpp"
 #include <fstream>
 #include <iomanip>
 #include <string>

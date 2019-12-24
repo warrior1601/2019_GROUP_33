@@ -7,12 +7,13 @@
 //
 //  This source file contains the implementation of
 //  test code for all objects
+//
 
-#include "../Include/Material.h"
-#include "../Include/Vectors.h"
-#include "../Include/Matrix.hpp"
-#include "../Include/Cell.hpp"
-#include "../Include/Model.hpp"
+#include "../inc/Material.h"
+#include "../inc/Vectors.h"
+#include "../inc/Matrix.hpp"
+#include "../inc/Cell.hpp"
+#include "../inc/Model.hpp"
 
 int main()
 {
