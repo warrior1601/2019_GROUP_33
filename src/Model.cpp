@@ -123,7 +123,7 @@ void Model::Load_Model(const std::string& FilePath)
                                 break;
                                 
                             case 1: { //Read in material ID
-                                int MaterialID = std::stoi(Placeholder, nullptr, 10);
+                                unsigned int MaterialID = std::stoi(Placeholder, nullptr, 10);
                                 
                                 if (MaterialID < 0)
                                 {
@@ -203,7 +203,7 @@ void Model::Load_Model(const std::string& FilePath)
                                 break;
                                 
                             case 1: { //Read in Vectors ID
-                                int VectorsID = std::stoi(Placeholder, nullptr, 10);
+                                unsigned int VectorsID = std::stoi(Placeholder, nullptr, 10);
                                 
                                 //Check if the Vectors ID is valid
                                 if (VectorsID < 0)
@@ -254,7 +254,7 @@ void Model::Load_Model(const std::string& FilePath)
             
             else if (currentLine[0] == 'c') //Read in a shape
             {
-                int tempCellOrder = 0;
+                unsigned int tempCellOrder = 0;
                 unsigned char currentCellType = '\0';
                 std::string Placeholder; //This will temporarily hold values from the current line
 
@@ -282,7 +282,7 @@ void Model::Load_Model(const std::string& FilePath)
                                     
                                     //NOTE: The code below just displays the cell that is trying to be overwritten
                                     int whichShapeNumber = -1;
-                                    for (int i = 0; i <= tempCellOrder; i++)
+                                    for (unsigned int i = 0; i <= tempCellOrder; i++)
                                     {
                                         if (cellOrder[i] == cellOrder[tempCellOrder])
                                             whichShapeNumber++;
@@ -363,7 +363,7 @@ void Model::Load_Model(const std::string& FilePath)
                         {
                             switch (spaceCount) {
                                 case 3: { //Read in material ID
-                                    int MaterialID = std::stoi(Placeholder, nullptr, 10);
+                                    unsigned int MaterialID = std::stoi(Placeholder, nullptr, 10);
                                     
                                     if (MaterialID < 0 || MaterialID > ( manyMaterials.size() - 1)) //Check if material ID actually exists
                                     {
@@ -376,7 +376,7 @@ void Model::Load_Model(const std::string& FilePath)
                                 }
                                     
                                 case 4: { //Read in V0
-                                    int VectorsID = std::stoi(Placeholder, nullptr, 10);
+									unsigned int VectorsID = std::stoi(Placeholder, nullptr, 10);
                                     
                                     if (VectorsID < 0 || VectorsID > (manyVectors.size() - 1)) //Check if Vectors ID actually exists
                                     {
@@ -390,7 +390,7 @@ void Model::Load_Model(const std::string& FilePath)
                                 }
                                     
                                 case 5: { //Read in V1
-                                    int VectorsID = std::stoi(Placeholder, nullptr, 10);
+									unsigned int VectorsID = std::stoi(Placeholder, nullptr, 10);
                                     
                                     if (VectorsID < 0 || VectorsID > (manyVectors.size() - 1)) //Check if Vectors ID actually exists
                                     {
@@ -404,7 +404,7 @@ void Model::Load_Model(const std::string& FilePath)
                                 }
                                 
                                 case 6: { //Read in V2
-                                    int VectorsID = std::stoi(Placeholder, nullptr, 10);
+									unsigned int VectorsID = std::stoi(Placeholder, nullptr, 10);
                                     
                                     if (VectorsID < 0 || VectorsID > (manyVectors.size() - 1)) //Check if Vectors ID actually exists
                                     {
@@ -429,7 +429,7 @@ void Model::Load_Model(const std::string& FilePath)
                         Placeholder.push_back(currentLine[currentPosition]); //If current position in current line is NOT a space then read in the value
                     }
                     
-                    int VectorsID = std::stoi(Placeholder, nullptr, 10); //Read in V3
+                    unsigned int VectorsID = std::stoi(Placeholder, nullptr, 10); //Read in V3
                         
                     if (VectorsID < 0 || VectorsID > (manyVectors.size() - 1)) //Check if Vectors ID actually exists
                     {
@@ -450,13 +450,13 @@ void Model::Load_Model(const std::string& FilePath)
                     Pyramid temp; //This will temporarily hold pyramid variables until all variables have been read in, at which point it will be added to the pyramid list
                     std::vector<int> aVectorsOrder; //The Vectors being used by the tetrahedron from the models perspective
                     
-                    for (int currentPosition = 0, spaceCount = 0; currentPosition < currentLine.size(); currentPosition++) //Iterate across the line
+                    for (unsigned int currentPosition = 0, spaceCount = 0; currentPosition < currentLine.size(); currentPosition++) //Iterate across the line
                     {
                         if (currentLine[currentPosition] == ' ') //If a space is reached then whatever is in 'Placeholder' must be read in
                         {
                             switch (spaceCount) {
                                 case 3: { //Read in material ID
-                                    int MaterialID = std::stoi(Placeholder, nullptr, 10);
+									unsigned int MaterialID = std::stoi(Placeholder, nullptr, 10);
                                 
                                     if (MaterialID < 0 || MaterialID > ( manyMaterials.size() - 1)) //Check if material ID actually exists
                                     {
@@ -469,7 +469,7 @@ void Model::Load_Model(const std::string& FilePath)
                                 }
                                     
                                 case 4:  { //Read in V0
-                                    int VectorsID = std::stoi(Placeholder, nullptr, 10);
+									unsigned int VectorsID = std::stoi(Placeholder, nullptr, 10);
                                                                    
                                     if (VectorsID < 0 || VectorsID > (manyVectors.size() - 1)) //Check if Vectors ID actually exists
                                     {
@@ -483,7 +483,7 @@ void Model::Load_Model(const std::string& FilePath)
                                 }
                                     
                                 case 5: { //Read in V1
-                                    int VectorsID = std::stoi(Placeholder, nullptr, 10);
+									unsigned int VectorsID = std::stoi(Placeholder, nullptr, 10);
                                                                    
                                     if (VectorsID < 0 || VectorsID > (manyVectors.size() - 1)) //Check if Vectors ID actually exists
                                     {
@@ -497,7 +497,7 @@ void Model::Load_Model(const std::string& FilePath)
                                 }
                                 
                                 case 6: { //Read in V2
-                                    int VectorsID = std::stoi(Placeholder, nullptr, 10);
+									unsigned int VectorsID = std::stoi(Placeholder, nullptr, 10);
                                                                    
                                     if (VectorsID < 0 || VectorsID > (manyVectors.size() - 1)) //Check if Vectors ID actually exists
                                     {
@@ -511,7 +511,7 @@ void Model::Load_Model(const std::string& FilePath)
                                 }
                                     
                                 case 7: { //Read in V3
-                                    int VectorsID = std::stoi(Placeholder, nullptr, 10);
+									unsigned int VectorsID = std::stoi(Placeholder, nullptr, 10);
                                                                    
                                     if (VectorsID < 0 || VectorsID > (manyVectors.size() - 1)) //Check if Vectors ID actually exists
                                     {
@@ -536,7 +536,7 @@ void Model::Load_Model(const std::string& FilePath)
                         Placeholder.push_back(currentLine[currentPosition]); //If current position in current line is NOT a space then read in the value
                     }
                     
-                    int VectorsID = std::stoi(Placeholder, nullptr, 10); //Read in V4
+					unsigned int VectorsID = std::stoi(Placeholder, nullptr, 10); //Read in V4
                                                        
                     if (VectorsID < 0 || VectorsID > (manyVectors.size() - 1)) //Check if Vectors ID actually exists
                     {
@@ -563,7 +563,7 @@ void Model::Load_Model(const std::string& FilePath)
                         {
                             switch (spaceCount) {
                                 case 3: { //Read in material ID
-                                    int MaterialID = std::stoi(Placeholder, nullptr, 10);
+									unsigned int MaterialID = std::stoi(Placeholder, nullptr, 10);
                                                                     
                                     if (MaterialID < 0 || MaterialID > ( manyMaterials.size() - 1)) //Check if material ID actually exists
                                     {
@@ -576,7 +576,7 @@ void Model::Load_Model(const std::string& FilePath)
                                 }
                                     
                                 case 4: { //Read in V0
-                                    int VectorsID = std::stoi(Placeholder, nullptr, 10);
+									unsigned int VectorsID = std::stoi(Placeholder, nullptr, 10);
                                                                    
                                     if (VectorsID < 0 || VectorsID > (manyVectors.size() - 1)) //Check if Vectors ID actually exists
                                     {
@@ -590,7 +590,7 @@ void Model::Load_Model(const std::string& FilePath)
                                 }
                                     
                                 case 5: { //Read in V1
-                                    int VectorsID = std::stoi(Placeholder, nullptr, 10);
+									unsigned int VectorsID = std::stoi(Placeholder, nullptr, 10);
                                                                    
                                     if (VectorsID < 0 || VectorsID > (manyVectors.size() - 1)) //Check if Vectors ID actually exists
                                     {
@@ -604,7 +604,7 @@ void Model::Load_Model(const std::string& FilePath)
                                 }
                                 
                                 case 6: { //Read in V2
-                                    int VectorsID = std::stoi(Placeholder, nullptr, 10);
+									unsigned int VectorsID = std::stoi(Placeholder, nullptr, 10);
                                                                    
                                     if (VectorsID < 0 || VectorsID > (manyVectors.size() - 1)) //Check if Vectors ID actually exists
                                     {
@@ -618,7 +618,7 @@ void Model::Load_Model(const std::string& FilePath)
                                 }
                                     
                                 case 7: { //Read in V3
-                                    int VectorsID = std::stoi(Placeholder, nullptr, 10);
+									unsigned int VectorsID = std::stoi(Placeholder, nullptr, 10);
                                                                    
                                     if (VectorsID < 0 || VectorsID > (manyVectors.size() - 1)) //Check if Vectors ID actually exists
                                     {
@@ -632,7 +632,7 @@ void Model::Load_Model(const std::string& FilePath)
                                 }
                                     
                                 case 8: { //Read in V4
-                                    int VectorsID = std::stoi(Placeholder, nullptr, 10);
+									unsigned int VectorsID = std::stoi(Placeholder, nullptr, 10);
                                                                    
                                     if (VectorsID < 0 || VectorsID > (manyVectors.size() - 1)) //Check if Vectors ID actually exists
                                     {
@@ -646,7 +646,7 @@ void Model::Load_Model(const std::string& FilePath)
                                 }
                                     
                                 case 9: { //Read in V5
-                                    int VectorsID = std::stoi(Placeholder, nullptr, 10);
+									unsigned int VectorsID = std::stoi(Placeholder, nullptr, 10);
                                                                    
                                     if (VectorsID < 0 || VectorsID > (manyVectors.size() - 1)) //Check if Vectors ID actually exists
                                     {
@@ -660,7 +660,7 @@ void Model::Load_Model(const std::string& FilePath)
                                 }
                                     
                                 case 10: { //Read in V6
-                                    int VectorsID = std::stoi(Placeholder, nullptr, 10);
+									unsigned int VectorsID = std::stoi(Placeholder, nullptr, 10);
                                                                    
                                     if (VectorsID < 0 || VectorsID > (manyVectors.size() - 1)) //Check if Vectors ID actually exists
                                     {
@@ -685,7 +685,7 @@ void Model::Load_Model(const std::string& FilePath)
                         Placeholder.push_back(currentLine[currentPosition]); //If current position in current line is NOT a space then read in the value
                     }
                 
-                    int VectorsID = std::stoi(Placeholder, nullptr, 10); //Read in V7
+					unsigned int VectorsID = std::stoi(Placeholder, nullptr, 10); //Read in V7
                                                        
                     if (VectorsID < 0 || VectorsID > (manyVectors.size() - 1)) //Check if Vectors ID actually exists
                     {
