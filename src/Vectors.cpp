@@ -1,7 +1,3 @@
-#include <iostream>
-#include <cmath>
-#include "../Include/Vectors.h"
-
 //
 //  Vectors.cpp
 //  Computing Project
@@ -10,9 +6,11 @@
 //  Copyright � 2019 Jedidiah Paterson. All rights reserved.
 //  This file contains the definitions of functions for the Class
 //  Vectors.
+//
 
-
-using namespace std;
+#include <iostream>
+#include <cmath>
+#include "../inc/Vectors.h"
 
 //-------------Constructors------------//
 
@@ -183,11 +181,11 @@ double Vectors::Get_Distance_To(const Vectors& aVectors)
     return Difference.Get_Magnitude();
 }
 
-std::ostream& operator<< (std::ostream&,const Vectors& aVectors)
+std::ostream& operator<< (std::ostream& Output,const Vectors& aVectors)
 {
-    std::cout << "X = "<<aVectors.X_Coord;
-    std::cout << " Y = "<<aVectors.Y_Coord;
-    std::cout << " Z = "<<aVectors.Z_Coord<<std::endl;
+    Output << "X = " << aVectors.X_Coord;
+    Output << " Y = " << aVectors.Y_Coord;
+    Output << " Z = " << aVectors.Z_Coord << std::endl;
 
     return std::cout;
 }

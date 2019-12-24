@@ -1,5 +1,3 @@
-#include <iostream>
-#include "../Include/Material.h"
 //
 //  Material.cpp
 //  Computing Project
@@ -7,8 +5,10 @@
 //  Created by Chayanis Kulanumphol on 27/11/2019.
 //  This file contains the definitions of functions for the Class
 //  Material.
+//
 
-using namespace std;
+#include <iostream>
+#include "../inc/Material.h"
 
 
 //-------------Constructors------------//
@@ -98,25 +98,25 @@ double Material::GetDensity()
     return (Density);
 }
 
-string Material::GetColour()
+std::string Material::GetColour()
 {
     return (Colour);
 }
 
-string Material::GetName()
+std::string Material::GetName()
 {
     return (Name);
 }
 
 //-----------Friend Functions----------//
 
-std::ostream& operator<< (std::ostream&,const Material& aMaterial)
+std::ostream& operator<< (std::ostream& Output, const Material& aMaterial)
 {
-    std::cout << "ID = "<<aMaterial.ID;
-    std::cout << " Density = "<<aMaterial.Density;
-    std::cout << " Colour = "<<aMaterial.Colour;
-    std::cout << " Name = "<<aMaterial.Name<<std::endl;
+    Output << "ID = " << aMaterial.ID;
+    Output << " Density = " << aMaterial.Density;
+    Output << " Colour = " << aMaterial.Colour;
+    Output << " Name = " << aMaterial.Name << std::endl;
 
-    return std::cout;
+    return Output;
 }
 

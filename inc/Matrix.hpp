@@ -17,7 +17,7 @@
 #ifndef Matrix_hpp
 #define Matrix_hpp
 
-#include "../Include/Vectors.h"
+#include "../inc/Vectors.h"
 #include <vector>
 
 class Matrix3x3 {

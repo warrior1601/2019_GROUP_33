@@ -13,7 +13,8 @@
 *.vcxproj
 build/
 Computing_Project/
-  
+_projects/
+_build/
 
 CMakeCache.txt
 CMakeFiles

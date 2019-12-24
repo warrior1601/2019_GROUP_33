@@ -22,8 +22,8 @@
 #ifndef Cell_hpp
 #define Cell_hpp
 
-#include "../Include/Material.h"
-#include "../Include/Vectors.h"
+#include "../inc/Material.h"
+#include "../inc/Vectors.h"
 #include <vector>
 
 class Cell {

@@ -13,9 +13,9 @@
 #ifndef Model_hpp
 #define Model_hpp
 
-#include "../Include/Material.h"
-#include "../Include/Vectors.h"
-#include "../Include/Cell.hpp"
+#include "../inc/Material.h"
+#include "../inc/Vectors.h"
+#include "../inc/Cell.hpp"
 
 class Model {
 public:
