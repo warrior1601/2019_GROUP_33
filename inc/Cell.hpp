@@ -22,12 +22,15 @@
 #ifndef Cell_hpp
 #define Cell_hpp
 
-#include "../Include/Material.h"
-#include "../Include/Vectors.h"
+#include "../inc/Material.h"
+#include "../inc/Vectors.h"
 #include <vector>
 
 class Cell {
 public:
+    //Destructor
+    virtual ~Cell();
+    
     //Cell specific functions
     virtual double Get_Volume(void);
     virtual double Get_Weight(void);
@@ -44,7 +47,7 @@ private:
 
 class Tetrahedron:public Cell {
 public:
-    //Constructors and destructors
+    //Constructors and destructor
     Tetrahedron(const Vectors& aV0, const Vectors& aV1, const Vectors& aV2, const Vectors& aV3, const std::vector<int>& aVectorsOrder, const Material& aMaterial);
     Tetrahedron(const Tetrahedron& aTetrahedron);
     Tetrahedron(void);
@@ -110,7 +113,7 @@ private:
 
 class Pyramid:public Cell {
 public:
-    //Constructors and destructors
+    //Constructors and destructor
     Pyramid(const Vectors& aV0, const Vectors& aV1, const Vectors& aV2, const Vectors& aV3, const Vectors& aV4, const std::vector<int>& aVectorsOrder, const Material& aMaterial);
     Pyramid(const Pyramid& aPyramid);
     Pyramid(void);
@@ -180,7 +183,7 @@ private:
 
 class Hexahedron:public Cell {
 public:
-    //Constructors and destructors
+    //Constructors and destructor
     Hexahedron(const Vectors& aV0, const Vectors& aV1, const Vectors& aV2, const Vectors& aV3, const Vectors& aV4, const Vectors& aV5, const Vectors& aV6, const Vectors& aV7, const std::vector<int>& aVectorsOrder, const Material& aMaterial);
     Hexahedron(const Hexahedron& aHexahedron);
     Hexahedron(void);

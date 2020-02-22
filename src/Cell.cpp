@@ -9,11 +9,16 @@
 //  the sub-objects Tetrahedron, Pyramid and Hexahedron.
 //
 
-#include "../Include/Cell.hpp"
-#include "../Include/Matrix.hpp"
+#include "../inc/Cell.hpp"
+#include "../inc/Matrix.hpp"
 #include <cmath>
 
-//Default values of an uninitialised Cell object functions
+//------------------------------------------------------------------------CELL MEMBER FUNCTIONS------------------------------------------------------------------------//
+
+//Destructor
+Cell::~Cell() { }
+
+//Cell specific functions
 double Cell::Get_Volume(void)
 {
     std::cout << "No implementation of calculating volume for this object" << std::endl;
@@ -51,7 +56,7 @@ void Cell::Rotate(double Rotation_In_Degrees, char Axis_Of_Rotatio, Vectors Cent
 
 //------------------------------------------------------------------------TETRAHEDRON MEMBER FUNCTIONS------------------------------------------------------------------------//
 
-//Constructors and destructors
+//Constructors and destructor
 Tetrahedron::Tetrahedron(const Vectors& aV0, const Vectors& aV1, const Vectors& aV2, const Vectors& aV3, const std::vector<int>& aVectorsOrder, const Material& aMaterial) { V0 = aV0; V1 = aV1; V2 = aV2; V3 = aV3; VectorsOrder = aVectorsOrder; theMaterial = aMaterial; }
 
 Tetrahedron::Tetrahedron(const Tetrahedron& aTetrahedron)
@@ -221,7 +226,7 @@ void Tetrahedron::Rotate(double Rotation_In_Degrees, char Axis_Of_Rotation, Vect
 
 //------------------------------------------------------------------------PYRAMID MEMBER FUNCTIONS------------------------------------------------------------------------//
 
-//Constructors and destructors
+//Constructors and destructor
 Pyramid::Pyramid(const Vectors& aV0, const Vectors& aV1, const Vectors& aV2, const Vectors& aV3, const Vectors& aV4, const std::vector<int>& aVectorsOrder, const Material& aMaterial) { V0 = aV0; V1 = aV1; V2 = aV2; V3 = aV3; V4 = aV4; VectorsOrder = aVectorsOrder; theMaterial = aMaterial; }
     
 Pyramid::Pyramid(const Pyramid& aPyramid)
@@ -399,7 +404,7 @@ void Pyramid::Rotate(double Rotation_In_Degrees, char Axis_Of_Rotation, Vectors 
 
 //------------------------------------------------------------------------HEXAHEDRON MEMBER FUNCTIONS------------------------------------------------------------------------//
 
-//Constructors and destructors
+//Constructors and destructor
 Hexahedron::Hexahedron(const Vectors& aV0, const Vectors& aV1, const Vectors& aV2, const Vectors& aV3, const Vectors& aV4, const Vectors& aV5, const Vectors& aV6, const Vectors& aV7, const std::vector<int>& aVectorsOrder, const Material& aMaterial)
 { V0 = aV0; V1 = aV1; V2 = aV2; V3 = aV3; V4 = aV4; V5 = aV5; V6 = aV6; V7 = aV7; VectorsOrder = aVectorsOrder; theMaterial = aMaterial; }
     

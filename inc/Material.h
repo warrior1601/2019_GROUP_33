@@ -1,5 +1,3 @@
-#ifndef MATERIAL_H_INCLUDED
-#define MATERIAL_H_INCLUDED
 //
 //  Material.h
 //  Computing Project
@@ -9,12 +7,13 @@
 //  Members of ID, Density, Colour, and Name these are required to for further
 //  Functions that are members of the Cell Class such as Volume and Weight function
 //  The Material Class will be a Sub-Class of a Cell for this project
+//
 
+#ifndef MATERIAL_H_INCLUDED
+#define MATERIAL_H_INCLUDED
 
 #include <string>
 #include <iostream>
-
-using namespace std;
 
 class Material
 {
@@ -74,7 +73,7 @@ public:
 
 
 //-----------Friend Functions----------//
-    friend std::ostream& operator<< (std::ostream&, const Material& Material);
+    friend std::ostream& operator<< (std::ostream& Output, const Material& Material);
 };
 
 #endif // MATERIAL_H_INCLUDED

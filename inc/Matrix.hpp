@@ -17,12 +17,12 @@
 #ifndef Matrix_hpp
 #define Matrix_hpp
 
-#include "../Include/Vectors.h"
+#include "../inc/Vectors.h"
 #include <vector>
 
 class Matrix3x3 {
 public:
-    //Constructors and destructors
+    //Constructors and destructor
     Matrix3x3(const double& One, const double& Two, const double& Three,
               const double& Four, const double& Five, const double& Six,
               const double& Seven, const double& Eight, const double& Nine);
