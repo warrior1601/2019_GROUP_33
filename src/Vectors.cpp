@@ -18,22 +18,22 @@ using namespace std;
 
 Vectors::Vectors()
 {
-    X_Coord = 0;
-    Y_Coord = 0;
-    Z_Coord = 0;
+    X_Coord = 0.0;
+    Y_Coord = 0.0;
+    Z_Coord = 0.0;
 }
 
 Vectors::Vectors(double aX_Coord)
 {
     X_Coord = aX_Coord;
-    Y_Coord = 0;
-    Z_Coord = 0;
+    Y_Coord = 0.0;
+    Z_Coord = 0.0;
 }
 Vectors::Vectors(double aX_Coord, double aY_Coord)
 {
     X_Coord = aX_Coord;
     Y_Coord = aY_Coord;
-    Z_Coord = 0;
+    Z_Coord = 0.0;
 }
 Vectors::Vectors(double aX_Coord, double aY_Coord, double aZ_Coord)
 {
@@ -175,11 +175,11 @@ double Vectors::Get_Magnitude(void)
 double Vectors::Get_Distance_To(const Vectors& aVectors)
 {
     Vectors Difference;
-    
+
     Difference.X_Coord = X_Coord - aVectors.X_Coord;
     Difference.Y_Coord = Y_Coord - aVectors.Y_Coord;
     Difference.Z_Coord = Z_Coord - aVectors.Z_Coord;
-    
+
     return Difference.Get_Magnitude();
 }
 

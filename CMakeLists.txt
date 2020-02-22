@@ -69,8 +69,6 @@ ADD_CUSTOM_COMMAND(TARGET ModelTestCode POST_BUILD
                        ${CMAKE_CURRENT_SOURCE_DIR}/Model_Files/Model_Two.txt
                        ${CMAKE_CURRENT_SOURCE_DIR}/build/Model_Two.txt )
 
-
-
 ADD_CUSTOM_COMMAND(TARGET ModelTestCode POST_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy
                        ${CMAKE_CURRENT_SOURCE_DIR}/Model_Files/ExampleModel1.mod
