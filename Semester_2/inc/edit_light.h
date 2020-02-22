@@ -1,13 +1,22 @@
+//--------------------edit_light.h--------------------//
+
+
+// edit_light.h
+// WorkSheet 6 Computing Project
+// Edited By Jedidiah Paterson on 02/22/2020.
+// This file contains a list of functions and variable that are connected
+// To the buttons on the edit_light.ui window. These function all the object
+// That is presentedon MainWindow.ui to be manipluated. This file is
+// Desgined to allow for future updates and addtions to filtering functions
+
 #ifndef EDIT_LIGHT_H
 #define EDIT_LIGHT_H
 
 #include <QDialog>
 
-#include <vtkLight.h>
-#include <vtkSmartPointer.h>
-#include "vtklight_withname.h"
 #include <vtkGenericOpenGLRenderWindow.h>
 
+#include "vtklight_withname.h"
 
 namespace Ui {
 class Edit_Light;
@@ -17,8 +26,16 @@ class Edit_Light : public QDialog
 {
 Q_OBJECT
 public:
+// Constructor
+
     explicit Edit_Light(QWidget *parent = nullptr);
+// Destructor
+
     ~Edit_Light();
+// Overloaded function found in other files. Without this function editlight buttons
+// Would not be able to Render() the MainWindow Display_Window when they are activated
+// This fuction is called in MainWindow.cpp
+
     void open(vtkLight_WithName &l, vtkSmartPointer<vtkGenericOpenGLRenderWindow> &PassedWindow);
 
 private slots:
@@ -37,9 +54,8 @@ private slots:
 
 private:
     Ui::Edit_Light *ui;
-    vtkSmartPointer<vtkLight> light = vtkSmartPointer<vtkLight>::New();
     vtkSmartPointer<vtkGenericOpenGLRenderWindow> renderWindow =vtkSmartPointer<vtkGenericOpenGLRenderWindow>::New();
-    vtkLight_WithName l;
+    vtkLight_WithName light_Local;
 };
 
 #endif // EDIT_LIGHT_H
