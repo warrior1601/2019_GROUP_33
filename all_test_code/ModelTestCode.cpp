@@ -70,7 +70,7 @@ int main()
     
 	
 	Model ModelOne;
-	ModelOne.Load_Model("Model_One.txt");
+	ModelOne.Load_Model("../../all_model_files/Model_One.txt");
     std::cout << "\n\n---Load Model function---\n" << ModelOne << std::endl;
 
 
@@ -86,7 +86,7 @@ int main()
 
 
     Model ModelTwo;
-    ModelTwo.Load_Model("Model_Two.txt");
+    ModelTwo.Load_Model("../../all_model_files/Model_Two.txt");
     std::cout << "\n\n---Model_Two.txt model before rotation---\n" << ModelTwo << std::endl;
     std::cout << "Centre of gravity =\t" << ModelTwo.Get_Centre_Of_Gravity() << "Geometric centre =\t" << ModelTwo.Get_Geometric_Centre() << "Overall dimensions =\t" << ModelTwo.Get_Overall_Dimensions() << std::endl;
         
@@ -114,19 +114,19 @@ int main()
     
    
     Model Example1;
-    Example1.Load_Model("ExampleModel1.mod");
+    Example1.Load_Model("../../all_model_files/ExampleModel1.mod");
     std::cout << "\n\n\n---ExampleModel1.mod Model---\n" << Example1 << std::endl;
     std::cout << "Centre of gravity =\t" << Example1.Get_Centre_Of_Gravity() << "Geometric centre =\t" << Example1.Get_Geometric_Centre() << "Overall dimensions =\t" << Example1.Get_Overall_Dimensions() << "Overall Weight =\t" << Example1.Get_Weight() << std::endl;
     
     
     Model Example2;
-    Example2.Load_Model("ExampleModel2.mod");
+    Example2.Load_Model("../../all_model_files/ExampleModel2.mod");
     std::cout << "\n\n\n---ExampleModel2.mod Model---\n" << Example2 << std::endl;
     std::cout << "Centre of gravity =\t" << Example2.Get_Centre_Of_Gravity() << "Geometric centre =\t" << Example2.Get_Geometric_Centre() << "Overall dimensions =\t" << Example2.Get_Overall_Dimensions() << "Overall Weight =\t" << Example2.Get_Weight() << std::endl;
     
     
     Model Example3;
-    Example3.Load_Model("ExampleModel3.mod");
+    Example3.Load_Model("../../all_model_files/ExampleModel3.mod");
     std::cout << "\n\n\n---ExampleModel3.mod Model---\n" << Example3 << std::endl;
     std::cout << "Geometric centre =\t" << Example3.Get_Geometric_Centre() << "Centre of gravity =\t" << Example3.Get_Centre_Of_Gravity() << "Overall dimensions =\t" << Example3.Get_Overall_Dimensions() << "Overall Weight =\t" << Example3.Get_Weight() << std::endl;
 
