@@ -52,6 +52,8 @@ private slots:
     void on_Horizontal_Shift_valueChanged(int arg1);
     void on_actionOpen_triggered();
     void on_actionSave_triggered();
+    void on_actionSave_Lights_triggered();
+    void on_actionLoad_Lights_triggered();
     void on_Edit_Light_clicked();
     void on_Delete_Light_released();
 

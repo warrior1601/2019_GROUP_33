@@ -29,3 +29,13 @@ vtkLight_WithName vtkLight_WithName::operator=(const vtkLight_WithName &Copy)
 
     return (*this);
 }
+
+Qt::CheckState vtkLight_WithName::Check_State()
+{
+    bool State = light->GetSwitch();
+
+    if (State == true)
+        return Qt::Checked;
+    else
+        return Qt::Unchecked;
+}

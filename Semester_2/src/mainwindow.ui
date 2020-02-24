@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>882</width>
-    <height>699</height>
+    <width>819</width>
+    <height>701</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -346,7 +346,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>882</width>
+     <width>819</width>
      <height>21</height>
     </rect>
    </property>
@@ -356,6 +356,8 @@
     </property>
     <addaction name="actionOpen"/>
     <addaction name="actionSave"/>
+    <addaction name="actionLoad_Lights"/>
+    <addaction name="actionSave_Lights"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
@@ -372,11 +374,13 @@
    </attribute>
    <addaction name="actionOpen"/>
    <addaction name="actionSave"/>
+   <addaction name="actionLoad_Lights"/>
+   <addaction name="actionSave_Lights"/>
   </widget>
   <action name="actionOpen">
    <property name="icon">
     <iconset>
-     <normaloff>Icons/fileopen.png</normaloff>Icons/fileopen.png</iconset>
+     <normaloff>../resources/images/Open.png</normaloff>../resources/images/Open.png</iconset>
    </property>
    <property name="text">
     <string>Open</string>
@@ -385,10 +389,30 @@
   <action name="actionSave">
    <property name="icon">
     <iconset>
-     <normaloff>Icons/filesave.png</normaloff>Icons/filesave.png</iconset>
+     <normaloff>../resources/images/Save_Icon.png</normaloff>../resources/images/Save_Icon.png</iconset>
    </property>
    <property name="text">
     <string>Save</string>
+   </property>
+  </action>
+  <action name="actionSave_Lights">
+   <property name="icon">
+    <iconset>
+     <normalon>../resources/images/spotlight.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>Save Lights</string>
+   </property>
+  </action>
+  <action name="actionLoad_Lights">
+   <property name="icon">
+    <iconset>
+     <normalon>../resources/images/business-and-finance.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>Load Lights</string>
    </property>
   </action>
  </widget>

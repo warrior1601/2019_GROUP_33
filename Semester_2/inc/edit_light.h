@@ -52,10 +52,12 @@ private slots:
     void on_LightName_textEdited(const QString &arg1);
     void on_Light_Switch_toggled(bool checked);
 
+
 private:
     Ui::Edit_Light *ui;
     vtkSmartPointer<vtkGenericOpenGLRenderWindow> renderWindow =vtkSmartPointer<vtkGenericOpenGLRenderWindow>::New();
     vtkLight_WithName light_Local;
+
 };
 
 #endif // EDIT_LIGHT_H

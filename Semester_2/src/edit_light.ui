@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>Edit_Light</class>
  <widget class="QDialog" name="Edit_Light">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -263,7 +266,7 @@
       <string>Light Switch</string>
      </property>
      <property name="checked">
-      <bool>true</bool>
+      <bool>false</bool>
      </property>
     </widget>
    </item>

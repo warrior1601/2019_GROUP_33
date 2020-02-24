@@ -31,8 +31,8 @@ include_directories( inc )
 set( UIS mainwindow.ui )
 qt5_wrap_ui( UI_Srcs ${UIS} )
 
-set( ICONS Icons/icons.qrc )
-qt5_add_resources( QRC_Srcs ${ICONS} )
+# set( ICONS Icons/icons.qrc )
+# qt5_add_resources( QRC_Srcs ${ICONS} )
 
 
 # Also link to VTK
@@ -46,8 +46,7 @@ add_executable( QtVTKExample MACOSX_BUNDLE
 				src/edit_light.cpp inc/edit_light.h src/edit_light.ui
 				src/filters.cpp inc/filters.h src/filters.ui
 				src/vtklight_withname.cpp inc/vtklight_withname.h
-				${UI_Srcs}
-				${QRC_Srcs}
+				resources/images/Images.qrc
 				)
 
 # Tell CMake that the executable depends on the Qt::Widget libraries.
@@ -55,3 +54,8 @@ target_link_libraries( QtVTKExample Qt5::Widgets )
 
 # Tell CMake that the executable depends on the VTK libraries
 target_link_libraries( QtVTKExample ${VTK_LIBRARIES} )
+
+ADD_CUSTOM_COMMAND(TARGET QtVTKExample POST_BUILD
+                   COMMAND ${CMAKE_COMMAND} -E copy_directory
+                       ${CMAKE_CURRENT_SOURCE_DIR}/resources
+                       ${CMAKE_CURRENT_SOURCE_DIR}/build/resources)

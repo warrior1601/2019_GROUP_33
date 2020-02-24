@@ -1,4 +1,4 @@
-//-----vtklight_withname.h--------------//
+//--------------vtklight_withname.h--------------//
 
 
 // vtklight_withname.h
@@ -21,22 +21,25 @@ class vtkLight_WithName
 {
 
 public:
-// Constructors
+//--------------Constructors--------------//
 
       vtkLight_WithName() :
           Name("Light_Name"), light( vtkSmartPointer<vtkLight>::New()) {}
       vtkLight_WithName(const char * n,  vtkSmartPointer<vtkLight> l ) :
           Name( n ), light( l ) {}
-// Destructor
+//--------------Destructor--------------//
 
       ~vtkLight_WithName()  {}
 // This function is public is called in MainWindow.cpp which allows
 // Access to the name of the light
-
+//--------------Special Member Functions--------------//
     void SetName(const QString & name );
 // This function allows the name to be accessed
 
     QString GetName();
+// This checks if the light is swithced ON or OFF
+
+    Qt::CheckState Check_State();
 // The vtkLight is pubic because it has its own accessor functions
 // Found in vtkLight.h
 

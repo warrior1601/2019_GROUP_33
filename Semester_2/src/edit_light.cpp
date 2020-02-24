@@ -50,6 +50,7 @@ void Edit_Light::open(vtkLight_WithName &Passed, vtkSmartPointer<vtkGenericOpenG
         ui->LightName->setText(light_Local.GetName());
         ui->Light_Cone_Angle->setValue(int (light_Local.light->GetConeAngle()));
         ui->Light_Intensity->setValue(int ((light_Local.light->GetIntensity()) * 100) );
+        ui->Light_Switch->setCheckState((light_Local.Check_State()));
 
         double * Origin = light_Local.light->GetPosition();
         ui->Light_X_Coordinate_Origin->setValue(int (Origin[0]) );
@@ -83,6 +84,8 @@ void Edit_Light::on_Change_Light_Color_released()
             double red = Color.redF();
             double green = Color.greenF();
             double blue = Color.blueF();
+            light_Local.light->SetDiffuseColor( red, green, blue );
+            light_Local.light->SetAmbientColor( red, green, blue );
             light_Local.light->SetDiffuseColor( red, green, blue );
         }
         //rerenders the window after the color change
