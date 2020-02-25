@@ -268,13 +268,45 @@ void MainWindow::on_actionLoad_Lights_triggered()
     if (myFile.is_open()) //Check if file has been opened sucessfully, if so returns true
     {
         std::string currentLine;
-
-        while ( getline (myFile,currentLine) ) //getline will get a new line, starting from the beginning of the file, until the end of file is reached
+        std::string compare ("Camera Light");
+        while ( getline (myFile,currentLine) )
         {
-           std::cout << currentLine << std::endl;
-           // WORK GOES HERE
+            if (currentLine.compare(compare) == 0 )
+            {
+                for(unsigned int i=0; i<18; i++ )
+                {
+                    getline (myFile,currentLine);
+                            std::cout << currentLine << std::endl;
+                    if ((currentLine.compare(5,4, "Cone")) == 0 )
+                    {
+                        int Placeholder = 0;
+                        std::string temp;
+                        for (int currentPosition = 0; currentPosition<currentLine.size(); currentPosition++)
+                         {
+                            if(currentLine[currentPosition] == ' ')
+                              {
+                                Placeholder++;
+                              }
+                             if (Placeholder == 7 )
+                              {
+                                  if(currentLine[currentPosition] != ' ')
+                                    temp.push_back(currentLine[currentPosition]);
+                              }
+                         }
+                        ListOfLights.at(0).light->SetConeAngle( std::stod (temp) );
+                    }
+                }
+
+                //std::cout << currentLine << std::endl;
+                //vtkLight_WithName light;
+                //light.SetName((light.GetName().fromStdString(currentLine)));
+                //ListOfLights.push_back(light);
+                //ui->Select_Light->addItem(light.GetName());
+                //cout << ListOfLights.size();
+            }
         }
     }
+   renderWindow->Render();
 }
 
 void MainWindow::on_actionSave_Lights_triggered()
@@ -299,7 +331,7 @@ void MainWindow::on_actionSave_Lights_triggered()
         for(int i = 0; i <ListOfLights.size(); i++)
         {
             // This is not a perfect solution but is a starting point
-            QTextStream out(&file);
+            //QTextStream out(&file);
             vtkLight_WithName light = ListOfLights.at(i);
             QString Name = light.GetName();
             psbuf = filestr.rdbuf();        // get file's streambuf
