@@ -5,8 +5,8 @@
 //  Created by Junaid Afzal on 22/11/2019.
 //  Copyright © 2019 Junaid Afzal. All rights reserved.
 //
-//  This source file contains the implementation of
-//  test code for all objects
+//  This source file contains the test code of
+//  for all objects
 //
 
 #include "../inc/Material.h"
