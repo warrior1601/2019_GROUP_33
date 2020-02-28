@@ -10,7 +10,7 @@
 //
 
 #include <iostream>
-#include "../inc/Vectors.h"
+#include "Vectors.h"
 
 int main()
 {

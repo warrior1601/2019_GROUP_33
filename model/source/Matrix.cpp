@@ -8,7 +8,7 @@
 //  This source file contains the implementation of the object Matrix3x3
 //
 
-#include "../inc/Matrix.hpp"
+#include "Matrix.hpp"
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include <cmath>

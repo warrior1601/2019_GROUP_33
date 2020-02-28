@@ -10,7 +10,7 @@
 
 #include <iostream>
 #include <cmath>
-#include "../inc/Vectors.h"
+#include "Vectors.h"
 
 //-------------Constructors------------//
 

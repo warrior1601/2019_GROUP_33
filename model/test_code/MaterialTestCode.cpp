@@ -9,7 +9,7 @@
 //
 
 #include <iostream>
-#include "../inc/Material.h"
+#include "Material.h"
 
 int main()
 {
