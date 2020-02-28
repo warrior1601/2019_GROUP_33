@@ -13,8 +13,16 @@
 
 #include <QMainWindow>
 
+#include <vtkCellArray.h>
+#include <vtkCellType.h>
+#include <vtkHexahedron.h>
 #include <vtkNamedColors.h>
+#include <vtkPoints.h>
+#include <vtkPyramid.h>
+#include <vtkTetra.h>
+#include <vtkUnstructuredGrid.h>
 
+#include <array>
 #include <vector>
 
 #include "edit_light.h"
@@ -67,15 +75,30 @@ private:
 // QT Function for editing/Inputng a QString
 
     QString InputQString();
+    void SetLightData(double *Data, std::string currentLine);
+    void LoadBasicShape(double *Data, std::string currentLine);
 // This is a light of all active lights
 
     std::vector<vtkLight_WithName> ListOfLights;
-    vtkSmartPointer<vtkNamedColors> colors = vtkSmartPointer<vtkNamedColors>::New();
+    std::vector<std::array<double, 3>> pointCoordinates;
+
     vtkSmartPointer<vtkActor> actor = vtkSmartPointer<vtkActor>::New();
-    vtkSmartPointer<vtkGenericOpenGLRenderWindow> renderWindow = vtkSmartPointer<vtkGenericOpenGLRenderWindow>::New();
-    vtkSmartPointer<vtkSTLReader> reader = vtkSmartPointer<vtkSTLReader>::New();
+    vtkSmartPointer<vtkNamedColors> colors = vtkSmartPointer<vtkNamedColors>::New();
     vtkSmartPointer<vtkDataSetMapper> mapper = vtkSmartPointer<vtkDataSetMapper>::New();
+    vtkSmartPointer<vtkSTLReader> reader = vtkSmartPointer<vtkSTLReader>::New();  
     vtkSmartPointer<vtkRenderer> renderer = vtkSmartPointer<vtkRenderer>::New();
+    vtkSmartPointer<vtkGenericOpenGLRenderWindow> renderWindow = vtkSmartPointer<vtkGenericOpenGLRenderWindow>::New();
+
+    vtkSmartPointer<vtkPoints> points = vtkSmartPointer<vtkPoints>::New();
+    vtkSmartPointer<vtkUnstructuredGrid> ug = vtkSmartPointer<vtkUnstructuredGrid>::New();
+
+    vtkSmartPointer<vtkPyramid> pyramid = vtkSmartPointer<vtkPyramid>::New();
+    vtkSmartPointer<vtkTetra> tetra = vtkSmartPointer<vtkTetra>::New();
+    vtkSmartPointer<vtkHexahedron> hex = vtkSmartPointer<vtkHexahedron>::New();
+
+    vtkSmartPointer<vtkCellArray> cells = vtkSmartPointer<vtkCellArray>::New();
+    vtkSmartPointer<vtkCellArray> cellArray = vtkSmartPointer<vtkCellArray>::New();
+    vtkSmartPointer<vtkCellArray> hexs = vtkSmartPointer<vtkCellArray>::New();
 };
 
 #endif // MAINWINDOW_H

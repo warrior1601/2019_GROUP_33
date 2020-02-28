@@ -24,6 +24,7 @@ using namespace std;
 #include <QInputDialog>
 #include <QMessageBox>
 
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "edit_light.h"
@@ -34,42 +35,19 @@ using namespace std;
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    // This Sets the RinderWindow to the *.ui files Widget named Display_Window
+// This Sets the RinderWindow to the *.ui files Widget named Display_Window
 
     ui->Display_Window->SetRenderWindow( renderWindow );
     connect( this, &MainWindow::statusUpdateMessage, ui->statusBar, &QStatusBar::showMessage );
-    // First this the file does is loads a valid file
-    // Currently only *.STL files but an update will
-    // Allow for *.MOD files to be loaded
+// First this the file does is loads a valid file
 
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Open STL File"), "../../stl", tr("STL Files(*.stl)"));
-    std::string str= fileName.toUtf8().constData();
-    reader->SetFileName(str.data());
-    reader->Update();
-    // Initial Setup of the the Display_Window and the viewing plane
-
-    mapper->SetInputConnection( reader->GetOutputPort() );
-    actor->SetMapper(mapper);
-    actor->GetProperty()->EdgeVisibilityOn();
-    actor->GetProperty()->SetColor( colors->GetColor3d("Green").GetData() );
-
-    ui->Display_Window->GetRenderWindow()->AddRenderer( renderer );
-    // Adding an actor and a camera allows
-
-    renderer->AddActor(actor);
-    renderer->SetBackground( colors->GetColor3d("Silver").GetData() );
-    renderer->ResetCamera();
-    renderer->GetActiveCamera()->SetPosition(2.0 ,3.0, 5.0);
-    renderer->GetActiveCamera()->SetFocalPoint(0.0 ,0.0, 0.0);
-    //renderer->GetActiveCamera()->Elevation(30);
-    renderer->ResetCameraClippingRange();
-    // Adding a camera light
+    on_actionOpen_triggered();
+// Adding a camera light
 
     vtkLight_WithName light;
     light.SetName("Camera Light");
     ListOfLights.push_back(light);
     ui->Select_Light->addItem(light.GetName());
-    //light.light->SetLightTypeToSceneLight();
     light.light->SetLightTypeToHeadlight();
     light.light->SetPosition( 5.0, 5.0, 15.0 );
     light.light->SetPositional( true );
@@ -243,10 +221,84 @@ void MainWindow::on_Horizontal_Shift_valueChanged(int arg1)
 void MainWindow::on_actionOpen_triggered()
 {
     ui->statusBar->showMessage("Open Action Triggered",3000);
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Open STL File"), "../../stl", tr("STL Files(*.stl)"));
-    std::string str= fileName.toUtf8().constData();
-    reader->SetFileName(str.data());
-    reader->Update();
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open STL File"), "../../stl", tr("STL Files(*.stl);;Text files (*.txt)"));
+    std::string FilePath = fileName.toUtf8().constData();
+    std::ifstream myFile(FilePath);
+
+    if (myFile.is_open()) //Check if file has been opened sucessfully, if so returns true
+    {
+        std::size_t found = FilePath.find_last_of(".");
+        std::cout << "File type is: " << FilePath.substr(found+1) << std::endl;
+        std::string FileType = FilePath.substr(found+1);
+        ui->Display_Window->GetRenderWindow()->AddRenderer( renderer );
+
+        if(FileType.compare("stl") == 0 )
+        {
+            reader->SetFileName(FilePath.data());
+            mapper->SetInputConnection( reader->GetOutputPort() );
+            renderer->ResetCameraClippingRange();
+            reader->Update();
+        }
+        else if ((FileType.compare("txt") == 0 ))
+        {
+            std::string currentLine;
+            vtkIdType shape;
+            points->Initialize();
+            ug->Reset();
+            while ( getline (myFile,currentLine) )
+            {
+                double Data[] = {0.0, 0.0, 0.0};
+                LoadBasicShape(Data,currentLine);
+                points->InsertNextPoint(Data);
+            }
+            shape = points->GetNumberOfPoints();
+            // This is baics shape reader needs changing for loading more complex shapes
+
+            switch (shape)
+                 {
+                    case 4 : std::cout << "Tetra" << std::endl;
+                             ug->SetPoints(points);
+                             for (vtkIdType i = 0; i < 4; i++)
+                             {
+                               tetra->GetPointIds()->SetId(i, i);
+                             }
+                             cellArray->InsertNextCell(tetra);
+                             ug->SetCells(VTK_TETRA, cellArray);
+                             break;
+                    case 5 : std::cout << "Pyramid" << std::endl;
+                             ug->SetPoints(points);
+                             for (vtkIdType i = 0; i < 5; i++)
+                             {
+                               pyramid->GetPointIds()->SetId(i, i);
+                             }
+                             cells->InsertNextCell (pyramid);
+                             ug->InsertNextCell(pyramid->GetCellType(),pyramid->GetPointIds());
+                             break;
+
+                    case 8 : std::cout << "Hexahedron" << std::endl;
+                             ug->SetPoints(points);
+                             for (vtkIdType i = 0; i < 8; i++)
+                             {
+                               hex->GetPointIds()->SetId(i, i);
+                             }
+                             hexs->InsertNextCell(hex);
+                             ug->InsertNextCell(hex->GetCellType(), hex->GetPointIds());
+                             break;
+                 }
+            mapper->SetInputData(ug);
+            renderer->ResetCameraClippingRange();
+        }
+    }
+    actor->SetMapper(mapper);
+    actor->GetProperty()->EdgeVisibilityOn();
+    actor->GetProperty()->SetColor( colors->GetColor3d("Green").GetData() );
+
+    renderer->AddActor(actor);
+    renderer->SetBackground( colors->GetColor3d("Silver").GetData() );
+    renderer->ResetCamera();
+    renderer->GetActiveCamera()->SetPosition(2.0 ,3.0, 5.0);
+    renderer->GetActiveCamera()->SetFocalPoint(0.0 ,0.0, 0.0);
+
     renderer->ResetCamera();
     renderWindow->Render();
 }
@@ -268,11 +320,7 @@ void MainWindow::on_actionLoad_Lights_triggered()
     {
         std::string currentLine;
         std::string compare ("Camera Light");
-        double Ambient[3] = {0.0, 0.0, 0.0};
-        double Diffuse[3] = {0.0, 0.0, 0.0};
-        double Specular[3] = {0.0, 0.0, 0.0};
-        double Focal_Point[3] = {0.0, 0.0, 0.0};
-        double Position[3] = {0.0, 0.0, 0.0};
+        double Data[] = {0.0, 0.0, 0.0};
         int ListofLightsPosition = 1;
 
         while ( getline (myFile,currentLine) )
@@ -284,168 +332,28 @@ void MainWindow::on_actionLoad_Lights_triggered()
                     getline (myFile,currentLine);
                     if ((currentLine.compare(5,7, "Ambient")) == 0 )
                     {
-                        std::string temp;
-                        int Placeholder = 0;
-                        int counter = 0;
-                        for (int currentPosition = 0; currentPosition<currentLine.size(); currentPosition++)
-                        {
-                            if(currentLine[currentPosition] == '(')
-                            {
-                                Placeholder++;
-                                continue;
-                            }
-                            if (Placeholder == 1)
-                            {
-                                if(currentLine[currentPosition] == ' ')
-                                {
-                                    temp.clear();
-                                    continue;
-                                }
-                                if((currentLine[currentPosition] == ',')||(currentLine[currentPosition] == ')'))
-                                {
-                                    for(int subPosition = 0; subPosition<temp.size(); subPosition++)
-                                    {
-                                        Ambient[counter] = std::stod(temp);
-                                    }
-                                    counter++;
-                                    continue;
-                                }
-                                temp.push_back(currentLine[currentPosition]);
-                            }
-                        }
-                        ListOfLights.at(0).light->SetAmbientColor( Ambient[0], Ambient[1], Ambient[2] );
+                        SetLightData(Data, currentLine);
+                        ListOfLights.at(0).light->SetAmbientColor( Data[0], Data[1], Data[2] );
                     }
                     if ((currentLine.compare(5,7, "Diffuse")) == 0 )
                     {
-                        std::string temp;
-                        int Placeholder = 0;
-                        int counter = 0;
-                        for (int currentPosition = 0; currentPosition<currentLine.size(); currentPosition++)
-                        {
-                            if(currentLine[currentPosition] == '(')
-                            {
-                                Placeholder++;
-                                continue;
-                            }
-                            if (Placeholder == 1)
-                            {
-                                if(currentLine[currentPosition] == ' ')
-                                {
-                                    temp.clear();
-                                    continue;
-                                }
-                                if((currentLine[currentPosition] == ',')||(currentLine[currentPosition] == ')'))
-                                {
-                                    for(int subPosition = 0; subPosition<temp.size(); subPosition++)
-                                    {
-                                        Diffuse[counter] = std::stod(temp);
-                                    }
-                                    counter++;
-                                    continue;
-                                }
-                                temp.push_back(currentLine[currentPosition]);
-                            }
-                        }
-                        ListOfLights.at(0).light->SetDiffuseColor( Diffuse[0], Diffuse[1], Diffuse[2] );
+                        SetLightData(Data, currentLine);
+                        ListOfLights.at(0).light->SetDiffuseColor( Data[0], Data[1], Data[2] );
                     }
                     if ((currentLine.compare(5,8, "Specular")) == 0 )
                     {
-                        std::string temp;
-                        int Placeholder = 0;
-                        int counter = 0;
-                        for (int currentPosition = 0; currentPosition<currentLine.size(); currentPosition++)
-                        {
-                            if(currentLine[currentPosition] == '(')
-                            {
-                                Placeholder++;
-                                continue;
-                            }
-                            if (Placeholder == 1)
-                            {
-                                if(currentLine[currentPosition] == ' ')
-                                {
-                                    temp.clear();
-                                    continue;
-                                }
-                                if((currentLine[currentPosition] == ',')||(currentLine[currentPosition] == ')'))
-                                {
-                                    for(int subPosition = 0; subPosition<temp.size(); subPosition++)
-                                    {
-                                        Specular[counter] = std::stod(temp);
-                                    }
-                                    counter++;
-                                    continue;
-                                }
-                                temp.push_back(currentLine[currentPosition]);
-                            }
-                        }
-                        ListOfLights.at(0).light->SetSpecularColor( Specular[0], Specular[1], Specular[2] );
+                        SetLightData(Data, currentLine);
+                        ListOfLights.at(0).light->SetSpecularColor( Data[0], Data[1], Data[2] );
                     }
                     if ((currentLine.compare(5,11, "Focal Point")) == 0 )
                     {
-                        std::string temp;
-                        int Placeholder = 0;
-                        int counter = 0;
-                        for (int currentPosition = 0; currentPosition<currentLine.size(); currentPosition++)
-                        {
-                            if(currentLine[currentPosition] == '(')
-                            {
-                                Placeholder++;
-                                continue;
-                            }
-                            if (Placeholder == 1)
-                            {
-                                if(currentLine[currentPosition] == ' ')
-                                {
-                                    temp.clear();
-                                    continue;
-                                }
-                                if((currentLine[currentPosition] == ',')||(currentLine[currentPosition] == ')'))
-                                {
-                                    for(int subPosition = 0; subPosition<temp.size(); subPosition++)
-                                    {
-                                        Focal_Point[counter] = std::stod(temp);
-                                    }
-                                    counter++;
-                                    continue;
-                                }
-                                temp.push_back(currentLine[currentPosition]);
-                            }
-                        }
-                        ListOfLights.at(0).light->SetFocalPoint( Focal_Point[0], Focal_Point[1], Focal_Point[2] );
+                        SetLightData(Data, currentLine);
+                        ListOfLights.at(0).light->SetFocalPoint( Data[0], Data[1], Data[2] );
                     }
                     if ((currentLine.compare(5,8, "Position")) == 0 )
                     {
-                        std::string temp;
-                        int Placeholder = 0;
-                        int counter = 0;
-                        for (int currentPosition = 0; currentPosition<currentLine.size(); currentPosition++)
-                        {
-                            if(currentLine[currentPosition] == '(')
-                            {
-                                Placeholder++;
-                                continue;
-                            }
-                            if (Placeholder == 1)
-                            {
-                                if(currentLine[currentPosition] == ' ')
-                                {
-                                    temp.clear();
-                                    continue;
-                                }
-                                if((currentLine[currentPosition] == ',')||(currentLine[currentPosition] == ')'))
-                                {
-                                    for(int subPosition = 0; subPosition<temp.size(); subPosition++)
-                                    {
-                                        Position[counter] = std::stod(temp);
-                                    }
-                                    counter++;
-                                    continue;
-                                }
-                                temp.push_back(currentLine[currentPosition]);
-                            }
-                        }
-                        ListOfLights.at(0).light->SetPosition( Position[0], Position[1], Position[2] );
+                        SetLightData(Data, currentLine);
+                        ListOfLights.at(0).light->SetPosition( Data[0], Data[1], Data[2] );
                     }
                     if ((currentLine.compare(5,9, "Intensity")) == 0 )
                     {
@@ -523,168 +431,28 @@ void MainWindow::on_actionLoad_Lights_triggered()
                     getline (myFile,currentLine);
                     if ((currentLine.compare(5,7, "Ambient")) == 0 )
                     {
-                        std::string temp;
-                        int Placeholder = 0;
-                        int counter = 0;
-                        for (int currentPosition = 0; currentPosition<currentLine.size(); currentPosition++)
-                        {
-                            if(currentLine[currentPosition] == '(')
-                            {
-                                Placeholder++;
-                                continue;
-                            }
-                            if (Placeholder == 1)
-                            {
-                                if(currentLine[currentPosition] == ' ')
-                                {
-                                    temp.clear();
-                                    continue;
-                                }
-                                if((currentLine[currentPosition] == ',')||(currentLine[currentPosition] == ')'))
-                                {
-                                    for(int subPosition = 0; subPosition<temp.size(); subPosition++)
-                                    {
-                                        Ambient[counter] = std::stod(temp);
-                                    }
-                                    counter++;
-                                    continue;
-                                }
-                                temp.push_back(currentLine[currentPosition]);
-                            }
-                        }
-                        ListOfLights.back().light->SetAmbientColor( Ambient[0], Ambient[1], Ambient[2] );
+                        SetLightData(Data, currentLine);
+                        ListOfLights.back().light->SetAmbientColor( Data[0], Data[1], Data[2] );
                     }
                     if ((currentLine.compare(5,7, "Diffuse")) == 0 )
                     {
-                        std::string temp;
-                        int Placeholder = 0;
-                        int counter = 0;
-                        for (int currentPosition = 0; currentPosition<currentLine.size(); currentPosition++)
-                        {
-                            if(currentLine[currentPosition] == '(')
-                            {
-                                Placeholder++;
-                                continue;
-                            }
-                            if (Placeholder == 1)
-                            {
-                                if(currentLine[currentPosition] == ' ')
-                                {
-                                    temp.clear();
-                                    continue;
-                                }
-                                if((currentLine[currentPosition] == ',')||(currentLine[currentPosition] == ')'))
-                                {
-                                    for(int subPosition = 0; subPosition<temp.size(); subPosition++)
-                                    {
-                                        Diffuse[counter] = std::stod(temp);
-                                    }
-                                    counter++;
-                                    continue;
-                                }
-                                temp.push_back(currentLine[currentPosition]);
-                            }
-                        }
-                        ListOfLights.back().light->SetDiffuseColor( Diffuse[0], Diffuse[1], Diffuse[2] );
+                        SetLightData(Data, currentLine);
+                        ListOfLights.back().light->SetDiffuseColor( Data[0], Data[1], Data[2] );
                     }
                     if ((currentLine.compare(5,8, "Specular")) == 0 )
                     {
-                        std::string temp;
-                        int Placeholder = 0;
-                        int counter = 0;
-                        for (int currentPosition = 0; currentPosition<currentLine.size(); currentPosition++)
-                        {
-                            if(currentLine[currentPosition] == '(')
-                            {
-                                Placeholder++;
-                                continue;
-                            }
-                            if (Placeholder == 1)
-                            {
-                                if(currentLine[currentPosition] == ' ')
-                                {
-                                    temp.clear();
-                                    continue;
-                                }
-                                if((currentLine[currentPosition] == ',')||(currentLine[currentPosition] == ')'))
-                                {
-                                    for(int subPosition = 0; subPosition<temp.size(); subPosition++)
-                                    {
-                                        Specular[counter] = std::stod(temp);
-                                    }
-                                    counter++;
-                                    continue;
-                                }
-                                temp.push_back(currentLine[currentPosition]);
-                            }
-                        }
-                        ListOfLights.back().light->SetSpecularColor( Specular[0], Specular[1], Specular[2] );
+                        SetLightData(Data, currentLine);
+                        ListOfLights.back().light->SetSpecularColor( Data[0], Data[1], Data[2] );
                     }
                     if ((currentLine.compare(5,11, "Focal Point")) == 0 )
                     {
-                        std::string temp;
-                        int Placeholder = 0;
-                        int counter = 0;
-                        for (int currentPosition = 0; currentPosition<currentLine.size(); currentPosition++)
-                        {
-                            if(currentLine[currentPosition] == '(')
-                            {
-                                Placeholder++;
-                                continue;
-                            }
-                            if (Placeholder == 1)
-                            {
-                                if(currentLine[currentPosition] == ' ')
-                                {
-                                    temp.clear();
-                                    continue;
-                                }
-                                if((currentLine[currentPosition] == ',')||(currentLine[currentPosition] == ')'))
-                                {
-                                    for(int subPosition = 0; subPosition<temp.size(); subPosition++)
-                                    {
-                                        Focal_Point[counter] = std::stod(temp);
-                                    }
-                                    counter++;
-                                    continue;
-                                }
-                                temp.push_back(currentLine[currentPosition]);
-                            }
-                        }
-                        ListOfLights.back().light->SetFocalPoint( Focal_Point[0], Focal_Point[1], Focal_Point[2] );
+                        SetLightData(Data, currentLine);
+                        ListOfLights.back().light->SetFocalPoint( Data[0], Data[1], Data[2] );
                     }
                     if ((currentLine.compare(5,8, "Position")) == 0 )
                     {
-                        std::string temp;
-                        int Placeholder = 0;
-                        int counter = 0;
-                        for (int currentPosition = 0; currentPosition<currentLine.size(); currentPosition++)
-                        {
-                            if(currentLine[currentPosition] == '(')
-                            {
-                                Placeholder++;
-                                continue;
-                            }
-                            if (Placeholder == 1)
-                            {
-                                if(currentLine[currentPosition] == ' ')
-                                {
-                                    temp.clear();
-                                    continue;
-                                }
-                                if((currentLine[currentPosition] == ',')||(currentLine[currentPosition] == ')'))
-                                {
-                                    for(int subPosition = 0; subPosition<temp.size(); subPosition++)
-                                    {
-                                        Position[counter] = std::stod(temp);
-                                    }
-                                    counter++;
-                                    continue;
-                                }
-                                temp.push_back(currentLine[currentPosition]);
-                            }
-                        }
-                        ListOfLights.back().light->SetPosition( Position[0], Position[1], Position[2] );
+                        SetLightData(Data, currentLine);
+                        ListOfLights.back().light->SetPosition( Data[0], Data[1], Data[2] );
                     }
                     if ((currentLine.compare(5,9, "Intensity")) == 0 )
                     {
@@ -721,7 +489,7 @@ void MainWindow::on_actionLoad_Lights_triggered()
                             }
                         }
                         ListOfLights.back().light->SetConeAngle( std::stod (temp) );
-                       std::cout << ListOfLights.at(ListofLightsPosition).light->GetConeAngle() << std::endl;
+                        //std::cout << ListOfLights.at(ListofLightsPosition).light->GetConeAngle() << std::endl;
                     }
                     if ((currentLine.compare(5,6, "Switch")) == 0 )
                     {
@@ -855,4 +623,70 @@ void MainWindow::on_Delete_Light_released()
         ui->statusBar->showMessage("Can Not Delete Camera Light Try Swithcing It OFF",3000);
     }
     renderWindow->Render();
+}
+
+void MainWindow::SetLightData(double *Data, std::string currentLine)
+{
+    std::string temp;
+    int Placeholder = 0;
+    int counter = 0;
+    for (int currentPosition = 0; currentPosition<currentLine.size(); currentPosition++)
+    {
+        if(currentLine[currentPosition] == '(')
+        {
+            Placeholder++;
+            continue;
+        }
+        if (Placeholder == 1)
+        {
+            if(currentLine[currentPosition] == ' ')
+            {
+                temp.clear();
+                continue;
+            }
+            if((currentLine[currentPosition] == ',')||(currentLine[currentPosition] == ')'))
+            {
+                for(int subPosition = int (temp.size())-1; subPosition<temp.size(); subPosition++)
+                {
+                    Data[counter] = std::stod(temp);
+                }
+                counter++;
+                continue;
+            }
+            temp.push_back(currentLine[currentPosition]);
+        }
+    }
+}
+
+void MainWindow::LoadBasicShape(double *Data, std::string currentLine)
+{
+    std::string temp;
+    int Placeholder = 0;
+    int counter = 0;
+    for (int currentPosition = 0; currentPosition<currentLine.size(); currentPosition++)
+    {
+        if((currentLine[currentPosition] == '{')||(currentLine[currentPosition] == '('))
+        {
+            Placeholder++;
+            continue;
+        }
+        if (Placeholder == 1)
+        {
+            if((currentLine[currentPosition] == ' ')||(currentLine[currentPosition] == ';'))
+            {
+                temp.clear();
+                continue;
+            }
+            if((currentLine[currentPosition] == ',')||(currentLine[currentPosition] == '}')||(currentLine[currentPosition] == ')'))
+            {
+                for(int subPosition = int (temp.size())-1; subPosition<temp.size(); subPosition++)
+                {
+                    Data[counter] = std::stod(temp);
+                }
+                counter++;
+                continue;
+            }
+            temp.push_back(currentLine[currentPosition]);
+        }
+    }
 }
