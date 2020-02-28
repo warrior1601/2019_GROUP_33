@@ -47,10 +47,10 @@ public:
     //Model specific functions
 
     //Summation of all the volumes of all the shapes in model
-	double Get_Volume(void);
+    double Get_Volume(void);
 
     //Summation of all the weights of all the shapes in model
-	double Get_Weight(void);
+    double Get_Weight(void);
 
     //First find all COGs and their corresponding weight. Then take two COGs and treat is as a
     //fulcrum problem and try to balance the weights. The position of the fulcrum will be the new
