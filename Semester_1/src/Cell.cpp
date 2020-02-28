@@ -9,40 +9,122 @@
 //  the sub-objects Tetrahedron, Pyramid and Hexahedron.
 //
 
-#include "../inc/Cell.hpp"
-#include "../inc/Matrix.hpp"
+#include "Cell.hpp"
+#include "Matrix.hpp"
 #include <cmath>
+
+#include "Vectors.h"
 
 //------------------------------------------------------------------------CELL MEMBER FUNCTIONS------------------------------------------------------------------------//
 
 //Destructor
+Cell::Cell() { }
+
 Cell::~Cell() { }
+
+
+
+
+
+//Custom std::cout function
+std::ostream& operator<< (std::ostream& Output, const Cell& aCell)
+{
+    for (unsigned int i = 0; i < aCell.Vertices.size(); i++)
+    {
+        Output << "V" << i << " " << aCell.Vertices[i];
+    }
+
+    Output << "Material " << aCell.theMaterial;
+
+    return Output;
+}
+
+
+
+
+
+//Custom operator function
+Cell& Cell::operator = (const Cell& aCell)
+{
+    if (&aCell == this)
+        return *this;
+
+    else
+    {
+        Vertices = aCell.Vertices;
+        VerticesOrder = aCell.VerticesOrder;
+        theMaterial = aCell.theMaterial;
+
+        return *this;
+    }
+}
+
+
+
+
+
+//Set functions
+void Cell::Set_Vertices(const std::vector<Vectors>& aVertices) { Vertices = aVertices; }
+
+void Cell::Set_Vertices_Order(const std::vector<int>& aVectorsOrder) { VerticesOrder = aVectorsOrder; }
+
+void Cell::Set_Material(const Material& aMaterial) { theMaterial = aMaterial; }
+
+
+
+
+
+//Get functions
+std::vector<Vectors> Cell::Get_Vertices(void) { return Vertices; }
+
+std::vector<int> Cell::Get_Vertices_Order(void) { return VerticesOrder; }
+
+Material Cell::Get_Material(void) { return theMaterial;  }
+
+
+
+
 
 //Cell specific functions
 double Cell::Get_Volume(void)
 {
     std::cout << "No implementation of calculating volume for this object" << std::endl;
-    return 0;
-    
+
+    return -1;
 }
 
 double Cell::Get_Weight(void)
 {
     std::cout << "No implementation of weight volume for this object" << std::endl;
-    return 0;
+
+    return -1;
 }
 
 Vectors Cell::Get_Centre_Of_Gravity()
 {
     std::cout << "No implementation of calculating centre of gravity for this object" << std::endl;
-    Vectors temp;
+
+    Vectors temp(-1, -1, -1);
+
     return temp;
-    
 }
 
-void Cell::Rotate(double Rotation_In_Degrees, char Axis_Of_Rotatio, Vectors Centre_Of_Rotationn)
+void Cell::Rotate(double Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Centre_Of_Rotation)
 {
-    std::cout << "No implementation for rotating this object" << std::endl;
+    //Rotates hexahedron an amount of degrees about it's centre along the X, Y or Z axis
+
+    //Create a rotation matrix based on degrees and axis of rotation
+    Matrix3x3 RotationMatrix;
+    RotationMatrix.Initialise_As_Rotation_Matrix(Rotation_In_Degrees, Axis_Of_Rotation);
+
+    for (unsigned int i = 0; i < Vertices.size(); i++)
+        Vertices[i] = (RotationMatrix * (Vertices[i] - Centre_Of_Rotation)) + Centre_Of_Rotation;
+    //Subtract centre of hexahedron from all Vectors to move centre of hexahedron to the origin
+    //                                          ^^^^^^^^^^^^
+    //Apply rotation matrix to all vertcies
+    //                 ^^^^^^^^^^^^
+    //Add centre of hexahedron to all Vectors to move centre of hexahedron back to where it was
+    //                                                                          ^^^^^^^^^^^^                      
 }
 
 
@@ -57,90 +139,28 @@ void Cell::Rotate(double Rotation_In_Degrees, char Axis_Of_Rotatio, Vectors Cent
 //------------------------------------------------------------------------TETRAHEDRON MEMBER FUNCTIONS------------------------------------------------------------------------//
 
 //Constructors and destructor
-Tetrahedron::Tetrahedron(const Vectors& aV0, const Vectors& aV1, const Vectors& aV2, const Vectors& aV3, const std::vector<int>& aVectorsOrder, const Material& aMaterial) { V0 = aV0; V1 = aV1; V2 = aV2; V3 = aV3; VectorsOrder = aVectorsOrder; theMaterial = aMaterial; }
-
-Tetrahedron::Tetrahedron(const Tetrahedron& aTetrahedron)
+Tetrahedron::Tetrahedron(const std::vector<Vectors>& aVertices, const std::vector<int>& aVerticesOrder, const Material& aMaterial)
 {
-    V0 = aTetrahedron.V0;
-    V1 = aTetrahedron.V1;
-    V2 = aTetrahedron.V2;
-    V3 = aTetrahedron.V3;
-    VectorsOrder = aTetrahedron.VectorsOrder;
-    theMaterial = aTetrahedron.theMaterial;
+    Set_Vertices(aVertices);
+    Set_Vertices_Order(aVerticesOrder);
+    Set_Material(aMaterial);
 }
 
-Tetrahedron::Tetrahedron(void) {}
-
-Tetrahedron::~Tetrahedron(void) {}
-
-
-
-
-
-//Custom std::cout function
-std::ostream& operator<< (std::ostream& Output, const Tetrahedron& aTetrahedron)
+Tetrahedron::Tetrahedron(void)
 {
-    Output << "V0 = " << aTetrahedron.V0 << "V1 = " << aTetrahedron.V1 << "V2 = " << aTetrahedron.V2 << "V3 = " << aTetrahedron.V3 << "Material " << aTetrahedron.theMaterial << std::endl;
+    std::vector<Vectors> tempVertices;
+   
+    Vectors tempVectors;
     
-    return Output;
+    tempVertices.push_back(tempVectors);
+    tempVertices.push_back(tempVectors);
+    tempVertices.push_back(tempVectors);
+    tempVertices.push_back(tempVectors);
+
+    Set_Vertices(tempVertices);
 }
 
-
-
-
-
-//Custom operator function
-Tetrahedron& Tetrahedron::operator = (const Tetrahedron& aTetrahedron)
-{
-    if(&aTetrahedron == this)
-        return(*this);
-    
-    else
-    {
-        V0 = aTetrahedron.V0;
-        V1 = aTetrahedron.V1;
-        V2 = aTetrahedron.V2;
-        V3 = aTetrahedron.V3;
-        VectorsOrder = aTetrahedron.VectorsOrder;
-        theMaterial = aTetrahedron.theMaterial;
-        
-        return(*this);
-    }
-}
-
-
-
-
-
-//Set functions
-void Tetrahedron::Set_V0(const Vectors& aVectors) { V0 = aVectors; }
-
-void Tetrahedron::Set_V1(const Vectors& aVectors) { V1 = aVectors; }
-
-void Tetrahedron::Set_V2(const Vectors& aVectors) { V2 = aVectors; }
-
-void Tetrahedron::Set_V3(const Vectors& aVectors) { V3 = aVectors; }
-
-void Tetrahedron::Set_Vectors_Order(const std::vector<int>& aVectorsOrder) { VectorsOrder = aVectorsOrder; }
-
-void Tetrahedron::Set_Material(const Material& aMaterial) { theMaterial = aMaterial; }
-
-
-
-
-
-//Get functions
-Vectors Tetrahedron::Get_V0(void) { return V0; }
-
-Vectors Tetrahedron::Get_V1(void) { return V1; }
-
-Vectors Tetrahedron::Get_V2(void) { return V2; }
-
-Vectors Tetrahedron::Get_V3(void) { return V3; }
-
-std::vector<int> Tetrahedron::Get_Vectors_Order(void) { return VectorsOrder; }
-
-Material Tetrahedron::Get_Material(void) { return theMaterial; }
+Tetrahedron::~Tetrahedron(void) { }
 
 
 
@@ -156,10 +176,12 @@ double Tetrahedron::Get_Volume(void)
     //         V3
     //
     //         V0
+
+    std::vector <Vectors> tempVertices = Get_Vertices();
     
-    Vectors a = V0 - V3;
-    Vectors b = V1 - V3;
-    Vectors c = V2 - V3;
+    Vectors a = tempVertices[0] - tempVertices[3]; //V0 - V3;
+    Vectors b = tempVertices[1] - tempVertices[3]; //V1 - V3;
+    Vectors c = tempVertices[2] - tempVertices[3]; //V2 - V3;
     
     //Volume is calculated using the triple scalar product formula
     
@@ -168,7 +190,7 @@ double Tetrahedron::Get_Volume(void)
 
 double Tetrahedron::Get_Weight(void)
 {
-    return Get_Volume() * theMaterial.GetDensity();
+    return Get_Volume() * Get_Material().GetDensity();
 }
 
 Vectors Tetrahedron::Get_Centre_Of_Gravity(void)
@@ -183,36 +205,16 @@ Vectors Tetrahedron::Get_Centre_Of_Gravity(void)
     
     //Centroid = centre of gravity, assuming uniform density across object, and
     //is calculated by finding the average of each co-ordinate
+
+    std::vector <Vectors> tempVertices = Get_Vertices();
     
     Vectors Centroid;
     
-    Centroid.SetX_Vector( ( V0.GetXVector() + V1.GetXVector() + V2.GetXVector() + V3.GetXVector() ) / 4.0 );
-    Centroid.SetY_Vector( ( V0.GetYVector() + V1.GetYVector() + V2.GetYVector() + V3.GetYVector() ) / 4.0 );
-    Centroid.SetZ_Vector( ( V0.GetZVector() + V1.GetZVector() + V2.GetZVector() + V3.GetZVector() ) / 4.0 );
+    Centroid.SetX_Vector( (tempVertices[0].GetXVector() + tempVertices[1].GetXVector() + tempVertices[2].GetXVector() + tempVertices[3].GetXVector() ) / 4.0 );
+    Centroid.SetY_Vector( (tempVertices[0].GetYVector() + tempVertices[1].GetYVector() + tempVertices[2].GetYVector() + tempVertices[3].GetYVector() ) / 4.0 );
+    Centroid.SetZ_Vector( (tempVertices[0].GetZVector() + tempVertices[1].GetZVector() + tempVertices[2].GetZVector() + tempVertices[3].GetZVector() ) / 4.0 );
     
     return Centroid;
-}
-    
-
-void Tetrahedron::Rotate(double Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Centre_Of_Rotation)
-{
-    //Rotates tetrahedron an amount of degrees about it's centre along the X, Y or Z axis
-    
-    //Create a rotation matrix based on degrees and axis of rotation
-    Matrix3x3 RotationMatrix;
-    RotationMatrix.Initialise_As_Rotation_Matrix(Rotation_In_Degrees, Axis_Of_Rotation);
-        
-    V0 = (RotationMatrix * (V0 - Centre_Of_Rotation)) + Centre_Of_Rotation;
-    V1 = (RotationMatrix * (V1 - Centre_Of_Rotation)) + Centre_Of_Rotation;
-    V2 = (RotationMatrix * (V2 - Centre_Of_Rotation)) + Centre_Of_Rotation;
-    V3 = (RotationMatrix * (V3 - Centre_Of_Rotation)) + Centre_Of_Rotation;
-    
-    //Subtract centre of hexahedron from all Vectors to move centre of hexahedron to the origin
-    //                           ^^^^^^^^^^^^
-    //Apply rotation matrix to all vertcies
-    //      ^^^^^^^^^^^^
-    //Add centre of hexahedron to all Vectors to move centre of hexahedron back to where it was
-    //                                                    ^^^^^^^^^^^^
 }
 
 
@@ -227,97 +229,29 @@ void Tetrahedron::Rotate(double Rotation_In_Degrees, char Axis_Of_Rotation, Vect
 //------------------------------------------------------------------------PYRAMID MEMBER FUNCTIONS------------------------------------------------------------------------//
 
 //Constructors and destructor
-Pyramid::Pyramid(const Vectors& aV0, const Vectors& aV1, const Vectors& aV2, const Vectors& aV3, const Vectors& aV4, const std::vector<int>& aVectorsOrder, const Material& aMaterial) { V0 = aV0; V1 = aV1; V2 = aV2; V3 = aV3; V4 = aV4; VectorsOrder = aVectorsOrder; theMaterial = aMaterial; }
-    
-Pyramid::Pyramid(const Pyramid& aPyramid)
+Pyramid::Pyramid(const std::vector<Vectors>& aVertices, const std::vector<int>& aVerticesOrder, const Material& aMaterial)
 {
-    V0 = aPyramid.V0;
-    V1 = aPyramid.V1;
-    V2 = aPyramid.V2;
-    V3 = aPyramid.V3;
-    V4 = aPyramid.V4;
-    VectorsOrder = aPyramid.VectorsOrder;
-    theMaterial = aPyramid.theMaterial;
+    Set_Vertices(aVertices);
+    Set_Vertices_Order(aVerticesOrder);
+    Set_Material(aMaterial);
 }
 
+Pyramid::Pyramid(void) 
+{
+    std::vector<Vectors> tempVertices;
+    
+    Vectors tempVectors;
+    
+    tempVertices.push_back(tempVectors);
+    tempVertices.push_back(tempVectors);
+    tempVertices.push_back(tempVectors);
+    tempVertices.push_back(tempVectors);
+    tempVertices.push_back(tempVectors);
 
-Pyramid::Pyramid(void) { }
+    Set_Vertices(tempVertices);
+}
 
 Pyramid::~Pyramid(void) { }
-
-
-
-
-
-//Custom std::cout function
-std::ostream& operator<< (std::ostream& Output, const Pyramid& aPyramid)
-{
-    Output << "V0 = " << aPyramid.V0 << "V1 = " << aPyramid.V1 << "V2 = " << aPyramid.V2 << "V3 = " << aPyramid.V3 << "V4 = " << aPyramid.V4 << "Material " << aPyramid.theMaterial << std::endl;
-    
-    return Output;
-}
-
-
-
-
-
-//Custom operator function
-Pyramid& Pyramid::operator = (const Pyramid& aPyramid)
-{
-    if(&aPyramid == this)
-        return(*this);
-    
-    else
-    {
-        V0 = aPyramid.V0;
-        V1 = aPyramid.V1;
-        V2 = aPyramid.V2;
-        V3 = aPyramid.V3;
-        V4 = aPyramid.V4;
-        VectorsOrder = aPyramid.VectorsOrder;
-        theMaterial = aPyramid.theMaterial;
-        
-        return(*this);
-    }
-}
-
-
-
-
-
-//Set functions
-void Pyramid::Set_V0(const Vectors& aVectors) { V0 = aVectors; }
-
-void Pyramid::Set_V1(const Vectors& aVectors) { V1 = aVectors; }
-
-void Pyramid::Set_V2(const Vectors& aVectors) { V2 = aVectors; }
-
-void Pyramid::Set_V3(const Vectors& aVectors) { V3 = aVectors; }
-
-void Pyramid::Set_V4(const Vectors& aVectors) { V4 = aVectors; }
-
-void Pyramid::Set_Vectors_Order(const std::vector<int>& aVectorsOrder) { VectorsOrder = aVectorsOrder; }
-
-void Pyramid::Set_Material(const Material& aMaterial) { theMaterial = aMaterial; }
-
-
-
-
-
-//Get functions
-Vectors Pyramid::Get_V0(void) { return V0; }
-
-Vectors Pyramid::Get_V1(void) { return V1; }
-
-Vectors Pyramid::Get_V2(void) { return V2; }
-
-Vectors Pyramid::Get_V3(void) { return V3; }
-
-Vectors Pyramid::Get_V4(void) { return V4; }
-
-std::vector<int> Pyramid::Get_Vectors_Order(void) { return VectorsOrder; }
-
-Material Pyramid::Get_Material(void) { return theMaterial; }
 
 
 
@@ -336,15 +270,19 @@ double Pyramid::Get_Volume(void)
     
     //Split the pyramid along V0 - V4 - V2 "line" to create two tetrahedrons and calculate
     //the volume of two tetrahedrons and add them together
-    Tetrahedron a(V0, V2, V3, V4, VectorsOrder, theMaterial);
-    Tetrahedron b(V0, V1, V2, V4, VectorsOrder, theMaterial);
+    std::vector<Vectors> tempVertices = Get_Vertices();
+    std::vector<Vectors> Tetra_a_Vertices = { tempVertices[0], tempVertices[2], tempVertices[3], tempVertices[4] };
+    std::vector<Vectors> Tetra_b_Vertices = { tempVertices[0], tempVertices[1], tempVertices[2], tempVertices[4] };
+
+    Tetrahedron a(Tetra_a_Vertices, Get_Vertices_Order(), Get_Material()); //V0, V2, V3, V4
+    Tetrahedron b(Tetra_b_Vertices, Get_Vertices_Order(), Get_Material()); //V0, V1, V2, V4
     
     return a.Get_Volume() + b.Get_Volume();
 }
 
 double Pyramid::Get_Weight(void)
 {
-    return Get_Volume() * (double)theMaterial.GetDensity();
+    return Get_Volume() * Get_Material().GetDensity();
 }
 
 Vectors Pyramid::Get_Centre_Of_Gravity(void)
@@ -360,8 +298,12 @@ Vectors Pyramid::Get_Centre_Of_Gravity(void)
     //Split the pyramid along V0 - V4 - V2 "line" to create two tetrahedrons and calculate centre of gravity of each one
     //The two tetrahedrons will have the same volume, thus the same weight and thus the centre of gravity of the pyramid will
     //be the midpoint between the two centres of gravities of the two tetrahedrons
-    Tetrahedron a(V0, V2, V3, V4, VectorsOrder, theMaterial);
-    Tetrahedron b(V0, V1, V2, V4, VectorsOrder, theMaterial);
+    std::vector<Vectors> tempVertices = Get_Vertices();
+    std::vector<Vectors> Tetra_a_Vertices = { tempVertices[0], tempVertices[2], tempVertices[3], tempVertices[4] };
+    std::vector<Vectors> Tetra_b_Vertices = { tempVertices[0], tempVertices[1], tempVertices[2], tempVertices[4] };
+
+    Tetrahedron a(Tetra_a_Vertices, Get_Vertices_Order(), Get_Material()); //V0, V2, V3, V4
+    Tetrahedron b(Tetra_b_Vertices, Get_Vertices_Order(), Get_Material()); //V0, V1, V2, V4
     
     Vectors aCentroid = a.Get_Centre_Of_Gravity();
     Vectors bCentroid = b.Get_Centre_Of_Gravity();
@@ -369,28 +311,6 @@ Vectors Pyramid::Get_Centre_Of_Gravity(void)
     Vectors Centroid = (aCentroid + bCentroid) / 2.0;
     
     return Centroid;
-}
-    
-void Pyramid::Rotate(double Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Centre_Of_Rotation)
-{
-    //Rotates pyramid an amount of degrees about it's centre along the X, Y or Z axis
-    
-    //Create a rotation matrix based on degrees and axis of rotation
-    Matrix3x3 RotationMatrix;
-    RotationMatrix.Initialise_As_Rotation_Matrix(Rotation_In_Degrees, Axis_Of_Rotation);
-            
-    V0 = (RotationMatrix * (V0 - Centre_Of_Rotation)) + Centre_Of_Rotation;
-    V1 = (RotationMatrix * (V1 - Centre_Of_Rotation)) + Centre_Of_Rotation;
-    V2 = (RotationMatrix * (V2 - Centre_Of_Rotation)) + Centre_Of_Rotation;
-    V3 = (RotationMatrix * (V3 - Centre_Of_Rotation)) + Centre_Of_Rotation;
-    V4 = (RotationMatrix * (V4 - Centre_Of_Rotation)) + Centre_Of_Rotation;
-    
-    //Subtract centre of hexahedron from all Vectors to move centre of hexahedron to the origin
-    //                           ^^^^^^^^^^^^
-    //Apply rotation matrix to all vertcies
-    //      ^^^^^^^^^^^^
-    //Add centre of hexahedron to all Vectors to move centre of hexahedron back to where it was
-    //                                                    ^^^^^^^^^^^^
 }
 
 
@@ -405,115 +325,32 @@ void Pyramid::Rotate(double Rotation_In_Degrees, char Axis_Of_Rotation, Vectors 
 //------------------------------------------------------------------------HEXAHEDRON MEMBER FUNCTIONS------------------------------------------------------------------------//
 
 //Constructors and destructor
-Hexahedron::Hexahedron(const Vectors& aV0, const Vectors& aV1, const Vectors& aV2, const Vectors& aV3, const Vectors& aV4, const Vectors& aV5, const Vectors& aV6, const Vectors& aV7, const std::vector<int>& aVectorsOrder, const Material& aMaterial)
-{ V0 = aV0; V1 = aV1; V2 = aV2; V3 = aV3; V4 = aV4; V5 = aV5; V6 = aV6; V7 = aV7; VectorsOrder = aVectorsOrder; theMaterial = aMaterial; }
-    
-Hexahedron::Hexahedron(const Hexahedron& aHexahedron)
+Hexahedron::Hexahedron(const std::vector<Vectors>& aVertices, const std::vector<int>& aVerticesOrder, const Material& aMaterial)
 {
-    V0 = aHexahedron.V0;
-    V1 = aHexahedron.V1;
-    V2 = aHexahedron.V2;
-    V3 = aHexahedron.V3;
-    V4 = aHexahedron.V4;
-    V5 = aHexahedron.V5;
-    V6 = aHexahedron.V6;
-    V7 = aHexahedron.V7;
-    VectorsOrder = aHexahedron.VectorsOrder;
-    theMaterial = aHexahedron.theMaterial;
+    this->Set_Vertices(aVertices);
+    this->Set_Vertices_Order(aVerticesOrder);
+    this->Set_Material(aMaterial);
 }
 
-Hexahedron::Hexahedron(void) {}
-
-Hexahedron::~Hexahedron(void) {}
-
-
-
-
-
-//Custom std::cout function
-std::ostream& operator<< (std::ostream& Output, const Hexahedron& aHexahedron)
+Hexahedron::Hexahedron(void)
 {
-    Output << "V0 = " << aHexahedron.V0 << "V1 = " << aHexahedron.V1 << "V2 = " << aHexahedron.V2 << "V3 = " << aHexahedron.V3 << "V4 = " << aHexahedron.V4 << "V5 = " << aHexahedron.V5 << "V6 = " << aHexahedron.V6 << "V7 = " << aHexahedron.V7 << "Material " << aHexahedron.theMaterial << std::endl;
-    
-    return Output;
+    std::vector<Vectors> tempVertices;
+
+    Vectors tempVectors;
+
+    tempVertices.push_back(tempVectors);
+    tempVertices.push_back(tempVectors);
+    tempVertices.push_back(tempVectors);
+    tempVertices.push_back(tempVectors);
+    tempVertices.push_back(tempVectors);
+    tempVertices.push_back(tempVectors);
+    tempVertices.push_back(tempVectors);
+    tempVertices.push_back(tempVectors);
+
+    Set_Vertices(tempVertices);
 }
 
-
-
-
-
-//Custom operator function
-Hexahedron& Hexahedron::operator= (const Hexahedron& aHexahedron)
-{
-    if(&aHexahedron == this)
-        return(*this);
-    
-    else
-    {
-        V0 = aHexahedron.V0;
-        V1 = aHexahedron.V1;
-        V2 = aHexahedron.V2;
-        V3 = aHexahedron.V3;
-        V4 = aHexahedron.V4;
-        V5 = aHexahedron.V5;
-        V6 = aHexahedron.V6;
-        V7 = aHexahedron.V7;
-        VectorsOrder = aHexahedron.VectorsOrder;
-        theMaterial = aHexahedron.theMaterial;
-        
-        return(*this);
-    }
-}
-
-
-
-
-
-//Set functions
-void Hexahedron::Set_V0(const Vectors& aVectors) { V0 = aVectors; }
-
-void Hexahedron::Set_V1(const Vectors& aVectors) { V1 = aVectors; }
-
-void Hexahedron::Set_V2(const Vectors& aVectors) { V2 = aVectors; }
-
-void Hexahedron::Set_V3(const Vectors& aVectors) { V3 = aVectors; }
-
-void Hexahedron::Set_V4(const Vectors& aVectors) { V4 = aVectors; }
-
-void Hexahedron::Set_V5(const Vectors& aVectors) { V5 = aVectors; }
-
-void Hexahedron::Set_V6(const Vectors& aVectors) { V6 = aVectors; }
-
-void Hexahedron::Set_V7(const Vectors& aVectors) { V7 = aVectors; }
-
-void Hexahedron::Set_Vectors_Order(const std::vector<int>& aVectorsOrder) { VectorsOrder = aVectorsOrder; }
-
-void Hexahedron::Set_Material(const Material& aMaterial) { theMaterial = aMaterial; }
-
-
-
-
-
-//Get functions
-Vectors Hexahedron::Get_V0(void) { return V0; }
-
-Vectors Hexahedron::Get_V1(void) { return V1; }
-
-Vectors Hexahedron::Get_V2(void) { return V2; }
-
-Vectors Hexahedron::Get_V3(void) { return V3; }
-
-Vectors Hexahedron::Get_V4(void) { return V4; }
-
-Vectors Hexahedron::Get_V5(void) { return V5; }
-
-Vectors Hexahedron::Get_V6(void) { return V6; }
-
-Vectors Hexahedron::Get_V7(void) { return V7; }
-
-std::vector<int> Hexahedron::Get_Vectors_Order(void) { return VectorsOrder; }
-
-Material Hexahedron::Get_Material(void) { return theMaterial; }
+Hexahedron::~Hexahedron(void) { }
 
 
 
@@ -532,16 +369,21 @@ double Hexahedron::Get_Volume(void)
     
     //Split the hexahedron in to three pyramids and find volume of each
     //See http://mathcentral.uregina.ca/QQ/database/QQ.09.06/siva1.html for more info
-    Pyramid a(V0, V1, V2, V3, V6, VectorsOrder, theMaterial);
-    Pyramid b(V0, V1, V5, V4, V6, VectorsOrder, theMaterial);
-    Pyramid c(V0, V3, V7, V4, V6, VectorsOrder, theMaterial);
+    std::vector<Vectors> tempVertices = Get_Vertices();
+    std::vector<Vectors> Pyra_a_Vertices = { tempVertices[0], tempVertices[1], tempVertices[2], tempVertices[3], tempVertices[6] };
+    std::vector<Vectors> Pyra_b_Vertices = { tempVertices[0], tempVertices[1], tempVertices[5], tempVertices[4], tempVertices[6] };
+    std::vector<Vectors> Pyra_c_Vertices = { tempVertices[0], tempVertices[3], tempVertices[7], tempVertices[4], tempVertices[6] };
+
+    Pyramid a(Pyra_a_Vertices, Get_Vertices_Order(), Get_Material()); //V0, V1, V2, V3, V6
+    Pyramid b(Pyra_b_Vertices, Get_Vertices_Order(), Get_Material()); //V0, V1, V5, V4, V6
+    Pyramid c(Pyra_c_Vertices, Get_Vertices_Order(), Get_Material()); //V0, V3, V7, V4, V6
     
     return a.Get_Volume() + b.Get_Volume() + c.Get_Volume();
 }
 
 double Hexahedron::Get_Weight(void)
 {
-    return Get_Volume() * (double)theMaterial.GetDensity();
+    return Get_Volume() * Get_Material().GetDensity();
 }
 
 Vectors Hexahedron::Get_Centre_Of_Gravity(void)
@@ -557,36 +399,16 @@ Vectors Hexahedron::Get_Centre_Of_Gravity(void)
     //Split the hexahedron in to three pyramids and find centre of gravity of each
     //See http://mathcentral.uregina.ca/QQ/database/QQ.09.06/siva1.html for more info
     //Then centroid of hexahedron will be the average/midpoint of the pyramid centroids as they have equal volume and therefore equal weight
-    Pyramid a(V0, V1, V2, V3, V6, VectorsOrder, theMaterial);
-    Pyramid b(V0, V1, V5, V4, V6, VectorsOrder, theMaterial);
-    Pyramid c(V0, V3, V7, V4, V6, VectorsOrder, theMaterial);
+    std::vector<Vectors> tempVertices = Get_Vertices();
+    std::vector<Vectors> Pyra_a_Vertices = { tempVertices[0], tempVertices[1], tempVertices[2], tempVertices[3], tempVertices[6] };
+    std::vector<Vectors> Pyra_b_Vertices = { tempVertices[0], tempVertices[1], tempVertices[5], tempVertices[4], tempVertices[6] };
+    std::vector<Vectors> Pyra_c_Vertices = { tempVertices[0], tempVertices[3], tempVertices[7], tempVertices[4], tempVertices[6] };
+
+    Pyramid a(Pyra_a_Vertices, Get_Vertices_Order(), Get_Material()); //V0, V1, V2, V3, V6
+    Pyramid b(Pyra_b_Vertices, Get_Vertices_Order(), Get_Material()); //V0, V1, V5, V4, V6
+    Pyramid c(Pyra_c_Vertices, Get_Vertices_Order(), Get_Material()); //V0, V3, V7, V4, V6
     
     Vectors Centroid = ( a.Get_Centre_Of_Gravity() + b.Get_Centre_Of_Gravity() + c.Get_Centre_Of_Gravity() ) / 3.0;
     
     return Centroid;
-}
-    
-void Hexahedron::Rotate(double Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Centre_Of_Rotation)
-{
-    //Rotates hexahedron an amount of degrees about it's centre along the X, Y or Z axis
-    
-    //Create a rotation matrix based on degrees and axis of rotation
-    Matrix3x3 RotationMatrix;
-    RotationMatrix.Initialise_As_Rotation_Matrix(Rotation_In_Degrees, Axis_Of_Rotation);
-                                 
-    V0 = (RotationMatrix * (V0 - Centre_Of_Rotation)) + Centre_Of_Rotation;
-    V1 = (RotationMatrix * (V1 - Centre_Of_Rotation)) + Centre_Of_Rotation;
-    V2 = (RotationMatrix * (V2 - Centre_Of_Rotation)) + Centre_Of_Rotation;
-    V3 = (RotationMatrix * (V3 - Centre_Of_Rotation)) + Centre_Of_Rotation;
-    V4 = (RotationMatrix * (V4 - Centre_Of_Rotation)) + Centre_Of_Rotation;
-    V5 = (RotationMatrix * (V5 - Centre_Of_Rotation)) + Centre_Of_Rotation;
-    V6 = (RotationMatrix * (V6 - Centre_Of_Rotation)) + Centre_Of_Rotation;
-    V7 = (RotationMatrix * (V7 - Centre_Of_Rotation)) + Centre_Of_Rotation;
-    
-    //Subtract centre of hexahedron from all Vectors to move centre of hexahedron to the origin
-    //                           ^^^^^^^^^^^^
-    //Apply rotation matrix to all vertcies
-    //      ^^^^^^^^^^^^
-    //Add centre of hexahedron to all Vectors to move centre of hexahedron back to where it was
-    //                                                    ^^^^^^^^^^^^
 }

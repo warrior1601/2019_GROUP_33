@@ -13,9 +13,9 @@
 #ifndef Model_hpp
 #define Model_hpp
 
-#include "../inc/Material.h"
-#include "../inc/Vectors.h"
-#include "../inc/Cell.hpp"
+#include "Material.h"
+#include "Vectors.h"
+#include "Cell.hpp"
 
 class Model {
 public:
@@ -36,16 +36,12 @@ public:
 
     void Set_Materials(const std::vector<Material>& someMaterials);
     void Set_Vectors(const std::vector<Vectors>& someVectors);
-    void Set_Tetrahedrons(const std::vector<Tetrahedron>& someTetrahedrons);
-    void Set_Pyramids(const std::vector<Pyramid>& somePyramids);
-    void Set_Hexahedrons(const std::vector<Hexahedron>& someHexahedrons);
+    void Set_Cells(const std::vector<Cell*>& someCells);
     void Set_Cell_Order(const std::string& someCellOrder);
 
     std::vector<Material> Get_Materials(void);
     std::vector<Vectors> Get_Vectors(void);
-    std::vector<Tetrahedron> Get_Tetrahedrons(void);
-    std::vector<Pyramid> Get_Pyramids(void);
-    std::vector<Hexahedron> Get_Hexahedrons(void);
+    std::vector<Cell*> Get_Cells(void);
     std::string Get_Cell_Order(void);
 
     //Model specific functions
@@ -75,9 +71,7 @@ public:
 private:
     std::vector<Material> manyMaterials;                //Material position = Material ID
     std::vector<Vectors> manyVectors;                   //Vectors position = Vectors ID
-    std::vector<Tetrahedron> manyTetrahedrons;
-    std::vector<Pyramid> manyPyramids;
-    std::vector<Hexahedron> manyHexahedrons;
+    std::vector<Cell*> manyCells;                       //All the shapes
     std::string cellOrder;                              //This represents the order in which the cells were created from the load file
 
     //Required funtions for Get_Geometric_Centre() and Get_Overall_Dimensions() that returns the most positive and most negative Vectors

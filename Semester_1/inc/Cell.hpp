@@ -22,23 +22,47 @@
 #ifndef Cell_hpp
 #define Cell_hpp
 
-#include "../inc/Material.h"
-#include "../inc/Vectors.h"
+#include "Material.h"
+#include "Vectors.h"
 #include <vector>
 
 class Cell {
 public:
     //Destructor
-    virtual ~Cell();
+    Cell();
+    ~Cell();
     
+    //Custom std::cout function
+    friend std::ostream& operator<< (std::ostream& Output, const Cell& aCell);
+    
+    //Custom operator function
+    Cell& operator = (const Cell& aCell);
+    
+    //Set functions
+    void Set_Vertices(const std::vector<Vectors>& aVertices);
+    void Set_Vertices_Order(const std::vector<int>& aVerticesOrder);
+    void Set_Material(const Material& aMaterial);
+    
+    //Get functions
+    std::vector<Vectors> Get_Vertices(void);
+    std::vector<int> Get_Vertices_Order(void);
+    Material Get_Material(void);
+
     //Cell specific functions
     virtual double Get_Volume(void);
     virtual double Get_Weight(void);
     virtual Vectors Get_Centre_Of_Gravity(void);
-    virtual void Rotate(double Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Centre_Of_Rotation);
+    
+    //Rotates Cell clockwise an amount of degrees about it's centre of rotation along the X, Y or Z axis. Method is as follows -
+    //Create a rotation matrix based on degrees and axis of rotation and then subtracts centre of
+    //tetrahedron from all Vectors to move centre of tetrahedron to the origin. Then apply rotation matrix
+    //to all vertcies. Then add centre of Cell to all Vectors to move centre of Cell back to where it was
+    void Rotate(double Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Centre_Of_Rotation);
     
 private:
-    
+    std::vector<Vectors> Vertices;
+    std::vector<int> VerticesOrder;
+    Material theMaterial;
 };
 
 
@@ -48,35 +72,10 @@ private:
 class Tetrahedron:public Cell {
 public:
     //Constructors and destructor
-    Tetrahedron(const Vectors& aV0, const Vectors& aV1, const Vectors& aV2, const Vectors& aV3, const std::vector<int>& aVectorsOrder, const Material& aMaterial);
-    Tetrahedron(const Tetrahedron& aTetrahedron);
+    Tetrahedron(const std::vector<Vectors>& aVertices, const std::vector<int>& aVerticesOrder, const Material& aMaterial);
     Tetrahedron(void);
     ~Tetrahedron(void);
-    
-    //Custom std::cout function
-    friend std::ostream& operator<< (std::ostream& Output, const Tetrahedron& aTetrahedron);
-    
-    //Custom operator function
-    Tetrahedron& operator = (const Tetrahedron& aTetrahedron);
-    
-    //Set functions
-    void Set_V0(const Vectors& aVectors);
-    void Set_V1(const Vectors& aVectors);
-    void Set_V2(const Vectors& aVectors);
-    void Set_V3(const Vectors& aVectors);
-    void Set_Vectors_Order(const std::vector<int>& aVectorsOrder);
-    void Set_Material(const Material& aMaterial);
-    
-    //Get functions
-    Vectors Get_V0(void);
-    Vectors Get_V1(void);
-    Vectors Get_V2(void);
-    Vectors Get_V3(void);
-    std::vector<int> Get_Vectors_Order(void);
-    Material Get_Material(void);
-    
-    //Tetrahedron specific functions
-    
+
     //Volume is calculated using the triple scalar product formula
     virtual double Get_Volume(void);
     
@@ -86,17 +85,6 @@ public:
     //Centroid = centre of gravity, assuming uniform density across object, and is calculated by finding the average of each co-ordinate
     virtual Vectors Get_Centre_Of_Gravity(void);
     
-    //Rotates tetrahedron clockwise an amount of degrees about it's centre of rotation along the X, Y or Z axis. Method is as follows -
-    //Create a rotation matrix based on degrees and axis of rotation and then subtracts centre of
-    //tetrahedron from all Vectors to move centre of tetrahedron to the origin. Then apply rotation matrix
-    //to all vertcies. Then add centre of tetrahedron to all Vectors to move centre of tetrahedron back to where it was
-    void Rotate(double Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Centre_Of_Rotation);
-    
-private:
-    Vectors V0, V1, V2, V3;
-    std::vector<int> VectorsOrder;
-    Material theMaterial;
-    
     //Top down view of Vectors numbering assumption
     //
     //    V2         V1
@@ -104,7 +92,6 @@ private:
     //         V3
     //
     //         V0
-
 };
 
 
@@ -114,37 +101,10 @@ private:
 class Pyramid:public Cell {
 public:
     //Constructors and destructor
-    Pyramid(const Vectors& aV0, const Vectors& aV1, const Vectors& aV2, const Vectors& aV3, const Vectors& aV4, const std::vector<int>& aVectorsOrder, const Material& aMaterial);
-    Pyramid(const Pyramid& aPyramid);
+    Pyramid(const std::vector<Vectors>& aVertices, const std::vector<int>& aVerticesOrder, const Material& aMaterial);
     Pyramid(void);
     ~Pyramid(void);
-    
-    //Custom std::cout function
-    friend std::ostream& operator<< (std::ostream& Output, const Pyramid& aPyramid);
-    
-    //Custom operator function
-    Pyramid& operator = (const Pyramid& aPyramid);
-    
-    //Set functions
-    void Set_V0(const Vectors& aVectors);
-    void Set_V1(const Vectors& aVectors);
-    void Set_V2(const Vectors& aVectors);
-    void Set_V3(const Vectors& aVectors);
-    void Set_V4(const Vectors& aVectors);
-    void Set_Vectors_Order(const std::vector<int>& aVectorsOrder);
-    void Set_Material(const Material& aMaterial);
-    
-    //Get functions
-    Vectors Get_V0(void);
-    Vectors Get_V1(void);
-    Vectors Get_V2(void);
-    Vectors Get_V3(void);
-    Vectors Get_V4(void);
-    std::vector<int> Get_Vectors_Order(void);
-    Material Get_Material(void);
-    
-    //Pyramid specific functions
-    
+
     //Split the pyramid along V0 - V4 - V2 "line" to create two tetrahedrons and calculate the volume of two tetrahedrons and add them together
     virtual double Get_Volume(void);
     
@@ -155,18 +115,7 @@ public:
     //The two tetrahedrons will have the same volume, thus the same weight and thus the centre of gravity of the pyramid will
     //be the midpoint between the two centres of gravities of the two tetrahedrons
     virtual Vectors Get_Centre_Of_Gravity(void);
-    
-    //Rotates pyramid clockwise an amount of degrees about it's centre of rotation along the X, Y or Z axis. Method is as follows -
-    //Create a rotation matrix based on degrees and axis of rotation and then subtracts centre of
-    //pyramid from all Vectors to move centre of pyramid to the origin. Then apply rotation matrix
-    //to all vertcies. Then add centre of pyramid to all Vectors to move centre of pyramid back to where it was
-    void Rotate(double Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Centre_Of_Rotation);
-    
-private:
-    Vectors V0, V1, V2, V3, V4;
-    std::vector<int> VectorsOrder;
-    Material theMaterial;
-    
+
     //Top down view of Vectors numbering assumption
     //
     //    V3         V2
@@ -174,7 +123,6 @@ private:
     //         V4
     //
     //    V0         V1
-    
 };
 
 
@@ -184,43 +132,10 @@ private:
 class Hexahedron:public Cell {
 public:
     //Constructors and destructor
-    Hexahedron(const Vectors& aV0, const Vectors& aV1, const Vectors& aV2, const Vectors& aV3, const Vectors& aV4, const Vectors& aV5, const Vectors& aV6, const Vectors& aV7, const std::vector<int>& aVectorsOrder, const Material& aMaterial);
-    Hexahedron(const Hexahedron& aHexahedron);
+    Hexahedron(const std::vector<Vectors>& aVertices, const std::vector<int>& aVerticesOrder, const Material& aMaterial);
     Hexahedron(void);
     ~Hexahedron(void);
-    
-    //Custom std::cout function
-    friend std::ostream& operator<< (std::ostream& Output, const Hexahedron& aHexahedron);
-    
-    //Custom operator function
-    Hexahedron& operator = (const Hexahedron& aHexahedron);
-    
-    //Set functions
-    void Set_V0(const Vectors& aVectors);
-    void Set_V1(const Vectors& aVectors);
-    void Set_V2(const Vectors& aVectors);
-    void Set_V3(const Vectors& aVectors);
-    void Set_V4(const Vectors& aVectors);
-    void Set_V5(const Vectors& aVectors);
-    void Set_V6(const Vectors& aVectors);
-    void Set_V7(const Vectors& aVectors);
-    void Set_Vectors_Order(const std::vector<int>& aVectorsOrder);
-    void Set_Material(const Material& aMaterial);
-    
-    //Get functions
-    Vectors Get_V0(void);
-    Vectors Get_V1(void);
-    Vectors Get_V2(void);
-    Vectors Get_V3(void);
-    Vectors Get_V4(void);
-    Vectors Get_V5(void);
-    Vectors Get_V6(void);
-    Vectors Get_V7(void);
-    std::vector<int> Get_Vectors_Order(void);
-    Material Get_Material(void);
-    
-    //Hexahedron specific functions
-    
+
     //Split the hexahedron in to three pyramids and find volume of each
     //See http://mathcentral.uregina.ca/QQ/database/QQ.09.06/siva1.html for more info
     virtual double Get_Volume(void);
@@ -232,18 +147,7 @@ public:
     //See http://mathcentral.uregina.ca/QQ/database/QQ.09.06/siva1.html for more info
     //Then centroid of hexahedron will be the average/midpoint of the pyramid centroids as they have equal volume and therefore equal weight
     virtual Vectors Get_Centre_Of_Gravity(void);
-    
-    //Rotates hexahedron clockwise an amount of degrees about it's centre of rotation along the X, Y or Z axis. Method is as follows -
-    //Create a rotation matrix based on degrees and axis of rotation and then subtracts centre of
-    //hexahedron from all Vectors to move centre of hexahedron to the origin. Then apply rotation matrix
-    //to all vertcies. Then add centre of hexahedron to all Vectors to move centre of hexahedron back to where it was
-    void Rotate(double Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Centre_Of_Rotation);
-    
-private:
-    Vectors V0, V1, V2, V3, V4, V5, V6, V7;
-    std::vector<int> VectorsOrder;
-    Material theMaterial;
-    
+
     //Top down view of Vectors numbering assumption
     //
     //    V3/V7         V2/V6
