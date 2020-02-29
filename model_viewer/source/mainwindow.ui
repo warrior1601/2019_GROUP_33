@@ -380,7 +380,8 @@
   <action name="actionOpen">
    <property name="icon">
     <iconset>
-     <normaloff>../resources/images/Open.png</normaloff>../resources/images/Open.png</iconset>
+     <normaloff>../resources/images/Open.png</normaloff>
+     <normalon>../images/Open.png</normalon>../resources/images/Open.png</iconset>
    </property>
    <property name="text">
     <string>Open</string>
@@ -389,7 +390,8 @@
   <action name="actionSave">
    <property name="icon">
     <iconset>
-     <normaloff>../resources/images/Save_Icon.png</normaloff>../resources/images/Save_Icon.png</iconset>
+     <normaloff>../resources/images/Save_Icon.png</normaloff>
+     <normalon>../images/Save_Icon.png</normalon>../resources/images/Save_Icon.png</iconset>
    </property>
    <property name="text">
     <string>Save</string>
@@ -398,7 +400,7 @@
   <action name="actionSave_Lights">
    <property name="icon">
     <iconset>
-     <normalon>../resources/images/spotlight.png</normalon>
+     <normalon>../images/spotlight.png</normalon>
     </iconset>
    </property>
    <property name="text">
@@ -408,7 +410,7 @@
   <action name="actionLoad_Lights">
    <property name="icon">
     <iconset>
-     <normalon>../resources/images/business-and-finance.png</normalon>
+     <normalon>../images/business-and-finance.png</normalon>
     </iconset>
    </property>
    <property name="text">

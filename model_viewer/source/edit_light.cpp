@@ -86,7 +86,7 @@ void Edit_Light::on_Change_Light_Color_released()
             double blue = Color.blueF();
             light_Local.light->SetDiffuseColor( red, green, blue );
             light_Local.light->SetAmbientColor( red, green, blue );
-            light_Local.light->SetDiffuseColor( red, green, blue );
+            light_Local.light->SetSpecularColor( red, green, blue );
         }
         //rerenders the window after the color change
         renderWindow->Render();

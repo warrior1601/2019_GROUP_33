@@ -8,7 +8,7 @@ foreach(p
   endif()
 endforeach()
 
-PROJECT( QtVTKExample )
+PROJECT( model_viewer )
 
 # The CMake build process might generate some new files in the current
 # directory. This makes sure they can be found.
@@ -26,7 +26,7 @@ set( CMAKE_AUTORCC ON )
 # lib directories, and the necessary static libraries for linking.
 find_package( Qt5Widgets )
 
-include_directories( inc )
+include_directories( include )
 
 set( UIS mainwindow.ui )
 qt5_wrap_ui( UI_Srcs ${UIS} )
@@ -40,22 +40,22 @@ find_package( VTK REQUIRED )
 include( ${VTK_USE_FILE} )
 
 # Define the executable output and its sources
-add_executable( QtVTKExample MACOSX_BUNDLE
-				src/main.cpp 
-				src/mainwindow.cpp inc/mainwindow.h src/mainwindow.ui
-				src/edit_light.cpp inc/edit_light.h src/edit_light.ui
-				src/filters.cpp inc/filters.h src/filters.ui
-				src/vtklight_withname.cpp inc/vtklight_withname.h
-				resources/images/Images.qrc
+add_executable( model_viewer MACOSX_BUNDLE
+				source/main.cpp 
+				source/mainwindow.cpp	include/mainwindow.h	source/mainwindow.ui
+				source/edit_light.cpp 	include/edit_light.h 	source/edit_light.ui
+				source/filters.cpp 	include/filters.h 		source/filters.ui
+				source/vtklight_withname.cpp include/vtklight_withname.h
+				images/Images.qrc
 				)
 
 # Tell CMake that the executable depends on the Qt::Widget libraries.
-target_link_libraries( QtVTKExample Qt5::Widgets )
+target_link_libraries( model_viewer Qt5::Widgets )
 
 # Tell CMake that the executable depends on the VTK libraries
-target_link_libraries( QtVTKExample ${VTK_LIBRARIES} )
+target_link_libraries( model_viewer ${VTK_LIBRARIES} )
 
-ADD_CUSTOM_COMMAND(TARGET QtVTKExample POST_BUILD
+ADD_CUSTOM_COMMAND(TARGET model_viewer POST_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy_directory
-                       ${CMAKE_CURRENT_SOURCE_DIR}/resources
-                       ${CMAKE_CURRENT_SOURCE_DIR}/build/resources)
+                       ${CMAKE_CURRENT_SOURCE_DIR}/images
+                       ${CMAKE_CURRENT_SOURCE_DIR}/build/images)
