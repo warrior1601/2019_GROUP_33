@@ -55,7 +55,7 @@ target_link_libraries( model_viewer Qt5::Widgets )
 # Tell CMake that the executable depends on the VTK libraries
 target_link_libraries( model_viewer ${VTK_LIBRARIES} )
 
-ADD_CUSTOM_COMMAND(TARGET QtVTKExample POST_BUILD
+ADD_CUSTOM_COMMAND(TARGET model_viewer POST_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy_directory
                        ${CMAKE_CURRENT_SOURCE_DIR}/images
                        ${CMAKE_CURRENT_SOURCE_DIR}/build/images)

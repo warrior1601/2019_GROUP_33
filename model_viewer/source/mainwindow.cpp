@@ -221,12 +221,13 @@ void MainWindow::on_Horizontal_Shift_valueChanged(int arg1)
 void MainWindow::on_actionOpen_triggered()
 {
     ui->statusBar->showMessage("Open Action Triggered",3000);
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Open STL File"), "../../stl", tr("STL Files(*.stl);;Text files (*.txt)"));
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open STL File"), "../../../example_models", tr("STL Files(*.stl);;Text files (*.txt)"));
     std::string FilePath = fileName.toUtf8().constData();
     std::ifstream myFile(FilePath);
 
     if (myFile.is_open()) //Check if file has been opened sucessfully, if so returns true
     {
+
         std::size_t found = FilePath.find_last_of(".");
         std::cout << "File type is: " << FilePath.substr(found+1) << std::endl;
         std::string FileType = FilePath.substr(found+1);
@@ -288,19 +289,25 @@ void MainWindow::on_actionOpen_triggered()
             mapper->SetInputData(ug);
             renderer->ResetCameraClippingRange();
         }
+        actor->SetMapper(mapper);
+        actor->GetProperty()->EdgeVisibilityOn();
+        actor->GetProperty()->SetColor( colors->GetColor3d("Green").GetData() );
+
+        renderer->AddActor(actor);
+        renderer->SetBackground( colors->GetColor3d("Silver").GetData() );
+        renderer->ResetCamera();
+        renderer->GetActiveCamera()->SetPosition(2.0 ,3.0, 5.0);
+        renderer->GetActiveCamera()->SetFocalPoint(0.0 ,0.0, 0.0);
+
+        renderer->ResetCamera();
+        renderWindow->Render();
     }
-    actor->SetMapper(mapper);
-    actor->GetProperty()->EdgeVisibilityOn();
-    actor->GetProperty()->SetColor( colors->GetColor3d("Green").GetData() );
-
-    renderer->AddActor(actor);
-    renderer->SetBackground( colors->GetColor3d("Silver").GetData() );
-    renderer->ResetCamera();
-    renderer->GetActiveCamera()->SetPosition(2.0 ,3.0, 5.0);
-    renderer->GetActiveCamera()->SetFocalPoint(0.0 ,0.0, 0.0);
-
-    renderer->ResetCamera();
-    renderWindow->Render();
+    else
+    {
+        QMessageBox msgBox;
+        msgBox.setText("No file was selected to open.");
+        msgBox.exec();
+    }
 }
 
 void MainWindow::on_actionSave_triggered()
