@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>819</width>
-    <height>701</height>
+    <width>833</width>
+    <height>670</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -40,6 +40,12 @@
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
          <widget class="QPushButton" name="Change_Object_Color">
+          <property name="minimumSize">
+           <size>
+            <width>75</width>
+            <height>23</height>
+           </size>
+          </property>
           <property name="maximumSize">
            <size>
             <width>75</width>
@@ -53,6 +59,12 @@
         </item>
         <item>
          <widget class="QPushButton" name="Change_Back_Ground_Color">
+          <property name="minimumSize">
+           <size>
+            <width>96</width>
+            <height>23</height>
+           </size>
+          </property>
           <property name="maximumSize">
            <size>
             <width>96</width>
@@ -66,6 +78,12 @@
         </item>
         <item>
          <widget class="QPushButton" name="Add_Light">
+          <property name="minimumSize">
+           <size>
+            <width>75</width>
+            <height>23</height>
+           </size>
+          </property>
           <property name="maximumSize">
            <size>
             <width>75</width>
@@ -79,6 +97,12 @@
         </item>
         <item>
          <widget class="QPushButton" name="Delete_Light">
+          <property name="minimumSize">
+           <size>
+            <width>75</width>
+            <height>23</height>
+           </size>
+          </property>
           <property name="text">
            <string>Delete Light</string>
           </property>
@@ -108,6 +132,12 @@
         </item>
         <item>
          <widget class="QPushButton" name="Edit_Light">
+          <property name="minimumSize">
+           <size>
+            <width>75</width>
+            <height>23</height>
+           </size>
+          </property>
           <property name="maximumSize">
            <size>
             <width>75</width>
@@ -121,6 +151,12 @@
         </item>
         <item>
          <widget class="QPushButton" name="Apply_Filters">
+          <property name="minimumSize">
+           <size>
+            <width>75</width>
+            <height>23</height>
+           </size>
+          </property>
           <property name="maximumSize">
            <size>
             <width>75</width>
@@ -161,6 +197,12 @@
         </item>
         <item>
          <widget class="QPushButton" name="Reset_Camera">
+          <property name="minimumSize">
+           <size>
+            <width>76</width>
+            <height>23</height>
+           </size>
+          </property>
           <property name="maximumSize">
            <size>
             <width>77</width>
@@ -346,7 +388,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>819</width>
+     <width>833</width>
      <height>21</height>
     </rect>
    </property>

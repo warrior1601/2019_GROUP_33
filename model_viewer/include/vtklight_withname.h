@@ -32,6 +32,12 @@ public:
       ~vtkLight_WithName()  {}
 // This function is public is called in MainWindow.cpp which allows
 // Access to the name of the light
+
+// The vtkLight is pubic because it has its own accessor functions
+// Found in vtkLight.h
+
+vtkSmartPointer<vtkLight> light;
+
 //--------------Special Member Functions--------------//
     void SetName(const QString & name );
 // This function allows the name to be accessed
@@ -40,10 +46,7 @@ public:
 // This checks if the light is swithced ON or OFF
 
     Qt::CheckState Check_State();
-// The vtkLight is pubic because it has its own accessor functions
-// Found in vtkLight.h
 
-    vtkSmartPointer<vtkLight> light;
 // Overloaded function
 
     vtkLight_WithName operator=(const vtkLight_WithName& Copy);
