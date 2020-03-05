@@ -41,7 +41,7 @@ include( ${VTK_USE_FILE} )
 
 # Define the executable output and its sources
 add_executable( model_viewer MACOSX_BUNDLE
-				source/main.cpp 
+				source/main.cpp
 				source/mainwindow.cpp	include/mainwindow.h	source/mainwindow.ui
 				source/edit_light.cpp 	include/edit_light.h 	source/edit_light.ui
 				source/filters.cpp 	include/filters.h 		source/filters.ui
@@ -55,7 +55,14 @@ target_link_libraries( model_viewer Qt5::Widgets )
 # Tell CMake that the executable depends on the VTK libraries
 target_link_libraries( model_viewer ${VTK_LIBRARIES} )
 
+# For if building in model_viewer buld folder
 ADD_CUSTOM_COMMAND(TARGET model_viewer POST_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy_directory
                        ${CMAKE_CURRENT_SOURCE_DIR}/images
                        ${CMAKE_CURRENT_SOURCE_DIR}/build/images)
+
+# For if building in main build folder
+ADD_CUSTOM_COMMAND(TARGET model_viewer POST_BUILD
+                  COMMAND ${CMAKE_COMMAND} -E copy_directory
+                          ${CMAKE_CURRENT_SOURCE_DIR}/images
+                          ${CMAKE_CURRENT_SOURCE_DIR}/../build/images)
