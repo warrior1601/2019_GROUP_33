@@ -166,7 +166,7 @@ void MainWindow::on_Apply_Filters_released()
     filters =new Filters(this);
     filters->setWindowTitle("Apply Filters");
     filters->show();
-    filters->open(reader, mapperforSTLs, renderWindow);
+    filters->open(reader, mapper, renderWindow);
     //need a list of cells to apply filter too//filters->open(reader, mapper, renderWindow);
 }
 
@@ -236,45 +236,47 @@ void MainWindow::on_actionOpen_triggered()
     if (myFile.is_open()) //Check if file has been opened sucessfully, if so returns true
     {
         // deletes the .mod ot .txt file information that was loaded
-        for (unsigned int i = 0; i < ListOfRenderers.size(); ++i)
+        if (ListOfRenderers.size() > 0 )
         {
-            ui->Display_Window->GetRenderWindow()->RemoveRenderer( ListOfRenderers[i] );
+        ui->Display_Window->GetRenderWindow()->RemoveRenderer(ListOfRenderers[0]);
         }
         ListOfRenderers.clear();
         ListOfMappers.clear();
         ListOfUgs.clear();
         ListOfActors.clear();
 
-        bool FileSource = false;
         std::size_t found = FilePath.find_last_of(".");
         std::cout << "File type is: " << FilePath.substr(found+1) << std::endl;
         std::string FileType = FilePath.substr(found+1);
-        ui->Display_Window->GetRenderWindow()->AddRenderer( renderer );
 
         if(FileType.compare("stl") == 0 )
         {
-            FileSource = true;
             reader->SetFileName(FilePath.data());
             mapper->SetInputConnection( reader->GetOutputPort() );
             renderer->ResetCameraClippingRange();
             reader->Update();
+
+            actor->SetMapper(mapper);
+            actor->GetProperty()->EdgeVisibilityOn();
+            actor->GetProperty()->SetColor( colors->GetColor3d("Green").GetData() );
+            ui->Display_Window->GetRenderWindow()->AddRenderer( renderer );
+            renderer->AddActor(actor);
         }
         else if ((FileType.compare("txt") == 0 ) || (FileType.compare("mod")))
         {
-
-            //mapper->RemoveInputConnection( 0, reader->GetOutputPort());
-            FileSource = false;
             std::string currentLine;
-            //vtkIdType shape;
+            unsigned int tetra_count = 0;
+            unsigned int pyramid_count = 0;
+            unsigned int hexaherdon_cont = 0;
+
             points->Initialize();
             cellArray->Initialize();
-            //ugforSTLs->Reset();
 
             Model ModelOne;
             ModelOne.Load_Model(FilePath);
-
-            //std::cout << "\n\n---Load Model function---\n" << ModelOne << std::endl;
-
+            vtkSmartPointer<vtkRenderer> Renderer = vtkSmartPointer<vtkRenderer>::New();
+            ListOfRenderers.push_back(Renderer);
+            ui->Display_Window->GetRenderWindow()->AddRenderer( ListOfRenderers[0] );
             for (unsigned int i = 0; i < ModelOne.Get_Vectors().size(); i++)
                {
                 double Data[] = { ModelOne.Get_Vectors()[i].GetXVector(),
@@ -298,89 +300,64 @@ void MainWindow::on_actionOpen_triggered()
                 vtkSmartPointer<vtkUnstructuredGrid> ug = vtkSmartPointer<vtkUnstructuredGrid>::New();
                 ListOfUgs.push_back(ug);
 
-                vtkSmartPointer<vtkRenderer> renderer_ob = vtkSmartPointer<vtkRenderer>::New();
-                ListOfRenderers.push_back(renderer_ob);
             // This is baics shape reader needs changing for loading more complex shapes
-
-            switch (ModelOne.Get_Cell_Order()[i])
+            Cell Test = *ModelOne.Get_Cells()[i];
+                if (ModelOne.Get_Cell_Order()[i] == 't')
                  {
-                    case 't' : std::cout << "Tetra" << std::endl;
-                             ug->SetPoints(points);
-                             for (vtkIdType vtkId = 0; vtkId < 4; vtkId++)
-                             {
-                               tetra->GetPointIds()->SetId(vtkId, vtkIdType (ModelOne.Get_Vectors_Being_Used()[vtkId]) );
-                             }
-                             cellArray->InsertNextCell(tetra);
-                             ug->SetCells(VTK_TETRA, cellArray);
-                             mapper->SetInputData(ug);
-                             actor->SetMapper(mapper);
-                             actor->GetProperty()->SetColor( colors->GetColor3d("Green").GetData() );
-                             renderer->AddActor(actor);
-                             break;
-                    case 'p' : std::cout << "Pyramid" << std::endl;
-                             ug->SetPoints(points);
-                             for (vtkIdType vtkId = 0; vtkId < 5; vtkId++)
-                             {
-                               pyramid->GetPointIds()->SetId(vtkId, vtkIdType (ModelOne.Get_Vectors_Being_Used()[vtkId]) );
-                             }
-                             cellArray->InsertNextCell (pyramid);
-                             ug->InsertNextCell(pyramid->GetCellType(),pyramid->GetPointIds());
-                             mapper->SetInputData(ug);
-                             actor->SetMapper(mapper);
-                             actor->GetProperty()->EdgeVisibilityOn();
-                             actor->GetProperty()->SetColor( colors->GetColor3d("Green").GetData() );
-                             renderer->AddActor( actor );
-                             break;
-
-                    case 'h' : std::cout << "Hexahedron" << std::endl;
-                             ListOfUgs[i]->SetPoints(points);
-                             vtkSmartPointer<vtkHexahedron> hex = vtkSmartPointer<vtkHexahedron>::New();
-                             ListOfHexs.push_back(hex);
-
-
-                             //problem is that i am setting Ids back to 0 each time. I should set all ids in the beging
-                             for ( vtkIdType vtkId = 0; vtkId < 8; vtkId++)
-                             {
-                               ListOfHexs[i]->GetPointIds()->SetId(vtkId, vtkIdType (ModelOne.Get_Vectors_Being_Used()[unsigned int (vtkId)]) );
-                               std::cout << ModelOne.Get_Vectors_Being_Used()[unsigned int (vtkId)] << std::endl;
-                             }
-                             cellArray->InsertNextCell(ListOfHexs[i]);
-                             //ListOfUgs[i]->SetCells(VTK_HEXAHEDRON, ListOfHexs[i]);
-                             ListOfUgs[i]->InsertNextCell(VTK_HEXAHEDRON, ListOfHexs[i]->GetPointIds() );
-                             ListOfMappers[i]->SetInputData(ListOfUgs[i]);
-                             ListOfActors[i]->SetMapper(ListOfMappers[i]);
-                             //ListOfActors[i]->GetProperty()->SetColor(colors->GetColor3d("Cyan").GetData());
-                             ListOfRenderers[i]->AddActor(ListOfActors[i]);
-                             ui->Display_Window->GetRenderWindow()->AddRenderer( ListOfRenderers[i] );
-
-                             switch (i)
-                             {
-                             case 0: ListOfActors[i]->GetProperty()->SetColor(colors->GetColor3d("Red").GetData());
-                                 break;
-                             case 1: ListOfActors[i]->GetProperty()->SetColor(colors->GetColor3d("Green").GetData());
-                                 break;
-                             case 2: ListOfActors[i]->GetProperty()->SetColor(colors->GetColor3d("Blue").GetData());
-                                 break;
-                             }
-                             break;
+                 std::cout << "Tetra" << std::endl;
+                 ListOfUgs[i]->SetPoints(points);
+                 vtkSmartPointer<vtkTetra> tetra = vtkSmartPointer<vtkTetra>::New();
+                 ListOfTetras.push_back(tetra);
+                 for (vtkIdType vtkId = 0; vtkId < 4; vtkId++)
+                      {
+                      ListOfTetras[tetra_count]->GetPointIds()->SetId(vtkId, vtkIdType (ModelOne.Get_Vectors_Being_Used()[vtkId]) );
+                      }
+                 cellArray->InsertNextCell(ListOfTetras[tetra_count]);
+                 ListOfUgs[i]->InsertNextCell(tetra->GetCellType(), ListOfTetras[tetra_count]->GetPointIds());
+                 ListOfMappers[i]->SetInputData(ListOfUgs[i]);
+                 ListOfActors[i]->SetMapper(ListOfMappers[i]);
+                 ListOfRenderers[0]->AddActor(ListOfActors[i]);
+                 tetra_count++;
                  }
 
-            //std::cout << ListOfUgs.size()<<std::endl;
-            std::cout << "After the Switch statement number of Cells in the array: ";
-            std::cout << cellArray->GetNumberOfCells() << std::endl;
-            std::cout << "After the Switch statement number of Renders are: ";
-            std::cout << ListOfRenderers.size() << std::endl;
-             }
-          // mapper->SetInputData(ug);
-           renderer->ResetCameraClippingRange();
-        }
-        if(FileSource == true)
-        {
-        actor->SetMapper(mapper);
-        actor->GetProperty()->EdgeVisibilityOn();
-        actor->GetProperty()->SetColor( colors->GetColor3d("Green").GetData() );
+                if (ModelOne.Get_Cell_Order()[i] == 'p')
+                 {
+                  std::cout << "Pyramid" << std::endl;
+                  ListOfUgs[i]->SetPoints(points);
+                  vtkSmartPointer<vtkPyramid> pyramid = vtkSmartPointer<vtkPyramid>::New();
+                  ListOfPyramids.push_back(pyramid);
+                  for (vtkIdType vtkId = 0; vtkId < 5; vtkId++)
+                       {
+                       ListOfPyramids[pyramid_count]->GetPointIds()->SetId(vtkId, vtkIdType (Test.Get_Vertices_Order()[vtkId]) );
+                       }
+                  cellArray->InsertNextCell (ListOfPyramids[pyramid_count]);
+                  ListOfUgs[i]->InsertNextCell(pyramid->GetCellType(), ListOfPyramids[pyramid_count]->GetPointIds());
+                  ListOfMappers[i]->SetInputData(ListOfUgs[i]);
+                  ListOfActors[i]->SetMapper(ListOfMappers[i]);
+                  ListOfRenderers[0]->AddActor(ListOfActors[i]);
+                  pyramid_count++;
+                 }
 
-        renderer->AddActor(actor);
+                 if (ModelOne.Get_Cell_Order()[i] == 'h')
+                  {
+                  std::cout << "Hexahedron" << std::endl;
+                  ListOfUgs[i]->SetPoints(points);
+                  vtkSmartPointer<vtkHexahedron> hex = vtkSmartPointer<vtkHexahedron>::New();
+                  ListOfHexs.push_back(hex);
+                  for ( vtkIdType vtkId = 0; vtkId < 8; vtkId++)
+                      {
+                      ListOfHexs[hexaherdon_cont]->GetPointIds()->SetId(vtkId, vtkIdType (Test.Get_Vertices_Order()[vtkId]) );
+                      }
+                  cellArray->InsertNextCell(ListOfHexs[hexaherdon_cont]);
+                  ListOfUgs[i]->InsertNextCell(VTK_HEXAHEDRON, ListOfHexs[hexaherdon_cont]->GetPointIds() );
+                  ListOfMappers[i]->SetInputData(ListOfUgs[i]);
+                  ListOfActors[i]->SetMapper(ListOfMappers[i]);
+                  ListOfRenderers[0]->AddActor(ListOfActors[i]);
+                  hexaherdon_cont++;
+                  }
+             }
+           ListOfRenderers[0]->ResetCameraClippingRange();
+           ListOfRenderers[0]->SetBackground( colors->GetColor3d("Silver").GetData() );
         }
         renderer->SetBackground( colors->GetColor3d("Silver").GetData() );
 

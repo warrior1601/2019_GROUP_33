@@ -83,15 +83,12 @@ private:
 
     std::vector<vtkSmartPointer<vtkActor>> ListOfActors;
     vtkSmartPointer<vtkActor> actor = vtkSmartPointer<vtkActor>::New();
-    vtkSmartPointer<vtkActor> actorforSTLs = vtkSmartPointer<vtkActor>::New();
     vtkSmartPointer<vtkNamedColors> colors = vtkSmartPointer<vtkNamedColors>::New();
 
     std::vector<vtkSmartPointer<vtkDataSetMapper>> ListOfMappers;
     vtkSmartPointer<vtkDataSetMapper> mapper = vtkSmartPointer<vtkDataSetMapper>::New();
-    vtkSmartPointer<vtkDataSetMapper> mapperforSTLs = vtkSmartPointer<vtkDataSetMapper>::New();
 
     vtkSmartPointer<vtkSTLReader> reader = vtkSmartPointer<vtkSTLReader>::New();  
-    //vtkSmartPointer<vtkRenderer> renderer = vtkSmartPointer<vtkRenderer>::New();
     vtkSmartPointer<vtkRenderer> renderer = vtkSmartPointer<vtkRenderer>::New();
     std::vector<vtkSmartPointer<vtkRenderer>> ListOfRenderers;
     vtkSmartPointer<vtkGenericOpenGLRenderWindow> renderWindow = vtkSmartPointer<vtkGenericOpenGLRenderWindow>::New();
@@ -100,17 +97,12 @@ private:
 
     std::vector<vtkSmartPointer<vtkUnstructuredGrid>> ListOfUgs;
     vtkSmartPointer<vtkUnstructuredGrid> ug = vtkSmartPointer<vtkUnstructuredGrid>::New();
-    vtkSmartPointer<vtkUnstructuredGrid> ugforSTLs = vtkSmartPointer<vtkUnstructuredGrid>::New();
 
-    vtkSmartPointer<vtkPyramid> pyramid = vtkSmartPointer<vtkPyramid>::New();
-    vtkSmartPointer<vtkTetra> tetra = vtkSmartPointer<vtkTetra>::New();
-    //vtkSmartPointer<vtkHexahedron> hex = vtkSmartPointer<vtkHexahedron>::New();
-
+    std::vector<vtkSmartPointer<vtkTetra>> ListOfTetras;
+    std::vector<vtkSmartPointer<vtkPyramid>> ListOfPyramids;
     std::vector<vtkSmartPointer<vtkHexahedron>> ListOfHexs;
 
-    //vtkSmartPointer<vtkCellArray> cells = vtkSmartPointer<vtkCellArray>::New();
     vtkSmartPointer<vtkCellArray> cellArray = vtkSmartPointer<vtkCellArray>::New();
-    //vtkSmartPointer<vtkCellArray> hexs = vtkSmartPointer<vtkCellArray>::New();
 };
 
 #endif // MAINWINDOW_H
