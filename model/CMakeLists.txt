@@ -130,7 +130,7 @@ ADD_CUSTOM_COMMAND(TARGET ModelTestCode POST_BUILD
 
 # enter command> "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" amd64        or        "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat" x86_amd64
 # This sets the PATH for the Visual Studio compiler
-# enter command> msbuild Computing_Project.sln
+# enter command> msbuild model.sln
 # enter command> cd Debug
 # The executable files will be located here and can be entered via command prompt as follows
 # enter command> MaterialTestCode.exe (or any other classes test code)

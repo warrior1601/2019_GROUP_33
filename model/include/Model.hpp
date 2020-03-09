@@ -68,6 +68,8 @@ public:
     //list with the new Vectors
     void Rotate(double Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Centre_Of_Rotation);
 
+    std::vector<int> Get_Vectors_Being_Used(void);
+
 private:
     std::vector<Material> manyMaterials;                //Material position = Material ID
     std::vector<Vectors> manyVectors;                   //Vectors position = Vectors ID
@@ -75,7 +77,7 @@ private:
     std::string cellOrder;                              //This represents the order in which the cells were created from the load file
 
     //Required funtions for Get_Geometric_Centre() and Get_Overall_Dimensions() that returns the most positive and most negative Vectors
-    std::vector<int> Get_Vectors_Being_Used(void);
+    //std::vector<int> Get_Vectors_Being_Used(void);
     std::vector<Vectors> Get_Min_Max(void);
 };
 

@@ -30,6 +30,12 @@ using namespace std;
 #include "edit_light.h"
 #include "vtklight_withname.h"
 
+#include "Material.h"
+#include "Vectors.h"
+#include "Matrix.hpp"
+#include "Cell.hpp"
+#include "Model.hpp"
+
 //-------------Constructor------------//
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
@@ -81,7 +87,7 @@ void MainWindow::on_Change_Object_Color_released()
         double red = Color.redF();
         double green = Color.greenF();
         double blue = Color.blueF();
-        actor->GetProperty()->SetColor( red,green,blue );
+        //make a list if cell//actor->GetProperty()->SetColor( red,green,blue );
     }
     //rerenders the window after the color change
     renderWindow->Render();
@@ -160,7 +166,8 @@ void MainWindow::on_Apply_Filters_released()
     filters =new Filters(this);
     filters->setWindowTitle("Apply Filters");
     filters->show();
-    filters->open(reader, mapper, renderWindow);
+    filters->open(reader, mapperforSTLs, renderWindow);
+    //need a list of cells to apply filter too//filters->open(reader, mapper, renderWindow);
 }
 
 void MainWindow::on_X_Camera_Pos_valueChanged(int value)
@@ -221,13 +228,14 @@ void MainWindow::on_Horizontal_Shift_valueChanged(int arg1)
 void MainWindow::on_actionOpen_triggered()
 {
     ui->statusBar->showMessage("Open Action Triggered",3000);
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Open STL File"), "../../../example_models", tr("STL Files(*.stl);;Text files (*.txt)"));
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), "../../example_models",
+                                                    tr("STL Files(*.stl);;Text files (*.txt);;MOD Files(*.mod)"));
     std::string FilePath = fileName.toUtf8().constData();
     std::ifstream myFile(FilePath);
 
     if (myFile.is_open()) //Check if file has been opened sucessfully, if so returns true
     {
-
+        bool FileSource = false;
         std::size_t found = FilePath.find_last_of(".");
         std::cout << "File type is: " << FilePath.substr(found+1) << std::endl;
         std::string FileType = FilePath.substr(found+1);
@@ -235,67 +243,121 @@ void MainWindow::on_actionOpen_triggered()
 
         if(FileType.compare("stl") == 0 )
         {
+            FileSource = true;
             reader->SetFileName(FilePath.data());
             mapper->SetInputConnection( reader->GetOutputPort() );
             renderer->ResetCameraClippingRange();
             reader->Update();
         }
-        else if ((FileType.compare("txt") == 0 ))
+        else if ((FileType.compare("txt") == 0 ) || (FileType.compare("mod")))
         {
+            FileSource = false;
             std::string currentLine;
-            vtkIdType shape;
+            //vtkIdType shape;
             points->Initialize();
-            ug->Reset();
-            while ( getline (myFile,currentLine) )
-            {
-                double Data[] = {0.0, 0.0, 0.0};
-                LoadBasicShape(Data,currentLine);
+            //ugforSTLs->Reset();
+
+            Model ModelOne;
+            ModelOne.Load_Model(FilePath);
+
+            //std::cout << "\n\n---Load Model function---\n" << ModelOne << std::endl;
+
+            for (unsigned int i = 0; i < ModelOne.Get_Vectors().size(); i++)
+               {
+                double Data[] = { ModelOne.Get_Vectors()[i].GetXVector(),
+                                  ModelOne.Get_Vectors()[i].GetYVector(),
+                                  ModelOne.Get_Vectors()[i].GetZVector()};
+
                 points->InsertNextPoint(Data);
-            }
-            shape = points->GetNumberOfPoints();
+               }
+
+            for (unsigned int i = 0; i < ModelOne.Get_Cell_Order().size(); i++)
+            {
+
+                std::cout << "Cell loop: "<< i << std::endl;
+                std::cout << "C" << std::setw(3) << i << " = ";
+
+                vtkSmartPointer<vtkDataSetMapper> mapper = vtkSmartPointer<vtkDataSetMapper>::New();
+                ListOfMappers.push_back(mapper);
+
+                vtkSmartPointer<vtkActor> actor = vtkSmartPointer<vtkActor>::New();
+                ListOfActors.push_back(actor);
+
+                vtkSmartPointer<vtkUnstructuredGrid> ug = vtkSmartPointer<vtkUnstructuredGrid>::New();
+                ListOfUgs.push_back(ug);
+
+                vtkSmartPointer<vtkRenderer> renderer_ob = vtkSmartPointer<vtkRenderer>::New();
+                ListOfRenderers.push_back(renderer_ob);
             // This is baics shape reader needs changing for loading more complex shapes
 
-            switch (shape)
+            switch (ModelOne.Get_Cell_Order()[i])
                  {
-                    case 4 : std::cout << "Tetra" << std::endl;
+                    case 't' : std::cout << "Tetra" << std::endl;
                              ug->SetPoints(points);
-                             for (vtkIdType i = 0; i < 4; i++)
+                             for (vtkIdType vtkId = 0; vtkId < 4; vtkId++)
                              {
-                               tetra->GetPointIds()->SetId(i, i);
+                               tetra->GetPointIds()->SetId(vtkId, vtkIdType (ModelOne.Get_Vectors_Being_Used()[vtkId]) );
                              }
                              cellArray->InsertNextCell(tetra);
                              ug->SetCells(VTK_TETRA, cellArray);
+                             mapper->SetInputData(ug);
+                             actor->SetMapper(mapper);
+                             actor->GetProperty()->SetColor( colors->GetColor3d("Green").GetData() );
+                             renderer->AddActor(actor);
                              break;
-                    case 5 : std::cout << "Pyramid" << std::endl;
+                    case 'p' : std::cout << "Pyramid" << std::endl;
                              ug->SetPoints(points);
-                             for (vtkIdType i = 0; i < 5; i++)
+                             for (vtkIdType vtkId = 0; vtkId < 5; vtkId++)
                              {
-                               pyramid->GetPointIds()->SetId(i, i);
+                               pyramid->GetPointIds()->SetId(vtkId, vtkIdType (ModelOne.Get_Vectors_Being_Used()[vtkId]) );
                              }
-                             cells->InsertNextCell (pyramid);
+                             cellArray->InsertNextCell (pyramid);
                              ug->InsertNextCell(pyramid->GetCellType(),pyramid->GetPointIds());
+                             mapper->SetInputData(ug);
+                             actor->SetMapper(mapper);
+                             actor->GetProperty()->EdgeVisibilityOn();
+                             actor->GetProperty()->SetColor( colors->GetColor3d("Green").GetData() );
+                             renderer->AddActor( actor );
                              break;
 
-                    case 8 : std::cout << "Hexahedron" << std::endl;
-                             ug->SetPoints(points);
-                             for (vtkIdType i = 0; i < 8; i++)
+                    case 'h' : std::cout << "Hexahedron" << std::endl;
+                             ListOfUgs[i]->SetPoints(points);
+                             vtkSmartPointer<vtkHexahedron> hex = vtkSmartPointer<vtkHexahedron>::New();
+                             ListOfHexs.push_back(hex);
+                             for (vtkIdType vtkId = 0; vtkId < 8; vtkId++)
                              {
-                               hex->GetPointIds()->SetId(i, i);
+                               ListOfHexs[i]->GetPointIds()->SetId(vtkId, vtkIdType (ModelOne.Get_Vectors_Being_Used()[vtkId]) );
+                               //std::cout << ModelOne.Get_Vectors_Being_Used()[int (i)] << std::endl;
                              }
-                             hexs->InsertNextCell(hex);
-                             ug->InsertNextCell(hex->GetCellType(), hex->GetPointIds());
+                             cellArray->InsertNextCell(ListOfHexs[i]);
+                             //ListOfUgs[i]->SetCells(VTK_HEXAHEDRON, ListOfHexs[i]);
+                             ListOfUgs[i]->InsertNextCell(VTK_HEXAHEDRON, ListOfHexs[i]->GetPointIds() );
+                             ListOfMappers[i]->SetInputData(ListOfUgs[i]);
+                             ListOfActors[i]->SetMapper(ListOfMappers[i]);
+                             //ListOfActors[i]->GetProperty()->SetColor(colors->GetColor3d("Cyan").GetData());
+                             ListOfRenderers[i]->AddActor(ListOfActors[i]);
+                             ui->Display_Window->GetRenderWindow()->AddRenderer( ListOfRenderers[i] );
                              break;
                  }
-            mapper->SetInputData(ug);
-            renderer->ResetCameraClippingRange();
+
+            //std::cout << ListOfUgs.size()<<std::endl;
+            std::cout << "After the Switch statement number of Cells in the array: ";
+            std::cout << cellArray->GetNumberOfCells() << std::endl;
+             }
+            ListOfActors[0]->GetProperty()->SetColor(colors->GetColor3d("Red").GetData());
+            ListOfActors[1]->GetProperty()->SetColor(colors->GetColor3d("Green").GetData());
+            ListOfActors[2]->GetProperty()->SetColor(colors->GetColor3d("Blue").GetData());
+          // mapper->SetInputData(ug);
+           renderer->ResetCameraClippingRange();
         }
+
         actor->SetMapper(mapper);
         actor->GetProperty()->EdgeVisibilityOn();
         actor->GetProperty()->SetColor( colors->GetColor3d("Green").GetData() );
 
         renderer->AddActor(actor);
         renderer->SetBackground( colors->GetColor3d("Silver").GetData() );
-        renderer->ResetCamera();
+
         renderer->GetActiveCamera()->SetPosition(2.0 ,3.0, 5.0);
         renderer->GetActiveCamera()->SetFocalPoint(0.0 ,0.0, 0.0);
 
@@ -652,39 +714,6 @@ void MainWindow::SetLightData(double *Data, std::string currentLine)
                 continue;
             }
             if((currentLine[currentPosition] == ',')||(currentLine[currentPosition] == ')'))
-            {
-                for(int subPosition = int (temp.size())-1; subPosition<temp.size(); subPosition++)
-                {
-                    Data[counter] = std::stod(temp);
-                }
-                counter++;
-                continue;
-            }
-            temp.push_back(currentLine[currentPosition]);
-        }
-    }
-}
-
-void MainWindow::LoadBasicShape(double *Data, std::string currentLine)
-{
-    std::string temp;
-    int Placeholder = 0;
-    int counter = 0;
-    for (int currentPosition = 0; currentPosition<currentLine.size(); currentPosition++)
-    {
-        if((currentLine[currentPosition] == '{')||(currentLine[currentPosition] == '('))
-        {
-            Placeholder++;
-            continue;
-        }
-        if (Placeholder == 1)
-        {
-            if((currentLine[currentPosition] == ' ')||(currentLine[currentPosition] == ';'))
-            {
-                temp.clear();
-                continue;
-            }
-            if((currentLine[currentPosition] == ',')||(currentLine[currentPosition] == '}')||(currentLine[currentPosition] == ')'))
             {
                 for(int subPosition = int (temp.size())-1; subPosition<temp.size(); subPosition++)
                 {
