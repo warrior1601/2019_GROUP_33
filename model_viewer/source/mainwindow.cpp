@@ -235,6 +235,16 @@ void MainWindow::on_actionOpen_triggered()
 
     if (myFile.is_open()) //Check if file has been opened sucessfully, if so returns true
     {
+        // deletes the .mod ot .txt file information that was loaded
+        for (unsigned int i = 0; i < ListOfRenderers.size(); ++i)
+        {
+            ui->Display_Window->GetRenderWindow()->RemoveRenderer( ListOfRenderers[i] );
+        }
+        ListOfRenderers.clear();
+        ListOfMappers.clear();
+        ListOfUgs.clear();
+        ListOfActors.clear();
+
         bool FileSource = false;
         std::size_t found = FilePath.find_last_of(".");
         std::cout << "File type is: " << FilePath.substr(found+1) << std::endl;
@@ -251,10 +261,13 @@ void MainWindow::on_actionOpen_triggered()
         }
         else if ((FileType.compare("txt") == 0 ) || (FileType.compare("mod")))
         {
+
+            //mapper->RemoveInputConnection( 0, reader->GetOutputPort());
             FileSource = false;
             std::string currentLine;
             //vtkIdType shape;
             points->Initialize();
+            cellArray->Initialize();
             //ugforSTLs->Reset();
 
             Model ModelOne;
@@ -270,7 +283,6 @@ void MainWindow::on_actionOpen_triggered()
 
                 points->InsertNextPoint(Data);
                }
-
             for (unsigned int i = 0; i < ModelOne.Get_Cell_Order().size(); i++)
             {
 
@@ -324,10 +336,13 @@ void MainWindow::on_actionOpen_triggered()
                              ListOfUgs[i]->SetPoints(points);
                              vtkSmartPointer<vtkHexahedron> hex = vtkSmartPointer<vtkHexahedron>::New();
                              ListOfHexs.push_back(hex);
-                             for (vtkIdType vtkId = 0; vtkId < 8; vtkId++)
+
+
+                             //problem is that i am setting Ids back to 0 each time. I should set all ids in the beging
+                             for ( vtkIdType vtkId = 0; vtkId < 8; vtkId++)
                              {
-                               ListOfHexs[i]->GetPointIds()->SetId(vtkId, vtkIdType (ModelOne.Get_Vectors_Being_Used()[vtkId]) );
-                               //std::cout << ModelOne.Get_Vectors_Being_Used()[int (i)] << std::endl;
+                               ListOfHexs[i]->GetPointIds()->SetId(vtkId, vtkIdType (ModelOne.Get_Vectors_Being_Used()[unsigned int (vtkId)]) );
+                               std::cout << ModelOne.Get_Vectors_Being_Used()[unsigned int (vtkId)] << std::endl;
                              }
                              cellArray->InsertNextCell(ListOfHexs[i]);
                              //ListOfUgs[i]->SetCells(VTK_HEXAHEDRON, ListOfHexs[i]);
@@ -337,25 +352,36 @@ void MainWindow::on_actionOpen_triggered()
                              //ListOfActors[i]->GetProperty()->SetColor(colors->GetColor3d("Cyan").GetData());
                              ListOfRenderers[i]->AddActor(ListOfActors[i]);
                              ui->Display_Window->GetRenderWindow()->AddRenderer( ListOfRenderers[i] );
+
+                             switch (i)
+                             {
+                             case 0: ListOfActors[i]->GetProperty()->SetColor(colors->GetColor3d("Red").GetData());
+                                 break;
+                             case 1: ListOfActors[i]->GetProperty()->SetColor(colors->GetColor3d("Green").GetData());
+                                 break;
+                             case 2: ListOfActors[i]->GetProperty()->SetColor(colors->GetColor3d("Blue").GetData());
+                                 break;
+                             }
                              break;
                  }
 
             //std::cout << ListOfUgs.size()<<std::endl;
             std::cout << "After the Switch statement number of Cells in the array: ";
             std::cout << cellArray->GetNumberOfCells() << std::endl;
+            std::cout << "After the Switch statement number of Renders are: ";
+            std::cout << ListOfRenderers.size() << std::endl;
              }
-            ListOfActors[0]->GetProperty()->SetColor(colors->GetColor3d("Red").GetData());
-            ListOfActors[1]->GetProperty()->SetColor(colors->GetColor3d("Green").GetData());
-            ListOfActors[2]->GetProperty()->SetColor(colors->GetColor3d("Blue").GetData());
           // mapper->SetInputData(ug);
            renderer->ResetCameraClippingRange();
         }
-
+        if(FileSource == true)
+        {
         actor->SetMapper(mapper);
         actor->GetProperty()->EdgeVisibilityOn();
         actor->GetProperty()->SetColor( colors->GetColor3d("Green").GetData() );
 
         renderer->AddActor(actor);
+        }
         renderer->SetBackground( colors->GetColor3d("Silver").GetData() );
 
         renderer->GetActiveCamera()->SetPosition(2.0 ,3.0, 5.0);

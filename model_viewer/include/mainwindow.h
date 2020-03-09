@@ -93,7 +93,7 @@ private:
     vtkSmartPointer<vtkSTLReader> reader = vtkSmartPointer<vtkSTLReader>::New();  
     //vtkSmartPointer<vtkRenderer> renderer = vtkSmartPointer<vtkRenderer>::New();
     vtkSmartPointer<vtkRenderer> renderer = vtkSmartPointer<vtkRenderer>::New();
-    std::vector<vtkSmartPointer<vtkRenderer> > ListOfRenderers;
+    std::vector<vtkSmartPointer<vtkRenderer>> ListOfRenderers;
     vtkSmartPointer<vtkGenericOpenGLRenderWindow> renderWindow = vtkSmartPointer<vtkGenericOpenGLRenderWindow>::New();
 
     vtkSmartPointer<vtkPoints> points = vtkSmartPointer<vtkPoints>::New();
