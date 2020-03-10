@@ -9,8 +9,10 @@
 // Impleminting the function defined in MainWindow.h and connected
 // To the buttons on MainWindow.ui
 
+#include <iomanip>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 using namespace std;
 
 #include <vtkCamera.h>
@@ -87,7 +89,8 @@ void MainWindow::on_Change_Object_Color_released()
         double red = Color.redF();
         double green = Color.greenF();
         double blue = Color.blueF();
-        //make a list if cell//actor->GetProperty()->SetColor( red,green,blue );
+        actor->GetProperty()->SetColor( red,green,blue );
+        std::cout << "Red: " << red << " Green: " <<green << "Blue: " << blue << std::endl;
     }
     //rerenders the window after the color change
     renderWindow->Render();
@@ -277,6 +280,10 @@ void MainWindow::on_actionOpen_triggered()
             vtkSmartPointer<vtkRenderer> Renderer = vtkSmartPointer<vtkRenderer>::New();
             ListOfRenderers.push_back(Renderer);
             ui->Display_Window->GetRenderWindow()->AddRenderer( ListOfRenderers[0] );
+
+            std::string col;
+            std::stringstream testing;
+
             for (unsigned int i = 0; i < ModelOne.Get_Vectors().size(); i++)
                {
                 double Data[] = { ModelOne.Get_Vectors()[i].GetXVector(),
@@ -310,12 +317,39 @@ void MainWindow::on_actionOpen_triggered()
                  ListOfTetras.push_back(tetra);
                  for (vtkIdType vtkId = 0; vtkId < 4; vtkId++)
                       {
-                      ListOfTetras[tetra_count]->GetPointIds()->SetId(vtkId, vtkIdType (ModelOne.Get_Vectors_Being_Used()[vtkId]) );
+                      ListOfTetras[tetra_count]->GetPointIds()->SetId(vtkId, vtkIdType (Test.Get_Vertices_Order()[vtkId]) );
                       }
                  cellArray->InsertNextCell(ListOfTetras[tetra_count]);
                  ListOfUgs[i]->InsertNextCell(tetra->GetCellType(), ListOfTetras[tetra_count]->GetPointIds());
                  ListOfMappers[i]->SetInputData(ListOfUgs[i]);
                  ListOfActors[i]->SetMapper(ListOfMappers[i]);
+
+
+                 // put in function ??//
+                   col =  ModelOne.Get_Materials()[i].GetColour();
+                   std::string RGB_Red = col.substr(0,2);
+                   std::string RGB_Green = col.substr(2,2);
+                   std::string RGB_Blue = col.substr(4,2);
+
+                  int Red;
+                  std::istringstream(RGB_Red) >> std::hex >> Red;
+                  std::cout<< "Red: " << std::dec  << Red << std::endl;
+                  double Red_remapped = (0.0 + (1.0 - 0.0) * ((Red - 0.0) / (255 - 0.0)));
+                  std::cout<< "Red: " << Red_remapped << std::endl;
+
+                  int Green;
+                  std::istringstream(RGB_Green) >> std::hex >> Green;
+                  std::cout<< "Green: " << std::dec  << Green << std::endl;
+                  double Green_remapped = (0.0 + (1.0 - 0.0) * ((Green - 0.0) / (255 - 0.0)));
+                  std::cout<< "Green: " << Green_remapped << std::endl;
+
+                  int Blue;
+                  std::istringstream(RGB_Blue) >> std::hex >> Blue;
+                  std::cout<< "Blue: " << std::dec  << Blue << std::endl;
+                  double Blue_remapped = (0.0 + (1.0 - 0.0) * ((Blue - 0.0) / (255 - 0.0)));
+                  std::cout<< "Blue: " << Blue_remapped << std::endl;
+
+                 ListOfActors[i]->GetProperty()->SetColor(Red_remapped,Green_remapped,Blue_remapped);
                  ListOfRenderers[0]->AddActor(ListOfActors[i]);
                  tetra_count++;
                  }
@@ -334,6 +368,31 @@ void MainWindow::on_actionOpen_triggered()
                   ListOfUgs[i]->InsertNextCell(pyramid->GetCellType(), ListOfPyramids[pyramid_count]->GetPointIds());
                   ListOfMappers[i]->SetInputData(ListOfUgs[i]);
                   ListOfActors[i]->SetMapper(ListOfMappers[i]);
+                  col =  ModelOne.Get_Materials()[i].GetColour();
+                  std::string RGB_Red = col.substr(0,2);
+                  std::string RGB_Green = col.substr(2,2);
+                  std::string RGB_Blue = col.substr(4,2);
+
+                 int Red;
+                 std::istringstream(RGB_Red) >> std::hex >> Red;
+                 std::cout<< "Red: " << std::dec  << Red << std::endl;
+                 double Red_remapped = (0.0 + (1.0 - 0.0) * ((Red - 0.0) / (255 - 0.0)));
+                 std::cout<< "Red: " << Red_remapped << std::endl;
+
+                 int Green;
+                 std::istringstream(RGB_Green) >> std::hex >> Green;
+                 std::cout<< "Green: " << std::dec  << Green << std::endl;
+                 double Green_remapped = (0.0 + (1.0 - 0.0) * ((Green - 0.0) / (255 - 0.0)));
+                 std::cout<< "Green: " << Green_remapped << std::endl;
+
+                 int Blue;
+                 std::istringstream(RGB_Blue) >> std::hex >> Blue;
+                 std::cout<< "Blue: " << std::dec  << Blue << std::endl;
+                 double Blue_remapped = (0.0 + (1.0 - 0.0) * ((Blue - 0.0) / (255 - 0.0)));
+                 std::cout<< "Blue: " << Blue_remapped << std::endl;
+
+                ListOfActors[i]->GetProperty()->SetColor(Red_remapped,Green_remapped,Blue_remapped);
+
                   ListOfRenderers[0]->AddActor(ListOfActors[i]);
                   pyramid_count++;
                  }
@@ -352,6 +411,32 @@ void MainWindow::on_actionOpen_triggered()
                   ListOfUgs[i]->InsertNextCell(VTK_HEXAHEDRON, ListOfHexs[hexaherdon_cont]->GetPointIds() );
                   ListOfMappers[i]->SetInputData(ListOfUgs[i]);
                   ListOfActors[i]->SetMapper(ListOfMappers[i]);
+
+                  col =  ModelOne.Get_Materials()[i].GetColour();
+                  std::string RGB_Red = col.substr(0,2);
+                  std::string RGB_Green = col.substr(2,2);
+                  std::string RGB_Blue = col.substr(4,2);
+
+                 int Red;
+                 std::istringstream(RGB_Red) >> std::hex >> Red;
+                 std::cout<< "Red: " << std::dec  << Red << std::endl;
+                 double Red_remapped = (0.0 + (1.0 - 0.0) * ((Red - 0.0) / (255 - 0.0)));
+                 std::cout<< "Red: " << Red_remapped << std::endl;
+
+                 int Green;
+                 std::istringstream(RGB_Green) >> std::hex >> Green;
+                 std::cout<< "Green: " << std::dec  << Green << std::endl;
+                 double Green_remapped = (0.0 + (1.0 - 0.0) * ((Green - 0.0) / (255 - 0.0)));
+                 std::cout<< "Green: " << Green_remapped << std::endl;
+
+                 int Blue;
+                 std::istringstream(RGB_Blue) >> std::hex >> Blue;
+                 std::cout<< "Blue: " << std::dec  << Blue << std::endl;
+                 double Blue_remapped = (0.0 + (1.0 - 0.0) * ((Blue - 0.0) / (255 - 0.0)));
+                 std::cout<< "Blue: " << Blue_remapped << std::endl;
+
+                ListOfActors[i]->GetProperty()->SetColor(Red_remapped,Green_remapped,Blue_remapped);
+
                   ListOfRenderers[0]->AddActor(ListOfActors[i]);
                   hexaherdon_cont++;
                   }
@@ -366,6 +451,8 @@ void MainWindow::on_actionOpen_triggered()
 
         renderer->ResetCamera();
         renderWindow->Render();
+        std::cout << "Number of Cells loaded: ";
+        std::cout << cellArray->GetNumberOfCells() << std::endl;
     }
     else
     {

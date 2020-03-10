@@ -891,6 +891,10 @@ void Model::Rotate(double Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Ce
     }
 }
 
+
+
+
+//Private Member Functions
 std::vector<int> Model::Get_Vectors_Being_Used(void)
 {
     //The next three for loops determines which vectors are being used by cycling through each type of cell and
@@ -911,16 +915,10 @@ std::vector<int> Model::Get_Vectors_Being_Used(void)
                 VectorsBeingUsed.push_back(currentVectorsID);
         }
     }
-    
+
     return VectorsBeingUsed;
 }
 
-
-
-
-
-
-//Private Member Functions
 std::vector<Vectors> Model::Get_Min_Max(void)
 {
     //This function returns two Vectors that represent the opposing corners of a hexahedron that contains the model
