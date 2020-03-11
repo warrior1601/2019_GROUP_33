@@ -27,6 +27,10 @@ set( CMAKE_AUTORCC ON )
 find_package( Qt5Widgets )
 
 include_directories( include )
+include_directories( ../model/include )
+
+add_library( Model 	../model/source/Model.cpp; ../model/source/Cell.cpp; ../model/source/Matrix.cpp; 			../model/source/Vectors.cpp; ../model/source/Material.cpp; ../model/include/Model.hpp; 			../model/include/Cell.hpp; ../model/include/Matrix.hpp; ../model/include/Vectors.h; 			../model/include/Material.h )
+
 
 set( UIS mainwindow.ui )
 qt5_wrap_ui( UI_Srcs ${UIS} )
@@ -49,20 +53,16 @@ add_executable( model_viewer MACOSX_BUNDLE
 				images/Images.qrc
 				)
 
+# Tell CMake that the executable depends on Library built in SEMESTER 1
+target_link_libraries( model_viewer Model )
+
 # Tell CMake that the executable depends on the Qt::Widget libraries.
 target_link_libraries( model_viewer Qt5::Widgets )
 
 # Tell CMake that the executable depends on the VTK libraries
 target_link_libraries( model_viewer ${VTK_LIBRARIES} )
 
-# For if building in model_viewer buld folder
 ADD_CUSTOM_COMMAND(TARGET model_viewer POST_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy_directory
                        ${CMAKE_CURRENT_SOURCE_DIR}/images
-                       ${CMAKE_CURRENT_SOURCE_DIR}/build/images)
-
-# For if building in main build folder
-ADD_CUSTOM_COMMAND(TARGET model_viewer POST_BUILD
-                  COMMAND ${CMAKE_COMMAND} -E copy_directory
-                          ${CMAKE_CURRENT_SOURCE_DIR}/images
-                          ${CMAKE_CURRENT_SOURCE_DIR}/../build/images)
+                       ${CMAKE_CURRENT_SOURCE_DIR}/../build/images)
