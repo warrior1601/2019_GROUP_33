@@ -13,6 +13,8 @@
 *.vcxproj
 build/
 projects/
+html/
+latex/
 
 CMakeCache.txt
 CMakeFiles

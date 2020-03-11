@@ -1,5 +1,10 @@
 # materials
 m 0 8960 b87373 copper
+m 1 0030 ff0000 glass
+m 2 5600 00ff00 porcilin
+m 3 4848 0000ff the end
+
+
 
 # vertex (a vector)
 v 0 0 0 0
@@ -23,6 +28,6 @@ v 17 20 10 20
 
 # cells to be created
 c 0 h 0 0 1 2 3 4 5 6 7
-c 1 h 0 1 8 9 2 5 10 11 6
-c 2 h 0 3 2 12 13 7 6 14 15
-c 3 h 0 2 9 16 12 6 11 17 14
+c 1 h 1 1 8 9 2 5 10 11 6
+c 2 h 2 3 2 12 13 7 6 14 15
+c 3 h 3 2 9 16 12 6 11 17 14

@@ -894,7 +894,6 @@ void Model::Rotate(double Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Ce
 
 
 
-
 //Private Member Functions
 std::vector<int> Model::Get_Vectors_Being_Used(void)
 {
@@ -916,10 +915,9 @@ std::vector<int> Model::Get_Vectors_Being_Used(void)
                 VectorsBeingUsed.push_back(currentVectorsID);
         }
     }
-    
+
     return VectorsBeingUsed;
 }
-
 
 std::vector<Vectors> Model::Get_Min_Max(void)
 {

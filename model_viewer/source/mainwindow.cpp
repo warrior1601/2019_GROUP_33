@@ -9,8 +9,10 @@
 // Impleminting the function defined in MainWindow.h and connected
 // To the buttons on MainWindow.ui
 
+#include <iomanip>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 using namespace std;
 
 #include <vtkCamera.h>
@@ -29,6 +31,12 @@ using namespace std;
 #include "ui_mainwindow.h"
 #include "edit_light.h"
 #include "vtklight_withname.h"
+
+#include "Material.h"
+#include "Vectors.h"
+#include "Matrix.hpp"
+#include "Cell.hpp"
+#include "Model.hpp"
 
 //-------------Constructor------------//
 
@@ -99,7 +107,6 @@ void MainWindow::on_Add_Light_released()
     if(light.GetName().isEmpty() == false)
     {
         // This establishes default settingd for an added light
-
         ui->Select_Light->addItem(light.GetName());
         light.light->SetLightTypeToSceneLight();
         light.light->SetPosition( 5, 5, 15 );
@@ -161,6 +168,7 @@ void MainWindow::on_Apply_Filters_released()
     filters->setWindowTitle("Apply Filters");
     filters->show();
     filters->open(reader, mapper, renderWindow);
+    //need a list of cells to apply filter too//filters->open(reader, mapper, renderWindow);
 }
 
 void MainWindow::on_X_Camera_Pos_valueChanged(int value)
@@ -221,17 +229,26 @@ void MainWindow::on_Horizontal_Shift_valueChanged(int arg1)
 void MainWindow::on_actionOpen_triggered()
 {
     ui->statusBar->showMessage("Open Action Triggered",3000);
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Open STL File"), "../../../example_models", tr("STL Files(*.stl);;Text files (*.txt)"));
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), "../../example_models",
+                                                    tr("STL Files(*.stl);;Text files (*.txt);;MOD Files(*.mod)"));
     std::string FilePath = fileName.toUtf8().constData();
     std::ifstream myFile(FilePath);
 
     if (myFile.is_open()) //Check if file has been opened sucessfully, if so returns true
     {
+        // deletes the .mod ot .txt file information that was loaded
+        if (ListOfRenderers.size() > 0 )
+        {
+        ui->Display_Window->GetRenderWindow()->RemoveRenderer(ListOfRenderers[0]);
+        }
+        ListOfRenderers.clear();
+        ListOfMappers.clear();
+        ListOfUgs.clear();
+        ListOfActors.clear();
 
         std::size_t found = FilePath.find_last_of(".");
         std::cout << "File type is: " << FilePath.substr(found+1) << std::endl;
         std::string FileType = FilePath.substr(found+1);
-        ui->Display_Window->GetRenderWindow()->AddRenderer( renderer );
 
         if(FileType.compare("stl") == 0 )
         {
@@ -239,63 +256,167 @@ void MainWindow::on_actionOpen_triggered()
             mapper->SetInputConnection( reader->GetOutputPort() );
             renderer->ResetCameraClippingRange();
             reader->Update();
+
+            actor->SetMapper(mapper);
+            actor->GetProperty()->EdgeVisibilityOn();
+            actor->GetProperty()->SetColor( colors->GetColor3d("Green").GetData() );
+            ui->Display_Window->GetRenderWindow()->AddRenderer( renderer );
+            renderer->AddActor(actor);
         }
-        else if ((FileType.compare("txt") == 0 ))
+        else if ((FileType.compare("txt") == 0 ) || (FileType.compare("mod")) == 0)
         {
             std::string currentLine;
-            vtkIdType shape;
+            unsigned int tetra_count = 0;
+            unsigned int pyramid_count = 0;
+            unsigned int hexaherdon_cont = 0;
+
             points->Initialize();
-            ug->Reset();
-            while ( getline (myFile,currentLine) )
-            {
-                double Data[] = {0.0, 0.0, 0.0};
-                LoadBasicShape(Data,currentLine);
+            cellArray->Initialize();
+
+            Model ModelOne;
+            ModelOne.Load_Model(FilePath);
+            vtkSmartPointer<vtkRenderer> Renderer = vtkSmartPointer<vtkRenderer>::New();
+            ListOfRenderers.push_back(Renderer);
+            ui->Display_Window->GetRenderWindow()->AddRenderer( ListOfRenderers[0] );
+
+            std::string col;
+            std::stringstream testing;
+
+            for (unsigned int i = 0; i < ModelOne.Get_Vectors().size(); i++)
+               {
+                double Data[] = { ModelOne.Get_Vectors()[i].GetXVector(),
+                                  ModelOne.Get_Vectors()[i].GetYVector(),
+                                  ModelOne.Get_Vectors()[i].GetZVector()};
                 points->InsertNextPoint(Data);
-            }
-            shape = points->GetNumberOfPoints();
+               }
+            for (unsigned int i = 0; i < ModelOne.Get_Cell_Order().size(); i++)
+            {
+                vtkSmartPointer<vtkDataSetMapper> mapper = vtkSmartPointer<vtkDataSetMapper>::New();
+                ListOfMappers.push_back(mapper);
+
+                vtkSmartPointer<vtkActor> actor = vtkSmartPointer<vtkActor>::New();
+                ListOfActors.push_back(actor);
+
+                vtkSmartPointer<vtkUnstructuredGrid> ug = vtkSmartPointer<vtkUnstructuredGrid>::New();
+                ListOfUgs.push_back(ug);
+
             // This is baics shape reader needs changing for loading more complex shapes
-
-            switch (shape)
+            Cell Test = *ModelOne.Get_Cells()[i];
+                if (ModelOne.Get_Cell_Order()[i] == 't')
                  {
-                    case 4 : std::cout << "Tetra" << std::endl;
-                             ug->SetPoints(points);
-                             for (vtkIdType i = 0; i < 4; i++)
-                             {
-                               tetra->GetPointIds()->SetId(i, i);
-                             }
-                             cellArray->InsertNextCell(tetra);
-                             ug->SetCells(VTK_TETRA, cellArray);
-                             break;
-                    case 5 : std::cout << "Pyramid" << std::endl;
-                             ug->SetPoints(points);
-                             for (vtkIdType i = 0; i < 5; i++)
-                             {
-                               pyramid->GetPointIds()->SetId(i, i);
-                             }
-                             cells->InsertNextCell (pyramid);
-                             ug->InsertNextCell(pyramid->GetCellType(),pyramid->GetPointIds());
-                             break;
+                 ListOfUgs[i]->SetPoints(points);
+                 vtkSmartPointer<vtkTetra> tetra = vtkSmartPointer<vtkTetra>::New();
+                 ListOfTetras.push_back(tetra);
+                 for (vtkIdType vtkId = 0; vtkId < 4; vtkId++)
+                      {
+                      ListOfTetras[tetra_count]->GetPointIds()->SetId(vtkId, vtkIdType (Test.Get_Vertices_Order()[vtkId]) );
+                      }
+                 cellArray->InsertNextCell(ListOfTetras[tetra_count]);
+                 ListOfUgs[i]->InsertNextCell(tetra->GetCellType(), ListOfTetras[tetra_count]->GetPointIds());
+                 ListOfMappers[i]->SetInputData(ListOfUgs[i]);
+                 ListOfActors[i]->SetMapper(ListOfMappers[i]);
 
-                    case 8 : std::cout << "Hexahedron" << std::endl;
-                             ug->SetPoints(points);
-                             for (vtkIdType i = 0; i < 8; i++)
-                             {
-                               hex->GetPointIds()->SetId(i, i);
-                             }
-                             hexs->InsertNextCell(hex);
-                             ug->InsertNextCell(hex->GetCellType(), hex->GetPointIds());
-                             break;
+
+                 // put in function ??//
+                 col =  Test.Get_Material().GetColour();
+                 std::string RGB_Red = col.substr(0,2);
+                 std::string RGB_Green = col.substr(2,2);
+                 std::string RGB_Blue = col.substr(4,2);
+
+                 int Red = 0;
+                 std::istringstream(RGB_Red) >> std::hex >> Red;
+                 double Red_remapped = (0.0 + (1.0 - 0.0) * ((Red - 0.0) / (255 - 0.0)));
+
+                 int Green = 0;
+                 std::istringstream(RGB_Green) >> std::hex >> Green;
+                 double Green_remapped = (0.0 + (1.0 - 0.0) * ((Green - 0.0) / (255 - 0.0)));
+
+                 int Blue = 0;
+                 std::istringstream(RGB_Blue) >> std::hex >> Blue;
+                 double Blue_remapped = (0.0 + (1.0 - 0.0) * ((Blue - 0.0) / (255 - 0.0)));
+
+                 ListOfActors[i]->GetProperty()->SetColor(Red_remapped,Green_remapped,Blue_remapped);
+                 ListOfRenderers[0]->AddActor(ListOfActors[i]);
+                 tetra_count++;
                  }
-            mapper->SetInputData(ug);
-            renderer->ResetCameraClippingRange();
-        }
-        actor->SetMapper(mapper);
-        actor->GetProperty()->EdgeVisibilityOn();
-        actor->GetProperty()->SetColor( colors->GetColor3d("Green").GetData() );
 
-        renderer->AddActor(actor);
+                if (ModelOne.Get_Cell_Order()[i] == 'p')
+                 {
+                  ListOfUgs[i]->SetPoints(points);
+                  vtkSmartPointer<vtkPyramid> pyramid = vtkSmartPointer<vtkPyramid>::New();
+                  ListOfPyramids.push_back(pyramid);
+                  for (vtkIdType vtkId = 0; vtkId < 5; vtkId++)
+                       {
+                       ListOfPyramids[pyramid_count]->GetPointIds()->SetId(vtkId, vtkIdType (Test.Get_Vertices_Order()[vtkId]) );
+                       }
+                  cellArray->InsertNextCell (ListOfPyramids[pyramid_count]);
+                  ListOfUgs[i]->InsertNextCell(pyramid->GetCellType(), ListOfPyramids[pyramid_count]->GetPointIds());
+                  ListOfMappers[i]->SetInputData(ListOfUgs[i]);
+                  ListOfActors[i]->SetMapper(ListOfMappers[i]);
+                  col =  Test.Get_Material().GetColour();
+                  std::string RGB_Red = col.substr(0,2);
+                  std::string RGB_Green = col.substr(2,2);
+                  std::string RGB_Blue = col.substr(4,2);
+
+                  int Red = 0;
+                  std::istringstream(RGB_Red) >> std::hex >> Red;
+                  double Red_remapped = (0.0 + (1.0 - 0.0) * ((Red - 0.0) / (255 - 0.0)));
+
+                  int Green = 0;
+                  std::istringstream(RGB_Green) >> std::hex >> Green;
+                  double Green_remapped = (0.0 + (1.0 - 0.0) * ((Green - 0.0) / (255 - 0.0)));
+
+
+                  int Blue = 0;
+                  std::istringstream(RGB_Blue) >> std::hex >> Blue;
+                  double Blue_remapped = (0.0 + (1.0 - 0.0) * ((Blue - 0.0) / (255 - 0.0)));
+
+                  ListOfActors[i]->GetProperty()->SetColor(Red_remapped,Green_remapped,Blue_remapped);
+                  ListOfRenderers[0]->AddActor(ListOfActors[i]);
+                  pyramid_count++;
+                 }
+
+                 if (ModelOne.Get_Cell_Order()[i] == 'h')
+                  {
+                  ListOfUgs[i]->SetPoints(points);
+                  vtkSmartPointer<vtkHexahedron> hex = vtkSmartPointer<vtkHexahedron>::New();
+                  ListOfHexs.push_back(hex);
+                  for ( vtkIdType vtkId = 0; vtkId < 8; vtkId++)
+                      {
+                      ListOfHexs[hexaherdon_cont]->GetPointIds()->SetId(vtkId, vtkIdType (Test.Get_Vertices_Order()[vtkId]) );
+                      }
+                  cellArray->InsertNextCell(ListOfHexs[hexaherdon_cont]);
+                  ListOfUgs[i]->InsertNextCell(VTK_HEXAHEDRON, ListOfHexs[hexaherdon_cont]->GetPointIds() );
+                  ListOfMappers[i]->SetInputData(ListOfUgs[i]);
+                  ListOfActors[i]->SetMapper(ListOfMappers[i]);
+
+                  col =  Test.Get_Material().GetColour();
+                  std::string RGB_Red = col.substr(0,2);
+                  std::string RGB_Green = col.substr(2,2);
+                  std::string RGB_Blue = col.substr(4,2);
+
+                  int Red = 0;
+                  std::istringstream(RGB_Red) >> std::hex >> Red;
+                  double Red_remapped = (0.0 + (1.0 - 0.0) * ((Red - 0.0) / (255 - 0.0)));
+
+                  int Green  = 0;
+                  std::istringstream(RGB_Green) >> std::hex >> Green;
+                  double Green_remapped = (0.0 + (1.0 - 0.0) * ((Green - 0.0) / (255 - 0.0)));
+
+                  int Blue  = 0;
+                  std::istringstream(RGB_Blue) >> std::hex >> Blue;
+                  double Blue_remapped = (0.0 + (1.0 - 0.0) * ((Blue - 0.0) / (255 - 0.0)));
+
+                  ListOfActors[i]->GetProperty()->SetColor(Red_remapped,Green_remapped,Blue_remapped);
+                  ListOfRenderers[0]->AddActor(ListOfActors[i]);
+                  hexaherdon_cont++;
+                  }
+             }
+           ListOfRenderers[0]->ResetCameraClippingRange();
+           ListOfRenderers[0]->SetBackground( colors->GetColor3d("Silver").GetData() );
+        }
         renderer->SetBackground( colors->GetColor3d("Silver").GetData() );
-        renderer->ResetCamera();
+
         renderer->GetActiveCamera()->SetPosition(2.0 ,3.0, 5.0);
         renderer->GetActiveCamera()->SetFocalPoint(0.0 ,0.0, 0.0);
 
@@ -652,39 +773,6 @@ void MainWindow::SetLightData(double *Data, std::string currentLine)
                 continue;
             }
             if((currentLine[currentPosition] == ',')||(currentLine[currentPosition] == ')'))
-            {
-                for(int subPosition = int (temp.size())-1; subPosition<temp.size(); subPosition++)
-                {
-                    Data[counter] = std::stod(temp);
-                }
-                counter++;
-                continue;
-            }
-            temp.push_back(currentLine[currentPosition]);
-        }
-    }
-}
-
-void MainWindow::LoadBasicShape(double *Data, std::string currentLine)
-{
-    std::string temp;
-    int Placeholder = 0;
-    int counter = 0;
-    for (int currentPosition = 0; currentPosition<currentLine.size(); currentPosition++)
-    {
-        if((currentLine[currentPosition] == '{')||(currentLine[currentPosition] == '('))
-        {
-            Placeholder++;
-            continue;
-        }
-        if (Placeholder == 1)
-        {
-            if((currentLine[currentPosition] == ' ')||(currentLine[currentPosition] == ';'))
-            {
-                temp.clear();
-                continue;
-            }
-            if((currentLine[currentPosition] == ',')||(currentLine[currentPosition] == '}')||(currentLine[currentPosition] == ')'))
             {
                 for(int subPosition = int (temp.size())-1; subPosition<temp.size(); subPosition++)
                 {
