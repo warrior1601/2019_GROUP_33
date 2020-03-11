@@ -15,12 +15,18 @@
 
 #include <vtkCellArray.h>
 #include <vtkCellType.h>
+#include <vtkDelaunay2D.h>
 #include <vtkHexahedron.h>
 #include <vtkNamedColors.h>
 #include <vtkPoints.h>
+#include <vtkPolyData.h>
+#include <vtkPolyDataMapper.h>
 #include <vtkPyramid.h>
+#include <vtkSTLWriter.h>
 #include <vtkTetra.h>
+#include <vtkTriangleFilter.h>
 #include <vtkUnstructuredGrid.h>
+#include <vtkXMLPolyDataWriter.h>
 
 #include <array>
 #include <vector>
@@ -64,9 +70,12 @@ private slots:
     void on_actionLoad_Lights_triggered();
     void on_Edit_Light_clicked();
     void on_Delete_Light_released();
+    void on_ShrinkFiltertxtfile_released();
 
 private:
     Ui::MainWindow *ui;
+// This is the file type loaded true for *.stl false for *.mod and *.txt
+    bool LoadedFileType = true;
 // These pointers are for the Secondary windows that control funtions
 // That allows the user to interact with the image
 
@@ -103,6 +112,8 @@ private:
     std::vector<vtkSmartPointer<vtkHexahedron>> ListOfHexs;
 
     vtkSmartPointer<vtkCellArray> cellArray = vtkSmartPointer<vtkCellArray>::New();
+    vtkSmartPointer<vtkPolyData> polydata = vtkSmartPointer<vtkPolyData>::New();
+
 };
 
 #endif // MAINWINDOW_H

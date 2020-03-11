@@ -31,18 +31,32 @@ void Filters::open(vtkSmartPointer<vtkSTLReader> &Passedreader,
 {
 // Sets the Local smart pointer used to render the image on th MainWindow
 // now the *->Render() can be called.
-
+    OpenMethod = true;
     renderWindow_Local = PassedWindow;
     reader_Local = Passedreader;
     mapper_Local = Passmapper;
 }
 
+void Filters::open( std::vector<vtkSmartPointer<vtkDataSetMapper>> &PassedListOfMappers,
+                    vtkSmartPointer<vtkGenericOpenGLRenderWindow> &PassedWindow)
+{
+// Sets the Local smart pointer used to render the image on th MainWindow
+// now the *->Render() can be called.
+    OpenMethod = false;
+    renderWindow_Local = PassedWindow;
+    ListOfMappers_Local = PassedListOfMappers;
+}
+
+
+
 // This appies the shrink Filter to the image on the MainWindow
 
 void Filters::on_Shrink_Filter_toggled(bool Shrink_Filter_Status)
 {
+  if (OpenMethod == true)
+  {
     if(Shrink_Filter_Status == true )
-        {        
+        {
 // When this function is called it ensures that all other fillters are
 // No longer being applied
 
@@ -58,6 +72,16 @@ void Filters::on_Shrink_Filter_toggled(bool Shrink_Filter_Status)
          mapper_Local->SetInputConnection( reader_Local->GetOutputPort() );
         }
         renderWindow_Local->Render();
+  }
+  else
+  {
+      if(Shrink_Filter_Status == true )
+      {
+        checked_Box_Status_Updater(1);
+            //filter goes here//
+      }
+  }
+
 }
 // THis applies the Clipping Filter to the image on the MainWindow
 

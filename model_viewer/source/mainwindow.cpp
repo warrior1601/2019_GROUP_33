@@ -13,9 +13,14 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <string>
 using namespace std;
 
 #include <vtkCamera.h>
+
+#include <vtkLinearSubdivisionFilter.h>
+#include <vtkTriangleStrip.h>
+
 #include <vtkInformation.h>
 #include <vtkProperty.h>
 #include <vtkRenderer.h>
@@ -167,7 +172,15 @@ void MainWindow::on_Apply_Filters_released()
     filters =new Filters(this);
     filters->setWindowTitle("Apply Filters");
     filters->show();
+    if (LoadedFileType == true)
+    {
     filters->open(reader, mapper, renderWindow);
+    }
+    else
+    {
+    //filters->open( ListOfMappers, renderWindow, polyData );
+    }
+
     //need a list of cells to apply filter too//filters->open(reader, mapper, renderWindow);
 }
 
@@ -252,6 +265,7 @@ void MainWindow::on_actionOpen_triggered()
 
         if(FileType.compare("stl") == 0 )
         {
+            LoadedFileType = true;
             reader->SetFileName(FilePath.data());
             mapper->SetInputConnection( reader->GetOutputPort() );
             renderer->ResetCameraClippingRange();
@@ -265,6 +279,7 @@ void MainWindow::on_actionOpen_triggered()
         }
         else if ((FileType.compare("txt") == 0 ) || (FileType.compare("mod")) == 0)
         {
+            LoadedFileType = false;
             std::string currentLine;
             unsigned int tetra_count = 0;
             unsigned int pyramid_count = 0;
@@ -413,8 +428,30 @@ void MainWindow::on_actionOpen_triggered()
                   }
              }
            ListOfRenderers[0]->ResetCameraClippingRange();
+
            ListOfRenderers[0]->SetBackground( colors->GetColor3d("Silver").GetData() );
         }
+
+        polydata->Initialize();
+        polydata->SetPoints(points);
+        polydata->SetPolys(cellArray);
+
+        vtkSmartPointer<vtkTriangleFilter> triangleFilter = vtkSmartPointer<vtkTriangleFilter>::New();
+          triangleFilter->SetInputData( polydata);
+          triangleFilter->Update();
+
+
+        vtkSmartPointer<vtkSTLWriter> stlWriter = vtkSmartPointer<vtkSTLWriter>::New();
+        stlWriter->SetFileName("Test.stl");
+        stlWriter->SetInputDataObject(polydata);
+        stlWriter->Write();
+        stlWriter->Update();
+
+
+
+
+
+
         renderer->SetBackground( colors->GetColor3d("Silver").GetData() );
 
         renderer->GetActiveCamera()->SetPosition(2.0 ,3.0, 5.0);
@@ -784,4 +821,10 @@ void MainWindow::SetLightData(double *Data, std::string currentLine)
             temp.push_back(currentLine[currentPosition]);
         }
     }
+}
+
+void MainWindow::on_ShrinkFiltertxtfile_released()
+{
+   ui->statusBar->showMessage("ShrinkFilter Button was clicked",3000);
+
 }

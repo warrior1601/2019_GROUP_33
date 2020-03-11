@@ -19,6 +19,7 @@
 #include <vtkGenericOpenGLRenderWindow.h>
 #include <vtkNew.h>
 #include <vtkPlane.h>
+#include <vtkPolyData.h>
 #include <vtkShrinkFilter.h>
 #include <vtkSTLReader.h>
 #include <vtkSmartPointer.h>
@@ -47,6 +48,9 @@ public:
               vtkSmartPointer<vtkDataSetMapper> &Passmapper,
               vtkSmartPointer<vtkGenericOpenGLRenderWindow> &PassedWindow);
 
+    void open( std::vector<vtkSmartPointer<vtkDataSetMapper>> &ListOfMappers,
+               vtkSmartPointer<vtkGenericOpenGLRenderWindow> &PassedWindow);
+
 private slots:
 
 // This function ensures that only one checkBox can be checked at a time.
@@ -64,14 +68,16 @@ private slots:
 
 private:
     Ui::Filters *ui;
+// This is set to true if opened with and *.stl file otherwise set to false
+    bool OpenMethod = true;
 
 // The smart pointers are created and only initilized when the open function is called
-// The smaprt pointer that are over written are denoated by *_Local
+// The smaprt pointer that are over written are denoted by *_Local
 
     vtkSmartPointer<vtkGenericOpenGLRenderWindow> renderWindow_Local = vtkSmartPointer<vtkGenericOpenGLRenderWindow>::New();
     vtkSmartPointer<vtkSTLReader> reader_Local = vtkSmartPointer<vtkSTLReader>::New();
     vtkSmartPointer<vtkDataSetMapper> mapper_Local = vtkSmartPointer<vtkDataSetMapper>::New();
-
+    std::vector<vtkSmartPointer<vtkDataSetMapper>> ListOfMappers_Local;
 // These are filter specific smart pointers
 
     vtkSmartPointer<vtkClipDataSet> Clipper_Filter = vtkSmartPointer<vtkClipDataSet>::New();
