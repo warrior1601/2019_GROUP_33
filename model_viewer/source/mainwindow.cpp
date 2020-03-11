@@ -435,6 +435,8 @@ void MainWindow::on_actionOpen_triggered()
         polydata->Initialize();
         polydata->SetPoints(points);
         polydata->SetPolys(cellArray);
+        polydata->SetLines(cellArray);
+        polydata->SetStrips(cellArray);
 
         vtkSmartPointer<vtkTriangleFilter> triangleFilter = vtkSmartPointer<vtkTriangleFilter>::New();
           triangleFilter->SetInputData( polydata);
@@ -448,7 +450,7 @@ void MainWindow::on_actionOpen_triggered()
         stlWriter->Update();
 
 
-
+       std::cout << polydata->GetNumberOfPolys() << std::endl;
 
 
 
