@@ -20,13 +20,10 @@
 #include <vtkNamedColors.h>
 #include <vtkPoints.h>
 #include <vtkPolyData.h>
-#include <vtkPolyDataMapper.h>
 #include <vtkPyramid.h>
 #include <vtkSTLWriter.h>
 #include <vtkTetra.h>
-#include <vtkTriangleFilter.h>
 #include <vtkUnstructuredGrid.h>
-#include <vtkXMLPolyDataWriter.h>
 
 #include <array>
 #include <vector>
@@ -112,8 +109,10 @@ private:
     std::vector<vtkSmartPointer<vtkHexahedron>> ListOfHexs;
 
     vtkSmartPointer<vtkCellArray> cellArray = vtkSmartPointer<vtkCellArray>::New();
+    vtkSmartPointer<vtkCellArray> TriangleArray = vtkSmartPointer<vtkCellArray>::New();
     vtkSmartPointer<vtkPolyData> polydata = vtkSmartPointer<vtkPolyData>::New();
 
+    std::vector<vtkSmartPointer<vtkTriangle>> ListOfTriangles;
 };
 
 #endif // MAINWINDOW_H
