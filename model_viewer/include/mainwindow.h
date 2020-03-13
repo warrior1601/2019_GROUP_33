@@ -67,7 +67,6 @@ private slots:
     void on_actionLoad_Lights_triggered();
     void on_Edit_Light_clicked();
     void on_Delete_Light_released();
-    void on_ShrinkFiltertxtfile_released();
 
 private:
     Ui::MainWindow *ui;

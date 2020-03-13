@@ -273,13 +273,6 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="ShrinkFiltertxtfile">
-          <property name="text">
-           <string>ShrinkFilter .txt</string>
-          </property>
-         </widget>
-        </item>
-        <item>
          <spacer name="horizontalSpacer">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>

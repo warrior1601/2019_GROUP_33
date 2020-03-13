@@ -20,9 +20,6 @@ using namespace std;
 #include <vtkInformation.h>
 #include <vtkProperty.h>
 #include <vtkRenderer.h>
-
-#include <vtkUnstructuredGridGeometryFilter.h>
-#include <vtkTriangleFilter.h>
 #include <vtkTriangle.h>
 
 #include <QColorDialog>
@@ -289,6 +286,7 @@ void MainWindow::on_actionOpen_triggered()
 
             points->Initialize();
             cellArray->Initialize();
+            TriangleArray->Initialize();
 
             Model ModelOne;
             ModelOne.Load_Model(FilePath);
@@ -614,9 +612,6 @@ void MainWindow::on_actionOpen_triggered()
            ListOfRenderers[0]->SetBackground( colors->GetColor3d("Silver").GetData() );
         }
 
-        vtkSmartPointer<vtkPolyData> polydata2 = vtkSmartPointer<vtkPolyData>::New();
-        polydata2->Initialize();
-
         polydata->Initialize();
         polydata->SetPolys(TriangleArray);
         polydata->SetPoints(points);
@@ -626,11 +621,7 @@ void MainWindow::on_actionOpen_triggered()
         stlWriter->SetInputData(polydata);
         stlWriter->Write();
 
-
-       std::cout << polydata->GetNumberOfPolys() << std::endl;
-
-
-
+        std::cout << polydata->GetNumberOfPolys() << std::endl;
         renderer->SetBackground( colors->GetColor3d("Silver").GetData() );
 
         renderer->GetActiveCamera()->SetPosition(2.0 ,3.0, 5.0);
@@ -1000,10 +991,4 @@ void MainWindow::SetLightData(double *Data, std::string currentLine)
             temp.push_back(currentLine[currentPosition]);
         }
     }
-}
-
-void MainWindow::on_ShrinkFiltertxtfile_released()
-{
-   ui->statusBar->showMessage("ShrinkFilter Button was clicked",3000);
-
 }
