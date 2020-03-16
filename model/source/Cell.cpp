@@ -271,8 +271,16 @@ double Pyramid::Get_Volume(void)
     //Split the pyramid along V0 - V4 - V2 "line" to create two tetrahedrons and calculate
     //the volume of two tetrahedrons and add them together
     std::vector<Vectors> tempVertices = Get_Vertices();
-    std::vector<Vectors> Tetra_a_Vertices = { tempVertices[0], tempVertices[2], tempVertices[3], tempVertices[4] };
-    std::vector<Vectors> Tetra_b_Vertices = { tempVertices[0], tempVertices[1], tempVertices[2], tempVertices[4] };
+    std::vector<Vectors> Tetra_a_Vertices; // = { tempVertices[0], tempVertices[2], tempVertices[3], tempVertices[4] };
+    Tetra_a_Vertices.push_back(tempVertices[0]);
+    Tetra_a_Vertices.push_back(tempVertices[2]);
+    Tetra_a_Vertices.push_back(tempVertices[3]);
+    Tetra_a_Vertices.push_back(tempVertices[4]);
+    std::vector<Vectors> Tetra_b_Vertices; // = { tempVertices[0], tempVertices[1], tempVertices[2], tempVertices[4] };
+    Tetra_b_Vertices.push_back(tempVertices[0]);
+    Tetra_b_Vertices.push_back(tempVertices[1]);
+    Tetra_b_Vertices.push_back(tempVertices[2]);
+    Tetra_b_Vertices.push_back(tempVertices[4]);
 
     Tetrahedron a(Tetra_a_Vertices, Get_Vertices_Order(), Get_Material()); //V0, V2, V3, V4
     Tetrahedron b(Tetra_b_Vertices, Get_Vertices_Order(), Get_Material()); //V0, V1, V2, V4
@@ -299,8 +307,16 @@ Vectors Pyramid::Get_Centre_Of_Gravity(void)
     //The two tetrahedrons will have the same volume, thus the same weight and thus the centre of gravity of the pyramid will
     //be the midpoint between the two centres of gravities of the two tetrahedrons
     std::vector<Vectors> tempVertices = Get_Vertices();
-    std::vector<Vectors> Tetra_a_Vertices = { tempVertices[0], tempVertices[2], tempVertices[3], tempVertices[4] };
-    std::vector<Vectors> Tetra_b_Vertices = { tempVertices[0], tempVertices[1], tempVertices[2], tempVertices[4] };
+    std::vector<Vectors> Tetra_a_Vertices; // = { tempVertices[0], tempVertices[2], tempVertices[3], tempVertices[4] };
+    Tetra_a_Vertices.push_back(tempVertices[0]);
+    Tetra_a_Vertices.push_back(tempVertices[2]);
+    Tetra_a_Vertices.push_back(tempVertices[3]);
+    Tetra_a_Vertices.push_back(tempVertices[4]);
+    std::vector<Vectors> Tetra_b_Vertices; // = { tempVertices[0], tempVertices[1], tempVertices[2], tempVertices[4] };
+    Tetra_b_Vertices.push_back(tempVertices[0]);
+    Tetra_b_Vertices.push_back(tempVertices[1]);
+    Tetra_b_Vertices.push_back(tempVertices[2]);
+    Tetra_b_Vertices.push_back(tempVertices[4]);
 
     Tetrahedron a(Tetra_a_Vertices, Get_Vertices_Order(), Get_Material()); //V0, V2, V3, V4
     Tetrahedron b(Tetra_b_Vertices, Get_Vertices_Order(), Get_Material()); //V0, V1, V2, V4
@@ -370,9 +386,24 @@ double Hexahedron::Get_Volume(void)
     //Split the hexahedron in to three pyramids and find volume of each
     //See http://mathcentral.uregina.ca/QQ/database/QQ.09.06/siva1.html for more info
     std::vector<Vectors> tempVertices = Get_Vertices();
-    std::vector<Vectors> Pyra_a_Vertices = { tempVertices[0], tempVertices[1], tempVertices[2], tempVertices[3], tempVertices[6] };
-    std::vector<Vectors> Pyra_b_Vertices = { tempVertices[0], tempVertices[1], tempVertices[5], tempVertices[4], tempVertices[6] };
-    std::vector<Vectors> Pyra_c_Vertices = { tempVertices[0], tempVertices[3], tempVertices[7], tempVertices[4], tempVertices[6] };
+    std::vector<Vectors> Pyra_a_Vertices; // = { tempVertices[0], tempVertices[1], tempVertices[2], tempVertices[3], tempVertices[6] };
+    Pyra_a_Vertices.push_back(tempVertices[0]);
+    Pyra_a_Vertices.push_back(tempVertices[1]);
+    Pyra_a_Vertices.push_back(tempVertices[2]);
+    Pyra_a_Vertices.push_back(tempVertices[3]);
+    Pyra_a_Vertices.push_back(tempVertices[6]);
+    std::vector<Vectors> Pyra_b_Vertices; // = { tempVertices[0], tempVertices[1], tempVertices[5], tempVertices[4], tempVertices[6] };
+    Pyra_a_Vertices.push_back(tempVertices[0]);
+    Pyra_a_Vertices.push_back(tempVertices[1]);
+    Pyra_a_Vertices.push_back(tempVertices[5]);
+    Pyra_a_Vertices.push_back(tempVertices[4]);
+    Pyra_a_Vertices.push_back(tempVertices[6]);
+    std::vector<Vectors> Pyra_c_Vertices; // = { tempVertices[0], tempVertices[3], tempVertices[7], tempVertices[4], tempVertices[6] };
+    Pyra_a_Vertices.push_back(tempVertices[0]);
+    Pyra_a_Vertices.push_back(tempVertices[3]);
+    Pyra_a_Vertices.push_back(tempVertices[7]);
+    Pyra_a_Vertices.push_back(tempVertices[4]);
+    Pyra_a_Vertices.push_back(tempVertices[6]);
 
     Pyramid a(Pyra_a_Vertices, Get_Vertices_Order(), Get_Material()); //V0, V1, V2, V3, V6
     Pyramid b(Pyra_b_Vertices, Get_Vertices_Order(), Get_Material()); //V0, V1, V5, V4, V6
@@ -400,9 +431,24 @@ Vectors Hexahedron::Get_Centre_Of_Gravity(void)
     //See http://mathcentral.uregina.ca/QQ/database/QQ.09.06/siva1.html for more info
     //Then centroid of hexahedron will be the average/midpoint of the pyramid centroids as they have equal volume and therefore equal weight
     std::vector<Vectors> tempVertices = Get_Vertices();
-    std::vector<Vectors> Pyra_a_Vertices = { tempVertices[0], tempVertices[1], tempVertices[2], tempVertices[3], tempVertices[6] };
-    std::vector<Vectors> Pyra_b_Vertices = { tempVertices[0], tempVertices[1], tempVertices[5], tempVertices[4], tempVertices[6] };
-    std::vector<Vectors> Pyra_c_Vertices = { tempVertices[0], tempVertices[3], tempVertices[7], tempVertices[4], tempVertices[6] };
+    std::vector<Vectors> Pyra_a_Vertices; // = { tempVertices[0], tempVertices[1], tempVertices[2], tempVertices[3], tempVertices[6] };
+    Pyra_a_Vertices.push_back(tempVertices[0]);
+    Pyra_a_Vertices.push_back(tempVertices[1]);
+    Pyra_a_Vertices.push_back(tempVertices[2]);
+    Pyra_a_Vertices.push_back(tempVertices[3]);
+    Pyra_a_Vertices.push_back(tempVertices[6]);
+    std::vector<Vectors> Pyra_b_Vertices; // = { tempVertices[0], tempVertices[1], tempVertices[5], tempVertices[4], tempVertices[6] };
+    Pyra_a_Vertices.push_back(tempVertices[0]);
+    Pyra_a_Vertices.push_back(tempVertices[1]);
+    Pyra_a_Vertices.push_back(tempVertices[5]);
+    Pyra_a_Vertices.push_back(tempVertices[4]);
+    Pyra_a_Vertices.push_back(tempVertices[6]);
+    std::vector<Vectors> Pyra_c_Vertices; // = { tempVertices[0], tempVertices[3], tempVertices[7], tempVertices[4], tempVertices[6] };
+    Pyra_a_Vertices.push_back(tempVertices[0]);
+    Pyra_a_Vertices.push_back(tempVertices[3]);
+    Pyra_a_Vertices.push_back(tempVertices[7]);
+    Pyra_a_Vertices.push_back(tempVertices[4]);
+    Pyra_a_Vertices.push_back(tempVertices[6]);
 
     Pyramid a(Pyra_a_Vertices, Get_Vertices_Order(), Get_Material()); //V0, V1, V2, V3, V6
     Pyramid b(Pyra_b_Vertices, Get_Vertices_Order(), Get_Material()); //V0, V1, V5, V4, V6
