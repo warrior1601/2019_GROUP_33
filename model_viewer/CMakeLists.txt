@@ -45,7 +45,7 @@ include( ${VTK_USE_FILE} )
 
 # Define the executable output and its sources
 add_executable( model_viewer MACOSX_BUNDLE
-				source/main.cpp 
+				source/main.cpp
 				source/mainwindow.cpp	include/mainwindow.h	source/mainwindow.ui
 				source/edit_light.cpp 	include/edit_light.h 	source/edit_light.ui
 				source/filters.cpp 	include/filters.h 		source/filters.ui

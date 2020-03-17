@@ -169,16 +169,15 @@ void MainWindow::on_Apply_Filters_released()
     filters =new Filters(this);
     filters->setWindowTitle("Apply Filters");
     filters->show();
+  
     if (LoadedFileType == true)
     {
-    filters->open(reader, mapper, renderWindow);
+    filters->Open_Dialog(reader, mapper, renderWindow);
     }
     else
     {
-    //filters->open( ListOfMappers, renderWindow, polyData );
+    //do nothing for now
     }
-
-    //need a list of cells to apply filter too//filters->open(reader, mapper, renderWindow);
 }
 
 void MainWindow::on_X_Camera_Pos_valueChanged(int value)
@@ -932,7 +931,7 @@ void MainWindow::on_Edit_Light_clicked()
         Edit_LightDialog =new Edit_Light(this);
         Edit_LightDialog->setWindowTitle(ListOfLights.at(ui->Select_Light->currentIndex()).GetName());
         Edit_LightDialog->show();
-        Edit_LightDialog->open(ListOfLights.at(ui->Select_Light->currentIndex()),renderWindow );
+        Edit_LightDialog->Open_Dialog(ListOfLights.at(ui->Select_Light->currentIndex()),renderWindow );
     }
     else
         ui->statusBar->showMessage("Nothing selected to Edit ",3000);

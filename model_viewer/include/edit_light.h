@@ -15,6 +15,7 @@
 #include <QDialog>
 
 #include <vtkGenericOpenGLRenderWindow.h>
+#include <vtkRenderer.h>
 
 #include "vtklight_withname.h"
 
@@ -36,7 +37,7 @@ public:
 // Would not be able to Render() the MainWindow Display_Window when they are activated
 // This fuction is called in MainWindow.cpp
 
-    void open(vtkLight_WithName &l, vtkSmartPointer<vtkGenericOpenGLRenderWindow> &PassedWindow);
+    void Open_Dialog(vtkLight_WithName &l, vtkSmartPointer<vtkGenericOpenGLRenderWindow> &PassedWindow);
 
 private slots:
 
@@ -57,7 +58,6 @@ private:
     Ui::Edit_Light *ui;
     vtkSmartPointer<vtkGenericOpenGLRenderWindow> renderWindow =vtkSmartPointer<vtkGenericOpenGLRenderWindow>::New();
     vtkLight_WithName light_Local;
-
 };
 
 #endif // EDIT_LIGHT_H

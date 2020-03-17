@@ -25,7 +25,7 @@ Filters::~Filters()
     delete ui;
 }
 
-void Filters::open(vtkSmartPointer<vtkSTLReader> &Passedreader,
+void Filters::Open_Dialog(vtkSmartPointer<vtkSTLReader> &Passedreader,
                    vtkSmartPointer<vtkDataSetMapper> &Passmapper,
                    vtkSmartPointer<vtkGenericOpenGLRenderWindow> &PassedWindow)
 {

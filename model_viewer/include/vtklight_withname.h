@@ -24,19 +24,15 @@ public:
 //--------------Constructors--------------//
 
       vtkLight_WithName() :
-          Name("Light_Name"), light( vtkSmartPointer<vtkLight>::New()) {}
-      vtkLight_WithName(const char * n,  vtkSmartPointer<vtkLight> l ) :
-          Name( n ), light( l ) {}
+          light( vtkSmartPointer<vtkLight>::New() ), Name("Light_Name") {}
+      
+    vtkLight_WithName(const char * n,  vtkSmartPointer<vtkLight> l ) :
+          light( l ), Name( n ) {}
 //--------------Destructor--------------//
 
       ~vtkLight_WithName()  {}
 // This function is public is called in MainWindow.cpp which allows
 // Access to the name of the light
-
-// The vtkLight is pubic because it has its own accessor functions
-// Found in vtkLight.h
-
-vtkSmartPointer<vtkLight> light;
 
 //--------------Special Member Functions--------------//
     void SetName(const QString & name );
@@ -50,10 +46,15 @@ vtkSmartPointer<vtkLight> light;
 // Overloaded function
 
     vtkLight_WithName operator=(const vtkLight_WithName& Copy);
+    
+    
+// The vtkLight is pubic because it has its own accessor functions
+// Found in vtkLight.h
+
+    vtkSmartPointer<vtkLight> light;
+    
 private:
     QString Name;
-
-
 };
 
 #endif // VTKLIGHT_WITHNAME_H
