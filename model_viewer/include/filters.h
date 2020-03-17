@@ -43,7 +43,7 @@ public:
 // MainWindow will not be able to be updated from the filters page.
 // The Open function is called from the MainWindow.cpp file
 
-    void open(vtkSmartPointer<vtkSTLReader> &Passedreader,
+    void Open_Dialog(vtkSmartPointer<vtkSTLReader> &Passedreader,
               vtkSmartPointer<vtkDataSetMapper> &Passmapper,
               vtkSmartPointer<vtkGenericOpenGLRenderWindow> &PassedWindow);
 

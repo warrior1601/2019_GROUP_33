@@ -40,7 +40,7 @@ Edit_Light::~Edit_Light()
 // This function is overloaded with the filters open function
 // Called in MianWindow.cpp
 
-void Edit_Light::open(vtkLight_WithName &Passed, vtkSmartPointer<vtkGenericOpenGLRenderWindow> &PassedWindow)
+void Edit_Light::Open_Dialog(vtkLight_WithName &Passed, vtkSmartPointer<vtkGenericOpenGLRenderWindow> &PassedWindow)
 {
         light_Local = Passed;
         renderWindow = PassedWindow;
