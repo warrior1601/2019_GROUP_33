@@ -1,124 +1,187 @@
-//
 //  Vectors.h
 //  Computing Project
 //
 //  Created by Jedidiah Paterson on 27/11/2019.
-//  Copyright � 2019 Jedidiah Paterson. All rights reserved.
-//
-//  This header file contains the object Vectors. The Vectors class have
-//  Members of X_Coord,Y_Coord, and Z_Coord that are the 3-dimensional
-//  Coordinates of each point for a parent class for this project that
-//  Class is named Cell
-//
-
+//  Copyright @ 2019 Jedidiah Paterson. All rights reserved.
+    /** @file
+      * This header file contains the object Vectors. The Vectors class have
+      * members of X_Coord, Y_Coord, and Z_Coord which are the 3-dimensional
+      * coordinates of each point, found in its parent class named Cell
+      */
 #ifndef VECTORS_H_INCLUDED
 #define VECTORS_H_INCLUDED
 
 #include <iostream>
 
+    /** @class Vectors Vectors.h "inc/Vectors.h"
+     *  @brief Members of the class Vectors
+     *  this Data is private and can only
+     *  be accessed via friend or class functions
+     */
+
 class Vectors
 {
 
 private:
-    /*
-     * Members of the class Vectors
-     * This Data is private and can only
-     * Be accessed via friend or class functions
-     */
 
-    double X_Coord;
-    double Y_Coord;
-    double Z_Coord;
+    double X_Coord;         ///< The X coordinate
+    double Y_Coord;         ///< The Y coordinate
+    double Z_Coord;         ///< The Z coordinate
 
 public:
-    /*
-     * These are public function the definition of each function
-     * Is available in the source file Vectors.cpp
+//-------------Constructors------------//
+    /**
+     * @brief Blank Constructor
      */
+    Vectors();
 
-    //-------------Constructors------------//
+    /**
+     * @brief Constructor with only one variable passed to the function
+     * @param aX_Coord
+     */
+    Vectors(double aX_Coord);
 
-    Vectors(); // Blank Constructor
-    Vectors(double aX_Coord); //Constructor with only one variable passed to the function
-    Vectors(double aX_Coord, double aY_Coord); // Constructor with two variables passed to the function
-    Vectors(double aX_Coord, double aY_Coord, double aZ_Coord);// Constructor with all possible variable passed to the function
+    /**
+     * @brief Constructor with two variables passed to the function
+     * @param aX_Coord
+     * @param aY_Coord
+     */
+    Vectors(double aX_Coord, double aY_Coord);
 
-    //--------------Destructor-------------//
+    /**
+     * @brief Constructor with all possible variables passed to the function
+     * @param aX_Coord
+     * @param aY_Coord
+     * @param aZ_Coord
+     */
+    Vectors(double aX_Coord, double aY_Coord, double aZ_Coord);
 
+//--------------Destructor-------------//
     ~Vectors(); //destructor
 
-    //-------------Set Functions-----------//
-
-    /*
-     * These function allow the user to set values of the
-     * Individual members of the class Vectors or set all
-     * Three members at once
+//-------------Set Functions-----------//
+    /**
+     * @brief Set the X coodinate of the Vector
+     * @param aX_Coord
      */
-
     void SetX_Vector(double aX_Coord);
+
+    /**
+     * @brief Set the Y coodinate of the Vector
+     * @param aY_Coord
+     */
     void SetY_Vector(double aY_Coord);
+
+    /**
+     * @brief Set the X coodinate of the Vector
+     * @param aZ_Coord
+     */
     void SetZ_Vector(double aZ_Coord);
+
+    /**
+     * @brief Set the entire Vector
+     * @param aX_Coord
+     * @param aY_Coord
+     * @param aZ_Coord
+     */
     void SetVector(double aX_Coord, double aY_Coord, double aZ_Coord);
 
-    //-------------Get Functions-----------//
-
-    /*
-     * The Get Functions all for the return of value
-     * Stored in the Vector Member to be used
+//-------------Get Functions-----------//
+    /**
+     * @returns The X coordinate
      */
-
     double GetXVector();
+
+    /**
+     * @returns The Y coordinate
+     */
     double GetYVector();
+
+    /**
+     * @return The Z coordinate
+     */
     double GetZVector();
 
-    //-----Operator Overload Functions-----//
-
-    /*
-     * Operator Overload function enable the
-     * Addition subtraction and set equal to
-     * Functions const references values are
-     * Passed into function to unsure that the
-     * original value is not changed
+//-----Operator Overload Functions-----//
+    /**
+     * @brief This enable one vector to be copied to another vector
+     * @param Copy
      */
-
     Vectors operator=(const Vectors& Copy);
+
+    /**
+     * @brief Allows the addition of TWO vectors
+     * @param Add
+     * @returns A vector that is the addition value of the two vectors being added
+     */
     Vectors operator+(const Vectors& Add);
+
+    /**
+     * @brief Allows for the subtraction of TWO vectors
+     * @param Subtract
+     * @returns A vector that is the subtracted value of one vector on another
+     */
     Vectors operator-(const Vectors& Subtract);
+
+    /**
+     * @brief Allows for the division of ONE vector by a number
+     * @param Divide
+     * @returns A vector that has been devided by a number
+     */
     Vectors operator/(const double& Divide);
+
+    /**
+     * @brief Mulitplies a vector by a number
+     * @param Multiply
+     * @returns A vector that have been multplied by a number
+     */
     Vectors operator*(const double& Multiply);
 
-    /*
-     * To find the Vector (Cross) product the following functions are applied
-     * Cx = (Ay *Bz) - (Az *By)
-     * Cy = (Az *Bx) - (Ax *Bz)
-     * Cz = (Ax *By) - (Ay *Bx)
-     * Vectors (Cx, Cy, Cz) is returned
-     * For more information on scalar products visit
-     * https://www.mathsisfun.com/algebra/vectors-cross-product.html
-     */
-
+    /**
+      * @brief To find the Vector (Cross) product the following functions are applied
+      * Cx = (Ay *Bz) - (Az *By)
+      * Cy = (Az *Bx) - (Ax *Bz)
+      * Cz = (Ax *By) - (Ay *Bx)
+      * Vectors (Cx, Cy, Cz) is returned
+      * For more information on scalar products visit
+      * (https://www.mathsisfun.com/algebra/vectors-cross-product.html)
+      * @param Multiply
+      * @returns a vector that has been multiplied by another vector
+      */
     Vectors operator*(const Vectors& Multiply);
 
-    //-------Special Member Functions------//
+//-------Special Member Functions------//
 
-    /*
-     * To find the scalar(Dot) product the following function is applied
-     * Y = (Ax * Bx) + (Ay * By) + (Az + Bz)
-     * Y is returned as a scalar product (single double value) not a Vectors
-     * For more information on scalar products visit
-     * https://www.mathsisfun.com/algebra/vectors-dot-product.html
-     */
-
+    /**
+      * @brief To find the scalar(Dot) product the following function is applied
+      * Y = (Ax * Bx) + (Ay * By) + (Az + Bz)
+      * Y is returned as a scalar product (single double value) not a Vectors
+      * For more information on scalar products visit
+      * (https://www.mathsisfun.com/algebra/vectors-dot-product.html)
+      * @param aVectors
+      * @returns The scalar product of TWO vectors
+      */
     double Scalar_Product(const Vectors& aVectors);
-    
-    //Square root of the summation of the square of X, Y and Z
+
+    /**
+      * @brief Square root of the summation of the square of X, Y and Z coordanites
+      */
     double Get_Magnitude(void);
     
-    //Magnitude of the difference between it and aVectors
+    /**
+     * @brief Magnitude of the difference between it and aVectors
+     * @param aVectors
+     * @returns Distance between two points
+     */
     double Get_Distance_To(const Vectors& aVectors);
 
-     //-----------Friend Functions----------//
+//-----------Friend Functions----------//
 
+    /**
+     * @brief Dispays the contents of the Vector in the terminal block
+     * @param ostream
+     * @param aVectors
+     */
     friend std::ostream& operator<< (std::ostream& Output, const Vectors& aVectors);
     
     friend class Matrix3x3;

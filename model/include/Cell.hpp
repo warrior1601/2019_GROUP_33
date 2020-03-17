@@ -1,23 +1,22 @@
-//
 //  Cell.hpp
 //  Computing Project
 //
 //  Created by Junaid Afzal on 10/11/2019.
 //  Copyright © 2019 Junaid Afzal. All rights reserved.
 //
-//  This header file contains the object Cell and the sub-objects
-//  Tetrahedron, Pyramid and Hexahedron. Cell is the general form
-//  of a shape, while the sub-objects conatin the specific member
-//  functions.
-//
-//  Each sub-object contains the appropriate number of Vectors, Vectors order
-//  and material. Note that VectorsOrder represents the Vectors IDs that the sub-objects
-//  contains, with the position of the Vectors ID in the array representing its Vectors.
-//  E.g. if VectorsOrder[1] = 5 then Vectors V1 get its value from the Vectors with ID = 5.
-//
-//  VectorsOrder exists to allow the object Model to keep track of which IDs the Vectors
-//  get their values from.
-//
+  /** @file
+   *  This header file contains the object Cell and the sub-objects
+   *  Tetrahedron, Pyramid and Hexahedron. Cell is the general form
+   *  of a shape, while the sub-objects conatin the specific member
+   *  functions.
+   *
+   *  Each sub-object contains the appropriate number of Vectors, Vectors order
+   *  and material. Note that VectorsOrder represents the Vectors IDs that the sub-objects
+   *  contains, with the position of the Vectors ID in the array representing its Vectors.
+   *  E.g. if VectorsOrder[1] = 5 then Vectors V1 get its value from the Vectors with ID = 5.
+   *  VectorsOrder exists to allow the object Model to keep track of which IDs the Vectors
+   *  get their values from.
+   */
 
 #ifndef Cell_hpp
 #define Cell_hpp
@@ -28,29 +27,76 @@
 
 class Cell {
 public:
-    //Destructor
     Cell();
     ~Cell();
     
-    //Custom std::cout function
+    /**
+     * @brief Displays the content of the Cell
+     * @param ostream
+     * @param aCell
+     */
     friend std::ostream& operator<< (std::ostream& Output, const Cell& aCell);
     
-    //Custom operator function
+    /**
+     * @brief Allows one Cell to be set equal to another Cell
+     * @param aCell
+     */
     Cell& operator = (const Cell& aCell);
     
-    //Set functions
+    /**
+     * @brief Sets the Vertices of a Cell from a list of Vectors
+     * @param std::vector<Vectors> aVetices
+     */
     void Set_Vertices(const std::vector<Vectors>& aVertices);
+
+    /**
+     * @brief THINK ABOUT THIS
+     *
+     *
+     *
+     * @param aVerticesOrder
+     */
     void Set_Vertices_Order(const std::vector<int>& aVerticesOrder);
+    /**
+     * @brief Set_Material
+     * @param aMaterial
+     */
     void Set_Material(const Material& aMaterial);
     
-    //Get functions
+    /**
+     * @brief Get_Vertices
+     * @return
+     */
     std::vector<Vectors> Get_Vertices(void);
+
+    /**
+     * @brief Get_Vertices_Order
+     * @return
+     */
     std::vector<int> Get_Vertices_Order(void);
+
+    /**
+     * @brief Get_Material
+     * @return
+     */
     Material Get_Material(void);
 
-    //Cell specific functions
+    /**
+     * @brief Get_Volume
+     * @return
+     */
     virtual double Get_Volume(void);
+
+    /**
+     * @brief Get_Weight
+     * @return
+     */
     virtual double Get_Weight(void);
+
+    /**
+     * @brief Get_Centre_Of_Gravity
+     * @return
+     */
     virtual Vectors Get_Centre_Of_Gravity(void);
     
     //Rotates Cell clockwise an amount of degrees about it's centre of rotation along the X, Y or Z axis. Method is as follows -
