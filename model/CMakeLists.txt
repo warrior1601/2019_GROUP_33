@@ -144,7 +144,7 @@ ADD_CUSTOM_COMMAND(TARGET ModelTestCode POST_BUILD
 # Open command prompt and navigate to dir ..\2019_GROUP_33
 # enter command> mkdir build
 # enter command> cd build
-# enter command> cmake -G "Xcode" -DBUILD_SHARED_LIBS=ON ..\model
+# enter command> cmake -G "Xcode" -DBUILD_SHARED_LIBS=ON ../model
 # enter command> xcodebuild -scheme ALL_BUILD build
 # Open the Xcode project file in build
 # At the top left, next to the run and stop buttons, click on the ALL_BUILD button
