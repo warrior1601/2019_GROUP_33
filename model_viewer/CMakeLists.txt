@@ -15,6 +15,15 @@ PROJECT( model_viewer )
 set( CMAKE_INCLUDE_CURRENT_DIR ON )
 
 
+if(WIN32)
+  set(CPACK_GENERATOR "NSIS")
+else()
+  set(CPACK_GENERATOR "ZIP")
+endif()
+
+include(CPack)
+
+
 # This allows CMake to run one of Qt's build tools called moc
 # if it is needed. moc.exe can be found in Qt's bin directory.
 # We'll look at what moc does later.
@@ -65,4 +74,11 @@ target_link_libraries( model_viewer ${VTK_LIBRARIES} )
 ADD_CUSTOM_COMMAND(TARGET model_viewer POST_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy_directory
                        ${CMAKE_CURRENT_SOURCE_DIR}/images
-                       ${CMAKE_CURRENT_SOURCE_DIR}/../build/images)
+                       ${CMAKE_CURRENT_SOURCE_DIR}/../build/images
+                  )
+
+install(TARGETS model_viewer 
+        RUNTIME DESTINATION bin
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib/static
+      )
