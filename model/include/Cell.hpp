@@ -25,7 +25,7 @@
 #include "Vectors.h"
 #include <vector>
 /**
- * @class Cell cell.hpp "inc/cell.hpp"
+ * @class Cell cell.hpp "Cell.hpp"
  * @brief The Cell class is the parent class for all shapes
  * that can be created with this library
  */
@@ -112,8 +112,8 @@ private:
 
 
 /**
- * @class Tetrahedron cell.hpp "inc/cell.hpp"
- * @brief The Tetrahedron class is a subclass of the cell class
+ * @class Tetrahedron cell.hpp "Cell.hpp"
+ * @brief The Tetrahedron class is a subclass of the Cell class
  * that has 4 Vectors.
  * \image html tetrahedron.png " Tetrahedron Vector numbering" width 20cm
  */
@@ -166,8 +166,8 @@ public:
 
 
 /**
- * @class Pyramid cell.hpp "inc/cell.hpp"
- * @brief The Pyramid class is a subclass of the cell class
+ * @class Pyramid cell.hpp "Cell.hpp"
+ * @brief The Pyramid class is a subclass of the Cell class
  * that has 5 Vectors.
  * \image html pyramid.png " Pyramid Vector numbering" width 20cm
  */
@@ -218,8 +218,8 @@ public:
 
 
 /**
- * @class Hexahedron cell.hpp "inc/cell.hpp"
- * @brief The Hexahedron class is a subclass of the cell class
+ * @class Hexahedron cell.hpp "Cell.hpp"
+ * @brief The Hexahedron class is a subclass of the Cell class
  * that has 8 Vectors.
  * \image html hexahedron.png " Hexahedron Vector numbering" width 20cm
  */

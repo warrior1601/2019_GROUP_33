@@ -100,32 +100,34 @@ Vectors Vectors::operator=(const Vectors& Copy)
 
 Vectors Vectors::operator+(const Vectors& add)
 {
+    Vectors Added;
+    Added.X_Coord = this->X_Coord + add.X_Coord;
+    Added.Y_Coord = this->Y_Coord + add.Y_Coord;
+    Added.Z_Coord = this->Z_Coord + add.Z_Coord;
 
-    this->X_Coord = this->X_Coord + add.X_Coord;
-    this->Y_Coord = this->Y_Coord + add.Y_Coord;
-    this->Z_Coord = this->Z_Coord + add.Z_Coord;
-
-    return (*this);
+    return Added;
 }
 
 Vectors Vectors::operator-(const Vectors& subtract)
 {
-    this->X_Coord = this->X_Coord - subtract.X_Coord;
-    this->Y_Coord = this->Y_Coord - subtract.Y_Coord;
-    this->Z_Coord = this->Z_Coord - subtract.Z_Coord;
+    Vectors Subtraced;
+    Subtraced.X_Coord = this->X_Coord - subtract.X_Coord;
+    Subtraced.Y_Coord = this->Y_Coord - subtract.Y_Coord;
+    Subtraced.Z_Coord = this->Z_Coord - subtract.Z_Coord;
 
-    return (*this);
+    return Subtraced;
 }
 
 Vectors Vectors::operator/(const double& Divide)
 {
+    Vectors Divided;
     if ( Divide != 0 )
     {
-    this->X_Coord = this->X_Coord / Divide;
-    this->Y_Coord = this->Y_Coord / Divide;
-    this->Z_Coord = this->Z_Coord / Divide;
+    Divided.X_Coord = this->X_Coord / Divide;
+    Divided.Y_Coord = this->Y_Coord / Divide;
+    Divided.Z_Coord = this->Z_Coord / Divide;
 
-    return (*this);
+    return Divided;
     }
     else
     {
@@ -138,11 +140,12 @@ Vectors Vectors::operator/(const double& Divide)
 
 Vectors Vectors::operator*(const double& Multiply_By)
 {
-    this->X_Coord = this->X_Coord * Multiply_By;
-    this->Y_Coord = this->Y_Coord * Multiply_By;
-    this->Z_Coord = this->Z_Coord * Multiply_By;
+    Vectors Multiplied;
+    Multiplied.X_Coord = this->X_Coord * Multiply_By;
+    Multiplied.Y_Coord = this->Y_Coord * Multiply_By;
+    Multiplied.Z_Coord = this->Z_Coord * Multiply_By;
 
-    return (*this);
+    return Multiplied;
 }
 
 Vectors Vectors::operator*(const Vectors& aVectors)

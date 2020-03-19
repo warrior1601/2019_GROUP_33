@@ -13,12 +13,12 @@
 
 #include <iostream>
 
-    /** @class Vectors Vectors.h "inc/Vectors.h"
+    /** @class Vectors Vectors.h "Vectors.h"
      *  @brief A Vector represnts a point in space
      *  that has an X, Y, and Z coordinate in the 3D
      *  Cartesian coordinate system.
      *  Members of the class Vectors
-     *  this Data is private and can only
+     *  are private and can only
      *  be accessed via friend or class functions
      */
 

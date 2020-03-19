@@ -16,9 +16,9 @@
 #include <string>
 #include <iostream>
 
-/** @class Material Material.h "inc/Material.h"
+/** @class Material Material.h "Material.h"
  *  @brief The Material class is intended to be used
- *  inconjuction with the cell class. Each cell is made up
+ *  inconjuction with the Cell class. Each Cell is made up
  *  of a Material. The Material is defined as an ID number,
  *  Density, Colour, and Name. All of these parameters are private
  *  and can only be accessed with class public functions.
