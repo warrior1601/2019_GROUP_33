@@ -15,6 +15,9 @@
 |Jedidiah|Tried to used Model class code to utilize other classes |12/6/19 |
 |Juniad  |Rewrote Model Clas code to use other classes |12/6/19 |
 |Jedidiah & Juniad |Wrote CMakeList.txt file and testes code to complie on Xcode, MinGW, and Microsoft Visual Studio | 12/6/19 
+| SEMESTER 2 |
+| COVID-19| Disruptions close in class learning and ability to meet with other students | 03/16/20|
+
 
 
 
