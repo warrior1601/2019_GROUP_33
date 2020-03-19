@@ -393,22 +393,22 @@ double Hexahedron::Get_Volume(void)
     Pyra_a_Vertices.push_back(tempVertices[3]);
     Pyra_a_Vertices.push_back(tempVertices[6]);
     std::vector<Vectors> Pyra_b_Vertices; // = { tempVertices[0], tempVertices[1], tempVertices[5], tempVertices[4], tempVertices[6] };
-    Pyra_a_Vertices.push_back(tempVertices[0]);
-    Pyra_a_Vertices.push_back(tempVertices[1]);
-    Pyra_a_Vertices.push_back(tempVertices[5]);
-    Pyra_a_Vertices.push_back(tempVertices[4]);
-    Pyra_a_Vertices.push_back(tempVertices[6]);
+    Pyra_b_Vertices.push_back(tempVertices[0]);
+    Pyra_b_Vertices.push_back(tempVertices[1]);
+    Pyra_b_Vertices.push_back(tempVertices[5]);
+    Pyra_b_Vertices.push_back(tempVertices[4]);
+    Pyra_b_Vertices.push_back(tempVertices[6]);
     std::vector<Vectors> Pyra_c_Vertices; // = { tempVertices[0], tempVertices[3], tempVertices[7], tempVertices[4], tempVertices[6] };
-    Pyra_a_Vertices.push_back(tempVertices[0]);
-    Pyra_a_Vertices.push_back(tempVertices[3]);
-    Pyra_a_Vertices.push_back(tempVertices[7]);
-    Pyra_a_Vertices.push_back(tempVertices[4]);
-    Pyra_a_Vertices.push_back(tempVertices[6]);
+    Pyra_c_Vertices.push_back(tempVertices[0]);
+    Pyra_c_Vertices.push_back(tempVertices[3]);
+    Pyra_c_Vertices.push_back(tempVertices[7]);
+    Pyra_c_Vertices.push_back(tempVertices[4]);
+    Pyra_c_Vertices.push_back(tempVertices[6]);
 
     Pyramid a(Pyra_a_Vertices, Get_Vertices_Order(), Get_Material()); //V0, V1, V2, V3, V6
     Pyramid b(Pyra_b_Vertices, Get_Vertices_Order(), Get_Material()); //V0, V1, V5, V4, V6
     Pyramid c(Pyra_c_Vertices, Get_Vertices_Order(), Get_Material()); //V0, V3, V7, V4, V6
-    
+
     return a.Get_Volume() + b.Get_Volume() + c.Get_Volume();
 }
 
@@ -438,17 +438,17 @@ Vectors Hexahedron::Get_Centre_Of_Gravity(void)
     Pyra_a_Vertices.push_back(tempVertices[3]);
     Pyra_a_Vertices.push_back(tempVertices[6]);
     std::vector<Vectors> Pyra_b_Vertices; // = { tempVertices[0], tempVertices[1], tempVertices[5], tempVertices[4], tempVertices[6] };
-    Pyra_a_Vertices.push_back(tempVertices[0]);
-    Pyra_a_Vertices.push_back(tempVertices[1]);
-    Pyra_a_Vertices.push_back(tempVertices[5]);
-    Pyra_a_Vertices.push_back(tempVertices[4]);
-    Pyra_a_Vertices.push_back(tempVertices[6]);
+    Pyra_b_Vertices.push_back(tempVertices[0]);
+    Pyra_b_Vertices.push_back(tempVertices[1]);
+    Pyra_b_Vertices.push_back(tempVertices[5]);
+    Pyra_b_Vertices.push_back(tempVertices[4]);
+    Pyra_b_Vertices.push_back(tempVertices[6]);
     std::vector<Vectors> Pyra_c_Vertices; // = { tempVertices[0], tempVertices[3], tempVertices[7], tempVertices[4], tempVertices[6] };
-    Pyra_a_Vertices.push_back(tempVertices[0]);
-    Pyra_a_Vertices.push_back(tempVertices[3]);
-    Pyra_a_Vertices.push_back(tempVertices[7]);
-    Pyra_a_Vertices.push_back(tempVertices[4]);
-    Pyra_a_Vertices.push_back(tempVertices[6]);
+    Pyra_c_Vertices.push_back(tempVertices[0]);
+    Pyra_c_Vertices.push_back(tempVertices[3]);
+    Pyra_c_Vertices.push_back(tempVertices[7]);
+    Pyra_c_Vertices.push_back(tempVertices[4]);
+    Pyra_c_Vertices.push_back(tempVertices[6]);
 
     Pyramid a(Pyra_a_Vertices, Get_Vertices_Order(), Get_Material()); //V0, V1, V2, V3, V6
     Pyramid b(Pyra_b_Vertices, Get_Vertices_Order(), Get_Material()); //V0, V1, V5, V4, V6

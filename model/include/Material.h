@@ -17,9 +17,11 @@
 #include <iostream>
 
 /** @class Material Material.h "inc/Material.h"
- *  @brief Members of the class Material
- *  are private and can only be accessed
- *  via friend or class functions
+ *  @brief The Material class is intended to be used
+ *  inconjuction with the cell class. Each cell is made up
+ *  of a Material. The Material is defined as an ID number,
+ *  Density, Colour, and Name. All of these parameters are private
+ *  and can only be accessed with class public functions.
  */
 class Material
 {
@@ -48,13 +50,13 @@ public:
 
     /** @param ID is the Materials identification number
      *  @param Density is the density of the object in kgm^3
-     *  @param Colour is a string that is 6 digits long.
+     *  @param Colour is a string that is 6 digits long. (See SetColour())
      */
     Material(int ID, double Density, const std::string &Colour);
 
     /** @param ID is the Materials identification number
      *  @param Density is the density of the object in kg/m^3
-     *  @param Colour is a string that is 6 digits long.
+     *  @param Colour is a string that is 6 digits long. (See SetColour())
      *  @param Name is a string that names the Material
      */
     Material(int ID, double Density, const std::string &Colour, const std::string &Name); //Constructor receiving all members for Material
@@ -65,30 +67,36 @@ public:
 //-------------Set Functions-----------//
 
     /**
-     * @param Sets the ID number given a integer
+     * @brief Sets the ID number given a integer
+     * @param ID is the identification number of the Material
      */
     void SetID(int ID);
 
     /**
-     * @param Set the Density of the object gievn a double
+     * @brief Set the Density of the object gievn a double
+     * @param Density is the weight of the Material per meter cubed
      */
     void SetDensity(double Density);
 
     /**
-     * @param Sets the Colour given a 6 digit string ranging from 00000 - FFFFFF
+     * @brief Sets the Colour given a 6 digit string ranging from 00000 - FFFFFF
+     * The 6 digit hexidecial number is broken down into its RGB componets
+     * The first 2 digits for Red, second 2 for Green and the last 2 for Blue.
+     * @param Colour is the colour of the material
      */
     void SetColour(const std::string &Colour);
 
     /**
-     * @param Sets the Name of the Material given a string
+     * @brief Sets the Name of the Material given a string
+     * @param Name is the name of the Material
      */
     void SetName(const std::string &Name);
 
     /**
-     * @param Sets the ID number given a integer
-     * @param Set the Density of the object gievn a double
-     * @param Sets the Colour given a 6 digit string ranging from 00000 - FFFFFF
-     * @param Sets the Name of the Material given a string
+     * @param ID this sets the ID number given a integer
+     * @param Density this sets the Density of the object gievn a double
+     * @param Colour this sets the Colour given a 6 digit string ranging from 00000 - FFFFFF
+     * @param Name this sets the Name of the Material given a string
      */
     void SetMaterial(int ID, double Density, const std::string &Colour,const std::string &Name);
 
@@ -119,8 +127,8 @@ public:
 
     /**
      * @brief Dispays the contents of the Material in the terminal block
-     * @param ostream
-     * @param Material
+     * @param Output this is typically "std::cout"
+     * @param Material the desired material is selected here
      */
     friend std::ostream& operator<< (std::ostream& Output, const Material& Material);
 };

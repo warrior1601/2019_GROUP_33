@@ -8,9 +8,10 @@
 //  Vectors.
 //
 
-#include <iostream>
 #include <cmath>
+#include <iostream>
 #include "Vectors.h"
+#include <windows.h>
 
 //-------------Constructors------------//
 
@@ -99,46 +100,49 @@ Vectors Vectors::operator=(const Vectors& Copy)
 
 Vectors Vectors::operator+(const Vectors& add)
 {
-    Vectors added;
 
-    added.X_Coord = this->X_Coord + add.X_Coord;
-    added.Y_Coord = this->Y_Coord + add.Y_Coord;
-    added.Z_Coord = this->Z_Coord + add.Z_Coord;
+    this->X_Coord = this->X_Coord + add.X_Coord;
+    this->Y_Coord = this->Y_Coord + add.Y_Coord;
+    this->Z_Coord = this->Z_Coord + add.Z_Coord;
 
-    return added;
+    return (*this);
 }
 
 Vectors Vectors::operator-(const Vectors& subtract)
 {
-    Vectors subtracted;
+    this->X_Coord = this->X_Coord - subtract.X_Coord;
+    this->Y_Coord = this->Y_Coord - subtract.Y_Coord;
+    this->Z_Coord = this->Z_Coord - subtract.Z_Coord;
 
-    subtracted.X_Coord = this->X_Coord - subtract.X_Coord;
-    subtracted.Y_Coord = this->Y_Coord - subtract.Y_Coord;
-    subtracted.Z_Coord = this->Z_Coord - subtract.Z_Coord;
-
-    return subtracted;
+    return (*this);
 }
 
 Vectors Vectors::operator/(const double& Divide)
 {
-    Vectors Divided;
+    if ( Divide != 0 )
+    {
+    this->X_Coord = this->X_Coord / Divide;
+    this->Y_Coord = this->Y_Coord / Divide;
+    this->Z_Coord = this->Z_Coord / Divide;
 
-    Divided.X_Coord = this->X_Coord / Divide;
-    Divided.Y_Coord = this->Y_Coord / Divide;
-    Divided.Z_Coord = this->Z_Coord / Divide;
-
-    return Divided;
+    return (*this);
+    }
+    else
+    {
+    std::cout << "This is not a valid operation" << std::endl;
+    std::cout << "Can not divide by 0" << std::endl;
+    MessageBox(0,"Can not Divide by 0", "Error", MB_OK);
+    return (*this);
+    }
 }
 
 Vectors Vectors::operator*(const double& Multiply_By)
 {
-    Vectors Multiply;
+    this->X_Coord = this->X_Coord * Multiply_By;
+    this->Y_Coord = this->Y_Coord * Multiply_By;
+    this->Z_Coord = this->Z_Coord * Multiply_By;
 
-    Multiply.X_Coord = this->X_Coord * Multiply_By;
-    Multiply.Y_Coord = this->Y_Coord * Multiply_By;
-    Multiply.Z_Coord = this->Z_Coord * Multiply_By;
-
-    return Multiply;
+    return (*this);
 }
 
 Vectors Vectors::operator*(const Vectors& aVectors)
@@ -158,7 +162,7 @@ double Vectors::Scalar_Product(const Vectors& aVectors)
 {
     double Scalar;
 
-    Scalar =  this->X_Coord * aVectors.X_Coord
+    Scalar =    this->X_Coord * aVectors.X_Coord
               + this->Y_Coord * aVectors.Y_Coord
               + this->Z_Coord * aVectors.Z_Coord;
 
