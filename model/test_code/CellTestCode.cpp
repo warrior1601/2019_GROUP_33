@@ -166,6 +166,7 @@ int main()
     
     anotherHexahedron.Rotate(90, 'y', anotherHexahedron.Get_Centre_Of_Gravity());
     std::cout << "\nRotation of operator= output hexahedron 90 degrees along the y axis and around the geometric centre\n" << anotherHexahedron << std::endl;
-    
+
+    std::cout << "Finished running Script" << std::endl;
     return 0;
 }
