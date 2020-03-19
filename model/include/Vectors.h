@@ -13,9 +13,12 @@
 
 #include <iostream>
 
-    /** @class Vectors Vectors.h "inc/Vectors.h"
-     *  @brief Members of the class Vectors
-     *  this Data is private and can only
+    /** @class Vectors Vectors.h "Vectors.h"
+     *  @brief A Vector represnts a point in space
+     *  that has an X, Y, and Z coordinate in the 3D
+     *  Cartesian coordinate system.
+     *  Members of the class Vectors
+     *  are private and can only
      *  be accessed via friend or class functions
      */
 
@@ -73,7 +76,7 @@ public:
     void SetY_Vector(double aY_Coord);
 
     /**
-     * @brief Set the X coodinate of the Vector
+     * @brief Set the Z coodinate of the Vector
      * @param aZ_Coord
      */
     void SetZ_Vector(double aZ_Coord);
@@ -105,34 +108,34 @@ public:
 //-----Operator Overload Functions-----//
     /**
      * @brief This enable one vector to be copied to another vector
-     * @param Copy
+     * @param Copy is the second Vectors
      */
     Vectors operator=(const Vectors& Copy);
 
     /**
      * @brief Allows the addition of TWO vectors
-     * @param Add
+     * @param Add this is the second Vectors
      * @returns A vector that is the addition value of the two vectors being added
      */
     Vectors operator+(const Vectors& Add);
 
     /**
      * @brief Allows for the subtraction of TWO vectors
-     * @param Subtract
+     * @param Subtract this is the second Vectors
      * @returns A vector that is the subtracted value of one vector on another
      */
     Vectors operator-(const Vectors& Subtract);
 
     /**
      * @brief Allows for the division of ONE vector by a number
-     * @param Divide
+     * @param Divide this a number other than 0
      * @returns A vector that has been devided by a number
      */
     Vectors operator/(const double& Divide);
 
     /**
      * @brief Mulitplies a vector by a number
-     * @param Multiply
+     * @param Multiply This can be any number
      * @returns A vector that have been multplied by a number
      */
     Vectors operator*(const double& Multiply);
@@ -145,7 +148,7 @@ public:
       * Vectors (Cx, Cy, Cz) is returned
       * For more information on scalar products visit
       * (https://www.mathsisfun.com/algebra/vectors-cross-product.html)
-      * @param Multiply
+      * @param Multiply This is a Vector consisiting of a valid X, Y, and Z coordinate
       * @returns a vector that has been multiplied by another vector
       */
     Vectors operator*(const Vectors& Multiply);
@@ -164,14 +167,14 @@ public:
     double Scalar_Product(const Vectors& aVectors);
 
     /**
-      * @brief Square root of the summation of the square of X, Y and Z coordanites
+      * @returns The Square root of the summation of the square of X, Y, and Z coordanites
       */
     double Get_Magnitude(void);
     
     /**
      * @brief Magnitude of the difference between it and aVectors
      * @param aVectors
-     * @returns Distance between two points
+     * @returns Distance between two Vectors
      */
     double Get_Distance_To(const Vectors& aVectors);
 
@@ -179,8 +182,8 @@ public:
 
     /**
      * @brief Dispays the contents of the Vector in the terminal block
-     * @param ostream
-     * @param aVectors
+     * @param Output this is typically "std::cout"
+     * @param aVectors the desired Vector is selected here
      */
     friend std::ostream& operator<< (std::ostream& Output, const Vectors& aVectors);
     

@@ -72,7 +72,7 @@ int main()
     std::cout << "Testing Dividing By A Number" << std::endl;
     std::cout << Test_4 << std::endl;
     std::cout << "Divide Above By 7" << std::endl;
-    Test_2 = Test_4/7;
+    Test_2 = (Test_4/7);
     std::cout << Test_2 << std::endl;
 
     std::cout << "Testing Multiplying By A Number" << std::endl;
@@ -93,4 +93,27 @@ int main()
     std::cout << "Below is the Scalar Product of the Above Two" << std::endl;
     double Scalar = Test_3.Scalar_Product(Test_4);
     std::cout << Scalar << std::endl;
+
+    std::cout << "Testing Divide by 0 Error Message" << std::endl;
+    Test/0;
+
+    Vectors Test_9(1, 2, 3);
+    Vectors Test_10(4, 5, 6);
+    std::cout << " Test_9:";
+    std::cout << Test_9 << std::endl;
+    std::cout << " Test_10:";
+    std::cout << Test_10 << std::endl;
+
+    Vectors Test_11 = Test_9 + Test_10;
+
+    std::cout << " Test_9:";
+    std::cout << Test_9 << std::endl;
+    std::cout << " Test_10:";
+    std::cout << Test_10 << std::endl;
+
+    std::cout << " Test_11:";
+    std::cout << Test_11 << std::endl;
+
+
+    std::cout << "Finished running Script" << std::endl;
 }
