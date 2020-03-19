@@ -23,6 +23,7 @@
 /**
  * @class Matrix3x3 Matrix.hpp "Matrix.hpp"
  * @brief The Matrix3x3 class
+ * \image html Matrix.png "Matrix numbering" width=500cm
  */
 class Matrix3x3 {
 public:
@@ -67,42 +68,49 @@ public:
      * @return
      */
     Matrix3x3 operator+ (const Matrix3x3& aMatrix3x3);
+
     /**
      * @brief operator -
      * @param aMatrix3x3
      * @return
      */
     Matrix3x3 operator- (const Matrix3x3& aMatrix3x3);
+
     /**
      * @brief operator *
      * @param aMatrix3x3
      * @return
      */
     Matrix3x3 operator* (const Matrix3x3& aMatrix3x3);
+
     /**
      * @brief operator *
      * @param aVectors
      * @return
      */
     Vectors operator* (const Vectors& aVectors);
+
     /**
      * @brief operator +
      * @param aNumber
      * @return
      */
     Matrix3x3 operator+ (const double& aNumber);
+
     /**
      * @brief operator -
      * @param aNumber
      * @return
      */
     Matrix3x3 operator- (const double& aNumber);
+
     /**
      * @brief operator *
      * @param aNumber
      * @return
      */
     Matrix3x3 operator* (const double& aNumber);
+
     /**
      * @brief operator /
      * @param aNumber
@@ -116,12 +124,14 @@ public:
      * @return
      */
     Matrix3x3& operator+= (const Matrix3x3& aMatrix3x3);
+
     /**
      * @brief operator -=
      * @param aMatrix3x3
      * @return
      */
     Matrix3x3& operator-= (const Matrix3x3& aMatrix3x3);
+
     /**
      * @brief operator *=
      * @param aMatrix3x3
@@ -129,19 +139,27 @@ public:
      */
     Matrix3x3& operator*= (const Matrix3x3& aMatrix3x3);
     
+    /**
+     * @brief operator +=
+     * @param aNumber
+     * @return
+     */
     Matrix3x3 operator+= (const double& aNumber);
+
     /**
      * @brief operator -=
      * @param aNumber
      * @return
      */
     Matrix3x3 operator-= (const double& aNumber);
+
     /**
      * @brief operator *=
      * @param aNumber
      * @return
      */
     Matrix3x3 operator*= (const double& aNumber);
+
     /**
      * @brief operator /=
      * @param aNumber
@@ -154,46 +172,55 @@ public:
      * @param aMatrixData
      */
     void Set_MatrixData(std::vector< std::vector<double> >& aMatrixData);
+
     /**
      * @brief Set_Matrix_Data_1
      * @param aMatrixNumber
      */
     void Set_Matrix_Data_1(const double& aMatrixNumber);
+
     /**
      * @brief Set_Matrix_Data_2
      * @param aMatrixNumber
      */
     void Set_Matrix_Data_2(const double& aMatrixNumber);
+
     /**
      * @brief Set_Matrix_Data_3
      * @param aMatrixNumber
      */
     void Set_Matrix_Data_3(const double& aMatrixNumber);
+
     /**
      * @brief Set_Matrix_Data_4
      * @param aMatrixNumber
      */
     void Set_Matrix_Data_4(const double& aMatrixNumber);
+
     /**
      * @brief Set_Matrix_Data_5
      * @param aMatrixNumber
      */
     void Set_Matrix_Data_5(const double& aMatrixNumber);
+
     /**
      * @brief Set_Matrix_Data_6
      * @param aMatrixNumber
      */
     void Set_Matrix_Data_6(const double& aMatrixNumber);
+
     /**
      * @brief Set_Matrix_Data_7
      * @param aMatrixNumber
      */
     void Set_Matrix_Data_7(const double& aMatrixNumber);
+
     /**
      * @brief Set_Matrix_Data_8
      * @param aMatrixNumber
      */
     void Set_Matrix_Data_8(const double& aMatrixNumber);
+
     /**
      * @brief Set_Matrix_Data_9
      * @param aMatrixNumber
@@ -205,46 +232,55 @@ public:
      * @return
      */
     std::vector< std::vector<double> > Get_MatrixData(void);
+
     /**
      * @brief Get_Matrix_Data_1
      * @return
      */
     double Get_Matrix_Data_1(void);
+
     /**
      * @brief Get_Matrix_Data_2
      * @return
      */
     double Get_Matrix_Data_2(void);
+
     /**
      * @brief Get_Matrix_Data_3
      * @return
      */
     double Get_Matrix_Data_3(void);
+
     /**
      * @brief Get_Matrix_Data_4
      * @return
      */
     double Get_Matrix_Data_4(void);
+
     /**
      * @brief Get_Matrix_Data_5
      * @return
      */
     double Get_Matrix_Data_5(void);
+
     /**
      * @brief Get_Matrix_Data_6
      * @return
      */
     double Get_Matrix_Data_6(void);
+
     /**
      * @brief Get_Matrix_Data_7
      * @return
      */
     double Get_Matrix_Data_7(void);
+
     /**
      * @brief Get_Matrix_Data_8
      * @return
      */
     double Get_Matrix_Data_8(void);
+
     /**
      * @brief Get_Matrix_Data_9
      * @return

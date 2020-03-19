@@ -115,7 +115,7 @@ private:
  * @class Tetrahedron cell.hpp "Cell.hpp"
  * @brief The Tetrahedron class is a subclass of the Cell class
  * that has 4 Vectors.
- * \image html tetrahedron.png " Tetrahedron Vector numbering" width 20cm
+ * \image html tetrahedron.png " Tetrahedron Vector numbering" width=500cm
  */
 class Tetrahedron:public Cell {
 public:
@@ -169,7 +169,7 @@ public:
  * @class Pyramid cell.hpp "Cell.hpp"
  * @brief The Pyramid class is a subclass of the Cell class
  * that has 5 Vectors.
- * \image html pyramid.png " Pyramid Vector numbering" width 20cm
+ * \image html pyramid.png " Pyramid Vector numbering" width=500cm
  */
 class Pyramid:public Cell {
 public:
@@ -221,7 +221,7 @@ public:
  * @class Hexahedron cell.hpp "Cell.hpp"
  * @brief The Hexahedron class is a subclass of the Cell class
  * that has 8 Vectors.
- * \image html hexahedron.png " Hexahedron Vector numbering" width 20cm
+ * \image html hexahedron.png " Hexahedron Vector numbering" width=500cm
  */
 class Hexahedron:public Cell {
 public:
