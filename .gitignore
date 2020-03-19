@@ -15,6 +15,7 @@ build/
 projects/
 html/
 latex/
+_macos_release/
 
 CMakeCache.txt
 CMakeFiles
