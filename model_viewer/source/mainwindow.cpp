@@ -45,14 +45,14 @@ using namespace std;
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-// This Sets the RinderWindow to the *.ui files Widget named Display_Window
+    // This Sets the RinderWindow to the *.ui files Widget named Display_Window
 
     ui->Display_Window->SetRenderWindow( renderWindow );
     connect( this, &MainWindow::statusUpdateMessage, ui->statusBar, &QStatusBar::showMessage );
-// First this the file does is loads a valid file
+    // First this the file does is loads a valid file
 
     on_actionOpen_triggered();
-// Adding a camera light
+    // Adding a camera light
 
     vtkLight_WithName light;
     light.SetName("Camera Light");
@@ -104,7 +104,7 @@ void MainWindow::on_Add_Light_released()
     light.SetName(InputQString());
     ListOfLights.push_back(light);
     // This checks to ensure a name has been given to the light
-    // If this check is not done clicking cancle will result in a crash
+    // With out this check clicking the canle button would cause the program to crash
 
     if(light.GetName().isEmpty() == false)
     {
@@ -152,11 +152,13 @@ void MainWindow::on_Change_Back_Ground_Color_released()
     renderWindow->Render();
 }
 
+//One comment to look at in this function
 void MainWindow::on_Reset_Camera_released()
 {
     ui->statusBar->showMessage("Reset Button was clicked",3000);
     renderer->ResetCamera();
     double* CameraLocation = renderer->GetActiveCamera()->GetPosition();
+    //create a dispaly to show where the camer is currently at and where the focal point of the camer is.
     renderWindow->Render();
 }
 
@@ -166,17 +168,20 @@ void MainWindow::on_Apply_Filters_released()
     // This open a Modaless window which allows
     // User interaction with the mainwindow while open
 
-    filters =new Filters(this);
-    filters->setWindowTitle("Apply Filters");
-    filters->show();
-  
     if (LoadedFileType == true)
     {
-    filters->Open_Dialog(reader, mapper, renderWindow);
+        filters =new Filters(this);
+        filters->setWindowTitle("Apply Filters");
+        filters->show();
+        filters->Open_Dialog(reader, mapper, renderWindow);
     }
     else
     {
-    //do nothing for now
+        QMessageBox FilterMessage;
+        FilterMessage.setWindowTitle("Error");
+        FilterMessage.setText("Filters can only be applied to stl files.");
+        FilterMessage.exec();
+        ui->statusBar->showMessage("Filters can only be applied to stl files",3000);
     }
 }
 
@@ -245,10 +250,10 @@ void MainWindow::on_actionOpen_triggered()
 
     if (myFile.is_open()) //Check if file has been opened sucessfully, if so returns true
     {
-        // deletes the .mod ot .txt file information that was loaded
+        // deletes the .mod or .txt file information that was loaded
         if (ListOfRenderers.size() > 0 )
         {
-        ui->Display_Window->GetRenderWindow()->RemoveRenderer(ListOfRenderers[0]);
+            ui->Display_Window->GetRenderWindow()->RemoveRenderer(ListOfRenderers[0]);
         }
         ListOfRenderers.clear();
         ListOfMappers.clear();
@@ -269,7 +274,7 @@ void MainWindow::on_actionOpen_triggered()
             reader->Update();
 
             actor->SetMapper(mapper);
-            actor->GetProperty()->EdgeVisibilityOn();
+            actor->GetProperty()->EdgeVisibilityOff();
             actor->GetProperty()->SetColor( colors->GetColor3d("Green").GetData() );
             ui->Display_Window->GetRenderWindow()->AddRenderer( renderer );
             renderer->AddActor(actor);
@@ -277,6 +282,7 @@ void MainWindow::on_actionOpen_triggered()
         else if ((FileType.compare("txt") == 0 ) || (FileType.compare("mod")) == 0)
         {
             LoadedFileType = false;
+
             std::string currentLine;
             unsigned int tetra_count = 0;
             unsigned int pyramid_count = 0;
@@ -297,12 +303,13 @@ void MainWindow::on_actionOpen_triggered()
             std::stringstream testing;
 
             for (unsigned int i = 0; i < ModelOne.Get_Vectors().size(); i++)
-               {
+            {
+                //loading of the vectors into points to be used by the stlwriter
                 double Data[] = { ModelOne.Get_Vectors()[i].GetXVector(),
                                   ModelOne.Get_Vectors()[i].GetYVector(),
                                   ModelOne.Get_Vectors()[i].GetZVector()};
                 points->InsertNextPoint(Data);
-               }
+            }
             for (unsigned int i = 0; i < ModelOne.Get_Cell_Order().size(); i++)
             {
                 vtkSmartPointer<vtkDataSetMapper> mapper = vtkSmartPointer<vtkDataSetMapper>::New();
@@ -314,318 +321,319 @@ void MainWindow::on_actionOpen_triggered()
                 vtkSmartPointer<vtkUnstructuredGrid> ug = vtkSmartPointer<vtkUnstructuredGrid>::New();
                 ListOfUgs.push_back(ug);
 
-            // This is baics shape reader needs changing for loading more complex shapes
-            Cell Test = *ModelOne.Get_Cells()[i];
+                // This is baics shape reader needs changing for loading more complex shapes
+                Cell Test = *ModelOne.Get_Cells()[i];
                 if (ModelOne.Get_Cell_Order()[i] == 't')
-                 {
-                 ListOfUgs[i]->SetPoints(points);
-                 vtkSmartPointer<vtkTetra> tetra = vtkSmartPointer<vtkTetra>::New();
-                 ListOfTetras.push_back(tetra);
-                 for (vtkIdType vtkId = 0; vtkId < 4; vtkId++)
-                      {
-                      ListOfTetras[tetra_count]->GetPointIds()->SetId(vtkId, vtkIdType (Test.Get_Vertices_Order()[vtkId]) );
-                      }
-//Loading Triangles
-                   vtkSmartPointer<vtkTriangle> triangle_Tetra_0 = vtkSmartPointer<vtkTriangle>::New();
-                   ListOfTriangles.push_back(triangle_Tetra_0);
-                   ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[0]) );
-                   ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[1]) );
-                   ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[2]) );
-                   TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
-                   triangle_count++;
+                {
+                    ListOfUgs[i]->SetPoints(points);
+                    vtkSmartPointer<vtkTetra> tetra = vtkSmartPointer<vtkTetra>::New();
+                    ListOfTetras.push_back(tetra);
+                    for (vtkIdType vtkId = 0; vtkId < 4; vtkId++)
+                    {
+                        ListOfTetras[tetra_count]->GetPointIds()->SetId(vtkId, vtkIdType (Test.Get_Vertices_Order()[vtkId]) );
+                    }
+                    //Loading Triangles
+                    vtkSmartPointer<vtkTriangle> triangle_Tetra_0 = vtkSmartPointer<vtkTriangle>::New();
+                    ListOfTriangles.push_back(triangle_Tetra_0);
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[0]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[1]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[2]) );
+                    TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
+                    triangle_count++;
 
-                   vtkSmartPointer<vtkTriangle> triangle_Tetra_1 = vtkSmartPointer<vtkTriangle>::New();
-                   ListOfTriangles.push_back(triangle_Tetra_1);
-                   ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[0]) );
-                   ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[2]) );
-                   ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[3]) );
-                   TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
-                   triangle_count++;
+                    vtkSmartPointer<vtkTriangle> triangle_Tetra_1 = vtkSmartPointer<vtkTriangle>::New();
+                    ListOfTriangles.push_back(triangle_Tetra_1);
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[0]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[2]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[3]) );
+                    TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
+                    triangle_count++;
 
-                   vtkSmartPointer<vtkTriangle> triangle_Tetra_2 = vtkSmartPointer<vtkTriangle>::New();
-                   ListOfTriangles.push_back(triangle_Tetra_2);
-                   ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[0]) );
-                   ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[1]) );
-                   ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[3]) );
-                   TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
-                   triangle_count++;
+                    vtkSmartPointer<vtkTriangle> triangle_Tetra_2 = vtkSmartPointer<vtkTriangle>::New();
+                    ListOfTriangles.push_back(triangle_Tetra_2);
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[0]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[1]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[3]) );
+                    TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
+                    triangle_count++;
 
-                   vtkSmartPointer<vtkTriangle> triangle_Tetra_3 = vtkSmartPointer<vtkTriangle>::New();
-                   ListOfTriangles.push_back(triangle_Tetra_3);
-                   ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[1]) );
-                   ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[2]) );
-                   ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[3]) );
-                   TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
-                   triangle_count++;
+                    vtkSmartPointer<vtkTriangle> triangle_Tetra_3 = vtkSmartPointer<vtkTriangle>::New();
+                    ListOfTriangles.push_back(triangle_Tetra_3);
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[1]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[2]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[3]) );
+                    TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
+                    triangle_count++;
+
+                    cellArray->InsertNextCell(ListOfTetras[tetra_count]);
+                    ListOfUgs[i]->InsertNextCell(tetra->GetCellType(), ListOfTetras[tetra_count]->GetPointIds());
+                    ListOfMappers[i]->SetInputData(ListOfUgs[i]);
+                    ListOfActors[i]->SetMapper(ListOfMappers[i]);
 
 
-                 cellArray->InsertNextCell(ListOfTetras[tetra_count]);
-                 ListOfUgs[i]->InsertNextCell(tetra->GetCellType(), ListOfTetras[tetra_count]->GetPointIds());
-                 ListOfMappers[i]->SetInputData(ListOfUgs[i]);
-                 ListOfActors[i]->SetMapper(ListOfMappers[i]);
+                    // put in function ??//
+                    col =  Test.Get_Material().GetColour();
+                    std::string RGB_Red = col.substr(0,2);
+                    std::string RGB_Green = col.substr(2,2);
+                    std::string RGB_Blue = col.substr(4,2);
 
+                    int Red = 0;
+                    std::istringstream(RGB_Red) >> std::hex >> Red;
+                    double Red_remapped = (0.0 + (1.0 - 0.0) * ((Red - 0.0) / (255 - 0.0)));
 
-                 // put in function ??//
-                 col =  Test.Get_Material().GetColour();
-                 std::string RGB_Red = col.substr(0,2);
-                 std::string RGB_Green = col.substr(2,2);
-                 std::string RGB_Blue = col.substr(4,2);
+                    int Green = 0;
+                    std::istringstream(RGB_Green) >> std::hex >> Green;
+                    double Green_remapped = (0.0 + (1.0 - 0.0) * ((Green - 0.0) / (255 - 0.0)));
 
-                 int Red = 0;
-                 std::istringstream(RGB_Red) >> std::hex >> Red;
-                 double Red_remapped = (0.0 + (1.0 - 0.0) * ((Red - 0.0) / (255 - 0.0)));
+                    int Blue = 0;
+                    std::istringstream(RGB_Blue) >> std::hex >> Blue;
+                    double Blue_remapped = (0.0 + (1.0 - 0.0) * ((Blue - 0.0) / (255 - 0.0)));
 
-                 int Green = 0;
-                 std::istringstream(RGB_Green) >> std::hex >> Green;
-                 double Green_remapped = (0.0 + (1.0 - 0.0) * ((Green - 0.0) / (255 - 0.0)));
-
-                 int Blue = 0;
-                 std::istringstream(RGB_Blue) >> std::hex >> Blue;
-                 double Blue_remapped = (0.0 + (1.0 - 0.0) * ((Blue - 0.0) / (255 - 0.0)));
-
-                 ListOfActors[i]->GetProperty()->SetColor(Red_remapped,Green_remapped,Blue_remapped);
-                 ListOfRenderers[0]->AddActor(ListOfActors[i]);
-                 tetra_count++;
-                 }
+                    ListOfActors[i]->GetProperty()->SetColor(Red_remapped,Green_remapped,Blue_remapped);
+                    ListOfRenderers[0]->AddActor(ListOfActors[i]);
+                    tetra_count++;
+                }
 
                 if (ModelOne.Get_Cell_Order()[i] == 'p')
-                 {
-                  ListOfUgs[i]->SetPoints(points);
-                  vtkSmartPointer<vtkPyramid> pyramid = vtkSmartPointer<vtkPyramid>::New();
-                  ListOfPyramids.push_back(pyramid);
-                  for (vtkIdType vtkId = 0; vtkId < 5; vtkId++)
-                       {
-                       ListOfPyramids[pyramid_count]->GetPointIds()->SetId(vtkId, vtkIdType (Test.Get_Vertices_Order()[vtkId]) );
-                       }
-//Loading triangles
-                  vtkSmartPointer<vtkTriangle> triangle_Pyramid_0 = vtkSmartPointer<vtkTriangle>::New();
-                  ListOfTriangles.push_back(triangle_Pyramid_0);
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[0]) );
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[1]) );
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[4]) );
-                  TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
-                  triangle_count++;
+                {
+                    ListOfUgs[i]->SetPoints(points);
+                    vtkSmartPointer<vtkPyramid> pyramid = vtkSmartPointer<vtkPyramid>::New();
+                    ListOfPyramids.push_back(pyramid);
+                    for (vtkIdType vtkId = 0; vtkId < 5; vtkId++)
+                    {
+                        ListOfPyramids[pyramid_count]->GetPointIds()->SetId(vtkId, vtkIdType (Test.Get_Vertices_Order()[vtkId]) );
+                    }
+                    //Loading triangles
+                    vtkSmartPointer<vtkTriangle> triangle_Pyramid_0 = vtkSmartPointer<vtkTriangle>::New();
+                    ListOfTriangles.push_back(triangle_Pyramid_0);
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[0]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[1]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[4]) );
+                    TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
+                    triangle_count++;
 
-                  vtkSmartPointer<vtkTriangle> triangle_Pyramid_1 = vtkSmartPointer<vtkTriangle>::New();
-                  ListOfTriangles.push_back(triangle_Pyramid_1);
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[1]) );
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[2]) );
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[4]) );
-                  TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
-                  triangle_count++;
+                    vtkSmartPointer<vtkTriangle> triangle_Pyramid_1 = vtkSmartPointer<vtkTriangle>::New();
+                    ListOfTriangles.push_back(triangle_Pyramid_1);
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[1]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[2]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[4]) );
+                    TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
+                    triangle_count++;
 
-                  vtkSmartPointer<vtkTriangle> triangle_Pyramid_2 = vtkSmartPointer<vtkTriangle>::New();
-                  ListOfTriangles.push_back(triangle_Pyramid_2);
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[2]) );
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[3]) );
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[4]) );
-                  TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
-                  triangle_count++;
+                    vtkSmartPointer<vtkTriangle> triangle_Pyramid_2 = vtkSmartPointer<vtkTriangle>::New();
+                    ListOfTriangles.push_back(triangle_Pyramid_2);
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[2]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[3]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[4]) );
+                    TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
+                    triangle_count++;
 
-                  vtkSmartPointer<vtkTriangle> triangle_Pyramid_3 = vtkSmartPointer<vtkTriangle>::New();
-                  ListOfTriangles.push_back(triangle_Pyramid_3);
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[3]) );
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[0]) );
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[4]) );
-                  TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
-                  triangle_count++;
+                    vtkSmartPointer<vtkTriangle> triangle_Pyramid_3 = vtkSmartPointer<vtkTriangle>::New();
+                    ListOfTriangles.push_back(triangle_Pyramid_3);
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[3]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[0]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[4]) );
+                    TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
+                    triangle_count++;
 
-                  vtkSmartPointer<vtkTriangle> triangle_Pyramid_4 = vtkSmartPointer<vtkTriangle>::New();
-                  ListOfTriangles.push_back(triangle_Pyramid_4);
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[0]) );
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[1]) );
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[3]) );
-                  TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
-                  triangle_count++;
+                    vtkSmartPointer<vtkTriangle> triangle_Pyramid_4 = vtkSmartPointer<vtkTriangle>::New();
+                    ListOfTriangles.push_back(triangle_Pyramid_4);
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[0]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[1]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[3]) );
+                    TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
+                    triangle_count++;
 
-                  vtkSmartPointer<vtkTriangle> triangle_Pyramid_5 = vtkSmartPointer<vtkTriangle>::New();
-                  ListOfTriangles.push_back(triangle_Pyramid_5);
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[1]) );
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[2]) );
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[3]) );
-                  TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
-                  triangle_count++;
+                    vtkSmartPointer<vtkTriangle> triangle_Pyramid_5 = vtkSmartPointer<vtkTriangle>::New();
+                    ListOfTriangles.push_back(triangle_Pyramid_5);
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[1]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[2]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[3]) );
+                    TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
+                    triangle_count++;
 
-                  cellArray->InsertNextCell (ListOfPyramids[pyramid_count]);
-                  ListOfUgs[i]->InsertNextCell(pyramid->GetCellType(), ListOfPyramids[pyramid_count]->GetPointIds());
-                  ListOfMappers[i]->SetInputData(ListOfUgs[i]);
-                  ListOfActors[i]->SetMapper(ListOfMappers[i]);
-                  col =  Test.Get_Material().GetColour();
-                  std::string RGB_Red = col.substr(0,2);
-                  std::string RGB_Green = col.substr(2,2);
-                  std::string RGB_Blue = col.substr(4,2);
+                    cellArray->InsertNextCell (ListOfPyramids[pyramid_count]);
+                    ListOfUgs[i]->InsertNextCell(pyramid->GetCellType(), ListOfPyramids[pyramid_count]->GetPointIds());
+                    ListOfMappers[i]->SetInputData(ListOfUgs[i]);
+                    ListOfActors[i]->SetMapper(ListOfMappers[i]);
+                    col =  Test.Get_Material().GetColour();
+                    std::string RGB_Red = col.substr(0,2);
+                    std::string RGB_Green = col.substr(2,2);
+                    std::string RGB_Blue = col.substr(4,2);
 
-                  int Red = 0;
-                  std::istringstream(RGB_Red) >> std::hex >> Red;
-                  double Red_remapped = (0.0 + (1.0 - 0.0) * ((Red - 0.0) / (255 - 0.0)));
+                    int Red = 0;
+                    std::istringstream(RGB_Red) >> std::hex >> Red;
+                    double Red_remapped = (0.0 + (1.0 - 0.0) * ((Red - 0.0) / (255 - 0.0)));
 
-                  int Green = 0;
-                  std::istringstream(RGB_Green) >> std::hex >> Green;
-                  double Green_remapped = (0.0 + (1.0 - 0.0) * ((Green - 0.0) / (255 - 0.0)));
+                    int Green = 0;
+                    std::istringstream(RGB_Green) >> std::hex >> Green;
+                    double Green_remapped = (0.0 + (1.0 - 0.0) * ((Green - 0.0) / (255 - 0.0)));
 
 
-                  int Blue = 0;
-                  std::istringstream(RGB_Blue) >> std::hex >> Blue;
-                  double Blue_remapped = (0.0 + (1.0 - 0.0) * ((Blue - 0.0) / (255 - 0.0)));
+                    int Blue = 0;
+                    std::istringstream(RGB_Blue) >> std::hex >> Blue;
+                    double Blue_remapped = (0.0 + (1.0 - 0.0) * ((Blue - 0.0) / (255 - 0.0)));
 
-                  ListOfActors[i]->GetProperty()->SetColor(Red_remapped,Green_remapped,Blue_remapped);
-                  ListOfRenderers[0]->AddActor(ListOfActors[i]);
-                  pyramid_count++;
-                 }
+                    ListOfActors[i]->GetProperty()->SetColor(Red_remapped,Green_remapped,Blue_remapped);
+                    ListOfRenderers[0]->AddActor(ListOfActors[i]);
+                    pyramid_count++;
+                }
 
                 if (ModelOne.Get_Cell_Order()[i] == 'h')
-                  {
-                  ListOfUgs[i]->SetPoints(points);
-                  vtkSmartPointer<vtkHexahedron> hex = vtkSmartPointer<vtkHexahedron>::New();
-                  ListOfHexs.push_back(hex);
-                  for ( vtkIdType vtkId = 0; vtkId < 8; vtkId++)
-                      {
-                      ListOfHexs[hexaherdon_cont]->GetPointIds()->SetId(vtkId, vtkIdType (Test.Get_Vertices_Order()[vtkId]) );
-                      }
-//Loading Triangles
-                  vtkSmartPointer<vtkTriangle> triangle_Hex_0 = vtkSmartPointer<vtkTriangle>::New();
-                  ListOfTriangles.push_back(triangle_Hex_0);
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[0]) );
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[1]) );
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[5]) );
-                  TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
-                  triangle_count++;
+                {
+                    ListOfUgs[i]->SetPoints(points);
+                    vtkSmartPointer<vtkHexahedron> hex = vtkSmartPointer<vtkHexahedron>::New();
+                    ListOfHexs.push_back(hex);
+                    for ( vtkIdType vtkId = 0; vtkId < 8; vtkId++)
+                    {
+                        ListOfHexs[hexaherdon_cont]->GetPointIds()->SetId(vtkId, vtkIdType (Test.Get_Vertices_Order()[vtkId]) );
+                    }
+                    //Loading Triangles
+                    vtkSmartPointer<vtkTriangle> triangle_Hex_0 = vtkSmartPointer<vtkTriangle>::New();
+                    ListOfTriangles.push_back(triangle_Hex_0);
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[0]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[1]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[5]) );
+                    TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
+                    triangle_count++;
 
-                  vtkSmartPointer<vtkTriangle> triangle_Hex_1 = vtkSmartPointer<vtkTriangle>::New();
-                  ListOfTriangles.push_back(triangle_Hex_1);
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[0]) );
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[4]) );
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[5]) );
-                  TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
-                  triangle_count++;
+                    vtkSmartPointer<vtkTriangle> triangle_Hex_1 = vtkSmartPointer<vtkTriangle>::New();
+                    ListOfTriangles.push_back(triangle_Hex_1);
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[0]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[4]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[5]) );
+                    TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
+                    triangle_count++;
 
-                  vtkSmartPointer<vtkTriangle> triangle_Hex_2 = vtkSmartPointer<vtkTriangle>::New();
-                  ListOfTriangles.push_back(triangle_Hex_2);
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[1]) );
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[2]) );
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[6]) );
-                  TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
-                  triangle_count++;
+                    vtkSmartPointer<vtkTriangle> triangle_Hex_2 = vtkSmartPointer<vtkTriangle>::New();
+                    ListOfTriangles.push_back(triangle_Hex_2);
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[1]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[2]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[6]) );
+                    TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
+                    triangle_count++;
 
-                  vtkSmartPointer<vtkTriangle> triangle_Hex_3 = vtkSmartPointer<vtkTriangle>::New();
-                  ListOfTriangles.push_back(triangle_Hex_3);
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[1]) );
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[5]) );
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[6]) );
-                  TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
-                  triangle_count++;
+                    vtkSmartPointer<vtkTriangle> triangle_Hex_3 = vtkSmartPointer<vtkTriangle>::New();
+                    ListOfTriangles.push_back(triangle_Hex_3);
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[1]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[5]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[6]) );
+                    TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
+                    triangle_count++;
 
-                  vtkSmartPointer<vtkTriangle> triangle_Hex_4 = vtkSmartPointer<vtkTriangle>::New();
-                  ListOfTriangles.push_back(triangle_Hex_4);
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[2]) );
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[3]) );
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[7]) );
-                  TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
-                  triangle_count++;
+                    vtkSmartPointer<vtkTriangle> triangle_Hex_4 = vtkSmartPointer<vtkTriangle>::New();
+                    ListOfTriangles.push_back(triangle_Hex_4);
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[2]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[3]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[7]) );
+                    TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
+                    triangle_count++;
 
-                  vtkSmartPointer<vtkTriangle> triangle_Hex_5 = vtkSmartPointer<vtkTriangle>::New();
-                  ListOfTriangles.push_back(triangle_Hex_5);
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[2]) );
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[6]) );
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[7]) );
-                  TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
-                  triangle_count++;
+                    vtkSmartPointer<vtkTriangle> triangle_Hex_5 = vtkSmartPointer<vtkTriangle>::New();
+                    ListOfTriangles.push_back(triangle_Hex_5);
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[2]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[6]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[7]) );
+                    TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
+                    triangle_count++;
 
-                  vtkSmartPointer<vtkTriangle> triangle_Hex_6 = vtkSmartPointer<vtkTriangle>::New();
-                  ListOfTriangles.push_back(triangle_Hex_6);
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[3]) );
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[0]) );
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[4]) );
-                  TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
-                  triangle_count++;
+                    vtkSmartPointer<vtkTriangle> triangle_Hex_6 = vtkSmartPointer<vtkTriangle>::New();
+                    ListOfTriangles.push_back(triangle_Hex_6);
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[3]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[0]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[4]) );
+                    TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
+                    triangle_count++;
 
-                  vtkSmartPointer<vtkTriangle> triangle_Hex_7 = vtkSmartPointer<vtkTriangle>::New();
-                  ListOfTriangles.push_back(triangle_Hex_7);
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[3]) );
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[7]) );
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[4]) );
-                  TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
-                  triangle_count++;
+                    vtkSmartPointer<vtkTriangle> triangle_Hex_7 = vtkSmartPointer<vtkTriangle>::New();
+                    ListOfTriangles.push_back(triangle_Hex_7);
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[3]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[7]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[4]) );
+                    TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
+                    triangle_count++;
 
-                  vtkSmartPointer<vtkTriangle> triangle_Hex_8 = vtkSmartPointer<vtkTriangle>::New();
-                  ListOfTriangles.push_back(triangle_Hex_8);
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[0]) );
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[1]) );
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[2]) );
-                  TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
-                  triangle_count++;
+                    vtkSmartPointer<vtkTriangle> triangle_Hex_8 = vtkSmartPointer<vtkTriangle>::New();
+                    ListOfTriangles.push_back(triangle_Hex_8);
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[0]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[1]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[2]) );
+                    TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
+                    triangle_count++;
 
-                  vtkSmartPointer<vtkTriangle> triangle_Hex_9 = vtkSmartPointer<vtkTriangle>::New();
-                  ListOfTriangles.push_back(triangle_Hex_9);
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[0]) );
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[3]) );
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[2]) );
-                  TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
-                  triangle_count++;
+                    vtkSmartPointer<vtkTriangle> triangle_Hex_9 = vtkSmartPointer<vtkTriangle>::New();
+                    ListOfTriangles.push_back(triangle_Hex_9);
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[0]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[3]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[2]) );
+                    TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
+                    triangle_count++;
 
-                  vtkSmartPointer<vtkTriangle> triangle_Hex_10 = vtkSmartPointer<vtkTriangle>::New();
-                  ListOfTriangles.push_back(triangle_Hex_10);
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[4]) );
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[5]) );
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[6]) );
-                  TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
-                  triangle_count++;
+                    vtkSmartPointer<vtkTriangle> triangle_Hex_10 = vtkSmartPointer<vtkTriangle>::New();
+                    ListOfTriangles.push_back(triangle_Hex_10);
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[4]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[5]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[6]) );
+                    TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
+                    triangle_count++;
 
-                  vtkSmartPointer<vtkTriangle> triangle_Hex_11 = vtkSmartPointer<vtkTriangle>::New();
-                  ListOfTriangles.push_back(triangle_Hex_11);
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[4]) );
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[7]) );
-                  ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[6]) );
-                  TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
-                  triangle_count++;
+                    vtkSmartPointer<vtkTriangle> triangle_Hex_11 = vtkSmartPointer<vtkTriangle>::New();
+                    ListOfTriangles.push_back(triangle_Hex_11);
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[4]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 1, vtkIdType (Test.Get_Vertices_Order()[7]) );
+                    ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 2, vtkIdType (Test.Get_Vertices_Order()[6]) );
+                    TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
+                    triangle_count++;
 
-                  cellArray->InsertNextCell(ListOfHexs[hexaherdon_cont]);
-                  ListOfUgs[i]->InsertNextCell(VTK_HEXAHEDRON, ListOfHexs[hexaherdon_cont]->GetPointIds() );
-                  ListOfMappers[i]->SetInputData(ListOfUgs[i]);
-                  ListOfActors[i]->SetMapper(ListOfMappers[i]);
+                    cellArray->InsertNextCell(ListOfHexs[hexaherdon_cont]);
+                    ListOfUgs[i]->InsertNextCell(VTK_HEXAHEDRON, ListOfHexs[hexaherdon_cont]->GetPointIds() );
+                    ListOfMappers[i]->SetInputData(ListOfUgs[i]);
+                    ListOfActors[i]->SetMapper(ListOfMappers[i]);
 
-                  col =  Test.Get_Material().GetColour();
-                  std::string RGB_Red = col.substr(0,2);
-                  std::string RGB_Green = col.substr(2,2);
-                  std::string RGB_Blue = col.substr(4,2);
+                    col =  Test.Get_Material().GetColour();
+                    std::string RGB_Red = col.substr(0,2);
+                    std::string RGB_Green = col.substr(2,2);
+                    std::string RGB_Blue = col.substr(4,2);
 
-                  int Red = 0;
-                  std::istringstream(RGB_Red) >> std::hex >> Red;
-                  double Red_remapped = (0.0 + (1.0 - 0.0) * ((Red - 0.0) / (255 - 0.0)));
+                    int Red = 0;
+                    std::istringstream(RGB_Red) >> std::hex >> Red;
+                    double Red_remapped = (0.0 + (1.0 - 0.0) * ((Red - 0.0) / (255 - 0.0)));
 
-                  int Green  = 0;
-                  std::istringstream(RGB_Green) >> std::hex >> Green;
-                  double Green_remapped = (0.0 + (1.0 - 0.0) * ((Green - 0.0) / (255 - 0.0)));
+                    int Green  = 0;
+                    std::istringstream(RGB_Green) >> std::hex >> Green;
+                    double Green_remapped = (0.0 + (1.0 - 0.0) * ((Green - 0.0) / (255 - 0.0)));
 
-                  int Blue  = 0;
-                  std::istringstream(RGB_Blue) >> std::hex >> Blue;
-                  double Blue_remapped = (0.0 + (1.0 - 0.0) * ((Blue - 0.0) / (255 - 0.0)));
+                    int Blue  = 0;
+                    std::istringstream(RGB_Blue) >> std::hex >> Blue;
+                    double Blue_remapped = (0.0 + (1.0 - 0.0) * ((Blue - 0.0) / (255 - 0.0)));
 
-                  ListOfActors[i]->GetProperty()->SetColor(Red_remapped,Green_remapped,Blue_remapped);
-                  ListOfRenderers[0]->AddActor(ListOfActors[i]);
-                  hexaherdon_cont++;
-                  }
-             }
-           ListOfRenderers[0]->ResetCameraClippingRange();
+                    ListOfActors[i]->GetProperty()->SetColor(Red_remapped,Green_remapped,Blue_remapped);
+                    ListOfRenderers[0]->AddActor(ListOfActors[i]);
+                    hexaherdon_cont++;
+                }
+            }
+            ListOfRenderers[0]->ResetCameraClippingRange();
 
-           ListOfRenderers[0]->SetBackground( colors->GetColor3d("Silver").GetData() );
+            ListOfRenderers[0]->SetBackground( colors->GetColor3d("Silver").GetData() );
+            polydata->Initialize();
+            polydata->SetPolys(cellArray);
+            //polydata->SetPolys(TriangleArray);
+            polydata->SetPoints(points);
+
+            QString NewSTLFilePath = QFileDialog::getSaveFileName(this, tr("Save File"),
+                                                                  "../../example_models/New stl file",tr("Stl (*.stl)"));
+            std::string STLFilePath = NewSTLFilePath.toUtf8().constData();
+            stlWriter->SetFileName(STLFilePath.c_str());
+            stlWriter->SetInputData(polydata);
+            stlWriter->Write();
+
+            std::cout << polydata->GetNumberOfPolys() << std::endl;
+            renderer->ResetCamera();
+            renderWindow->Render();
         }
-
-        polydata->Initialize();
-        polydata->SetPolys(TriangleArray);
-        polydata->SetPoints(points);
-
-        vtkSmartPointer<vtkSTLWriter> stlWriter = vtkSmartPointer<vtkSTLWriter>::New();
-        stlWriter->SetFileName("Test.stl");
-        stlWriter->SetInputData(polydata);
-        stlWriter->Write();
-
-        std::cout << polydata->GetNumberOfPolys() << std::endl;
         renderer->SetBackground( colors->GetColor3d("Silver").GetData() );
-
         renderer->GetActiveCamera()->SetPosition(2.0 ,3.0, 5.0);
         renderer->GetActiveCamera()->SetFocalPoint(0.0 ,0.0, 0.0);
-
         renderer->ResetCamera();
         renderWindow->Render();
     }
@@ -889,7 +897,7 @@ void MainWindow::on_actionLoad_Lights_triggered()
 
 void MainWindow::on_actionSave_Lights_triggered()
 {
-// This opens a Dialog box that sets the PATH and file name of the file to be saved
+    // This opens a Dialog box that sets the PATH and file name of the file to be saved
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
                                                     "Light List",tr("Doc (*.txt)"));
     QFile file(fileName);
