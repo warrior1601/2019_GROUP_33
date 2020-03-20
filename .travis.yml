@@ -37,7 +37,6 @@ addons:
 # Build your code
 script:
   - export PATH=$MSBUILD_PATH:$PATH
-  - ./build.bat
   - export PATH=$QT_PATH:$PATH
 
   - mkdir build
