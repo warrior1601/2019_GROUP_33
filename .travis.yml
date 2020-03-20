@@ -39,7 +39,7 @@ addons:
 script:
   - mkdir build
   - cd build
-  - cmake -G "Visual Studio 15 2017 Win64" ..\model_viewer
+  - cmake -G "Visual Studio 15 2017 Win64" ../model_viewer
   - msbuild model_viewer.sln
 #  - make test
 
