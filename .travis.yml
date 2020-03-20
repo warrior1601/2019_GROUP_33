@@ -1,9 +1,6 @@
 # .travis.yml
 # Modified travis script that generates and submits doxygen documentation
 language: cpp
-os: windows
-env:
-  - MSBUILD_PATH="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin"
 sudo: false
 branches:
   except:
@@ -34,12 +31,10 @@ addons:
 
 # Build your code
 script:
-  - export PATH=$MSBUILD_PATH:$PATH
   - mkdir build
   - cd build
-  - cmake -G "Visual Studio 15 2017 Win64" ../model
-  - "C:/Program Files (x86)/Microsoft Visual Studio/2017/Community/VC/Auxiliary/Build/vcvarsall.bat" amd64
-  - msbuild model.sln
+  - cmake ../model
+  - make
 #  - make test
 
 # After successfully building and testing your software we give Doxygen the
