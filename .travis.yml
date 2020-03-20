@@ -1,9 +1,9 @@
 # .travis.yml
 # Modified travis script that generates and submits doxygen documentation
-language: cpp
-complier: gcc
 dist: trusty
 sudo: required
+language: cpp
+complier: gcc
 branches:
   except:
     - gh-pages
@@ -26,26 +26,31 @@ env:
 
 addons:
   apt:
+    sources:
+      - ubuntu-toolchain-r-test
     packages:
       - doxygen
       - graphviz
-
-before_install:
-  - sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
-  - sudo apt-get update -qq
-
-install:
-  - sudo apt-get install -qq g++-5
-#  - sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-5 90
+      - gcc-6
+      - g++-6
+      - cmake
 
 # Build your code
 script:
+  # Link gcc-6 and g++-6 to their standard commands
+  - ln -s /usr/bin/gcc-6 /usr/local/bin/gcc
+  - ln -s /usr/bin/g++-6 /usr/local/bin/g++
+  # Export CC and CXX to tell cmake which compiler to use
+  - export CC=/usr/bin/gcc-6
+  - export CXX=/usr/bin/g++-6
+  # Check versions of gcc, g++ and cmake
+  - gcc -v && g++ -v && cmake --version
+  # Run your build commands next
   - cd model
   - mkdir build
   - cd build
   - cmake ..
   - make
-  - ./travis_qmake_gcc_cpp11
 #  - make test
 
 # After successfully building and testing your software we give Doxygen the
