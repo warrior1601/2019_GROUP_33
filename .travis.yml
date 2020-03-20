@@ -1,6 +1,12 @@
 # .travis.yml
 # Modified travis script that generates and submits doxygen documentation
 language: cpp
+os: windows
+env:
+  - MSBUILD_PATH="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin"
+script:
+  - export PATH=$MSBUILD_PATH:$PATH
+  - ./build.bat
 sudo: false
 branches:
   except:
@@ -18,6 +24,7 @@ env:
     - GH_REPO_NAME:2019_GROUP_33
     - DOXYFILE: $TRAVIS_BUILD_DIR/Doxyfile
     - GH_REPO_REF: github.com/warrior1601/2019_GROUP_33.git
+
 # The virtual machines created by Travis do not by default have doxygen
 # installed. This is fortunately not difficult on a Debian flavoured Linux
 # system.
@@ -32,7 +39,7 @@ addons:
 script:
   - mkdir build
   - cd build
-  - cmake -G "Visual Studio 15 2017 Win64" ../model_viewer
+  - cmake -G "Visual Studio 15 2017 Win64" ..\model_viewer
   - msbuild model_viewer.sln
 #  - make test
 
