@@ -5,6 +5,9 @@ sudo: false
 branches:
   except:
     - gh-pages
+    - RefreshedMoose/2019_GROUP_33
+    - wagosme/2019_GROUP_33
+    - Ambelc/2019_GROUP_33
 
 # Modify these variables that will be used in generateDocumentationAndDep.sh
 # (see below). They tell Doxygen where to find the source on and were to send 
@@ -29,8 +32,8 @@ addons:
 script:
   - mkdir build
   - cd build
-  - cmake ../model_viewer/
-  - make
+  - cmake -G "Visual Studio 15 2017 Win64" ..\model_viewer
+  - msbuild model_viewer.sln
 #  - make test
 
 # After successfully building and testing your software we give Doxygen the
