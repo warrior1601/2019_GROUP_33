@@ -3,7 +3,7 @@
 language: cpp
 complier: gcc
 dist: trusty
-sudo: false
+sudo: required
 branches:
   except:
     - gh-pages
@@ -30,14 +30,23 @@ addons:
       - doxygen
       - graphviz
 
+before_install:
+  - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+  - sudo apt-get update -qq
+
+install:
+  - sudo apt-get install -qq g++-5
+  - sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-5 90
+
 # Build your code
-script:
+script: 
+  - ./build.sh
+  - ./travis_qmake_gcc_cpp11_gcov
   - cd model
   - mkdir build
   - cd build
   - cmake ..
   - make
-  - ./travis_qmake_gcc_cpp11
 #  - make test
 
 # After successfully building and testing your software we give Doxygen the
