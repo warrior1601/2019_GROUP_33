@@ -1,6 +1,8 @@
 # .travis.yml
 # Modified travis script that generates and submits doxygen documentation
 language: cpp
+complier: gcc
+dist: trusty
 sudo: false
 branches:
   except:
@@ -35,6 +37,7 @@ script:
   - cd build
   - cmake ..
   - make
+  - ./travis_qmake_gcc_cpp11
 #  - make test
 
 # After successfully building and testing your software we give Doxygen the
