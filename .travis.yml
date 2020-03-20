@@ -5,6 +5,7 @@ os: windows
 env:
   - MSBUILD_PATH="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin"
   - CMAKE_PREFIX_PATH="C:\Qt\5.12.5\msvc2017_64\bin"
+#  - QT_QMAKE_EXECUTABLE="C:\Qt\5.12.5\msvc2017_64\bin\qmake.exe"
 sudo: false
 
 branches:
@@ -37,7 +38,8 @@ addons:
 # Build your code
 script:
   - export PATH=$MSBUILD_PATH:$PATH
-  - export PATH=CMAKE_PREFIX_PATH$PATH
+  - export PATH=$CMAKE_PREFIX_PATH:$PATH
+#  - export PATH=$QT_QMAKE_EXECUTABLE:$PATH
 
   - mkdir build
   - cd build
