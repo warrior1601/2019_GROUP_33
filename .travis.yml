@@ -38,7 +38,7 @@ script:
   - mkdir build
   - cd build
   - cmake -G "Visual Studio 15 2017 Win64" ../model
-  - msbuild model_viewer.sln
+  - msbuild model.sln
 #  - make test
 
 # After successfully building and testing your software we give Doxygen the
