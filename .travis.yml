@@ -32,8 +32,8 @@ addons:
 script:
   - mkdir build
   - cd build
-  - cmake -G "MinGW Makefiles" -DBUILD_SHARED_LIBS=ON ../model
-  - mingw32-make
+  - cmake ../model
+  - make
 #  - make test
 
 # After successfully building and testing your software we give Doxygen the
