@@ -7,7 +7,7 @@ project( model )
 
 
 # This project contains many header files the "include_directories" sets the path for the header files to be located
-include_directories( Include )
+include_directories( include )
 
 
 
