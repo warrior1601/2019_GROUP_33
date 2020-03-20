@@ -7,7 +7,15 @@ env:
 script:
   - export PATH=$MSBUILD_PATH:$PATH
   - ./build.bat
-sudo: false
+sudo: required
+dist: trusty
+
+install:
+  - sudo apt-get install -y qt5-default qttools5-dev-tools #install necessary Qt files
+
+install:
+  - bash
+
 branches:
   except:
     - gh-pages
