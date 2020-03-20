@@ -25,10 +25,6 @@ Warning: ignoring unsupported tag `DOCBOOK_PROGRAMLISTING =' at line 2093, file 
 Warning: ignoring unsupported tag `PLANTUML_JAR_PATH      =' at line 2507, file /home/travis/build/warrior1601/2019_GROUP_33/Doxyfile
 Warning: ignoring unsupported tag `PLANTUML_CFG_FILE      =' at line 2512, file /home/travis/build/warrior1601/2019_GROUP_33/Doxyfile
 Warning: ignoring unsupported tag `PLANTUML_INCLUDE_PATH  =' at line 2517, file /home/travis/build/warrior1601/2019_GROUP_33/Doxyfile
-/home/travis/build/warrior1601/2019_GROUP_33/model/include/Cell.hpp:28: warning: the name `cell.hpp' supplied as the argument of the \class, \struct, \union, or \include command is not an input file
-/home/travis/build/warrior1601/2019_GROUP_33/model/include/Cell.hpp:115: warning: the name `cell.hpp' supplied as the argument of the \class, \struct, \union, or \include command is not an input file
-/home/travis/build/warrior1601/2019_GROUP_33/model/include/Cell.hpp:169: warning: the name `cell.hpp' supplied as the argument of the \class, \struct, \union, or \include command is not an input file
-/home/travis/build/warrior1601/2019_GROUP_33/model/include/Cell.hpp:221: warning: the name `cell.hpp' supplied as the argument of the \class, \struct, \union, or \include command is not an input file
 Searching for include files...
 Searching for example files...
 Searching for images...
