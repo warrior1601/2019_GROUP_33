@@ -46,10 +46,9 @@ script:
   # Check versions of gcc, g++ and cmake
   - gcc -v && g++ -v && cmake --version
   # Run your build commands next
-  - cd model
   - mkdir build
   - cd build
-  - cmake ..
+  - cmake ../model
   - make
 #  - make test
 
