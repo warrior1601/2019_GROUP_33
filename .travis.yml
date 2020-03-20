@@ -4,8 +4,10 @@ language: cpp
 os: windows
 env:
   - MSBUILD_PATH="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin"
+  - QT_PATH="C:\Qt\5.12.5\msvc2017_64\bin"
 script:
   - export PATH=$MSBUILD_PATH:$PATH
+  - export PATH=$QT_PATH:$PATH
   - ./build.bat
 sudo: required
 dist: trusty
