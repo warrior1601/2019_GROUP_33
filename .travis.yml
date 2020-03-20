@@ -4,6 +4,7 @@ language: cpp
 os: windows
 env:
   - MSBUILD_PATH="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin"
+  - BAT_PATH="C:/Program Files (x86)/Microsoft Visual Studio/2017/Community/VC/Auxiliary/Build/vcvarsall.bat" amd64"
 sudo: false
 branches:
   except:
@@ -34,10 +35,10 @@ addons:
 # Build your code
 script:
   - export PATH=$MSBUILD_PATH:$PATH
+  - export PATH=$BAT_PATH:$PATH
   - mkdir build
   - cd build
   - cmake -G "Visual Studio 15 2017 Win64" ../model
-  - "C:/Program Files (x86)/Microsoft Visual Studio/2017/Community/VC/Auxiliary/Build/vcvarsall.bat" amd64
   - msbuild model.sln
 #  - make test
 
