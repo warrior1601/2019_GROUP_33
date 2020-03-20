@@ -40,7 +40,7 @@ install:
 
 # Build your code
 script: 
-  - travis_qmake_gcc_cpp11
+  - travis_qmake_gcc_cpp11.pro
   - cd model
   - mkdir build
   - cd build
