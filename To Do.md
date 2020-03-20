@@ -4,7 +4,7 @@ automate doxygen files with travis CI (gh pages) (github.io) -- From Jed -- We s
 link the model_viewer CMakeList with model cmakelist (pull from junaid for updated cmake list for model)                                                                                                                <-- Jedidiah
 automate test code testing + with travis CI with that graphical indication button                                                                                                                                       <-- Jedidiah
 
-README files in example_models, model_viewer and installers to explain, like the read me in model, what the purpose of everything is, how to use etc. also readme in the root directory. Also the licence file.         <-- Junaid
+README files in example_models, model_viewer and installers to explain, like the read me in model, what the purpose of everything is, how to use etc. also readme in the root directory. Also the licence file. doxygen file         <-- Junaid
 
 QT/VTK objectives (jed can you add what is required for the application?) -- From Jed -- Working on it need a measuring tool, ability to select cells, Display stats. of Model and individual cells, a few VTK widgets  <-- Jedidiah
 clean up code and make sure all indented nicely and commented
@@ -16,7 +16,6 @@ some way of transferring .dlls over (and example_models?)                       
 extension:
 - automate installer building
 - cmake list in root directory
-- build model_viewer in travis ci for testing
-- model_viewer test code
+- build model_viewer in travis ci for testing (QTest) (model_viewer test code)
 
 delete to do
