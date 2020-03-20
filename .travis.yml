@@ -30,9 +30,10 @@ addons:
 
 # Build your code
 script:
+  - cd model
   - mkdir build
   - cd build
-  - cmake ../model
+  - cmake ..
   - make
 #  - make test
 
