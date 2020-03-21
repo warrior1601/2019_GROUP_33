@@ -4,6 +4,8 @@ cmake_minimum_required( VERSION 2.8)
 # The name of the project
 project( model )
 
+include ( CTest )
+
 # This project contains many header files the "include_directories" sets the path for the header files to be located
 include_directories( include )
 
@@ -35,11 +37,11 @@ target_link_libraries( CellTestCode 	  Model )
 target_link_libraries( ModelTestCode    Model )
 
 # Create the CTests
-add_test( MaterialTestCode  MaterialTestCode_CTest )
-add_test( VectorsTestCode   VectorsTestCode_CTest  )
-add_test( MatrixTestCode 	  MatrixTestCode_CTest  )
-add_test( CellTestCode      CellTestCode_CTest  )
-add_test( ModelTestCode 	  ModelTestCode_CTest )
+add_test( MaterialTestCode  MaterialTestCode )
+add_test( VectorsTestCode   VectorsTestCode  )
+add_test( MatrixTestCode 	  MatrixTestCode  )
+add_test( CellTestCode      CellTestCode  )
+add_test( ModelTestCode 	  ModelTestCode )
 
 # Copy the model files for ModelTestCode.exe/MaterialTestCode_CTest.exe in to build directory
 ADD_CUSTOM_COMMAND(TARGET ModelTestCode POST_BUILD
