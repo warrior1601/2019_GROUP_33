@@ -11,8 +11,7 @@
 //  functionality of the object
 //
 
-#include "Material.h"
-#include "Vectors.h"
+#include <iostream>
 #include "Cell.hpp"
 
 int main()
@@ -29,13 +28,13 @@ int main()
     Vectors hVectors(22,23,24);
     std::vector<int> anIrrelevantVectorOrder;
     Material Aluminium(0, 5650, "99A1FF", "Aluminium");
-    
-    
-    
-    
-    
+
+
+
+
+
     std::cout << "----------Tetrahedron Test Code----------" << std::endl;
-    
+
     Tetrahedron someTetrahedron;
     std::cout << "Blank constructor and cout\n" << someTetrahedron << std::endl;
 
@@ -44,11 +43,11 @@ int main()
     someTetrahedron.Set_Vertices(TetraVertices);
     someTetrahedron.Set_Vertices_Order(anIrrelevantVectorOrder);
     someTetrahedron.Set_Material(Aluminium);
-    
+
     std::vector<Vectors> TetraGetVertices = someTetrahedron.Get_Vertices();
 
     std::cout << "Set and get functions\nV0 " << TetraGetVertices[0] << "V1 " << TetraGetVertices[1] << "V2 " << TetraGetVertices[2] << "V3 " << TetraGetVertices[3] << "Material " << someTetrahedron.Get_Material() << std::endl;
-    
+
     Tetrahedron TetraCopyConstructor(someTetrahedron);
     std::cout << "Copy constructor\n" << TetraCopyConstructor << std::endl;
 
@@ -70,16 +69,16 @@ int main()
     std::cout << "Weight of tetrahedron = " << someTetrahedron.Get_Weight() << std::endl;
 
     std::cout << "Centre of gravity of tetrahedron " << someTetrahedron.Get_Centre_Of_Gravity();
-    
+
     anotherTetrahedron.Rotate(90, 'y', anotherTetrahedron.Get_Centre_Of_Gravity());
     std::cout << "\nRotation of operator= output tetrahedron 90 degrees along the y axis and around the geometric centre\n" << anotherTetrahedron << "\n\n\n\n\n\n" << std::endl;
 
-    
 
 
-    
+
+
     std::cout << "----------Pyramid Test Code----------" << std::endl;
-    
+
     Pyramid somePyramid;
     std::cout << "Blank constructor and cout\n" << somePyramid << std::endl;
 
@@ -92,7 +91,7 @@ int main()
     std::vector<Vectors> PyraGetVertices = somePyramid.Get_Vertices();
 
     std::cout << "Set and get functions\nV0 " << PyraGetVertices[0] << "V1 " << PyraGetVertices[1] << "V2 " << PyraGetVertices[2] << "V3 " << PyraGetVertices[3] << "V4 " << PyraGetVertices[4] << "Material " << somePyramid.Get_Material() << "\n" << std::endl;
-    
+
     Pyramid PyraCopyConstructor(somePyramid);
     std::cout << "Copy constructor\n" << PyraCopyConstructor << std::endl;
 
@@ -115,14 +114,14 @@ int main()
     std::cout << "Weight of pyramid = " << somePyramid.Get_Weight() << std::endl;
 
     std::cout << "Centre of gravity of pyramid " << somePyramid.Get_Centre_Of_Gravity();
-    
+
     anotherPyramid.Rotate(90, 'y', anotherPyramid.Get_Centre_Of_Gravity());
     std::cout << "\nRotation of operator= output pyramid 90 degrees along the y axis and around the geometric centre\n" << anotherPyramid << "\n\n\n\n\n\n" << std::endl;
 
-    
-    
-    
-    
+
+
+
+
     std::cout << "----------Hexahedron Test Code----------" << std::endl;
 
     Hexahedron someHexahedron;
@@ -137,7 +136,7 @@ int main()
     std::vector<Vectors> HexaGetVertices = someHexahedron.Get_Vertices();
 
     std::cout << "Set and get functions\nV0 " << HexaGetVertices[0] << "V1 " << HexaGetVertices[1] << "V2 " << HexaGetVertices[2] << "V3 " << HexaGetVertices[3] << "V4 " << HexaGetVertices[4] << "V5 " << HexaGetVertices[5] << "V6 " << HexaGetVertices[6] << "V7 " << HexaGetVertices[7] << "Material " << someHexahedron.Get_Material() << std::endl;
-    
+
     Hexahedron HexaCopyConstructor(someHexahedron);
     std::cout << "Copy constructor\n" << HexaCopyConstructor << std::endl;
 
@@ -159,11 +158,11 @@ int main()
     std::cout << "Operator=\n" << someHexahedron << std::endl;
 
     std::cout << "Volume of hexahedron = " << someHexahedron.Get_Volume() << std::endl;
-    
+
     std::cout << "Weight of hexahedron = " << someHexahedron.Get_Weight() << std::endl;
 
     std::cout << "Centre of gravity of hexahedron " << someHexahedron.Get_Centre_Of_Gravity();
-    
+
     anotherHexahedron.Rotate(90, 'y', anotherHexahedron.Get_Centre_Of_Gravity());
     std::cout << "\nRotation of operator= output hexahedron 90 degrees along the y axis and around the geometric centre\n" << anotherHexahedron << std::endl;
 
