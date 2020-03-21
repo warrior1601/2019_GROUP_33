@@ -41,7 +41,15 @@ int main()
     manyVectors.push_back(V6_Hex);
     manyVectors.push_back(V7_Hex);
 
-    std::vector<Vectors> HexaVertices = { V0_Hex, V1_Hex, V2_Hex, V3_Hex, V4_Hex, V5_Hex, V6_Hex, V7_Hex };
+    std::vector<Vectors> HexaVertices;
+    HexaVertices.push_back(V0_Hex);
+    HexaVertices.push_back(V1_Hex);
+    HexaVertices.push_back(V2_Hex);
+    HexaVertices.push_back(V3_Hex);
+    HexaVertices.push_back(V4_Hex);
+    HexaVertices.push_back(V5_Hex);
+    HexaVertices.push_back(V6_Hex);
+    HexaVertices.push_back(V7_Hex);
     std::vector<int> anIrrelevantVectorsOrder;
     Cell* someHexahedron = new Hexahedron (HexaVertices, anIrrelevantVectorsOrder, Steel);
     std::vector<Cell*> manyCells;

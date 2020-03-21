@@ -38,7 +38,11 @@ int main()
     Tetrahedron someTetrahedron;
     std::cout << "Blank constructor and cout\n" << someTetrahedron << std::endl;
 
-    std::vector<Vectors> TetraVertices = { aVectors, bVectors, cVectors, dVectors };
+    std::vector<Vectors> TetraVertices;
+    TetraVertices.push_back(aVectors);
+    TetraVertices.push_back(bVectors);
+    TetraVertices.push_back(cVectors);
+    TetraVertices.push_back(dVectors);
 
     someTetrahedron.Set_Vertices(TetraVertices);
     someTetrahedron.Set_Vertices_Order(anIrrelevantVectorOrder);
@@ -55,7 +59,11 @@ int main()
     Vectors V1_Tetra(-1,1,1);
     Vectors V2_Tetra(1,0,2);
     Vectors V3_Tetra(3,1,4);
-    std::vector<Vectors> moreTetraVertices = { V0_Tetra, V1_Tetra, V2_Tetra, V3_Tetra };
+    std::vector<Vectors> moreTetraVertices;
+    moreTetraVertices.push_back(V0_Tetra);
+    moreTetraVertices.push_back(V1_Tetra);
+    moreTetraVertices.push_back(V2_Tetra);
+    moreTetraVertices.push_back(V3_Tetra);
     Material Titanium(1, 1500, "64FF15", "Titanium");
 
     Tetrahedron anotherTetrahedron(moreTetraVertices, anIrrelevantVectorOrder, Titanium);
@@ -82,7 +90,12 @@ int main()
     Pyramid somePyramid;
     std::cout << "Blank constructor and cout\n" << somePyramid << std::endl;
 
-    std::vector<Vectors> PyraVertices = { aVectors, bVectors, cVectors, dVectors, eVectors };
+    std::vector<Vectors> PyraVertices;
+    PyraVertices.push_back(aVectors);
+    PyraVertices.push_back(bVectors);
+    PyraVertices.push_back(cVectors);
+    PyraVertices.push_back(dVectors);
+    PyraVertices.push_back(eVectors);
 
     somePyramid.Set_Vertices(PyraVertices);
     somePyramid.Set_Vertices_Order(anIrrelevantVectorOrder);
@@ -100,7 +113,12 @@ int main()
     Vectors V2_Pyra(5,0,5);
     Vectors V3_Pyra(0,0,5);
     Vectors V4_Pyra(2.5,6,2.5);
-    std::vector<Vectors> morePyraGetVertices = { V0_Pyra, V1_Pyra, V2_Pyra, V3_Pyra, V4_Pyra };
+    std::vector<Vectors> morePyraGetVertices;
+    morePyraGetVertices.push_back(V0_Pyra);
+    morePyraGetVertices.push_back(V1_Pyra);
+    morePyraGetVertices.push_back(V2_Pyra);
+    morePyraGetVertices.push_back(V3_Pyra);
+    morePyraGetVertices.push_back(V4_Pyra);
     Material Iron(2, 7310, "EF5690", "Iron");
 
     Pyramid anotherPyramid(morePyraGetVertices, anIrrelevantVectorOrder, Iron);
@@ -127,7 +145,15 @@ int main()
     Hexahedron someHexahedron;
     std::cout << "Blank constructor and cout\n" << someHexahedron << std::endl;
 
-    std::vector<Vectors> HexaVertices = { aVectors, bVectors, cVectors, dVectors, eVectors, fVectors, gVectors, hVectors };
+    std::vector<Vectors> HexaVertices;
+    HexaVertices.push_back(aVectors);
+    HexaVertices.push_back(bVectors);
+    HexaVertices.push_back(cVectors);
+    HexaVertices.push_back(dVectors);
+    HexaVertices.push_back(eVectors);
+    HexaVertices.push_back(fVectors);
+    HexaVertices.push_back(gVectors);
+    HexaVertices.push_back(hVectors);
 
     someHexahedron.Set_Vertices(HexaVertices);
     someHexahedron.Set_Vertices_Order(anIrrelevantVectorOrder);
@@ -148,7 +174,15 @@ int main()
     Vectors V5_Hex(10,10,0);
     Vectors V6_Hex(10,10,10);
     Vectors V7_Hex(0,10,10);
-    std::vector<Vectors> moreHexaGetVertices = { V0_Hex, V1_Hex, V2_Hex, V3_Hex, V4_Hex, V5_Hex, V6_Hex, V7_Hex };
+    std::vector<Vectors> moreHexaGetVertices;
+    moreHexaGetVertices.push_back(V0_Hex);
+    moreHexaGetVertices.push_back(V1_Hex);
+    moreHexaGetVertices.push_back(V2_Hex);
+    moreHexaGetVertices.push_back(V3_Hex);
+    moreHexaGetVertices.push_back(V4_Hex);
+    moreHexaGetVertices.push_back(V5_Hex);
+    moreHexaGetVertices.push_back(V6_Hex);
+    moreHexaGetVertices.push_back(V7_Hex);
     Material Steel(3, 9980, "AC64AC", "Steel");
 
     Hexahedron anotherHexahedron(moreHexaGetVertices, anIrrelevantVectorOrder, Steel);
