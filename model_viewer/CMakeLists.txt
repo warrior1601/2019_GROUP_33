@@ -49,7 +49,7 @@ add_executable( model_viewer MACOSX_BUNDLE
 				source/filters.cpp 	include/filters.h 		source/filters.ui
 				source/vtklight_withname.cpp include/vtklight_withname.h
 				images/Images.qrc
-				)
+)
 
 # Tell CMake that the executable depends on library built in SEMESTER 1
 target_link_libraries( model_viewer Model )
@@ -65,7 +65,7 @@ ADD_CUSTOM_COMMAND(TARGET model_viewer POST_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy_directory
                        ${CMAKE_CURRENT_SOURCE_DIR}/images
                        ${CMAKE_CURRENT_SOURCE_DIR}/../build/images
-                  )
+)
 
 # Installer stuff - not done yet
 if(WIN32)
@@ -75,34 +75,34 @@ if(WIN32)
           ARCHIVE
           DESTINATION lib
           COMPONENT libraries
-  )
+)
 
   install(
           TARGETS
           ARCHIVE
           DESTINATION lib
           COMPONENT libraries
-  )
+)
 
   install(
           TARGETS ${VTK_LIBRARIES}/vtkChartsCore-8.2
           ARCHIVE
           DESTINATION lib
           COMPONENT libraries
-  )
+)
 
   install(
           TARGETS model_viewer
           RUNTIME
           DESTINATION bin
           COMPONENT applications
-  )
+)
 
   install(
           FILES  ../model/include/Model.hpp; ../model/include/Cell.hpp; ../model/include/Matrix.hpp; ../model/include/Vectors.h; ../model/include/Material.h; include/mainwindow.h; include/edit_light.h; include/filters.h; include/vtklight_withname.h
           DESTINATION include
           COMPONENT headers
-  )
+)
 
   # CPACK macros below here
   set (CPACK_PACKAGE_NAME "Model Viewer")

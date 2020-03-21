@@ -1,5 +1,5 @@
 # Important notes about compiling with CMake
-This CMakeList.txt creates a library called model that is made up from all the file in source and include folders, then creates the test code executable for all classes (Material, Vectors, Matrix3x3, Cell and its sub-classes, and Model). The executables are then linked to the model library and CTest files are created from them. Finally the model files required by `ModelTestCode.exe` are copied to the build and Debug directories.
+This CMakeList.txt creates a library called Model that is made up from all the file in source and include folders, then creates the test code executable for all classes (Material, Vectors, Matrix3x3, Cell and its sub-classes, and Model). The executables are then linked to the Model library and CTest files are created from them as well. Finally the example model files required by `ModelTestCode.exe` are copied from the example_models folder to the build and Debug directories.
 
 ##    MinGW Compiler  
    * Navigate to the root directory of repository
@@ -30,6 +30,6 @@ This CMakeList.txt creates a library called model that is made up from all the f
   * enter command> `mkdir build`
   * enter command> `cd build`
   * enter command> `cmake -G "Xcode" -DBUILD_SHARED_LIBS=ON ..\model`
-  * ener commadnd> `xcodebuild -scheme ALL_BUILD build`
+  * enter command> `xcodebuild -scheme ALL_BUILD build`
   * enter command> `cd debug`
-  * The executable files can be called from the current directory with the names `MaterialTestCode.exec`, `VectorsTestCode.exec`, `MatrixTestCode.exec`, `CellTestCode.exec`, and `ModelTestCode.exec` - they will return 0 if test is passed
+  * The executable files can be called from the current directory with the names `MaterialTestCode`, `VectorsTestCode`, `MatrixTestCode`, `CellTestCode`, and `ModelTestCode` - they will return 0 if test is passed

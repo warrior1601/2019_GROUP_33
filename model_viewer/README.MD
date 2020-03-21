@@ -1,5 +1,5 @@
 # Important notes about compiling with CMake
-This cmake list does ......................................
+This CMakeList.txt first finds the required Qt and VTK libraries, as well as creating the required Model library. Then it creates the executable, called model_viewer, from the source and include folders of the model_viewer folder. The model_viewer file is then linked to the required libraries of Qt, VTK and Model. Image files that are needed by the model_viewer are copied from the images folder to the build directory. Finally the installer is created depending upon if the compilation is occurring on windows or not windows.
 
 ##    MinGW Compiler  
    * Navigate to the root directory of repository
@@ -31,6 +31,6 @@ This cmake list does ......................................
    * enter command> `mkdir build`
    * enter command> `cd build`
    * enter command> `cmake -G "Xcode" -DBUILD_SHARED_LIBS=ON ..\model_viewer`
-   * ener commadnd> `xcodebuild -scheme ALL_BUILD build`
+   * enter command> `xcodebuild -scheme ALL_BUILD build`
    * enter command> `cd debug`
-   * The executable file, `model_viewer.exe`, can be called from the current directory
+   * The executable file, `model_viewer`, can be called from the current directory
