@@ -18,8 +18,10 @@ This cmake list does ......................................
    * Open command prompt and navigate to dir ..\2019_GROUP_33
    * enter command> `mkdir build`
    * enter command> `cd build`
-   * enter command> `cmake -G "Visual Studio 16 2019" ..\model` :warning: Command needs to be tailored to match your version of Visual Studio :warning:
-   * enter command> `"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat" x86_amd64` :warning: The path for the .bat file below may need changing for your visual studio version  :warning:
+   :warning: Command below needs to be tailored to match your version of Visual Studio :warning:
+   * enter command> `cmake -G "Visual Studio 16 2019" ..\model` 
+   :warning: The path for the .bat file below may need changing for your visual studio version  :warning:
+   * enter command> `"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat" x86_amd64`
    * enter command> `msbuild Computing_Project.sln`
    * enter command> `cd debug`
    * The executable files will be located here and can be entered via command prompt as follows
