@@ -8,12 +8,13 @@
 
  # Project Overview
  The current build status is [![Build Status](https://travis-ci.com/warrior1601/2019_GROUP_33.svg?token=xyetJbByAw7qFXmcvGWN&branch=master)](https://travis-ci.com/warrior1601/2019_GROUP_33) and the current, most up-to-date documentation can be found [here](https://warrior1601.github.io/2019_GROUP_33/html)
- 
+
  The end-state of the project is to read a .txt/.stl file; display it using Qt and VTK libraries; ******** Later revision of this project will include using a 3-D imaging tool to display the .txt file to the user.
- 
+
  # model_viewer Library
   * sdsadadasd
   * sadasdadasd
+  * see readme in model_viewer folder for instructions for compiling with cmake
 
 #### Functions
   * sdsdsdsd
@@ -26,6 +27,7 @@
   * Each vertex is described as a Vector in this project that has a X-Y-Z coordinate.
   * A material includes it's colour, density and name.
   * This allows the model to be made of many different cells, with each cell having its own dimensions and material type.
+  * see readme in model folder for instructions for compiling with cmake
 
 #### Functions
   * Create and edit materials
@@ -35,7 +37,7 @@
   * Cell function include - calculating the weight, calculating the volume, calculating the center of gravity of a cell, rotating a cell around an X, Y, or Z axis centered on a vector point
   * Create and edit model
   * Model functions include - calculating the volume of the model, calculating the weight of the model, calculating the center of gravity of the model, calculating the overall dimensions of the model, rotating the entire model around an X, Y, or Z axis centered on a vector point
-  
+
 # Test Code
 explain what it tests and for which classes and ctest
 
