@@ -21,7 +21,7 @@ This cmake list does ......................................
    
    :warning: Command below needs to be tailored to match your version of Visual Studio :warning:
    
-   * enter command> `cmake -G "Visual Studio 16 2019" ..\model` 
+   * enter command> `cmake -G "Visual Studio 16 2019" ..\model`
    
    :warning: The path for the .bat file below may need changing for your visual studio version  :warning:
    
