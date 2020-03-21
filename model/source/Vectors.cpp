@@ -6,7 +6,7 @@
 #include <cmath>
 #include <iostream>
 #include "Vectors.h"
-#include <windows.h>
+//#include <windows.h>
 
 //-------------Constructors and Destructor------------//
 Vectors::Vectors()
@@ -126,10 +126,10 @@ Vectors Vectors::operator/(const double& Divide)
 
     else
     {
-      std::cout << "This is not a valid operation" << std::endl;
-      std::cout << "Can not divide by 0" << std::endl;
-      MessageBox(0,"Can not Divide by 0", "Error", MB_OK);
-      return (*this);
+    std::cout << "This is not a valid operation" << std::endl;
+    std::cout << "Can not divide by 0" << std::endl;
+    //MessageBox(0,"Can not Divide by 0", "Error", MB_OK);
+    return (*this);
     }
 }
 
