@@ -4,6 +4,7 @@ cmake_minimum_required( VERSION 2.8)
 # The name of the project
 project( model )
 
+# Required for automating testing with TravisCI
 include ( CTest )
 
 # This project contains many header files the "include_directories" sets the path for the header files to be located
