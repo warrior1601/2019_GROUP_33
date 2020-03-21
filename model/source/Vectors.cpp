@@ -1,20 +1,14 @@
-//
 //  Vectors.cpp
 //  Computing Project
-//
 //  Created by Jedidiah Paterson on 27/11/2019.
-//  Copyright � 2019 Jedidiah Paterson. All rights reserved.
-//  This file contains the definitions of functions for the Class
-//  Vectors.
-//
+//  This file contains the definitions of the member functions for the Vectors class
 
 #include <cmath>
 #include <iostream>
 #include "Vectors.h"
 //#include <windows.h>
 
-//-------------Constructors------------//
-
+//-------------Constructors and Destructor------------//
 Vectors::Vectors()
 {
     X_Coord = 0.0;
@@ -41,12 +35,11 @@ Vectors::Vectors(double aX_Coord, double aY_Coord, double aZ_Coord)
     Z_Coord = aZ_Coord;
 }
 
-//--------------Destructor-------------//
-
 Vectors::~Vectors() {}
 
-//-------------Set Functions-----------//
 
+
+//-------------Set Functions-----------//
 void Vectors::SetX_Vector(double aX_Coord)
 {
     this->X_Coord = aX_Coord;
@@ -69,8 +62,9 @@ void Vectors::SetVector(double aX_Coord, double aY_Coord, double aZ_Coord)
     this->Z_Coord = aZ_Coord;
 }
 
-//-------------Get Functions-----------//
 
+
+//-------------Get Functions-----------//
 double Vectors::GetXVector()
 {
     return (this->X_Coord);
@@ -86,9 +80,9 @@ double Vectors::GetZVector()
     return (this->Z_Coord);
 }
 
+
+
 //-----Operator Overload Functions-----//
-
-
 Vectors Vectors::operator=(const Vectors& Copy)
 {
     this->X_Coord = Copy.X_Coord;
@@ -121,14 +115,15 @@ Vectors Vectors::operator-(const Vectors& subtract)
 Vectors Vectors::operator/(const double& Divide)
 {
     Vectors Divided;
+
     if ( Divide != 0 )
     {
-    Divided.X_Coord = this->X_Coord / Divide;
-    Divided.Y_Coord = this->Y_Coord / Divide;
-    Divided.Z_Coord = this->Z_Coord / Divide;
-
-    return Divided;
+      Divided.X_Coord = this->X_Coord / Divide;
+      Divided.Y_Coord = this->Y_Coord / Divide;
+      Divided.Z_Coord = this->Z_Coord / Divide;
+      return Divided;
     }
+
     else
     {
     std::cout << "This is not a valid operation" << std::endl;
@@ -159,8 +154,9 @@ Vectors Vectors::operator*(const Vectors& aVectors)
     return Vector_Prduct;
 }
 
-//-------Special Member Functions------//
 
+
+//-------Special Member Functions------//
 double Vectors::Scalar_Product(const Vectors& aVectors)
 {
     double Scalar;

@@ -67,11 +67,11 @@ ADD_CUSTOM_COMMAND(TARGET model_viewer POST_BUILD
                   )
 
 
-#if(WIN32)
-#  set(CPACK_GENERATOR "NSIS")
-#else()
-#  set(CPACK_GENERATOR "ZIP")
-#endif()
+if(WIN32)
+  set(CPACK_GENERATOR NSIS)
+else()
+  set(CPACK_GENERATOR ZIP)
+endif()
 
 install(
         TARGETS Model
@@ -109,7 +109,6 @@ install(
 
 # CPACK macros below here
 
-set (CPACK_GENERATOR NSIS)
 set (CPACK_PACKAGE_NAME "Model Viewer")
 set (CPACK_PACKAGE_VENDOR "Group 33")
 set (CPACK_PACKAGE_DESCRIPTION_SUMMARY "Model Viewer Installation")
