@@ -1,20 +1,25 @@
 # 2019_GROUP_33
 
-
-
-###### Design Team :
+#### Design Team :
   * Junaid Afzal
   * Jedidiah Paterson
   * Chanyanis Kulanumphol
   * Chang XING
 
-### Project Overview
-  * The current build status is [![Build Status](https://travis-ci.com/warrior1601/2019_GROUP_33.svg?token=xyetJbByAw7qFXmcvGWN&branch=master)](https://travis-ci.com/warrior1601/2019_GROUP_33)
-  * The current documentation can be found [here](https://warrior1601.github.io/2019_GROUP_33/html)
-  * The end-state of the project is to read a .txt/.stl file; display it using Qt and VTK libraries; ********
-  * Later revision of this project will include using a 3-D imaging tool to display the .txt file to the user.
+ # Project Overview
+ The current build status is [![Build Status](https://travis-ci.com/warrior1601/2019_GROUP_33.svg?token=xyetJbByAw7qFXmcvGWN&branch=master)](https://travis-ci.com/warrior1601/2019_GROUP_33) and the current, most up-to-date documentation can be found [here](https://warrior1601.github.io/2019_GROUP_33/html)
+ 
+ The end-state of the project is to read a .txt/.stl file; display it using Qt and VTK libraries; ******** Later revision of this project will include using a 3-D imaging tool to display the .txt file to the user.
+ 
+ # model_viewer Library
+  * sdsadadasd
+  * sadasdadasd
 
-#### model Library
+#### Functions
+  * sdsdsdsd
+  * sadsadas
+ 
+# model Library
   * A Model is a 3-dimenional shape that can be comprised of many smaller shapes referred to as cells.
   * Class Cell further differentiates into smaller sub-classes of tetrahedron, pyramid, hexahedron.
   * Each Cell is defined by it's number of vertices and material. Tetrahedras have 4,  pyramids have 5, and hexahedrals have 6.
@@ -22,7 +27,7 @@
   * A material includes it's colour, density and name.
   * This allows the model to be made of many different cells, with each cell having its own dimensions and material type.
 
-###### Functions
+#### Functions
   * Create and edit materials
   * Create and edit vectors
   * Vector functions include - add vectors, subtract vectors, multiply vectors, obtain magnitude of vector, and get distance to another vector
@@ -30,21 +35,18 @@
   * Cell function include - calculating the weight, calculating the volume, calculating the center of gravity of a cell, rotating a cell around an X, Y, or Z axis centered on a vector point
   * Create and edit model
   * Model functions include - calculating the volume of the model, calculating the weight of the model, calculating the center of gravity of the model, calculating the overall dimensions of the model, rotating the entire model around an X, Y, or Z axis centered on a vector point
+  
+# Test Code
+explain what it tests and for which classes and ctest
 
-#### model_viewer Library
-  * sdsadadasd
-  * sadasdadasd
+# Example Models
+explain what they are and why they are there and how they are used
 
-###### Functions
-  * sdsdsdsd
-  * sadsadas
+# Installers
+explain what they are and how to use them and how they are created
 
-#### Example Models
+# Documentation
+explain how it is created and what is documented
 
-#### Installers
-
-#### Documentation
-
-#### Test Code
-
-#### TravisCI
+# TravisCI
+explain what it automates (testing and documentation)
