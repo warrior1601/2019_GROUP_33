@@ -1,14 +1,13 @@
 //  Model.hpp
 //  Computing Project
-//
 //  Created by Junaid Afzal on 16/11/2019.
-//  Copyright © 2019 Junaid Afzal. All rights reserved.
-
 
 /** @file
- * This header file contains the object Model which has the
- * ability to load from and save to a file which contains all
- * the info needed to create the model.
+ *  This header file contains the Model class which has the private member variables
+ *  of manyMaterials, containing a list of all the materials; manyVectors, containing a
+ *  list of all the vectors; manyCells, containing a list of all the cells; and cellOrder,
+ *  containing a list of the order in which the different types cells were created
+ *  @author Junaid Afzal
  */
 
 #ifndef Model_hpp
@@ -20,150 +19,144 @@
 
 
 /** @class Model Model.hpp "Model.hpp"
- * @brief The Model class contains a list of
- * Cell, Vectors, and Material that make up
- * the Model. In order to call the Model constructor
- * you need to include the Cell, Vectors, and Material
- * header files.
+ *  @brief The Model class is an abstraction of a model
+ *  @details The two intended ways of loading the model are through the copy constructor or
+ *  the Load_Model function. With the latter the chosen file must be written in the correct format:
+ *  \n\n m 0 8960 b87373 copper
+ *  \n Reading the line left to right, this declares a material with materialID of 0, density of 8960,
+ *  colour of R=B8 G=73 B=73, and name of copper.
+ *  \n\n v 10 25 20 25
+ *  \n Reading the line left to right, this declares a vectors with a vectorID of 10, X co-ordinate of 25,
+ *  Y co-ordinate of 20, and Z co-ordinate of 25
+ *  \n\n c 2 h 2 28 9 10 11 12 13 14 15
+ *  \n Reading the line left to right, this declares a cell with cellID of 2, cell type of hexahedron
+ *  (note that tetrahedron = t and pyramid = p), materialID of 2, and the next eight values are the VectorsID of
+ *  that need to be retrieved from the manyVectors list.
  */
+
 class Model {
 public:
-    /**
-     * @brief Creates a model
-     * @param aModel
+    //Constructors and Destructor
+    /** @brief Copy constructor
      */
     Model(const Model& aModel);
+
+    /** @brief Blank constructor (empty)
+     */
     Model(void);
+
+    /** @brief Blank destructor (empty)
+     */
     ~Model(void);
 
-    /**
-     * @brief Custom cout function
-     * @param Output
-     * @param aModel
-     * @returns
+
+
+    //Custom std::cout function
+    /** @brief Displays all the materials, using material display function; all the vectors,
+     *  using vectors display function; the cell type at every cell ID; total number of cells;
+     *  and the total number of vectors in the model
      */
     friend std::ostream& operator<< (std::ostream& Output, const Model& aModel);
 
-    /**
-     * @brief Allows for a model to be compied
-     * @param aModel
-     * @returns
-     */
-    Model& operator = (const Model& aModel);
 
-    /**
-     * @brief Will load a model
-     * @param FilePath is the loaction of the file in the directory system
-     */
-    void Load_Model(const std::string& FilePath);
 
-    /**
-     * @brief Will Save the file to the FilePath
-     * @param FilePath is the loaction that the save will be placed in the directory system
+    //Custom operator functions
+    /** @brief Overwrites the member variables of the model calling the function
+     *  with the values of aModel member variables
      */
-    void Save_Model(const std::string& FilePath);
+    Model& operator= (const Model& aModel);
 
-    /**
-     * @brief Sets the Materials in the list of Materials
-     * @param someMaterials
+
+
+    //Set functions
+    /** @brief Sets the material list of the model
      */
     void Set_Materials(const std::vector<Material>& someMaterials);
 
-    /**
-     * @brief Set_Vectors
-     * @param someVectors
+    /** @brief Sets the vectors list of the model
      */
     void Set_Vectors(const std::vector<Vectors>& someVectors);
-    /**
-     * @brief Set_Cells
-     * @param someCells
+
+    /** @brief Sets the cell list of the model
      */
     void Set_Cells(const std::vector<Cell*>& someCells);
-    /**
-     * @brief Set_Cell_Order
-     * @param someCellOrder
+
+    /** @brief Sets the cell order list of the model
      */
     void Set_Cell_Order(const std::string& someCellOrder);
 
-    /**
-     * @brief Get_Materials
-     * @return
+
+    //Get functions
+    /** @brief Returns the material list of the model
      */
     std::vector<Material> Get_Materials(void);
 
-    /**
-     * @brief Get_Vectors
-     * @return
+    /** @brief Returns the vectors list of the model
      */
     std::vector<Vectors> Get_Vectors(void);
 
-    /**
-     * @brief Get_Cells
-     * @return
+    /** @brief Returns the cell list of the model
      */
     std::vector<Cell*> Get_Cells(void);
 
-    /**
-     * @brief Get_Cell_Order
-     * @return
+    /** @brief Returns the cell order list of the model
      */
     std::string Get_Cell_Order(void);
 
-    //Model specific functions
 
-    /**
-     * @brief Summation of all the volumes of all the Cell (s) in model
-     * @returns The total volume of the Model
+
+    //Model specific functions
+    /** @brief Loads a model from a proprietary file format. See detailed description for more info
+     */
+    void Load_Model(const std::string& FilePath);
+
+    /** @brief Save a model to a c. See detailed description for more info
+     */
+    void Save_Model(const std::string& FilePath);
+
+    /** @brief Returns the volume of the model by summing all the volumes of all the Cell(s) in the model
      */
     double Get_Volume(void);
 
-    /**
-     * @brief Summation of all the weights of all the Cell (s) in model
-     * @returns The total weight of the Model
+    /** @brief Returns the weight of the model by summing all the weights of all the Cell(s) in the model
      */
     double Get_Weight(void);
 
-    /**
-     * @brief Get_Centre_Of_Gravity
-     * First find all COGs and their corresponding weight. Then take two COGs and treat is as a
-     * fulcrum problem and try to balance the weights. The position of the fulcrum will be the new
-     * COG and its weight is the combination of the two weights. This process is repeated until only
-     * one COG is left.
-     * @returns Center or Gravity
+    /** @brief Returns a vectors containing the centre of gravity of model
+     *  @details First it finds all centre of gravities of all cells and their corresponding weight. Then it takes two centre of gravities and
+     *  treat is as a fulcrum problem where you try to find the point in space where you would place the fulcrum to
+     *  'balance' the weights. The position of the fulcrum will be the new centre of gravity and its weight is the combination of
+     *  the two weights. This process is repeated until only one centre of gravity is left.
      */
     Vectors Get_Centre_Of_Gravity(void);
 
-    /**
-     * @brief Get_Min_Max() is called and the midpoint between the min and max values is the geometric centre
-     * @returns The Geometric Centre
+    /** @brief Returns a vectors containing the geometric centre by finding the most negative x,y,z co-ordinates
+     *  and the most positive x,y,z co-ordinates and finding the midpoint
      */
     Vectors Get_Geometric_Centre(void);
 
-    /**
-     * @brief
-     *       NOT SURE IF THIS COMMENT IS CORRET     Get_Min_Max() is called and the difference between the min and max values is the overall dimension
-     * @returns
+    /** @brief Returns a vectors containing the overall dimensions by finding the most negative x,y,z co-ordinates
+     *  and the most postive x,y,z co-ordinates and finding the difference
      */
     Vectors Get_Overall_Dimensions(void);
 
-    /**
-     * @brief Goes through every shape and rotates it about the centre of rotation and also updates the manyVectors list with the new Vectors
-     * @param Rotation_In_Degrees is how are you want to rotate the object 1-359 degrees NOTE 0 and 360 degrees will do nothing to the shape
-     * @param Axis_Of_Rotation is which axis you want to rotate to X, Y, or Z
-     * @param Centre_Of_Rotation is the point you want to rotate from in using the class Vectors (X,Y, Z)
+    /** @brief Translates all vertices of all cells such that it appears that the model has been rotated by Rotation_In_Degrees
+     *  amount of degrees around the Axis_Of_Rotation about the point Centre_Of_Rotation.
+     *  @details This is achieved by executing the Rotate member function, of every cell, on every cell and updating the manyVectors list
+     *  @param Rotation_In_Degrees This is an angle where positive will cause clockwise rotation and negative anti-clockwise rotation
+     *  @param Axis_Of_Rotation This can be either x, y or z - lowercase only - otherwise an error message will be displayed on console
+     *  @param Centre_Of_Rotation This will be the point in space the cell is rotating around
      */
     void Rotate(double Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Centre_Of_Rotation);
 
-
-
 private:
-    std::vector<Material> manyMaterials;                ///<Material position = Material ID
-    std::vector<Vectors> manyVectors;                   ///<Vectors position = Vectors ID
-    std::vector<Cell*> manyCells;                       ///<All the shapes
-    std::string cellOrder;                              ///<This represents the order in which the cells were created from the load file
+    std::vector<Material> manyMaterials;           ///< The list of materials in model, where manyMaterials index position = MaterialID
+    std::vector<Vectors> manyVectors;              ///< The list of vectors in model, where manyVectors index position = VectorsID
+    std::vector<Cell*> manyCells;                  ///< The list of cells in model, where manyCells index postion = CellID
+    std::string cellOrder;                         ///< The list representing the order in which the different types cells were created from the load file so that the save file can be saved with minimal changes
 
-    std::vector<int> Get_Vectors_Being_Used(void);      ///<Required funtion for Get_Geometric_Centre() and Get_Overall_Dimensions() that returns the most positive and most negative Vectors
-    std::vector<Vectors> Get_Min_Max(void);             ///<Required funtionsfor Get_Geometric_Centre() and Get_Overall_Dimensions() that returns the most positive and most negative Vectors
+    std::vector<int> Get_Vectors_Being_Used(void); ///< Returns the vectors from manyVectors being used in cells and is a required function for Get_Geometric_Centre() and Get_Overall_Dimensions()
+    std::vector<Vectors> Get_Min_Max(void);        ///< Returns the most positive and most negative vectors required function for Get_Geometric_Centre() and Get_Overall_Dimensions()
 };
 
 #endif // Model_hpp

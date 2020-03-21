@@ -5,7 +5,7 @@ cmake_minimum_required( VERSION 2.8)
 project( model )
 
 # This project contains many header files the "include_directories" sets the path for the header files to be located
-include_directories( Include )
+include_directories( include )
 
 # Addition of the Libraries needs to have the required headers for each class that is included to ensure that the library is built correctly
 add_library( Model 	source/Material.cpp;  include/Material.h;
@@ -17,7 +17,7 @@ add_library( Model 	source/Material.cpp;  include/Material.h;
 
 # Library check
 if( NOT BUILD_SHARED_LIBS )
-add_definitions( -Dmaths_STATIC )
+  add_definitions( -Dmaths_STATIC )
 endif()
 
 # This creates the .exe file for each test code
@@ -34,14 +34,14 @@ target_link_libraries( MatrixTestCode 	Model )
 target_link_libraries( CellTestCode 	  Model )
 target_link_libraries( ModelTestCode    Model )
 
-#Create the CTests
+# Create the CTests
 add_test( MaterialTestCode  MaterialTestCode_CTest )
 add_test( VectorsTestCode   VectorsTestCode_CTest  )
 add_test( MatrixTestCode 	  MatrixTestCode_CTest  )
 add_test( CellTestCode      CellTestCode_CTest  )
 add_test( ModelTestCode 	  ModelTestCode_CTest )
 
-# Copy the model files for ModelTestCode.exe in to build directory
+# Copy the model files for ModelTestCode.exe/MaterialTestCode_CTest.exe in to build directory
 ADD_CUSTOM_COMMAND(TARGET ModelTestCode POST_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy
                        ${CMAKE_CURRENT_SOURCE_DIR}/../example_models/ExampleModel1.mod
@@ -68,7 +68,7 @@ ADD_CUSTOM_COMMAND(TARGET ModelTestCode POST_BUILD
                        ${CMAKE_CURRENT_SOURCE_DIR}/../build/Model_Two.txt )
 
 
-# Copy the model files for ModelTestCode.exe in to debug directory
+# Copy the model files for ModelTestCode.exe/MaterialTestCode_CTest.exe in to debug directory
 ADD_CUSTOM_COMMAND(TARGET ModelTestCode POST_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy
                        ${CMAKE_CURRENT_SOURCE_DIR}/../example_models/ExampleModel1.mod

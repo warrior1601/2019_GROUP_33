@@ -1,13 +1,7 @@
-//
 //  Cell.cpp
 //  Computing Project
-//
 //  Created by Junaid Afzal on 10/11/2019.
-//  Copyright © 2019 Junaid Afzal. All rights reserved.
-//
-//  This source file contains implementations the object Cell and
-//  the sub-objects Tetrahedron, Pyramid and Hexahedron.
-//
+//  This file contains the definitions of the member functions for the Cell, Tetrahedron, Pyramid and Hexahedron classes
 
 #include "Cell.hpp"
 #include "Matrix.hpp"
@@ -18,9 +12,9 @@
 //------------------------------------------------------------------------CELL MEMBER FUNCTIONS------------------------------------------------------------------------//
 
 //Destructor
-Cell::Cell() { }
+Cell::Cell(void) { }
 
-Cell::~Cell() { }
+Cell::~Cell(void) { }
 
 
 
@@ -124,7 +118,7 @@ void Cell::Rotate(double Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Cen
     //Apply rotation matrix to all vertcies
     //                 ^^^^^^^^^^^^
     //Add centre of hexahedron to all Vectors to move centre of hexahedron back to where it was
-    //                                                                          ^^^^^^^^^^^^                      
+    //                                                                          ^^^^^^^^^^^^
 }
 
 
@@ -149,9 +143,9 @@ Tetrahedron::Tetrahedron(const std::vector<Vectors>& aVertices, const std::vecto
 Tetrahedron::Tetrahedron(void)
 {
     std::vector<Vectors> tempVertices;
-   
+
     Vectors tempVectors;
-    
+
     tempVertices.push_back(tempVectors);
     tempVertices.push_back(tempVectors);
     tempVertices.push_back(tempVectors);
@@ -178,13 +172,13 @@ double Tetrahedron::Get_Volume(void)
     //         V0
 
     std::vector <Vectors> tempVertices = Get_Vertices();
-    
+
     Vectors a = tempVertices[0] - tempVertices[3]; //V0 - V3;
     Vectors b = tempVertices[1] - tempVertices[3]; //V1 - V3;
     Vectors c = tempVertices[2] - tempVertices[3]; //V2 - V3;
-    
+
     //Volume is calculated using the triple scalar product formula
-    
+
     return abs( a.Scalar_Product( b * c ) / 6.0 );
 }
 
@@ -202,18 +196,18 @@ Vectors Tetrahedron::Get_Centre_Of_Gravity(void)
     //         V3
     //
     //         V0
-    
+
     //Centroid = centre of gravity, assuming uniform density across object, and
     //is calculated by finding the average of each co-ordinate
 
     std::vector <Vectors> tempVertices = Get_Vertices();
-    
+
     Vectors Centroid;
-    
+
     Centroid.SetX_Vector( (tempVertices[0].GetXVector() + tempVertices[1].GetXVector() + tempVertices[2].GetXVector() + tempVertices[3].GetXVector() ) / 4.0 );
     Centroid.SetY_Vector( (tempVertices[0].GetYVector() + tempVertices[1].GetYVector() + tempVertices[2].GetYVector() + tempVertices[3].GetYVector() ) / 4.0 );
     Centroid.SetZ_Vector( (tempVertices[0].GetZVector() + tempVertices[1].GetZVector() + tempVertices[2].GetZVector() + tempVertices[3].GetZVector() ) / 4.0 );
-    
+
     return Centroid;
 }
 
@@ -236,12 +230,12 @@ Pyramid::Pyramid(const std::vector<Vectors>& aVertices, const std::vector<int>& 
     Set_Material(aMaterial);
 }
 
-Pyramid::Pyramid(void) 
+Pyramid::Pyramid(void)
 {
     std::vector<Vectors> tempVertices;
-    
+
     Vectors tempVectors;
-    
+
     tempVertices.push_back(tempVectors);
     tempVertices.push_back(tempVectors);
     tempVertices.push_back(tempVectors);
@@ -267,7 +261,7 @@ double Pyramid::Get_Volume(void)
     //         V4
     //
     //    V0         V1
-    
+
     //Split the pyramid along V0 - V4 - V2 "line" to create two tetrahedrons and calculate
     //the volume of two tetrahedrons and add them together
     std::vector<Vectors> tempVertices = Get_Vertices();
@@ -284,7 +278,7 @@ double Pyramid::Get_Volume(void)
 
     Tetrahedron a(Tetra_a_Vertices, Get_Vertices_Order(), Get_Material()); //V0, V2, V3, V4
     Tetrahedron b(Tetra_b_Vertices, Get_Vertices_Order(), Get_Material()); //V0, V1, V2, V4
-    
+
     return a.Get_Volume() + b.Get_Volume();
 }
 
@@ -302,7 +296,7 @@ Vectors Pyramid::Get_Centre_Of_Gravity(void)
     //         V4
     //
     //    V0         V1
-    
+
     //Split the pyramid along V0 - V4 - V2 "line" to create two tetrahedrons and calculate centre of gravity of each one
     //The two tetrahedrons will have the same volume, thus the same weight and thus the centre of gravity of the pyramid will
     //be the midpoint between the two centres of gravities of the two tetrahedrons
@@ -320,12 +314,12 @@ Vectors Pyramid::Get_Centre_Of_Gravity(void)
 
     Tetrahedron a(Tetra_a_Vertices, Get_Vertices_Order(), Get_Material()); //V0, V2, V3, V4
     Tetrahedron b(Tetra_b_Vertices, Get_Vertices_Order(), Get_Material()); //V0, V1, V2, V4
-    
+
     Vectors aCentroid = a.Get_Centre_Of_Gravity();
     Vectors bCentroid = b.Get_Centre_Of_Gravity();
-    
+
     Vectors Centroid = (aCentroid + bCentroid) / 2.0;
-    
+
     return Centroid;
 }
 
@@ -382,7 +376,7 @@ double Hexahedron::Get_Volume(void)
     //
     //
     //    V0/V4         V1/V5
-    
+
     //Split the hexahedron in to three pyramids and find volume of each
     //See http://mathcentral.uregina.ca/QQ/database/QQ.09.06/siva1.html for more info
     std::vector<Vectors> tempVertices = Get_Vertices();
@@ -426,7 +420,7 @@ Vectors Hexahedron::Get_Centre_Of_Gravity(void)
     //
     //
     //    V0/V4         V1/V5
-    
+
     //Split the hexahedron in to three pyramids and find centre of gravity of each
     //See http://mathcentral.uregina.ca/QQ/database/QQ.09.06/siva1.html for more info
     //Then centroid of hexahedron will be the average/midpoint of the pyramid centroids as they have equal volume and therefore equal weight
@@ -453,8 +447,8 @@ Vectors Hexahedron::Get_Centre_Of_Gravity(void)
     Pyramid a(Pyra_a_Vertices, Get_Vertices_Order(), Get_Material()); //V0, V1, V2, V3, V6
     Pyramid b(Pyra_b_Vertices, Get_Vertices_Order(), Get_Material()); //V0, V1, V5, V4, V6
     Pyramid c(Pyra_c_Vertices, Get_Vertices_Order(), Get_Material()); //V0, V3, V7, V4, V6
-    
+
     Vectors Centroid = ( a.Get_Centre_Of_Gravity() + b.Get_Centre_Of_Gravity() + c.Get_Centre_Of_Gravity() ) / 3.0;
-    
+
     return Centroid;
 }

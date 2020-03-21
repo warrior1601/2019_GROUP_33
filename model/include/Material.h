@@ -1,14 +1,13 @@
 //  Material.h
 //  Computing Project
-//
 //  Created by Chayanis Kulanumphol on 27/11/2019.
 
-    /** @file
-     * This header file contains the object Material. The Material class has
-     * members of ID, Density, Colour, and Name these are required to for further
-     * functions that are members of the Cell Class such as Volume and Weight function
-     * the Material Class will be a Sub-Class of a Cell for this project
-     */
+/** @file
+ *  This header file contains the class Material. The Material class has the
+ *  members ID, Density, Colour, and Name and represnts the material of a particular
+ *  cell. It is a required member variable of the Cell and Model classes.
+ *  @author Chayanis Kulanumphol
+ */
 
 #ifndef MATERIAL_H_INCLUDED
 #define MATERIAL_H_INCLUDED
@@ -17,120 +16,112 @@
 #include <iostream>
 
 /** @class Material Material.h "Material.h"
- *  @brief The Material class is intended to be used
- *  inconjuction with the Cell class. Each Cell is made up
- *  of a Material. The Material is defined as an ID number,
- *  Density, Colour, and Name. All of these parameters are private
- *  and can only be accessed with class public functions.
+ *  @brief The Material class represents a material of a cell with private members of ID, Density, Colour, and Name.
+ *  @details This class is merely a container for material details and has no specialised functions.
+ *  The Material class private members are an integer ID that will be used to
+ *  identify the material amongst many material objects (when used by the model class,
+ *  this value will be NOT be negative); a floating-point density variable; a string
+ *  of 3 hexadecimal numbers, representing red, green and blue (when used by the model
+ *  class this string will contain 3 two-digit hexadecimal numbers), that range from
+ *  0-FF to hold the colour of the material; and a string to hold the name of the material.
+ *  @warning No error checking on member variables, e.g. negative densities
  */
+
 class Material
 {
-private:
-
-    int ID;                 ///< The assigned identification number for the material
-    double Density;         ///< The density in kilograms per meter cubed
-    std::string Colour;     ///< The color of the object which is represented by 6 digit hex number Two digits are for the RGB colours and range from 0 - 255
-    std::string Name;       ///< The name of the Material
-
 public:
-//-------------Constructors------------//
-    /**
-     *  Blank Constructor
+//-------------Constructors and Destructors------------//
+    /** @brief Blank constructor that assigns ID to 0; Density to 0; Colour to "N/A"; and Name to "N/A".
      */
     Material();
 
-    /** @param ID is the Materials identification number
+    /** @brief This will assign the identification number of the material and all
+     *  other unassigned values to their blank constructor equivalent
+     *  @param ID is the identification number for the material
      */
     Material(int ID);
 
-    /** @param ID is the Materials identification number
-     *  @param Density is the density of the object in kgm^3
+    /** @brief This will assign the identification number and density of the material and all
+     *  other unassigned values to their blank constructor equivalent
+     *  @param ID is the identification number for the material
+     *  @param Density is the density of the Material
      */
     Material(int ID, double Density);
 
-    /** @param ID is the Materials identification number
-     *  @param Density is the density of the object in kgm^3
-     *  @param Colour is a string that is 6 digits long. (See SetColour())
+    /** @brief This will assign the identification number, density and colour
+     *  of the material and all other unassigned values to their blank constructor equivalent
+     *  @param ID is the identification number for the material
+     *  @param Density is the density of the Material
+     *  @param Colour is the colour of the material
      */
     Material(int ID, double Density, const std::string &Colour);
 
-    /** @param ID is the Materials identification number
-     *  @param Density is the density of the object in kg/m^3
-     *  @param Colour is a string that is 6 digits long. (See SetColour())
-     *  @param Name is a string that names the Material
+    /** @brief Full constructor
+     *  @param ID is the identification number for the material
+     *  @param Density is the density of the Material
+     *  @param Colour is the colour of the material
+     *  @param Name is the name of the material
      */
-    Material(int ID, double Density, const std::string &Colour, const std::string &Name); //Constructor receiving all members for Material
+    Material(int ID, double Density, const std::string &Colour, const std::string &Name);
 
-//--------------Destructor-------------//
+    /** @brief Blank destructor (empty)
+     */
     ~Material();
 
-//-------------Set Functions-----------//
 
-    /**
-     * @brief Sets the ID number given a integer
-     * @param ID is the identification number of the Material
+
+//-------------Set Functions-----------//
+    /** @brief Sets the identification number of the material
      */
     void SetID(int ID);
 
-    /**
-     * @brief Set the Density of the object gievn a double
-     * @param Density is the weight of the Material per meter cubed
+    /** @brief Sets the density of the material
      */
     void SetDensity(double Density);
 
-    /**
-     * @brief Sets the Colour given a 6 digit string ranging from 00000 - FFFFFF
-     * The 6 digit hexidecial number is broken down into its RGB componets
-     * The first 2 digits for Red, second 2 for Green and the last 2 for Blue.
-     * @param Colour is the colour of the material
+    /** @brief Sets the colour of the material
      */
     void SetColour(const std::string &Colour);
 
-    /**
-     * @brief Sets the Name of the Material given a string
-     * @param Name is the name of the Material
+    /** @brief Sets the name of the material
      */
     void SetName(const std::string &Name);
 
-    /**
-     * @param ID this sets the ID number given a integer
-     * @param Density this sets the Density of the object gievn a double
-     * @param Colour this sets the Colour given a 6 digit string ranging from 00000 - FFFFFF
-     * @param Name this sets the Name of the Material given a string
+    /** @brief Sets all member variables of the material
      */
     void SetMaterial(int ID, double Density, const std::string &Colour,const std::string &Name);
 
-//-------------Get Functions-----------//
 
-    /**
-     * @returns The Materials ID number
+
+//-------------Get Functions-----------//
+    /** @brief Returns the identification number of the material
      */
     int GetID();
 
-    /**
-     * @returns The Materials Density
+    /** @brief Returns the density of the material
      */
     double GetDensity();
 
-    /**
-     * @returns The Materials colour as a 6 digit hexadecemal number
+    /** @brief Returns colour of the materials
      */
     std::string GetColour();
 
-    /**
-     * @returns The Name of the Material
+    /** @brief Returns The Name of the Material
      */
     std::string GetName();
 
 
-//-----------Friend Functions----------//
 
-    /**
-     * @brief Dispays the contents of the Material in the terminal block
-     * @param Output this is typically "std::cout"
-     * @param Material the desired material is selected here
+//-----------Friend Functions----------//
+    /** @brief Displays the values of all member variables of the material
      */
     friend std::ostream& operator<< (std::ostream& Output, const Material& Material);
+
+private:
+  int ID;                 ///< Identification number for the material, when used by the model class this value will be NOT be negative
+  double Density;         ///< Density of the material
+  std::string Colour;     ///< Colour of the material, when used by the model class this string will contain 3 two digit hexadecimal numbers
+  std::string Name;       ///< Name of the material
 };
 
 #endif // MATERIAL_H_INCLUDED

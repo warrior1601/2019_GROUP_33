@@ -1,18 +1,12 @@
-//
 //  Material.cpp
 //  Computing Project
-//
 //  Created by Chayanis Kulanumphol on 27/11/2019.
-//  This file contains the definitions of functions for the Class
-//  Material.
-//
+//  This file contains the definitions of the member functions for the Material class
 
 #include <iostream>
 #include "Material.h"
 
-
-//-------------Constructors------------//
-
+//-------------Constructors and Destructor------------//
 Material::Material()
 {
     this->ID = 0;
@@ -53,11 +47,11 @@ Material::Material(int ID, double Density, const std::string &Colour, const std:
     this->Name = Name;
 }
 
-//--------------Destructor-------------//
 Material::~Material() {}
 
-//-------------Set Functions-----------//
 
+
+//-------------Set Functions-----------//
 void Material::SetID(int ID)
 {
     this->ID = ID;
@@ -86,8 +80,9 @@ void Material::SetMaterial(int ID, double Density, const std::string &Colour, co
     this->Name = Name;
 }
 
-//-------------Get Functions-----------//
 
+
+//-------------Get Functions-----------//
 int Material::GetID()
 {
     return (ID);
@@ -108,8 +103,9 @@ std::string Material::GetName()
     return (Name);
 }
 
-//-----------Friend Functions----------//
 
+
+//-----------Friend Functions----------//
 std::ostream& operator<< (std::ostream& Output, const Material& aMaterial)
 {
     Output << "ID = " << aMaterial.ID;
@@ -119,4 +115,3 @@ std::ostream& operator<< (std::ostream& Output, const Material& aMaterial)
 
     return Output;
 }
-
