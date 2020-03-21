@@ -1,19 +1,37 @@
-##Temp Instructions 
+# Important notes about compiling with CMake
+This cmake list does ......................................
+##    MinGW Compiler  
+   * After downloading the GitHub repo you will need to make a build folder
+   * (assuming that this file will be Named 2019_GROUP_33)
+   * Open command prompt and navigate to dir ..\2019_GROUP_33
+   * enter command> `mkdir build`
+   * enter command> `cd build`
+   * enter command> `cmake -G "MinGW Makefiles" -DBUILD_SHARED_LIBS=ON ..\model_viewer`
+   * This will build libraries for the source files that are dynamically linked to the .exe files
+   * enter command> `mingw32-make`
+   * The executable files will be located here and can be entered via command prompt as follows
+   * enter command> model_viewertestcode???  .... more details
 
+##    Microsoft Visual Studio
+   * After downloading the GitHub repo you will need to make a build folder
+   * (assuming that this file will be Named 2019_GROUP_33)
+   * Open command prompt and navigate to dir ..\2019_GROUP_33
+   * enter command> `mkdir build`
+   * enter command> `cd build`
+   * enter command> `cmake -G "Visual Studio 16 2019" ..\model_viewer` :warning: Command needs to be tailored to match your version of Visual Studio :warning:
+   * enter command> `"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat" x86_amd64` :warning: The path for the .bat file below may need changing for your visual studio version  :warning:
+   * enter command> `msbuild Computing_Project.sln`
+   * enter command> `cd debug`
+   * The executable files will be located here and can be entered via command prompt as follows
+   * enter command> model_viewertestcode??? ... give all names
 
-# After downloading the GitHub repo you will need to make a build folder
-# (assuming that this file will be Named 2019_GROUP_33)
-# Open command prompt and navigate to dir ..\2019_GROUP_33
-# enter command> mkdir build
-# enter command> cd build
-# Commands need to be tailored to match you version of Visual Studio
-# enter command> cmake -G "Visual Studio 15 2017 Win64" ..\model_viewer        or      cmake -G "Visual Studio 16 2019" ..\modelviewer
-
-################ Note that the path for the .bat file below may need changing for your visual studio version ################
-
-# enter command> "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" amd64        or        "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat" x86_amd64
-# This sets the PATH for the Visual Studio compiler
-# enter command> msbuild model_viewer.sln
-# enter command> cd Debug
-# The executable files will be located here and can be entered via command prompt as follows
-# enter command> model_viewer.exe (or any other classes test code)
+## Xcode Compiler on MacOS
+   * After Downloading the GitHub repo you will need to make a build folder
+   * (assuming that this file will be Named 2019_GROUP_33)
+   * Open command prompt and navigate to dir ..\2019_GROUP_33
+   * enter command> `mkdir build`
+   * enter command> `cd build`
+   * enter command> `cmake -G "Xcode" -DBUILD_SHARED_LIBS=ON ..\model_viewer`
+   * ener commadnd> `xcodebuild -scheme ALL_BUILD build`
+   * enter command> `cd debug`
+   * The executable files will be located in the debug dir .... more details
