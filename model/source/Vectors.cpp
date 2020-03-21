@@ -154,6 +154,24 @@ Vectors Vectors::operator*(const Vectors& aVectors)
     return Vector_Prduct;
 }
 
+bool Vectors::operator==(const Vectors& aVectors)
+{
+    unsigned int Status = 0;
+
+    if (this->X_Coord != aVectors.X_Coord)
+        Status++;
+    if (this->Y_Coord != aVectors.Y_Coord)
+        Status++;
+    if (this->Z_Coord != aVectors.Z_Coord)
+        Status++;
+
+    if (Status==0)
+        return true;
+    else
+    {
+       return false;
+    }
+}
 
 
 //-------Special Member Functions------//
