@@ -1,4 +1,4 @@
-######### Model Viewer License Agreement #########
+******************** Model Viewer License Agreement ********************
 Copyright (c) 2020 Group33 (Junaid Afzal, Jedidiah Paterson, Chanyanis Kulanumphol, Chang XING)
 All rights reserved.
 
@@ -31,7 +31,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 
 
-######### Qt License Agreement #########
+******************** Qt License Agreement ********************
 GNU LESSER GENERAL PUBLIC LICENSE
     Version 3, 29 June 2007
 
@@ -199,7 +199,7 @@ Library.
 
 
 
-######### VTK License Agreement #########
+******************** VTK License Agreement ********************
 VTK is an open-source toolkit licensed under the BSD license.
 
 Copyright (c) 1993-2008 Ken Martin, Will Schroeder, Bill Lorensen

@@ -47,7 +47,7 @@ clang: error: linker command failed with exit code 1 (use -v to see invocation)
 Clean up code and make sure all indented nicely and commented + model_viewer cmakelist
 
 ---Junaid---
-Root readme file
+Root readme file then macos readme update and intro update
 Windows installer + moving dlls + moving example files + shortcut to desktop + icon file
 macos installer + moving dlls + moving example files + icon file
 
