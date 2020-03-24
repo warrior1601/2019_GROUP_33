@@ -30,11 +30,11 @@ include_directories( include )
 include_directories( ../model/include )
 
 # Addition of the libraries needs to have the required headers for each class that is included to ensure that the library is built correctly
-add_library( Model 	source/Material.cpp;  include/Material.h;
-                    source/Vectors.cpp;   include/Vectors.h;
-                    source/Matrix.cpp;    include/Matrix.hpp;
-                    source/Cell.cpp;      include/Cell.hpp;
-                    source/Model.cpp;     include/Model.hpp;
+add_library( Model 	../model/include/Material.h;   ../model/source/Material.cpp;
+                    ../model/include/Vectors.h;    ../model/source/Vectors.cpp;
+                    ../model/include/Matrix.hpp;   ../model/source/Matrix.cpp;
+                    ../model/include/Cell.hpp;     ../model/source/Cell.cpp;
+                    ../model/include/Model.hpp;    ../model/source/Model.cpp;
 )
 
 # No idea
@@ -84,12 +84,12 @@ if(WIN32)
           COMPONENT libraries
 )
 
-  install(
-          TARGETS ${VTK_LIBRARIES}/vtkChartsCore-8.2
-          ARCHIVE
-          DESTINATION lib
-          COMPONENT libraries
-)
+#  install(
+#          TARGETS ${VTK_LIBRARIES}/vtkChartsCore-8.2
+#          ARCHIVE
+#          DESTINATION lib
+#          COMPONENT libraries
+#  )
 
   install(
           TARGETS model_viewer

@@ -11,11 +11,11 @@ include ( CTest )
 include_directories( include )
 
 # Addition of the Libraries needs to have the required headers for each class that is included to ensure that the library is built correctly
-add_library( Model 	source/Material.cpp;  include/Material.h;
-                    source/Vectors.cpp;   include/Vectors.h;
-                    source/Matrix.cpp;    include/Matrix.hpp;
-                    source/Cell.cpp;      include/Cell.hpp;
-                    source/Model.cpp;     include/Model.hpp;
+add_library( Model 	include/Material.h;   source/Material.cpp;
+                    include/Vectors.h;    source/Vectors.cpp;
+                    include/Matrix.hpp;   source/Matrix.cpp;
+                    include/Cell.hpp;     source/Cell.cpp;
+                    include/Model.hpp;    source/Model.cpp;
 )
 
 # Library check
