@@ -8,7 +8,7 @@ foreach(p
   endif()
 endforeach()
 
-PROJECT( model_viewer )
+PROJECT( Observer )
 
 # The CMake build process might generate some new files in the current directory. This makes sure they can be found.
 set( CMAKE_INCLUDE_CURRENT_DIR ON )
@@ -42,7 +42,7 @@ set( UIS mainwindow.ui )
 qt5_wrap_ui( UI_Srcs ${UIS} )
 
 # Define the executable output and its sources
-add_executable( model_viewer MACOSX_BUNDLE
+add_executable( Observer MACOSX_BUNDLE
 				source/main.cpp
 				source/mainwindow.cpp	include/mainwindow.h	source/mainwindow.ui
 				source/edit_light.cpp 	include/edit_light.h 	source/edit_light.ui
@@ -52,16 +52,16 @@ add_executable( model_viewer MACOSX_BUNDLE
 )
 
 # Tell CMake that the executable depends on library built in SEMESTER 1
-target_link_libraries( model_viewer Model )
+target_link_libraries( Observer Model )
 
 # Tell CMake that the executable depends on the Qt::Widget libraries.
-target_link_libraries( model_viewer Qt5::Widgets )
+target_link_libraries( Observer Qt5::Widgets )
 
 # Tell CMake that the executable depends on the VTK libraries
-target_link_libraries( model_viewer ${VTK_LIBRARIES} )
+target_link_libraries( Observer ${VTK_LIBRARIES} )
 
-# Copying image files, used by model_viewer, to build directory
-ADD_CUSTOM_COMMAND(TARGET model_viewer POST_BUILD
+# Copying image files, used by Observer, to build directory
+ADD_CUSTOM_COMMAND(TARGET Observer POST_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy_directory
                        ${CMAKE_CURRENT_SOURCE_DIR}/images
                        ${CMAKE_CURRENT_SOURCE_DIR}/../build/images
@@ -92,7 +92,7 @@ if(WIN32)
 #  )
 
   install(
-          TARGETS model_viewer
+          TARGETS Observer
           RUNTIME
           DESTINATION bin
           COMPONENT applications
@@ -105,14 +105,14 @@ if(WIN32)
 )
 
   # CPACK macros below here
-  set (CPACK_PACKAGE_NAME "Model Viewer")
-  set (CPACK_PACKAGE_VENDOR "Group 33")
-  set (CPACK_PACKAGE_DESCRIPTION_SUMMARY "Model Viewer Installation")
+  set (CPACK_PACKAGE_NAME "Observer")
+  set (CPACK_PACKAGE_VENDOR "The Space Explorers")
+  set (CPACK_PACKAGE_DESCRIPTION_SUMMARY "Observer Installation")
   set (CPACK_PACKAGE_VERSION "1.0.0")
   set (CPACK_PACKAGE_VERSION_MAJOR "1")
   set (CPACK_PACKAGE_VERSION_MINOR "0")
   set (CPACK_PACKAGE_VERSION_PATCH "0")
-  set (CPACK_PACKAGE_INSTALL_DIRECTORY "Model Viewer")
+  set (CPACK_PACKAGE_INSTALL_DIRECTORY "Observer")
 
   # Define components and their display names
   set (CPACK_COMPONENTS_ALL applications libraries headers)
@@ -121,9 +121,9 @@ if(WIN32)
   set (CPACK_COMPONENT_HEADERS_DISPLAY_NAME "Headers")
 
   # Human readable component descriptions
-  set (CPACK_COMPONENT_APPLICATIONS_DESCRIPTION "An extremely useful application that makes use of Model Viewer libraries")
-  set (CPACK_COMPONENT_LIBRARIES_DESCRIPTION "Static libraries used to build programs with Model Viewer")
-  set (CPACK_COMPONENT_HEADERS_DESCRIPTION "C/C++ header files for use with Model Viewer")
+  set (CPACK_COMPONENT_APPLICATIONS_DESCRIPTION "An extremely useful application that makes use of Observer libraries")
+  set (CPACK_COMPONENT_LIBRARIES_DESCRIPTION "Static libraries used to build programs with Observer")
+  set (CPACK_COMPONENT_HEADERS_DESCRIPTION "C/C++ header files for use with Observer")
 
   # Define dependencies between components
   set (CPACK_COMPONENT_HEADERS_DEPENDS libraries)

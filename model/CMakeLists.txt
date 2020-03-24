@@ -2,7 +2,7 @@
 cmake_minimum_required( VERSION 2.8)
 
 # The name of the project
-project( model )
+project( Model )
 
 # Required for automating testing with TravisCI
 include ( CTest )

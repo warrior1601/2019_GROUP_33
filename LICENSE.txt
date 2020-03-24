@@ -1,5 +1,5 @@
-******************** Model Viewer License Agreement ********************
-Copyright (c) 2020 Group33 (Junaid Afzal, Jedidiah Paterson, Chanyanis Kulanumphol, Chang XING)
+******************** Observer License Agreement ********************
+Copyright (c) 2020 The Space Explorers (Junaid Afzal, Jedidiah Paterson, Chanyanis Kulanumphol, Chang XING)
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -13,7 +13,7 @@ and/or other materials provided with the distribution.
 3. All advertising materials mentioning features or use of this software
 must display the following acknowledgement: This product includes software
 developed by Group33.
-4. Neither the name of Junaid Afzal, Jedidiah Paterson, Chanyanis Kulanumphol,
+4. Neither the names of Junaid Afzal, Jedidiah Paterson, Chanyanis Kulanumphol,
 Chang XING, Group33 nor the names of its contributors may be used to endorse
 or promote products derived from this software without specific prior written
 permission.
