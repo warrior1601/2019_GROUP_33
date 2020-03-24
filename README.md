@@ -44,14 +44,13 @@ Functions
 
 # Links??
   * [Observer Documentation](https://warrior1601.github.io/2019_GROUP_33/html)
-  * Observer License
-  * VTK License
-  * Qt License
-  * Download -- Installers (explain what they are and how to use them and how they are created)
-  * FAQ
-  * Wiki
-  * Reporting a Bug - please report bugs, so we can fix them
-  * Requesting a Feature
+  * [Observer License](https://github.com/warrior1601/2019_GROUP_33/blob/master/LICENSE.txt)
+  * [VTK License](https://vtk.org/about/)
+  * [Qt License](https://doc.qt.io/qt-5/licensing.html)
+  * [Download](https://github.com/warrior1601/2019_GROUP_33/releases)
+  * [Wiki](https://github.com/warrior1601/2019_GROUP_33/wiki)
+  * [Reporting a Bug] - please report bugs, so we can fix them
+  * [Requesting a Feature] - both above will be wiki documents
 
 # Screenshots
 - do this last for both macos and windows
