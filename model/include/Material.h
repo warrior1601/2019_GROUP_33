@@ -110,6 +110,11 @@ public:
      */
     std::string GetName();
 
+//-----Operator Overload Functions-----//
+    /**
+     * @brief Returns true if their is equality
+     */
+    bool operator==(const Material& IsEqual);
 
 
 //-----------Friend Functions----------//

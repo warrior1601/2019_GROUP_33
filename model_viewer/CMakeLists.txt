@@ -28,7 +28,19 @@ find_package( Qt5Widgets )
 include_directories( include )
 include_directories( ../model/include )
 
-add_library( Model 	../model/source/Model.cpp; ../model/source/Cell.cpp; ../model/source/Matrix.cpp; 			../model/source/Vectors.cpp; ../model/source/Material.cpp; ../model/include/Model.hpp; 			../model/include/Cell.hpp; ../model/include/Matrix.hpp; ../model/include/Vectors.h; 			../model/include/Material.h )
+add_library( Model 	../model/source/Model.cpp; 
+			../model/source/Cell.cpp; 
+			../model/source/Matrix.cpp; 
+			../model/source/Vectors.cpp; 
+			../model/source/Material.cpp; 
+			../model/include/Model.hpp; 
+			../model/include/Cell.hpp; 
+			../model/include/Matrix.hpp; 
+			../model/include/Vectors.h; 
+			../model/include/Material.h;
+			../model/source/double_equality_function.cpp;	
+			../model/include/double_equality_function.h;
+	           	../model/include/Testing_File_Functions.h; )
 
 set( UIS mainwindow.ui )
 qt5_wrap_ui( UI_Srcs ${UIS} )
@@ -87,12 +99,12 @@ install(
         COMPONENT libraries
 )
 
-install(
-        TARGETS ${VTK_LIBRARIES}/vtkChartsCore-8.2
-        ARCHIVE
-        DESTINATION lib
-        COMPONENT libraries
-)
+#install(
+#        TARGETS ${VTK_LIBRARIES}/vtkChartsCore-8.2
+#        ARCHIVE
+#        DESTINATION lib
+#        COMPONENT libraries
+#)
 
 install(
         TARGETS model_viewer

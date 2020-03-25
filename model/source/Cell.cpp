@@ -6,7 +6,6 @@
 #include "Cell.hpp"
 #include "Matrix.hpp"
 #include <cmath>
-
 #include "Vectors.h"
 
 //------------------------------------------------------------------------CELL MEMBER FUNCTIONS------------------------------------------------------------------------//
@@ -53,7 +52,39 @@ Cell& Cell::operator = (const Cell& aCell)
     }
 }
 
+bool Cell::operator == (Cell& aCell)
+{
+    if (!(theMaterial == aCell.Get_Material() ) )
+       return false;
+    if (Vertices.size() == aCell.Get_Vertices().size() )
+       {
+         for (unsigned int i = 0 ; i < Vertices.size() ; i++)
+            {
+             if (Vertices[i] == aCell.Get_Vertices()[i])
+                {}
+             else
+                {return false;}
+            }
+       }
+    else
+    {
+      return false;
+    }
 
+    if (this->VerticesOrder.size() == aCell.Get_Vertices_Order().size() )
+       {
+        for (unsigned int i = 0 ; i < VerticesOrder.size() ; i++)
+            {
+             if (this->VerticesOrder[i] == aCell.Get_Vertices_Order()[i])
+                {}
+             else
+                {return false;}
+            }
+       }
+    else
+       {return false;}
+ return true;
+}
 
 
 
@@ -84,21 +115,21 @@ double Cell::Get_Volume(void)
 {
     std::cout << "No implementation of calculating volume for this object" << std::endl;
 
-    return -1;
+    return -1.0;
 }
 
 double Cell::Get_Weight(void)
 {
     std::cout << "No implementation of weight volume for this object" << std::endl;
 
-    return -1;
+    return -1.0;
 }
 
 Vectors Cell::Get_Centre_Of_Gravity()
 {
     std::cout << "No implementation of calculating centre of gravity for this object" << std::endl;
 
-    Vectors temp(-1, -1, -1);
+    Vectors temp(-1.0, -1.0, -1.0);
 
     return temp;
 }
@@ -178,8 +209,7 @@ double Tetrahedron::Get_Volume(void)
     Vectors c = tempVertices[2] - tempVertices[3]; //V2 - V3;
 
     //Volume is calculated using the triple scalar product formula
-
-    return abs( a.Scalar_Product( b * c ) / 6.0 );
+    return fabs( a.Scalar_Product( b * c ) / 6.0 );
 }
 
 double Tetrahedron::Get_Weight(void)
@@ -266,18 +296,18 @@ double Pyramid::Get_Volume(void)
     //the volume of two tetrahedrons and add them together
     std::vector<Vectors> tempVertices = Get_Vertices();
     std::vector<Vectors> Tetra_a_Vertices; // = { tempVertices[0], tempVertices[2], tempVertices[3], tempVertices[4] };
-    Tetra_a_Vertices.push_back(tempVertices[0]);
+    Tetra_a_Vertices.push_back(tempVertices[1]);
     Tetra_a_Vertices.push_back(tempVertices[2]);
-    Tetra_a_Vertices.push_back(tempVertices[3]);
+    Tetra_a_Vertices.push_back(tempVertices[0]);
     Tetra_a_Vertices.push_back(tempVertices[4]);
     std::vector<Vectors> Tetra_b_Vertices; // = { tempVertices[0], tempVertices[1], tempVertices[2], tempVertices[4] };
+    Tetra_b_Vertices.push_back(tempVertices[3]);
     Tetra_b_Vertices.push_back(tempVertices[0]);
-    Tetra_b_Vertices.push_back(tempVertices[1]);
     Tetra_b_Vertices.push_back(tempVertices[2]);
     Tetra_b_Vertices.push_back(tempVertices[4]);
 
     Tetrahedron a(Tetra_a_Vertices, Get_Vertices_Order(), Get_Material()); //V0, V2, V3, V4
-    Tetrahedron b(Tetra_b_Vertices, Get_Vertices_Order(), Get_Material()); //V0, V1, V2, V4
+    Tetrahedron b(Tetra_b_Vertices, Get_Vertices_Order(), Get_Material()); //V0, V1, V2, V4 
 
     return a.Get_Volume() + b.Get_Volume();
 }
@@ -302,13 +332,13 @@ Vectors Pyramid::Get_Centre_Of_Gravity(void)
     //be the midpoint between the two centres of gravities of the two tetrahedrons
     std::vector<Vectors> tempVertices = Get_Vertices();
     std::vector<Vectors> Tetra_a_Vertices; // = { tempVertices[0], tempVertices[2], tempVertices[3], tempVertices[4] };
-    Tetra_a_Vertices.push_back(tempVertices[0]);
+    Tetra_a_Vertices.push_back(tempVertices[1]);
     Tetra_a_Vertices.push_back(tempVertices[2]);
-    Tetra_a_Vertices.push_back(tempVertices[3]);
+    Tetra_a_Vertices.push_back(tempVertices[0]);
     Tetra_a_Vertices.push_back(tempVertices[4]);
     std::vector<Vectors> Tetra_b_Vertices; // = { tempVertices[0], tempVertices[1], tempVertices[2], tempVertices[4] };
+    Tetra_b_Vertices.push_back(tempVertices[3]);
     Tetra_b_Vertices.push_back(tempVertices[0]);
-    Tetra_b_Vertices.push_back(tempVertices[1]);
     Tetra_b_Vertices.push_back(tempVertices[2]);
     Tetra_b_Vertices.push_back(tempVertices[4]);
 
@@ -318,9 +348,15 @@ Vectors Pyramid::Get_Centre_Of_Gravity(void)
     Vectors aCentroid = a.Get_Centre_Of_Gravity();
     Vectors bCentroid = b.Get_Centre_Of_Gravity();
 
-    Vectors Centroid = (aCentroid + bCentroid) / 2.0;
+    //Vectors Centroid = (aCentroid + bCentroid) / 2.0;
+    //std::cout <<"T: a"  << a.Get_Volume() <<"T: b" <<b.Get_Volume()<< std::endl;
 
-    return Centroid;
+    double TotalDistance = aCentroid.Get_Distance_To(bCentroid);
+    double iDistance = TotalDistance / (a.Get_Weight()/b.Get_Weight() + 1.0);
+    Vectors aTob = bCentroid - aCentroid;
+    Vectors newCOG = aCentroid + ( aTob * (iDistance/TotalDistance) );
+
+    return newCOG;
 }
 
 
@@ -387,16 +423,16 @@ double Hexahedron::Get_Volume(void)
     Pyra_a_Vertices.push_back(tempVertices[3]);
     Pyra_a_Vertices.push_back(tempVertices[6]);
     std::vector<Vectors> Pyra_b_Vertices; // = { tempVertices[0], tempVertices[1], tempVertices[5], tempVertices[4], tempVertices[6] };
-    Pyra_b_Vertices.push_back(tempVertices[0]);
-    Pyra_b_Vertices.push_back(tempVertices[1]);
-    Pyra_b_Vertices.push_back(tempVertices[5]);
     Pyra_b_Vertices.push_back(tempVertices[4]);
+    Pyra_b_Vertices.push_back(tempVertices[5]);
+    Pyra_b_Vertices.push_back(tempVertices[1]);
+    Pyra_b_Vertices.push_back(tempVertices[0]);
     Pyra_b_Vertices.push_back(tempVertices[6]);
     std::vector<Vectors> Pyra_c_Vertices; // = { tempVertices[0], tempVertices[3], tempVertices[7], tempVertices[4], tempVertices[6] };
-    Pyra_c_Vertices.push_back(tempVertices[0]);
-    Pyra_c_Vertices.push_back(tempVertices[3]);
     Pyra_c_Vertices.push_back(tempVertices[7]);
     Pyra_c_Vertices.push_back(tempVertices[4]);
+    Pyra_c_Vertices.push_back(tempVertices[0]);
+    Pyra_c_Vertices.push_back(tempVertices[3]);
     Pyra_c_Vertices.push_back(tempVertices[6]);
 
     Pyramid a(Pyra_a_Vertices, Get_Vertices_Order(), Get_Material()); //V0, V1, V2, V3, V6
@@ -432,23 +468,41 @@ Vectors Hexahedron::Get_Centre_Of_Gravity(void)
     Pyra_a_Vertices.push_back(tempVertices[3]);
     Pyra_a_Vertices.push_back(tempVertices[6]);
     std::vector<Vectors> Pyra_b_Vertices; // = { tempVertices[0], tempVertices[1], tempVertices[5], tempVertices[4], tempVertices[6] };
-    Pyra_b_Vertices.push_back(tempVertices[0]);
-    Pyra_b_Vertices.push_back(tempVertices[1]);
-    Pyra_b_Vertices.push_back(tempVertices[5]);
     Pyra_b_Vertices.push_back(tempVertices[4]);
+    Pyra_b_Vertices.push_back(tempVertices[5]);
+    Pyra_b_Vertices.push_back(tempVertices[1]);
+    Pyra_b_Vertices.push_back(tempVertices[0]);
     Pyra_b_Vertices.push_back(tempVertices[6]);
     std::vector<Vectors> Pyra_c_Vertices; // = { tempVertices[0], tempVertices[3], tempVertices[7], tempVertices[4], tempVertices[6] };
-    Pyra_c_Vertices.push_back(tempVertices[0]);
-    Pyra_c_Vertices.push_back(tempVertices[3]);
     Pyra_c_Vertices.push_back(tempVertices[7]);
     Pyra_c_Vertices.push_back(tempVertices[4]);
+    Pyra_c_Vertices.push_back(tempVertices[0]);
+    Pyra_c_Vertices.push_back(tempVertices[3]);
     Pyra_c_Vertices.push_back(tempVertices[6]);
 
-    Pyramid a(Pyra_a_Vertices, Get_Vertices_Order(), Get_Material()); //V0, V1, V2, V3, V6
-    Pyramid b(Pyra_b_Vertices, Get_Vertices_Order(), Get_Material()); //V0, V1, V5, V4, V6
-    Pyramid c(Pyra_c_Vertices, Get_Vertices_Order(), Get_Material()); //V0, V3, V7, V4, V6
+    Pyramid a(Pyra_a_Vertices, Get_Vertices_Order(), Get_Material()); //V0, V1, V2, V3, V6   //// 5,1,2,6,7
+    Pyramid b(Pyra_b_Vertices, Get_Vertices_Order(), Get_Material()); //V0, V1, V5, V4, V6   //// 4,0,1,5,7
+    Pyramid c(Pyra_c_Vertices, Get_Vertices_Order(), Get_Material()); //V0, V3, V7, V4, V6   //// 3,0,1,2,7
 
-    Vectors Centroid = ( a.Get_Centre_Of_Gravity() + b.Get_Centre_Of_Gravity() + c.Get_Centre_Of_Gravity() ) / 3.0;
+    Vectors aCentroid = a.Get_Centre_Of_Gravity();
+    Vectors bCentroid = b.Get_Centre_Of_Gravity();
+    Vectors cCentroid = c.Get_Centre_Of_Gravity();
 
-    return Centroid;
+    // std::cout << a.Get_Centre_Of_Gravity() << std::endl;
+    // std::cout << b.Get_Centre_Of_Gravity() << std::endl;
+    // std::cout << c.Get_Centre_Of_Gravity() << std::endl;
+
+    double TotalDistance = aCentroid.Get_Distance_To(bCentroid);
+    double iDistance = TotalDistance/(a.Get_Weight()/b.Get_Weight() + 1.0);
+    Vectors aTob = bCentroid - aCentroid;
+    Vectors newCOG = aCentroid + (aTob * (iDistance/TotalDistance) );
+
+    TotalDistance = newCOG.Get_Distance_To(cCentroid);
+    iDistance = TotalDistance / (( (a.Get_Weight()+b.Get_Weight() ) / c.Get_Weight() )+ 1.0);
+    Vectors newCOGToc = cCentroid - newCOG;
+    newCOG = newCOG + ( newCOGToc * (iDistance/TotalDistance) );
+
+    std::cout << newCOG << std::endl;
+
+    return newCOG;
 }

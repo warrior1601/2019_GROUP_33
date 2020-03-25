@@ -49,6 +49,10 @@ public:
      */
     Cell& operator= (const Cell& aCell);
 
+    /** @brief Checks to see if two cells are equal returns true if they are
+     */
+    bool operator==(Cell& aCell);
+
 
     //Set functions
     /** @brief Sets the Vertices of cell
