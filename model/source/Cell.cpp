@@ -348,9 +348,6 @@ Vectors Pyramid::Get_Centre_Of_Gravity(void)
     Vectors aCentroid = a.Get_Centre_Of_Gravity();
     Vectors bCentroid = b.Get_Centre_Of_Gravity();
 
-    //Vectors Centroid = (aCentroid + bCentroid) / 2.0;
-    //std::cout <<"T: a"  << a.Get_Volume() <<"T: b" <<b.Get_Volume()<< std::endl;
-
     double TotalDistance = aCentroid.Get_Distance_To(bCentroid);
     double iDistance = TotalDistance / (a.Get_Weight()/b.Get_Weight() + 1.0);
     Vectors aTob = bCentroid - aCentroid;
@@ -500,13 +497,13 @@ Vectors Hexahedron::Get_Centre_Of_Gravity(void)
     newCOG = newCOG + ( newCOGToc * (iDistance/TotalDistance) );
 
     bool Rounding_issue = false;
-    if (newCOG.GetXVector() < 1e-15)
+    if ((newCOG.GetXVector() < 1e-15) && (newCOG.GetXVector() > 0.0))
         newCOG.SetX_Vector(0.0); Rounding_issue = true;
 
-    if (newCOG.GetYVector() < 1e-15)
+    if ((newCOG.GetYVector() < 1e-15) && (newCOG.GetXVector() > 0.0))
         newCOG.SetY_Vector(0.0); Rounding_issue = true;
 
-    if (newCOG.GetZVector() < 1e-15)
+    if ((newCOG.GetZVector() < 1e-15) && (newCOG.GetXVector() > 0.0))
         newCOG.SetZ_Vector(0.0); Rounding_issue = true;
 
     if (Rounding_issue == true)
