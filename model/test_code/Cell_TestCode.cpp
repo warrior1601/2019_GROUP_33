@@ -184,6 +184,13 @@ int main()
         Testing_For_Error = 0;
     }
 
+    std::cout << "************************" << std::endl;
+    if (Error == 0 )
+        std::cout << "Cell Test: Successful" << std::endl;
+    else
+        std::cout << "Cell Test: Failure" << std::endl;
+    std::cout << "************************" << std::endl;
+
     std::cout << "------------------------------Tetrahedron Test Code------------------------------" << std::endl;
 
     Tetrahedron Empty_Tetra;
@@ -215,6 +222,13 @@ int main()
     if (Testing(Gold_Nugget, 5.6625, 109286.25, Center_Of_Gold_Nugget) == 1)
         Error = 1;
 
+    std::cout << "************************" << std::endl;
+    if (Error == 0 )
+        std::cout << "Tetrahedron Test: Successful" << std::endl;
+    else
+        std::cout << "Tetrahedron Test: Failure" << std::endl;
+    std::cout << "************************" << std::endl;
+
     std::cout << "------------------------------Pyramid Test Code------------------------------" << std::endl;
 
     Pyramid Empty_Pryamid;
@@ -245,6 +259,12 @@ int main()
     if (Testing(Here_Lays_A_Pharaoh, (500.0/3.0) , ((500.0/3.0)*(2711.0)) , Center_Of_The_Tomb) == 1)
         Error = 1;
 
+    std::cout << "************************" << std::endl;
+    if (Error == 0 )
+        std::cout << "Pyramid Test: Successful" << std::endl;
+    else
+        std::cout << "Pyramid Test: Failure" << std::endl;
+    std::cout << "************************" << std::endl;
 
      std::cout << "------------------------------Hexahedron Test Code------------------------------" << std::endl;
 
@@ -260,16 +280,7 @@ int main()
      Vectors wVectors( 2.5,-2.5, 2.5);
      Vectors xVectors( 2.5, 2.5, 2.5);
      Vectors yVectors(-2.5, 2.5, 2.5);
-   // */
-    /* Vectors rVectors(-15.0,-5.0,-5.0);
-     Vectors sVectors( 15.0,-5.0,-5.0);
-     Vectors tVectors( 15.0, 5.0,-5.0);
-     Vectors uVectors(-15.0, 5.0,-5.0);
-     Vectors vVectors(-15.0,-5.0, 5.0);
-     Vectors wVectors( 15.0,-5.0, 5.0);
-     Vectors xVectors( 15.0, 5.0, 5.0);
-     Vectors yVectors(-15.0, 5.0, 5.0);
-*/
+
      std::vector<Vectors> Vertices_Of_Hexahedron = {rVectors, sVectors, tVectors, uVectors,
                                                     vVectors, wVectors, xVectors, yVectors};
      std::vector<int> Vertices_Of_Hexahedron_Order = { 0, 1, 2, 3, 4, 5, 6, 7};
@@ -287,11 +298,16 @@ int main()
          Testing_For_Error = 0;
      }
 
-     Vectors Center_Of_The_Diamond(0.0, 0.0, 0.0 );
+     Vectors Center_Of_The_Diamond(0.0, 0.0, (2.0/3.0) );
      if (Testing(Dimaond_Stone, 80.0, 281120.0, Center_Of_The_Diamond) == 1)
          Error = 1;
 
-
+     std::cout << "************************" << std::endl;
+     if (Error == 0 )
+         std::cout << "Hexahedron Test: Successful" << std::endl;
+     else
+         std::cout << "Hexahedron Test: Failure" << std::endl;
+     std::cout << "************************" << std::endl;
 
     std::cout << "************************" << std::endl;
     if (Error == 0 )

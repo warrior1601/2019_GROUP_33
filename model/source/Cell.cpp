@@ -488,21 +488,29 @@ Vectors Hexahedron::Get_Centre_Of_Gravity(void)
     Vectors bCentroid = b.Get_Centre_Of_Gravity();
     Vectors cCentroid = c.Get_Centre_Of_Gravity();
 
-    // std::cout << a.Get_Centre_Of_Gravity() << std::endl;
-    // std::cout << b.Get_Centre_Of_Gravity() << std::endl;
-    // std::cout << c.Get_Centre_Of_Gravity() << std::endl;
-
     double TotalDistance = aCentroid.Get_Distance_To(bCentroid);
-    double iDistance = TotalDistance/(a.Get_Weight()/b.Get_Weight() + 1.0);
+    double iDistance = TotalDistance/((a.Get_Weight()+b.Get_Weight())/b.Get_Weight() );
     Vectors aTob = bCentroid - aCentroid;
     Vectors newCOG = aCentroid + (aTob * (iDistance/TotalDistance) );
 
     TotalDistance = newCOG.Get_Distance_To(cCentroid);
-    iDistance = TotalDistance / (( (a.Get_Weight()+b.Get_Weight() ) / c.Get_Weight() )+ 1.0);
+    double Sum = (a.Get_Weight()+b.Get_Weight() );
+    iDistance = TotalDistance / (( Sum / c.Get_Weight() ) + 1.0);
     Vectors newCOGToc = cCentroid - newCOG;
     newCOG = newCOG + ( newCOGToc * (iDistance/TotalDistance) );
 
-    std::cout << newCOG << std::endl;
+    bool Rounding_issue = false;
+    if (newCOG.GetXVector() < 1e-15)
+        newCOG.SetX_Vector(0.0); Rounding_issue = true;
+
+    if (newCOG.GetYVector() < 1e-15)
+        newCOG.SetY_Vector(0.0); Rounding_issue = true;
+
+    if (newCOG.GetZVector() < 1e-15)
+        newCOG.SetZ_Vector(0.0); Rounding_issue = true;
+
+    if (Rounding_issue == true)
+        std::cout << "A Rounding issue has occured a number less than 1e-15 has been rounded to 0.0" << std::endl;
 
     return newCOG;
 }

@@ -127,24 +127,20 @@ unsigned int Testing(C aCell, M aMaterial)
 
     if (cell!=std::string::npos)
     {
-        std::cout << "Cell: " << std::endl;
         Testing_For_Error = aCell.Get_Vertices().empty();
     }
     else if (tetrahedron!=std::string::npos)
     {
-        std::cout << "Tetrahedron: " << std::endl;
         if (Testing(aCell.Get_Vertices().size(), std::size_t (4)) == 0)
         Testing_For_Error = 1;
     }
     else if (pyramid!=std::string::npos)
     {
-        std::cout << "Pyramid: " << std::endl;
         if (Testing(aCell.Get_Vertices().size(), std::size_t (5)) == 0)
         Testing_For_Error = 1;
     }
     else if(hexahedron!=std::string::npos)
     {
-        std::cout << "Hexahedron: " << std::endl;
         if (Testing(aCell.Get_Vertices().size(), std::size_t (8)) == 0)
         Testing_For_Error = 1;
     }
