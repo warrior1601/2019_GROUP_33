@@ -10,11 +10,21 @@ Clean up code and make sure all indented nicely and commented + model_viewer cma
 
 ---Junaid---
 Readme what is Observer
-Readme Links
 macos readme update and intro update
+
+Wiki
+  feature Documentation
+    wiki on how to use software
+    common problems/known issues
+
+  Contributor information
+    how to report a bug, and how to request a feature, and update link for them - supporting the development
+    setting up the environment (remove readmes from model and model_viewer)
+    building the source code
 
 Windows installer + moving dlls + moving example files + shortcut to desktop + icon file
 macos installer + moving dlls + moving example files + icon file
+link installers to releases tab
 
 Screenshots for read me
 
