@@ -10,9 +10,11 @@
 travisCi build status explanation - and thus test code and explain what it tests and for which classes and ctest. exmaples models then some stuff about documentation generation automation
 
 # What is Observer?
-The end-state of the project is to read a .txt/.stl file; display it using Qt and VTK libraries; ******** Later revision of this project will include using a 3-D imaging tool to display the .txt file to the user. Overview of what model_viewer is. Observer consists of two major libraries, model viewer and model and qt and vtk. what can it do. what cant it do.
+The end-state of the project is to read a .txt/.stl file; display it using Qt and VTK libraries; ******** Later revision of this project will include using a 3-D imaging tool to display the .txt file to the user. Overview of what model_viewer is. Observer consists of two major libraries, model viewer and model and qt and vtk. what can it do. what cant it do. see wiki for info on the Model and Model Viewer libraries and what ahgey are capable of and intrustion on how to build the librarries and
 
 ***************************************************************************************
+all below in wiki
+
 Model Viewer Library
   * explanation
   * see readme in model_viewer folder for instructions for compiling with cmake

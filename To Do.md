@@ -10,7 +10,7 @@ Clean up code and make sure all indented nicely and commented + model_viewer cma
 
 ---Junaid---
 Readme what is Observer
-macos readme update and intro update
+macos readme update and intro update and github description
 
 Wiki
   feature Documentation
@@ -29,9 +29,8 @@ link installers to releases tab
 Screenshots for read me
 
 
-
 extension:
-- cmake list in root directory that will do what the other two cmakelist do but in one file
+- cmake list in root directory that will do what the other two cmakelist do but in one file (update building from source code)
 - build model_viewer in travis ci for testing (QTest) (model_viewer test code)
 - rename repo to Observer
 
