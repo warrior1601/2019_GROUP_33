@@ -1,13 +1,10 @@
-# Observer By The Space Explorers
+# Observer By The Space Explorers [![Build Status](https://travis-ci.com/warrior1601/2019_GROUP_33.svg?token=xyetJbByAw7qFXmcvGWN&branch=master)](https://travis-ci.com/warrior1601/2019_GROUP_33)
 
 #### Design Team :
   * Junaid Afzal
   * Jedidiah Paterson
   * Chanyanis Kulanumphol
   * Chang XING
-
-# Current Build Status [![Build Status](https://travis-ci.com/warrior1601/2019_GROUP_33.svg?token=xyetJbByAw7qFXmcvGWN&branch=master)](https://travis-ci.com/warrior1601/2019_GROUP_33)
-travisCi build status explanation - and thus test code and explain what it tests and for which classes and ctest. exmaples models then some stuff about documentation generation automation
 
 # What is Observer?
 The end-state of the project is to read a .txt/.stl file; display it using Qt and VTK libraries; ******** Later revision of this project will include using a 3-D imaging tool to display the .txt file to the user. Overview of what model_viewer is. Observer consists of two major libraries, model viewer and model and qt and vtk. what can it do. what cant it do.
