@@ -46,8 +46,8 @@ Functions
   * [Qt License](https://doc.qt.io/qt-5/licensing.html)
   * [Download](https://github.com/warrior1601/2019_GROUP_33/releases)
   * [Wiki](https://github.com/warrior1601/2019_GROUP_33/wiki)
-  * [Reporting a Bug](https://github.com/RefreshedMoose/2019_GROUP_33/wiki/Supporting-the-Development#reporting-a-bug) - please report bugs, so we can fix them
-  * [Requesting a Feature](https://github.com/RefreshedMoose/2019_GROUP_33/wiki/Supporting-the-Development#requesting-a-feature) - both above will be wiki documents
+  * [Reporting a Bug](https://github.com/RefreshedMoose/2019_GROUP_33/wiki/Supporting-the-Development#reporting-a-bug)
+  * [Requesting a Feature](https://github.com/RefreshedMoose/2019_GROUP_33/wiki/Supporting-the-Development#requesting-a-feature)
 
 # Screenshots
 - do this last for both macos and windows
