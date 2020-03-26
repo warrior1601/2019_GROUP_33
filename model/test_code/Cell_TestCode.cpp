@@ -30,6 +30,22 @@ int main()
     // class blank constuctor.
     Error = Testing(Test_Blank, Empty_To_Compare_to);
 
+    Material Copper(5, 8944.0, "B87333", "Copper");
+    Test_Blank.Set_Material(Copper);
+
+    Testing_For_Error = Testing(Test_Blank.Get_Material(), Copper);
+
+    if (Testing_For_Error == 0)
+        std::cout << "Set/Get Material Functions Works Properly" << std::endl;
+    else
+    {
+        std::cout << "Set/Get Material Functions Do Not Working Properly" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
+    }
+
+    Test_Blank.Set_Material(Empty_To_Compare_to);
+
     // Now we test the Cells Set/Get Functions
     // In Order to do this we create so Vectors
     // and then put them into a vector

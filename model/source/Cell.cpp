@@ -497,17 +497,17 @@ Vectors Hexahedron::Get_Centre_Of_Gravity(void)
     newCOG = newCOG + ( newCOGToc * (iDistance/TotalDistance) );
 
     bool Rounding_issue = false;
-    if ((newCOG.GetXVector() < 1e-15) && (newCOG.GetXVector() > 0.0))
+    if ( ((newCOG.GetXVector() < 1e-15) && (newCOG.GetXVector() > 0.0)) || ((newCOG.GetXVector() > -1e-15) && (newCOG.GetXVector() < 0.0)) )
         newCOG.SetX_Vector(0.0); Rounding_issue = true;
 
-    if ((newCOG.GetYVector() < 1e-15) && (newCOG.GetXVector() > 0.0))
+    if ( ((newCOG.GetYVector() < 1e-15) && (newCOG.GetYVector() > 0.0)) || ((newCOG.GetYVector() > -1e-15) && (newCOG.GetYVector() < 0.0)) )
         newCOG.SetY_Vector(0.0); Rounding_issue = true;
 
-    if ((newCOG.GetZVector() < 1e-15) && (newCOG.GetXVector() > 0.0))
+    if ( ((newCOG.GetZVector() < 1e-15) && (newCOG.GetZVector() > 0.0)) || ((newCOG.GetZVector() > -1e-15) && (newCOG.GetZVector() < 0.0)) )
         newCOG.SetZ_Vector(0.0); Rounding_issue = true;
 
     if (Rounding_issue == true)
-        std::cout << "A Rounding issue has occured a number less than 1e-15 has been rounded to 0.0" << std::endl;
+        std::cout << "A Rounding issue has occured a number within the range of (+/-)1e-15 of 0.0 has been rounded to 0.0" << std::endl;
 
     return newCOG;
 }
