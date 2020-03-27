@@ -21,7 +21,7 @@
 /** @class Model Model.hpp "Model.hpp"
  *  @brief The Model class is an abstraction of a model
  *  @details The two intended ways of loading the model are through the copy constructor or
- *  the Load_Model function. With the latter the chosen file must be written in the correct format:
+ *  the Load_Model function. With the latter the chosen file must be a .txt or .mod and written in the format:
  *  \n\n m 0 8960 b87373 copper
  *  \n Reading the line left to right, this declares a material with materialID of 0, density of 8960,
  *  colour of R=B8 G=73 B=73, and name of copper.
@@ -106,11 +106,11 @@ public:
 
 
     //Model specific functions
-    /** @brief Loads a model from a proprietary file format. See detailed description for more info
+    /** @brief Loads a model from a proprietary file format. See detailed description for more info on the file format used
      */
     void Load_Model(const std::string& FilePath);
 
-    /** @brief Save a model to a c. See detailed description for more info
+    /** @brief Saves a model to a proprietary file format. See detailed description for more info on the file format used
      */
     void Save_Model(const std::string& FilePath);
 
