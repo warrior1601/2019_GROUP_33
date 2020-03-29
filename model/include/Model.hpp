@@ -19,7 +19,7 @@
 
 
 /** @class Model Model.hpp "Model.hpp"
- *  @brief The Model class is an abstraction of a model
+ *  @brief An abstraction of a model
  *  @details The two intended ways of loading the model are through the copy constructor or
  *  the Load_Model function. With the latter the chosen file must be a .txt or .mod and written in the format:
  *  \n\n m 0 8960 b87373 copper

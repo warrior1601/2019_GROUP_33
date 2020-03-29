@@ -16,7 +16,7 @@
 #include <iostream>
 
 /** @class Material Material.h "Material.h"
- *  @brief The Material class represents a material of a cell with private members of ID, Density, Colour, and Name.
+ *  @brief The material of a cell with private members of ID, Density, Colour, and Name.
  *  @details This class is merely a container for material details and has no specialised functions.
  *  The Material class private members are an integer ID that will be used to
  *  identify the material amongst many material objects (when used by the model class,

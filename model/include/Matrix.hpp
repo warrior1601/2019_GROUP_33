@@ -16,8 +16,7 @@
 #include <vector>
 
 /** @class Matrix3x3 Matrix3x3.hpp "Matrix3x3.hpp"
- *  @brief The Matrix3x3 class represents a 3x3 matrix with private members of a
- *  single floating-point 2D array.
+ *  @brief A 3x3 matrix with private members of a single floating-point 2D array.
  *  @details This class has numerous operator overloads for both scalars and other
  *  matrix3x3 objects; abilities to initialise the matrix3x3 as a rotation matrix for cells;
  *  ability to transpose the matrix3x3; ability to determine the determinant; and ability to
@@ -42,7 +41,7 @@ public:
     /** @brief Blank constructor that adds the appropriate number of columns and rows and assigns the values to 0
     */
     Matrix3x3(void);
-    
+
     /** @brief Blank destructor (empty)
      */
     ~Matrix3x3(void);
