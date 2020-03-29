@@ -31,12 +31,12 @@ addons:
     packages:
       - doxygen
       - graphviz
-      - g++-6
+      - g++-7
       - cmake
 
 # Build your code
 script:
-  - export CXX=/usr/bin/g++-6
+  - export CXX=/usr/bin/g++-7
   - mkdir build
   - cd build
   - cmake ../model
