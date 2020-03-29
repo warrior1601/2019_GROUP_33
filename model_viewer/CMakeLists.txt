@@ -1,4 +1,5 @@
-cmake_minimum_required(VERSION 3.3 FATAL_ERROR)
+# # This CMakeList file will create the Observer executable
+cmake_minimum_required( VERSION 3.17.0 )
 
 foreach(p
     CMP0071 # 3.10: Let AUTOMOC and AUTOUIC process GENERATED files
@@ -8,7 +9,8 @@ foreach(p
   endif()
 endforeach()
 
-PROJECT( Observer )
+# The name of the project and its curent version
+PROJECT( Model_Viewer VERSION 1.2.2 )
 
 # The CMake build process might generate some new files in the current directory. This makes sure they can be found.
 set( CMAKE_INCLUDE_CURRENT_DIR ON )
@@ -28,14 +30,6 @@ include( ${VTK_USE_FILE} )
 # This project contains many header files the "include_directories" sets the path for the header files to be located
 include_directories( include )
 include_directories( ../model/include )
-
-# Addition of the libraries needs to have the required headers for each class that is included to ensure that the library is built correctly
-add_library( Model 	../model/include/Material.h;   ../model/source/Material.cpp;
-                    ../model/include/Vectors.h;    ../model/source/Vectors.cpp;
-                    ../model/include/Matrix.hpp;   ../model/source/Matrix.cpp;
-                    ../model/include/Cell.hpp;     ../model/source/Cell.cpp;
-                    ../model/include/Model.hpp;    ../model/source/Model.cpp;
-)
 
 # No idea
 set( UIS mainwindow.ui )
@@ -64,86 +58,5 @@ target_link_libraries( Observer ${VTK_LIBRARIES} )
 ADD_CUSTOM_COMMAND(TARGET Observer POST_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy_directory
                        ${CMAKE_CURRENT_SOURCE_DIR}/images
-                       ${CMAKE_CURRENT_SOURCE_DIR}/../build/images
+                       ${CMAKE_CURRENT_SOURCE_DIR}/../build/model_viewer/images
 )
-
-# Installer stuff - not done yet
-if(WIN32)
-  set(CPACK_GENERATOR NSIS)
-  install(
-          TARGETS Model
-          ARCHIVE
-          DESTINATION lib
-          COMPONENT libraries
-)
-
-  install(
-          TARGETS
-          ARCHIVE
-          DESTINATION lib
-          COMPONENT libraries
-)
-
-#  install(
-#          TARGETS ${VTK_LIBRARIES}/vtkChartsCore-8.2
-#          ARCHIVE
-#          DESTINATION lib
-#          COMPONENT libraries
-#  )
-
-  install(
-          TARGETS Observer
-          RUNTIME
-          DESTINATION bin
-          COMPONENT applications
-)
-
-  install(
-          FILES  ../model/include/Model.hpp; ../model/include/Cell.hpp; ../model/include/Matrix.hpp; ../model/include/Vectors.h; ../model/include/Material.h; include/mainwindow.h; include/edit_light.h; include/filters.h; include/vtklight_withname.h
-          DESTINATION include
-          COMPONENT headers
-)
-
-  # CPACK macros below here
-  set (CPACK_PACKAGE_NAME "Observer")
-  set (CPACK_PACKAGE_VENDOR "The Space Explorers")
-  set (CPACK_PACKAGE_DESCRIPTION_SUMMARY "Observer Installation")
-  set (CPACK_PACKAGE_VERSION "1.0.0")
-  set (CPACK_PACKAGE_VERSION_MAJOR "1")
-  set (CPACK_PACKAGE_VERSION_MINOR "0")
-  set (CPACK_PACKAGE_VERSION_PATCH "0")
-  set (CPACK_PACKAGE_INSTALL_DIRECTORY "Observer")
-
-  # Define components and their display names
-  set (CPACK_COMPONENTS_ALL applications libraries headers)
-  set (CPACK_COMPONENT_APPLICATIONS_DISPLAY_NAME "Applications")
-  set (CPACK_COMPONENT_LIBRARIES_DISPLAY_NAME "Libraries")
-  set (CPACK_COMPONENT_HEADERS_DISPLAY_NAME "Headers")
-
-  # Human readable component descriptions
-  set (CPACK_COMPONENT_APPLICATIONS_DESCRIPTION "An extremely useful application that makes use of Observer libraries")
-  set (CPACK_COMPONENT_LIBRARIES_DESCRIPTION "Static libraries used to build programs with Observer")
-  set (CPACK_COMPONENT_HEADERS_DESCRIPTION "C/C++ header files for use with Observer")
-
-  # Define dependencies between components
-  set (CPACK_COMPONENT_HEADERS_DEPENDS libraries)
-
-  # Define groups
-  set(CPACK_COMPONENT_APPLICATIONS_GROUP "Runtime")
-  set(CPACK_COMPONENT_LIBRARIES_GROUP "Runtime")
-  set(CPACK_COMPONENT_HEADERS_GROUP "Development")
-
-  #set(CPACK_COMPONENT_GROUP_DEVELOPMENT_DESCRIPTION "All of the tools you'll ever need to develop software")
-
-  # Define NSIS installation types
-  set(CPACK_ALL_INSTALL_TYPES Full Developer)
-  set(CPACK_COMPONENT_APPLICATIONS_INSTALL_TYPES Full)
-  set(CPACK_COMPONENT_LIBRARIES_INSTALL_TYPES Developer Full)
-  set(CPACK_COMPONENT_HEADERS_INSTALL_TYPES Developer Full)
-
-else()
-  set(CPACK_GENERATOR ZIP)
-endif()
-
-# Must be after the last CPACK macros
-include(CPack)

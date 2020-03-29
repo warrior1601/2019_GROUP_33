@@ -243,7 +243,7 @@ void MainWindow::on_Horizontal_Shift_valueChanged(int arg1)
 void MainWindow::on_actionOpen_triggered()
 {
     ui->statusBar->showMessage("Open Action Triggered",3000);
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), "../../example_models",
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), "../../../example_models",
                                                     tr("STL Files(*.stl);;Text files (*.txt);;MOD Files(*.mod)"));
     std::string FilePath = fileName.toUtf8().constData();
     std::ifstream myFile(FilePath);
