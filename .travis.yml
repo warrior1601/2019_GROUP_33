@@ -32,16 +32,16 @@ addons:
       - doxygen
       - graphviz
       - g++-7
-      - cmake
 
 # Build your code
 script:
   - export CXX=/usr/bin/g++-7
   - mkdir build
   - cd build
-  - cmake ../model
+  - cmake ..
   - make
-  - make test
+  - cd model
+  - ctest
 
 # After successfully building and testing your software we give Doxygen the
 # instruction to scan the code for docstrings and generate the html output.
