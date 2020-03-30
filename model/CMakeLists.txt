@@ -1,5 +1,5 @@
 # This CMakeList file will create the Model library and its test code and CTests
-cmake_minimum_required( VERSION 3.17.0 )
+cmake_minimum_required( VERSION 3.9.2 )
 
 # The name of the project and its curent version
 project( Model VERSION 4.2.3 )

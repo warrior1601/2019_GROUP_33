@@ -1,5 +1,5 @@
 # # This CMakeList file will create the Observer executable
-cmake_minimum_required( VERSION 3.17.0 )
+cmake_minimum_required( VERSION 3.9.2 )
 
 foreach(p
     CMP0071 # 3.10: Let AUTOMOC and AUTOUIC process GENERATED files
