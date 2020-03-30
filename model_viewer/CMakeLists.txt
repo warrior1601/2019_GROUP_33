@@ -37,12 +37,12 @@ qt5_wrap_ui( UI_Srcs ${UIS} )
 
 # Define the executable output and its sources
 add_executable( Observer MACOSX_BUNDLE
-				source/main.cpp
-				source/mainwindow.cpp	include/mainwindow.h	source/mainwindow.ui
-				source/edit_light.cpp 	include/edit_light.h 	source/edit_light.ui
-				source/filters.cpp 	include/filters.h 		source/filters.ui
-				source/vtklight_withname.cpp include/vtklight_withname.h
-				images/Images.qrc
+		source/main.cpp
+		source/mainwindow.cpp		include/mainwindow.h		source/mainwindow.ui
+		source/edit_light.cpp 		include/edit_light.h 		source/edit_light.ui
+		source/filters.cpp 		include/filters.h 		source/filters.ui
+		source/vtklight_withname.cpp 	include/vtklight_withname.h
+		images/Images.qrc
 )
 
 # Tell CMake that the executable depends on library built in SEMESTER 1
@@ -55,8 +55,7 @@ target_link_libraries( Observer Qt5::Widgets )
 target_link_libraries( Observer ${VTK_LIBRARIES} )
 
 # Copying image files, used by Observer, to build directory
-ADD_CUSTOM_COMMAND(TARGET Observer POST_BUILD
-                   COMMAND ${CMAKE_COMMAND} -E copy_directory
-                       ${CMAKE_CURRENT_SOURCE_DIR}/images
-                       ${CMAKE_CURRENT_SOURCE_DIR}/../build/model_viewer/images
+ADD_CUSTOM_COMMAND( TARGET Observer POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory
+                    ${CMAKE_CURRENT_SOURCE_DIR}/images
+                    ${CMAKE_CURRENT_SOURCE_DIR}/../build/model_viewer/images
 )
