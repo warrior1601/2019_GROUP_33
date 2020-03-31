@@ -58,5 +58,4 @@ target_link_libraries( Observer ${VTK_LIBRARIES} )
 ADD_CUSTOM_COMMAND( TARGET Observer POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory
                     ${CMAKE_CURRENT_SOURCE_DIR}/images
                     ${CMAKE_CURRENT_SOURCE_DIR}/../build/model_viewer/images
-
 )
