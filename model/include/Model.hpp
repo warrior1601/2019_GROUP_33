@@ -39,11 +39,11 @@ public:
     //Constructors and Destructor
     /** @brief Copy constructor
      */
-    Model(const Model& aModel);
+/**/    Model(const Model& aModel);
 
     /** @brief Blank constructor (empty)
      */
-    Model(void);
+/**/    Model(void);
 
     /** @brief Blank destructor (empty)
      */
@@ -64,63 +64,66 @@ public:
     /** @brief Overwrites the member variables of the model calling the function
      *  with the values of aModel member variables
      */
-    Model& operator= (const Model& aModel);
+/**/    Model& operator= (const Model& aModel);
 
+    /** @brief Returns true if they are equal
+     */
+/**/    bool operator== ( Model& aModel);
 
 
     //Set functions
     /** @brief Sets the material list of the model
      */
-    void Set_Materials(const std::vector<Material>& someMaterials);
+/**/    void Set_Materials(const std::vector<Material>& someMaterials);
 
     /** @brief Sets the vectors list of the model
      */
-    void Set_Vectors(const std::vector<Vectors>& someVectors);
+/**/    void Set_Vectors(const std::vector<Vectors>& someVectors);
 
     /** @brief Sets the cell list of the model
      */
-    void Set_Cells(const std::vector<Cell*>& someCells);
+/**/    void Set_Cells(const std::vector<Cell*>& someCells);
 
     /** @brief Sets the cell order list of the model
      */
-    void Set_Cell_Order(const std::string& someCellOrder);
+/**/    void Set_Cell_Order(const std::string& someCellOrder);
 
 
     //Get functions
     /** @brief Returns the material list of the model
      */
-    std::vector<Material> Get_Materials(void);
+/**/    std::vector<Material> Get_Materials(void);
 
     /** @brief Returns the vectors list of the model
      */
-    std::vector<Vectors> Get_Vectors(void);
+/**/    std::vector<Vectors> Get_Vectors(void);
 
     /** @brief Returns the cell list of the model
      */
-    std::vector<Cell*> Get_Cells(void);
+/**/    std::vector<Cell*> Get_Cells(void);
 
     /** @brief Returns the cell order list of the model
      */
-    std::string Get_Cell_Order(void);
+/**/    std::string Get_Cell_Order(void);
 
 
 
     //Model specific functions
     /** @brief Loads a model from a proprietary file format. See detailed description for more info
      */
-    void Load_Model(const std::string& FilePath);
+/**/    void Load_Model(const std::string& FilePath);
 
     /** @brief Save a model to a c. See detailed description for more info
      */
-    void Save_Model(const std::string& FilePath);
+/**/    void Save_Model(const std::string& FilePath);
 
     /** @brief Returns the volume of the model by summing all the volumes of all the Cell(s) in the model
      */
-    double Get_Volume(void);
+/**/    double Get_Volume(void);
 
     /** @brief Returns the weight of the model by summing all the weights of all the Cell(s) in the model
      */
-    double Get_Weight(void);
+/**/    double Get_Weight(void);
 
     /** @brief Returns a vectors containing the centre of gravity of model
      *  @details First it finds all centre of gravities of all cells and their corresponding weight. Then it takes two centre of gravities and
@@ -128,17 +131,17 @@ public:
      *  'balance' the weights. The position of the fulcrum will be the new centre of gravity and its weight is the combination of
      *  the two weights. This process is repeated until only one centre of gravity is left.
      */
-    Vectors Get_Centre_Of_Gravity(void);
+/**/    Vectors Get_Centre_Of_Gravity(void);
 
     /** @brief Returns a vectors containing the geometric centre by finding the most negative x,y,z co-ordinates
      *  and the most positive x,y,z co-ordinates and finding the midpoint
      */
-    Vectors Get_Geometric_Centre(void);
+/**/    Vectors Get_Geometric_Centre(void);
 
     /** @brief Returns a vectors containing the overall dimensions by finding the most negative x,y,z co-ordinates
      *  and the most postive x,y,z co-ordinates and finding the difference
      */
-    Vectors Get_Overall_Dimensions(void);
+/**/    Vectors Get_Overall_Dimensions(void);
 
     /** @brief Translates all vertices of all cells such that it appears that the model has been rotated by Rotation_In_Degrees
      *  amount of degrees around the Axis_Of_Rotation about the point Centre_Of_Rotation.

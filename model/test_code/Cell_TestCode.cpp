@@ -209,9 +209,11 @@ int main()
 
     std::cout << "------------------------------Tetrahedron Test Code------------------------------" << std::endl;
 
+    unsigned int Error_Tetrahedron = 0;
+
     Tetrahedron Empty_Tetra;
     if (Testing(Empty_Tetra, Empty_To_Compare_to) == 1 )
-        Error = 1;
+        Error_Tetrahedron = 1;
 
     // Now to test a fully constructed Cell
     Vectors iVectors( 0.0,  0.0,  0.0);
@@ -230,16 +232,16 @@ int main()
     else
     {
         std::cout << "Tetrahedron Not Set With Constructor Properly" << std::endl;
-        Error = 1;
+        Error_Tetrahedron = 1;
         Testing_For_Error = 0;
     }
 
     Vectors Center_Of_Gold_Nugget(1.4, 0.675, -0.62);
     if (Testing(Gold_Nugget, 5.6625, 109286.25, Center_Of_Gold_Nugget) == 1)
-        Error = 1;
+        Error_Tetrahedron = 1;
 
     std::cout << "************************" << std::endl;
-    if (Error == 0 )
+    if (Error_Tetrahedron == 0 )
         std::cout << "Tetrahedron Test: Successful" << std::endl;
     else
         std::cout << "Tetrahedron Test: Failure" << std::endl;
@@ -247,9 +249,11 @@ int main()
 
     std::cout << "------------------------------Pyramid Test Code------------------------------" << std::endl;
 
+    unsigned int Error_Pyramid = 0;
+
     Pyramid Empty_Pryamid;
     if (Testing(Empty_Pryamid, Empty_To_Compare_to) == 1)
-        Error = 1;
+        Error_Pyramid = 1;
 
     Vectors mVectors(-5.0,-5.0, 0.0);
     Vectors nVectors( 5.0,-5.0, 0.0);
@@ -268,15 +272,15 @@ int main()
      else
      {
          std::cout << "Pyramid Not Set With Constructor Properly" << std::endl;
-         Error = 1;
+         Error_Pyramid = 1;
          Testing_For_Error = 0;
      }
     Vectors Center_Of_The_Tomb(0.0, 0.0, 1.25);
     if (Testing(Here_Lays_A_Pharaoh, (500.0/3.0) , ((500.0/3.0)*(2711.0)) , Center_Of_The_Tomb) == 1)
-        Error = 1;
+        Error_Pyramid = 1;
 
     std::cout << "************************" << std::endl;
-    if (Error == 0 )
+    if (Error_Pyramid == 0 )
         std::cout << "Pyramid Test: Successful" << std::endl;
     else
         std::cout << "Pyramid Test: Failure" << std::endl;
@@ -284,9 +288,11 @@ int main()
 
      std::cout << "------------------------------Hexahedron Test Code------------------------------" << std::endl;
 
+     unsigned int Error_Hexahedron = 0;
+
      Hexahedron Empty_Hexahedron;
      if (Testing(Empty_Hexahedron, Empty_To_Compare_to) == 1)
-        Error = 1;
+        Error_Hexahedron = 1;
 
      Vectors rVectors(-1.5,-2.5,-1.5);
      Vectors sVectors( 1.5,-2.5,-1.5);
@@ -310,23 +316,23 @@ int main()
      else
      {
          std::cout << "Hexahedron Not Set With Constructor Properly" << std::endl;
-         Error = 1;
+         Error_Hexahedron = 1;
          Testing_For_Error = 0;
      }
 
      Vectors Center_Of_The_Diamond(0.0, 0.0, (2.0/3.0) );
      if (Testing(Dimaond_Stone, 80.0, 281120.0, Center_Of_The_Diamond) == 1)
-         Error = 1;
+         Error_Hexahedron = 1;
 
      std::cout << "************************" << std::endl;
-     if (Error == 0 )
+     if (Error_Hexahedron == 0 )
          std::cout << "Hexahedron Test: Successful" << std::endl;
      else
          std::cout << "Hexahedron Test: Failure" << std::endl;
      std::cout << "************************" << std::endl;
 
     std::cout << "************************" << std::endl;
-    if (Error == 0 )
+    if ( (Error == 0 )&&(Error_Tetrahedron == 0)&&(Error_Pyramid == 0)&&(Error_Hexahedron == 0) )
         std::cout << "End of Test: Successful" << std::endl;
     else
         std::cout << "End of Test: Failure" << std::endl;

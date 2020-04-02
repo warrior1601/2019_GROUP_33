@@ -33,4 +33,10 @@ double Relative_Difference (double aValue, double bValue);
  */
 unsigned int Testing (double aValue, double bValue);
 
+/**
+ * @brief Calculates the machines _DBL_EPSILON_ value
+ * @returns The minimum value that seperates two doubles on a given machine
+ */
+double Calc_DBL_EPSILON_For_Machine(void);
+
 #endif // DOUBLE_EQUALITY_FUNCTION_H

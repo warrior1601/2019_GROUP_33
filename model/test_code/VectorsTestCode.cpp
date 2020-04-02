@@ -211,7 +211,7 @@ int main()
     Vectors Example_Model_2_Vector_4 (0.00195, 0.00115, -0.00121429);
     Vectors Example_Model_2_Vector_19 (0.00295, 0.00215, -0.00935714);
     Test_9 = Example_Model_2_Vector_4 * Example_Model_2_Vector_19;
-    Testing_For_Error = Testing(Test_9, -8.1499875e-6, 1.46642675e-5 , 0.0000008);
+    Testing_For_Error = Testing(Test_9, -8.1499875e-6, 1.46642675e-5 , 0.00000080);
 
     if (Testing_For_Error == 0 )
         std::cout << "Cross Product Function Works Properly" << std::endl;

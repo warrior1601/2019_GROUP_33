@@ -123,7 +123,7 @@ public:
     Vectors operator*(const Vectors& Multiply);
 
     /**
-     * @brief Returns true if their is equality
+     * @brief Returns true if there is equality
      */
     bool operator==(const Vectors& IsEqual);
 

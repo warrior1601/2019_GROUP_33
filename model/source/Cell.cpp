@@ -54,35 +54,35 @@ Cell& Cell::operator = (const Cell& aCell)
 
 bool Cell::operator == (Cell& aCell)
 {
-    if (!(theMaterial == aCell.Get_Material() ) )
-       return false;
-    if (Vertices.size() == aCell.Get_Vertices().size() )
-       {
-         for (unsigned int i = 0 ; i < Vertices.size() ; i++)
-            {
-             if (Vertices[i] == aCell.Get_Vertices()[i])
-                {}
-             else
-                {return false;}
-            }
-       }
-    else
+    if (theMaterial == aCell.Get_Material() )
     {
-      return false;
-    }
-
-    if (this->VerticesOrder.size() == aCell.Get_Vertices_Order().size() )
-       {
-        for (unsigned int i = 0 ; i < VerticesOrder.size() ; i++)
+        if (Vertices.size() == aCell.Get_Vertices().size() )
+        {
+            if (VerticesOrder.size() == aCell.Get_Vertices_Order().size() )
             {
-             if (this->VerticesOrder[i] == aCell.Get_Vertices_Order()[i])
-                {}
-             else
-                {return false;}
+                for (unsigned int i = 0 ; i < Vertices.size() ; i++)
+                   {
+                    if (Vertices[i] == aCell.Get_Vertices()[i])
+                       {}
+                    else
+                       return false;
+                   }
+                for (unsigned int i = 0 ; i < VerticesOrder.size() ; i++)
+                    {
+                     if (VerticesOrder[i] == aCell.Get_Vertices_Order()[i])
+                        {}
+                     else
+                        return false;
+                    }
             }
-       }
+            else
+                return false;
+        }
+        else
+            return false;
+    }
     else
-       {return false;}
+        return false;
  return true;
 }
 
