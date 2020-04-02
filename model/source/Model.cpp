@@ -94,44 +94,36 @@ bool Model::operator== (Model& aModel)
                 {
                    for (unsigned int i = 0; i < Get_Materials().size() ; i++)
                    {
-                       if (Get_Materials()[i] == aModel.Get_Materials()[i])
-                       {}
-                       else
-                           {return false;}
+                       if (!(Get_Materials()[i] == aModel.Get_Materials()[i]))
+                           return false;
                    }
                    for (unsigned int j = 0; j < Get_Vectors().size() ; j++)
                    {
-                       if (Get_Vectors()[j] == aModel.Get_Vectors()[j])
-                       {}
-                       else
-                           {return false;}
+                       if (!(Get_Vectors()[j] == aModel.Get_Vectors()[j]))
+                           return false;
                    }
                    for (unsigned int k = 0; k < Get_Cells().size() ; k++)
                    {
-                       if (*Get_Cells()[k] == *aModel.Get_Cells()[k])
-                       {}
-                       else
-                           {return false;}
+                       if (!(*Get_Cells()[k] == *aModel.Get_Cells()[k]))
+                           return false;
                    }
                    for (unsigned int l = 0; l < Get_Cell_Order().size() ; l++)
                    {
-                       if (Get_Cell_Order()[l] == aModel.Get_Cell_Order()[l])
-                       {}
-                       else
-                           {return false;}
+                       if (!(Get_Cell_Order()[l] == aModel.Get_Cell_Order()[l]))
+                           return false;
                    }
                 }
                 else
-                {return false;}
+                return false;
             }
             else
-                {return false;}
+                return false;
         }
         else
-            {return false;}
+            return false;
     }
     else
-        {return false;}
+        return false;
     return true;
 }
 
