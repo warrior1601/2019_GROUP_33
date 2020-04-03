@@ -222,46 +222,42 @@ unsigned int Testing(C aCell, D aVolume, D aWeight, V aVectors_Center_of_Cell)
 
 //-------------------Matrix3x3 Required Code-------------------//
 
-template <class M class D>
-
+template <class M, class D>
+/**
+ * @brief Testing determins if te Matrix3x3 values were set correctly
+ * @returns a 0 if the test is successful
+ */
 unsigned int Testing(M aMatrix3x3, D One, D Two, D Three, D Four, D Five, D Six, D Seven, D Eight, D Nine)
 {
-    if (!(Testing(aMatrix3x3.Get_Matrix_Data_1, One)))
-        if (!(Testing(aMatrix3x3.Get_Matrix_Data_2, Two)))
-            if (!(Testing(aMatrix3x3.Get_Matrix_Data_3, Three)))
-                if (!(Testing(aMatrix3x3.Get_Matrix_Data_4, Four)))
-                    if (!(Testing(aMatrix3x3.Get_Matrix_Data_5, Five)))
-                        if (!(Testing(aMatrix3x3.Get_Matrix_Data_6, Six)))
-                            if (!(Testing(aMatrix3x3.Get_Matrix_Data_7, Seven)))
-                                if (!(Testing(aMatrix3x3.Get_Matrix_Data_8, Eight)))
-                                    if (!(Testing(aMatrix3x3.Get_Matrix_Data_9, Nine)))
-                                        else
-                                        return 1;
+    if (!(Testing(aMatrix3x3.Get_Matrix_Data_1(), One)))
+        if (!(Testing(aMatrix3x3.Get_Matrix_Data_2(), Two)))
+            if (!(Testing(aMatrix3x3.Get_Matrix_Data_3(), Three)))
+                if (!(Testing(aMatrix3x3.Get_Matrix_Data_4(), Four)))
+                    if (!(Testing(aMatrix3x3.Get_Matrix_Data_5(), Five)))
+                        if (!(Testing(aMatrix3x3.Get_Matrix_Data_6(), Six)))
+                            if (!(Testing(aMatrix3x3.Get_Matrix_Data_7(), Seven)))
+                                if (!(Testing(aMatrix3x3.Get_Matrix_Data_8(), Eight)))
+                                    if (!(Testing(aMatrix3x3.Get_Matrix_Data_9(), Nine)))
+                                        return 0;
                                     else
-                                    return 1;
+                                        return 1;
                                 else
-                                return 1;
+                                    return 1;
                             else
-                            return 1;
+                                return 1;
                         else
-                        return 1;
+                            return 1;
                     else
-                    return 1;
+                        return 1;
                 else
-                return 1;
+                    return 1;
             else
-            return 1;
+                return 1;
         else
+            return 1;
+    else
         return 1;
-    return 0;
-
-
 }
-
-
-
-
-
 
 //-------------------Model Required Code-------------------//
 
