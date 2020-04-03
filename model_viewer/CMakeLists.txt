@@ -31,21 +31,14 @@ include( ${VTK_USE_FILE} )
 include_directories( include )
 include_directories( ../model/include )
 
-add_library( Observer_Model_Library 	../model/source/Model.cpp;
-			../model/source/Cell.cpp;
-			../model/source/Matrix.cpp;
-			../model/source/Vectors.cpp;
-			../model/source/Material.cpp;
-			../model/include/Model.hpp;
-			../model/include/Cell.hpp;
-			../model/include/Matrix.hpp;
-			../model/include/Vectors.h;
-			../model/include/Material.h;
-			../model/source/double_equality_function.cpp;
-			../model/include/double_equality_function.h;
-	           	../model/include/Testing_File_Functions.h; )
-
-
+add_library( Observer_Model_Library	../model/source/Material.cpp;  			../model/include/Material.h;
+                    			../model/source/Vectors.cpp;   			../model/include/Vectors.h;
+                    			../model/source/Matrix.cpp;    			../model/include/Matrix.hpp;
+                    			../model/source/Cell.cpp;      			../model/include/Cell.hpp;
+                    			../model/source/Model.cpp;     			../model/include/Model.hpp;
+					../model/source/double_equality_function.cpp;	../model/include/double_equality_function.h;
+	                              							../model/include/Testing_File_Functions.h;
+)
 
 set( UIS mainwindow.ui )
 qt5_wrap_ui( UI_Srcs ${UIS} )
