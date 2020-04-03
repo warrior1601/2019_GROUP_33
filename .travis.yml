@@ -1,0 +1,52 @@
+# .travis.yml
+# Modified travis script that generates and submits doxygen documentation
+os: linux
+dist: trusty
+language: cpp
+
+# Chose which branches to build or not build
+branches:
+  except:
+    - gh-pages
+    - RefreshedMoose/2019_GROUP_33
+    - wagosme/2019_GROUP_33
+    - Ambelc/2019_GROUP_33
+
+# Modify these variables that will be used in generateDocumentationAndDep.sh
+# (see below). They tell Doxygen where to find the source on and were to send
+# the generated Documentation
+env:
+  global:
+    - GH_REPO_NAME: 2019_GROUP_33
+    - DOXYFILE: $TRAVIS_BUILD_DIR/Doxyfile
+    - GH_REPO_REF: github.com/warrior1601/2019_GROUP_33.git
+
+# The virtual machines created by Travis do not by default have doxygen
+# installed. This is fortunately not difficult on a Debian flavoured Linux
+# system.
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - doxygen
+      - graphviz
+      - g++-7
+
+# Build your code
+script:
+  - export CXX=/usr/bin/g++-7
+  - mkdir build
+  - cd build
+  - cmake ..
+  - make
+  - cd model
+  - ctest
+
+# After successfully building and testing your software we give Doxygen the
+# instruction to scan the code for docstrings and generate the html output.
+# The bulk of these instructions is encapsulated in a script.
+after_success:
+  - cd $TRAVIS_BUILD_DIR
+  - chmod +x generateDocumentationAndDeploy.sh
+  - ./generateDocumentationAndDeploy.sh
