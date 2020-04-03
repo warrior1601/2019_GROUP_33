@@ -66,6 +66,9 @@ public:
      */
     Model& operator= (const Model& aModel);
 
+    /** @brief Returns true if they are equal
+     */
+    bool operator== ( Model& aModel);
 
 
     //Set functions

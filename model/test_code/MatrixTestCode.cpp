@@ -15,7 +15,11 @@
 
 int main()
 {
+<<<<<<< HEAD
+        std::cout << "------------------------------Matrix.hpp Test Code------------------------------" << std::endl;
+=======
 	std::cout << "------------------------------Matrix.hpp Test Code------------------------------" << std::endl;
+>>>>>>> pr/43
 
     Matrix3x3 BlankMatrix;
     std::cout << "Blank constructor and cout\n" << BlankMatrix << std::endl;

@@ -82,7 +82,50 @@ Model& Model::operator = (const Model& aModel)
     }
 }
 
-
+bool Model::operator== (Model& aModel)
+{
+    if (Get_Materials().size() == aModel.Get_Materials().size() )
+    {
+        if (Get_Vectors().size() == aModel.Get_Vectors().size() )
+        {
+            if (Get_Cells().size() == aModel.Get_Cells().size() )
+            {
+                if (Get_Cell_Order().size() == aModel.Get_Cell_Order().size() )
+                {
+                   for (unsigned int i = 0; i < Get_Materials().size() ; i++)
+                   {
+                       if (!(Get_Materials()[i] == aModel.Get_Materials()[i]))
+                           return false;
+                   }
+                   for (unsigned int j = 0; j < Get_Vectors().size() ; j++)
+                   {
+                       if (!(Get_Vectors()[j] == aModel.Get_Vectors()[j]))
+                           return false;
+                   }
+                   for (unsigned int k = 0; k < Get_Cells().size() ; k++)
+                   {
+                       if (!(*Get_Cells()[k] == *aModel.Get_Cells()[k]))
+                           return false;
+                   }
+                   for (unsigned int l = 0; l < Get_Cell_Order().size() ; l++)
+                   {
+                       if (!(Get_Cell_Order()[l] == aModel.Get_Cell_Order()[l]))
+                           return false;
+                   }
+                }
+                else
+                return false;
+            }
+            else
+                return false;
+        }
+        else
+            return false;
+    }
+    else
+        return false;
+    return true;
+}
 
 
 
@@ -719,6 +762,7 @@ void Model::Load_Model(const std::string& FilePath)
 void Model::Save_Model(const std::string& FilePath)
 {
     std::ofstream myFile (FilePath);
+    myFile << std::fixed;
 
     if (myFile.is_open()) //Check if file has been opened sucessfully, if so returns true
     {
@@ -746,7 +790,12 @@ void Model::Save_Model(const std::string& FilePath)
             myFile << manyCells[i]->Get_Material().GetID() << " ";
 
             for (unsigned int j = 0; j < manyCells[i]->Get_Vertices_Order().size(); j++)
-                myFile << manyCells[i]->Get_Vertices_Order()[j] << " ";
+            {
+                myFile << manyCells[i]->Get_Vertices_Order()[j];
+                  if (j != manyCells[i]->Get_Vertices_Order().size() -1 )
+                      myFile << " ";
+            }
+
 
             myFile << std::endl;
         }
@@ -773,11 +822,10 @@ double Model::Get_Volume(void)
 
 double Model::Get_Weight(void)
 {
-    double totalWeight = 0;
+    double totalWeight = 0.0;
 
     for (unsigned int i = 0; i < manyCells.size(); i++)
         totalWeight += manyCells[i]->Get_Weight();
-
     return totalWeight;
 }
 
@@ -907,7 +955,6 @@ std::vector<int> Model::Get_Vectors_Being_Used(void)
                 VectorsBeingUsed.push_back(currentVectorsID);
         }
     }
-
     return VectorsBeingUsed;
 }
 
@@ -917,6 +964,7 @@ std::vector<Vectors> Model::Get_Min_Max(void)
     //or in other words the most positive and most negative co-ordinates of the model
 
 	std::vector<int> VectorsBeingUsed = Get_Vectors_Being_Used();
+
 	Vectors Minimum = manyVectors[VectorsBeingUsed[0]];
 	Vectors Maximum = manyVectors[VectorsBeingUsed[0]];
 

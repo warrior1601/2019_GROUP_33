@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include "Material.h"
+#include "double_equality_function.h"
 
 //-------------Constructors and Destructor------------//
 Material::Material()
@@ -103,6 +104,27 @@ std::string Material::GetName()
     return (Name);
 }
 
+//-----Operator Overload Functions-----//
+bool Material::operator==(const Material& aMaterial)
+{
+    unsigned int Status = 0;
+
+    if(this->ID != aMaterial.ID)
+        Status++;
+    if(Testing(Density, aMaterial.Density ) )
+        Status++;
+    if(this->Colour.compare(0, this->Colour.size(), aMaterial.Colour ) != 0)
+        Status++;
+    if(this->Name.compare(0, this->Name.size(), aMaterial.Name ) != 0)
+        Status++;
+
+    if (Status==0)
+        return true;
+    else
+    {
+       return false;
+    }
+}
 
 
 //-----------Friend Functions----------//

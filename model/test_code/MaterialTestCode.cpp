@@ -1,4 +1,3 @@
-//
 //  MaterialTestCode.cpp
 //  Computing Project
 //
@@ -6,57 +5,99 @@
 //  This File contains a suitable test for all functions declared
 //  in the "Material.h" header file. The correct way to implement
 //  the functions is demonstrated in this test file.
-//
 
 #include <iostream>
 #include "Material.h"
+#include "Testing_File_Functions.h"
 
 int main()
 {
-    std::cout << "Testing Blank Constructor" << std::endl;
+    unsigned int Testing_For_Error = 0;
+    unsigned int Error = 0;
+
+
     Material test;
-    std::cout << test << std::endl;
+    Testing_For_Error = Testing(test, 0, 0.0, "N/A", "N/A");
 
-    std::cout << "Testing ID Only Constructor" << std::endl;
+    if (Testing_For_Error == 0 )
+        std::cout << "Blank Constructor and Get Functions Work properly" << std::endl;
+    else
+    {
+        std::cout << "Blank Constructor and Get Functions Do Not Working Properly" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
+    }
+
     Material test_2(1);
-    std::cout << test_2 << std::endl;
+    Testing_For_Error = Testing(test_2, 1, 0.0, "N/A", "N/A");
 
-    std::cout << "Testing ID and Density Constructor" << std::endl;
+    if (Testing_For_Error == 0 )
+        std::cout << "ID Constructor Works properly" << std::endl;
+    else
+    {
+        std::cout << "ID Constructor Does Not Working Properly" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
+    }
+
     Material test_3(2,78.36);
-    std::cout << test_3 << std::endl;
+    Testing_For_Error = Testing(test_3, 2, 78.36, "N/A", "N/A");
 
-    std::cout << "Testing ID, Density, and Colour Constructor" << std::endl;
+    if (Testing_For_Error == 0 )
+        std::cout << "ID/Density Constructor Works properly" << std::endl;
+    else
+    {
+        std::cout << "ID/Density Constructor Does Not Working Properly" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
+    }
+
     Material test_4(3, 95.63, "FFAAFF");
-    std::cout << test_4 << std::endl;
+    Testing_For_Error = Testing(test_4, 3, 95.63, "FFAAFF", "N/A");
 
-    std::cout << "Testing ID, Density, Colour, and Name Constructor" << std::endl;
-    Material test_5(3, 8960, "b87373", "Copper");
-    std::cout << test_5 << std::endl;
+    if (Testing_For_Error == 0 )
+        std::cout << "ID/Density/Colour Constructor Works properly" << std::endl;
+    else
+    {
+        std::cout << "ID/Density/Colour Constructor Does Not Working Properly" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
+    }
 
-    std::cout << "Testing Set Functions" << std::endl;
-    test.SetID(4);
+    Material test_5(4, 8960, "b87373", "Copper");
+    Testing_For_Error = Testing(test_5, 4, 8960., "b87373", "Copper");
+
+    if (Testing_For_Error == 0 )
+        std::cout << "ID/Density/Colour/Name Constructor Works properly" << std::endl;
+    else
+    {
+        std::cout << "ID/Density/Colour/Name Constructor Does Not Working Properly" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
+    }
+
+    test.SetID(5);
     test.SetDensity(7654);
     test.SetColour("B7C4AA");
     test.SetName("Gold");
-    std::cout << test << std::endl;
 
-    int ID = 0;
-    double Density = 0;
-    std::string Colour = "N/A";
-    std::string Name = "N/A";
+    Testing_For_Error = Testing(test, 5, 7654., "B7C4AA", "Gold");
 
-    std::cout << "Testing Get Functions" << std::endl;
-    std::cout << "Variables are : " << std::endl;
-    std::cout << "ID = " << ID << " Density = " << Density << " Colour = " << Colour << " Name = " << Name << std::endl << std::endl;
-    std::cout << "Get Functions Pull From Material with Members:" << std::endl;
-    std::cout << test << std::endl;
+    if (Testing_For_Error == 0 )
+        std::cout << "Set Functions Works properly" << std::endl;
+    else
+    {
+        std::cout << "Set Functions Do Not Working Properly" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
+    }
 
-    ID = test.GetID();
-    Density = test.GetDensity();
-    Colour = test.GetColour();
-    Name = test.GetName();
-    std::cout << "After Get Functions Variable are : "  << std::endl;
-    std::cout << "ID = " << ID << " Density = " << Density << " Colour = " << Colour << " Name = " << Name << std::endl;
+    std::cout << "************************" << std::endl;
+    if (Error == 0 )
+        std::cout << "End of Test: Successful" << std::endl;
+    else
+        std::cout << "End of Test: Failure" << std::endl;
+    std::cout << "************************" << std::endl;
 
-    return 0;
+    return (Error == 0) ? 0 : 1;
 }

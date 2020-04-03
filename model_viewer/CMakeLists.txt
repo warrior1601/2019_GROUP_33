@@ -31,7 +31,24 @@ include( ${VTK_USE_FILE} )
 include_directories( include )
 include_directories( ../model/include )
 
+<<<<<<< HEAD
+add_library( Model 	../model/source/Model.cpp; 
+			../model/source/Cell.cpp; 
+			../model/source/Matrix.cpp; 
+			../model/source/Vectors.cpp; 
+			../model/source/Material.cpp; 
+			../model/include/Model.hpp; 
+			../model/include/Cell.hpp; 
+			../model/include/Matrix.hpp; 
+			../model/include/Vectors.h; 
+			../model/include/Material.h;
+			../model/source/double_equality_function.cpp;	
+			../model/include/double_equality_function.h;
+	           	../model/include/Testing_File_Functions.h; )
+
+=======
 # No idea
+>>>>>>> pr/43
 set( UIS mainwindow.ui )
 qt5_wrap_ui( UI_Srcs ${UIS} )
 
@@ -59,3 +76,67 @@ ADD_CUSTOM_COMMAND( TARGET Observer POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_
                     ${CMAKE_CURRENT_SOURCE_DIR}/images
                     ${CMAKE_CURRENT_SOURCE_DIR}/../build/model_viewer/images
 )
+<<<<<<< HEAD
+
+#install(
+#        TARGETS ${VTK_LIBRARIES}/vtkChartsCore-8.2
+#        ARCHIVE
+#        DESTINATION lib
+#        COMPONENT libraries
+#)
+
+install(
+        TARGETS model_viewer
+        RUNTIME
+        DESTINATION bin
+        COMPONENT applications
+)
+
+install(
+        FILES  ../model/include/Model.hpp; ../model/include/Cell.hpp; ../model/include/Matrix.hpp; ../model/include/Vectors.h; ../model/include/Material.h; include/mainwindow.h; include/edit_light.h; include/filters.h; include/vtklight_withname.h
+        DESTINATION include
+        COMPONENT headers
+)
+
+# CPACK macros below here
+
+set (CPACK_PACKAGE_NAME "Model Viewer")
+set (CPACK_PACKAGE_VENDOR "Group 33")
+set (CPACK_PACKAGE_DESCRIPTION_SUMMARY "Model Viewer Installation")
+set (CPACK_PACKAGE_VERSION "1.0.0")
+set (CPACK_PACKAGE_VERSION_MAJOR "1")
+set (CPACK_PACKAGE_VERSION_MINOR "0")
+set (CPACK_PACKAGE_VERSION_PATCH "0")
+set (CPACK_PACKAGE_INSTALL_DIRECTORY "Model Viewer")
+
+# Define components and their display names
+set (CPACK_COMPONENTS_ALL applications libraries headers)
+set (CPACK_COMPONENT_APPLICATIONS_DISPLAY_NAME "Applications")
+set (CPACK_COMPONENT_LIBRARIES_DISPLAY_NAME "Libraries")
+set (CPACK_COMPONENT_HEADERS_DISPLAY_NAME "Headers")
+
+# Human readable component descriptions
+set (CPACK_COMPONENT_APPLICATIONS_DESCRIPTION "An extremely useful application that makes use of Model Viewer libraries")
+set (CPACK_COMPONENT_LIBRARIES_DESCRIPTION "Static libraries used to build programs with Model Viewer")
+set (CPACK_COMPONENT_HEADERS_DESCRIPTION "C/C++ header files for use with Model Viewer")
+
+# Define dependencies between components
+set (CPACK_COMPONENT_HEADERS_DEPENDS libraries)
+
+# Define groups
+set(CPACK_COMPONENT_APPLICATIONS_GROUP "Runtime")
+set(CPACK_COMPONENT_LIBRARIES_GROUP "Runtime")
+set(CPACK_COMPONENT_HEADERS_GROUP "Development")
+
+#set(CPACK_COMPONENT_GROUP_DEVELOPMENT_DESCRIPTION "All of the tools you'll ever need to develop software")
+
+# Define NSIS installation types
+set(CPACK_ALL_INSTALL_TYPES Full Developer)
+set(CPACK_COMPONENT_APPLICATIONS_INSTALL_TYPES Full)
+set(CPACK_COMPONENT_LIBRARIES_INSTALL_TYPES Developer Full)
+set(CPACK_COMPONENT_HEADERS_INSTALL_TYPES Developer Full)
+
+# Must be after the last CPACK macros
+include(CPack)
+=======
+>>>>>>> pr/43

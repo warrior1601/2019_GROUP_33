@@ -121,6 +121,11 @@ public:
      */
     Vectors operator*(const Vectors& Multiply);
 
+    /**
+     * @brief Returns true if there is equality
+     */
+    bool operator==(const Vectors& IsEqual);
+
 
 
 //-------Special Member Functions------//
