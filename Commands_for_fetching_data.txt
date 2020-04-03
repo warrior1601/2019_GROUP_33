@@ -1,6 +1,0 @@
-*******Setup***********
-git remote add upstream https://github.com/Ambelc/2019_GROUP_33.git
-******Commands*********
-
-git fetch upstream master
-git merge upstream/master
