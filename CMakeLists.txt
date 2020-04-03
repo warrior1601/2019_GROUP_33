@@ -12,7 +12,7 @@ set( BUILD_OBSERVER 		FALSE )
 set( BUILD_INSTALLERS		FALSE )
 
 # All booleans require the model library
-if ( ${BUILD_MODEL_TEST_CODE} OR ${BUILD_OBSERVER} OR ${BUILD_INSTALLERS} )
+if ( ${BUILD_MODEL_TEST_CODE} )
 	add_subdirectory ( model )
 endif()
 
@@ -43,14 +43,14 @@ if( ${BUILD_INSTALLERS} )
 			 COMPONENT applications
 		)
 
-		install( FILES  model/include/Model.hpp; 
-				model/include/Cell.hpp; 
-				model/include/Matrix.hpp; 
-				model/include/Vectors.h; 
-				model/include/Material.h; 
+		install( FILES  model/include/Model.hpp;
+				model/include/Cell.hpp;
+				model/include/Matrix.hpp;
+				model/include/Vectors.h;
+				model/include/Material.h;
 				model_viewer/include/mainwindow.h;
-				model_viewer/include/edit_light.h; 
-				model_viewer/include/filters.h; 
+				model_viewer/include/edit_light.h;
+				model_viewer/include/filters.h;
 				model_viewer/include/vtklight_withname.h
 			 DESTINATION include
 			 COMPONENT headers
