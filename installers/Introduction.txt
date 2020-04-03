@@ -1,2 +1,1 @@
-
-this is an intro file 
+Observer is a three dimensional .stl model viewer, with support for .txt/.mod using a proprietary file format

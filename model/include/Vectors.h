@@ -15,8 +15,7 @@
 #include <iostream>
 
 /** @class Vectors Vectors.h "Vectors.h"
- *  @brief The Vectors class represents a point in 3D space with private members
- *  of three floating point numbers - X_Coord, Y_Coord, and Z_Coord.
+ *  @brief A point in 3D space with private members of three floating point numbers - X_Coord, Y_Coord, and Z_Coord.
  *  @details The class has numerous operator overloads, including a vector/cross product
  *  overload as the operator*; ability to calculate the scalar product of two vectors; ability to calculate
  *  the magitude of a vectors; and ability to get the distance between two vectors.

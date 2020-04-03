@@ -1,8 +1,8 @@
-# This CMakeList file will create all the test code for model
-cmake_minimum_required( VERSION 2.8)
+# This CMakeList file will create the Model library and its test code and CTests
+cmake_minimum_required( VERSION 3.9.2 )
 
-# The name of the project
-project( model )
+# The name of the project and its curent version
+project( Model VERSION 4.2.3 )
 
 include ( CTest )
 
@@ -10,6 +10,7 @@ include ( CTest )
 include_directories( include )
 
 # Addition of the Libraries needs to have the required headers for each class that is included to ensure that the library is built correctly
+
 add_library( Model 	source/Material.cpp;  include/Material.h;
                     source/Vectors.cpp;   include/Vectors.h;
                     source/Matrix.cpp;    include/Matrix.hpp;
@@ -37,6 +38,9 @@ target_link_libraries( VectorsTestCode 	Model )
 target_link_libraries( MatrixTestCode 	Model )
 target_link_libraries( Cell_TestCode 	Model )
 target_link_libraries( Model_TestCode    Model )
+
+# Required for automating testing with TravisCI
+include ( CTest )
 
 # Create the CTests
 add_test( MaterialTestCode  MaterialTestCode )
