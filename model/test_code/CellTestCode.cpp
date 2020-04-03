@@ -1,205 +1,342 @@
 //
-//  CellTestCode.cpp
-//  Computing Project
-//
 //  Created by Junaid Afzal on 22/11/2019.
+//  Edited by Jedidiah Paterson on 24/03/2020
 //  Copyright © 2019 Junaid Afzal. All rights reserved.
 //
 //  This source files contains all the test code for
 //  the object the sub objects of Cell - Tetrahedron,
 //  Pyramid, and Hexahedron - and demonstrates all the
 //  functionality of the object
-//
 
-#include <iostream>
+#include "Material.h"
+#include "Vectors.h"
 #include "Cell.hpp"
+#include "Testing_File_Functions.h"
 
 int main()
 {
+    unsigned int Testing_For_Error = 0;
+    unsigned int Error = 0;
+    Material Empty_To_Compare_to;
     std::cout << "------------------------------Cell.hpp Test Code------------------------------" << std::endl;
 
-    Vectors aVectors(1,2,3);
-    Vectors bVectors(4,5,6);
-    Vectors cVectors(7,8,9);
-    Vectors dVectors(10,11,12);
-    Vectors eVectors(13,14,15);
-    Vectors fVectors(16,17,18);
-    Vectors gVectors(19,20,21);
-    Vectors hVectors(22,23,24);
-    std::vector<int> anIrrelevantVectorOrder;
-    Material Aluminium(0, 5650, "99A1FF", "Aluminium");
+    Cell Test_Blank;
+    // When a Cell is created it is created a vector array of Vectors, "Vertices"
+    // a vector array of the order in which those Vertices are ordered, "VerticesOrder"
+    // and the Material that make up the Cell "theMaterial".
 
+    // Becuase we called the Blank constructor the two vector arrays will be empty
+    // and have a size of "0" and the Material will be constructed using the Material's
+    // class blank constuctor.
+    Error = Testing(Test_Blank, Empty_To_Compare_to);
 
+    Material Copper(5, 8944.0, "B87333", "Copper");
+    Test_Blank.Set_Material(Copper);
 
+    Testing_For_Error = Testing(Test_Blank.Get_Material(), Copper);
 
+    if (Testing_For_Error == 0)
+        std::cout << "Set/Get Material Functions Works Properly" << std::endl;
+    else
+    {
+        std::cout << "Set/Get Material Functions Do Not Working Properly" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
+    }
 
-    std::cout << "----------Tetrahedron Test Code----------" << std::endl;
+    Test_Blank.Set_Material(Empty_To_Compare_to);
 
-    Tetrahedron someTetrahedron;
-    std::cout << "Blank constructor and cout\n" << someTetrahedron << std::endl;
+    // Now we test the Cells Set/Get Functions
+    // In Order to do this we create so Vectors
+    // and then put them into a vector
 
-    std::vector<Vectors> TetraVertices;
-    TetraVertices.push_back(aVectors);
-    TetraVertices.push_back(bVectors);
-    TetraVertices.push_back(cVectors);
-    TetraVertices.push_back(dVectors);
+    Vectors aVectors(-5.0,-5.0,0.0);
+    Vectors bVectors( 5.0,-5.0,0.0);
+    Vectors cVectors( 5.0, 5.0,0.0);
+    Vectors dVectors(-5.0, 5.0,0.0);
 
-    someTetrahedron.Set_Vertices(TetraVertices);
-    someTetrahedron.Set_Vertices_Order(anIrrelevantVectorOrder);
-    someTetrahedron.Set_Material(Aluminium);
+    std::vector<Vectors> SquareVertices = {aVectors, bVectors, cVectors, dVectors};
+    Test_Blank.Set_Vertices(SquareVertices);
 
-    std::vector<Vectors> TetraGetVertices = someTetrahedron.Get_Vertices();
+    //Also need to Set the oder at which the Vectors should be arranged
+    std::vector<int> aRelaventOrder = {3, 2, 1, 0};
+    Test_Blank.Set_Vertices_Order(aRelaventOrder);
+    Testing_For_Error = Testing(Test_Blank, SquareVertices, aRelaventOrder, Empty_To_Compare_to);
 
-    std::cout << "Set and get functions\nV0 " << TetraGetVertices[0] << "V1 " << TetraGetVertices[1] << "V2 " << TetraGetVertices[2] << "V3 " << TetraGetVertices[3] << "Material " << someTetrahedron.Get_Material() << std::endl;
+    if (Testing_For_Error == 0)
+        std::cout << "Set Vertices Order, Set Vertices, and their Get Functions Works Properly" << std::endl;
+    else
+    {
+        std::cout << "Set Vertices Order, Set Vertices, and their Get Functions Do Not Working Properly" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
+    }
 
-    Tetrahedron TetraCopyConstructor(someTetrahedron);
-    std::cout << "Copy constructor\n" << TetraCopyConstructor << std::endl;
+    // Now we test get volume/weight/Centre of Gravity
+    // Get olume/weight/Centre of Gravity should return "-1" since they
+    // are only valid for subclasses of the Cell class
+    // NOTE* They all should return an ERROR code
 
-    Vectors V0_Tetra(2,0,1);
-    Vectors V1_Tetra(-1,1,1);
-    Vectors V2_Tetra(1,0,2);
-    Vectors V3_Tetra(3,1,4);
-    std::vector<Vectors> moreTetraVertices;
-    moreTetraVertices.push_back(V0_Tetra);
-    moreTetraVertices.push_back(V1_Tetra);
-    moreTetraVertices.push_back(V2_Tetra);
-    moreTetraVertices.push_back(V3_Tetra);
-    Material Titanium(1, 1500, "64FF15", "Titanium");
+    Testing_For_Error = Testing(Test_Blank.Get_Volume(), -1.0);
 
-    Tetrahedron anotherTetrahedron(moreTetraVertices, anIrrelevantVectorOrder, Titanium);
-    std::cout << "Non blank constructor\n" << anotherTetrahedron << std::endl;
+    if (Testing_For_Error == 0)
+        std::cout << "Get Volume Function Works Properly" << std::endl;
+    else
+    {
+        std::cout << "Get Volume Function Does Not Working Properly" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
+    }
 
-    someTetrahedron = anotherTetrahedron;
-    std::cout << "Operator=\n" << someTetrahedron << std::endl;
+    Testing_For_Error = Testing(Test_Blank.Get_Weight(), -1.0);
 
-    std::cout << "Volume of tetrahedron = " << someTetrahedron.Get_Volume() << std::endl;
+    if (Testing_For_Error == 0)
+        std::cout << "Get Weight Function Works Properly" << std::endl;
+    else
+    {
+        std::cout << "Get Weight Function Does Not Working Properly" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
+    }
 
-    std::cout << "Weight of tetrahedron = " << someTetrahedron.Get_Weight() << std::endl;
+    Vectors Center_Of_Cell_Test_Blank(-1.0, -1.0, -1.0); // This is actual and error code
+    Testing_For_Error = Testing(Test_Blank.Get_Centre_Of_Gravity() , Center_Of_Cell_Test_Blank);
 
-    std::cout << "Centre of gravity of tetrahedron " << someTetrahedron.Get_Centre_Of_Gravity();
+    if (Testing_For_Error == 0)
+        std::cout << "Get Centre Of Gravity Function Works Properly" << std::endl;
+    else
+    {
+        std::cout << "Get Centre Of Gravity Function Does Not Working Properly" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
+    }
 
-    anotherTetrahedron.Rotate(90, 'y', anotherTetrahedron.Get_Centre_Of_Gravity());
-    std::cout << "\nRotation of operator= output tetrahedron 90 degrees along the y axis and around the geometric centre\n" << anotherTetrahedron << "\n\n\n\n\n\n" << std::endl;
+    // The next function to test is the Rotate the number of possible rotations
+    // around the x, y, and Z axis from 0-360 degrees is near infinate. We will
+    // only test 3 rotations about the x, y, and z axis at 90 degrees for each
+    // rotation.
 
+    Vectors Center_For_Rotation(0.0, 0.0, 0.0);
+    Cell Rotated;
+    Rotated.Set_Vertices_Order(aRelaventOrder);
 
+    Vectors eVectors(0.0,-5.0, 5.0);
+    Vectors fVectors(0.0,-5.0,-5.0);
+    Vectors gVectors(0.0, 5.0,-5.0);
+    Vectors hVectors(0.0, 5.0, 5.0);
 
+    std::vector<Vectors> SquareVertices_Rotated = {eVectors, fVectors, gVectors, hVectors};
+    Rotated.Set_Vertices(SquareVertices_Rotated);
+    Test_Blank.Rotate(90.0, 'y', Center_For_Rotation);
 
+    Testing_For_Error = Testing(Test_Blank, Rotated);
 
-    std::cout << "----------Pyramid Test Code----------" << std::endl;
+    if (Testing_For_Error == 0)
+        std::cout << "Rotate Function Works Properly For Y-Axis Rotation" << std::endl;
+    else
+    {
+        std::cout << "Rotate Function Does Not Working Properly For Y-Axis Rotation" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
+    }
 
-    Pyramid somePyramid;
-    std::cout << "Blank constructor and cout\n" << somePyramid << std::endl;
+    eVectors.SetVector( 5.0, 0.0, 5.0);
+    fVectors.SetVector( 5.0, 0.0,-5.0);
+    gVectors.SetVector(-5.0, 0.0,-5.0);
+    hVectors.SetVector(-5.0, 0.0, 5.0);
 
-    std::vector<Vectors> PyraVertices;
-    PyraVertices.push_back(aVectors);
-    PyraVertices.push_back(bVectors);
-    PyraVertices.push_back(cVectors);
-    PyraVertices.push_back(dVectors);
-    PyraVertices.push_back(eVectors);
+    SquareVertices_Rotated.clear(); // clear old array to ensure only new vectors are present
+    SquareVertices_Rotated = {eVectors, fVectors, gVectors, hVectors};
+    Rotated.Set_Vertices(SquareVertices_Rotated);
 
-    somePyramid.Set_Vertices(PyraVertices);
-    somePyramid.Set_Vertices_Order(anIrrelevantVectorOrder);
-    somePyramid.Set_Material(Aluminium);
+    Test_Blank.Rotate(90.0, 'z', Center_For_Rotation);
+    Testing_For_Error = Testing(Test_Blank, Rotated);
 
-    std::vector<Vectors> PyraGetVertices = somePyramid.Get_Vertices();
+    if (Testing_For_Error == 0)
+        std::cout << "Rotate Function Works Properly For Z-Axis Rotation" << std::endl;
+    else
+    {
+        std::cout << "Rotate Function Does Not Working Properly For Z-Axis Rotation" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
+    }
 
-    std::cout << "Set and get functions\nV0 " << PyraGetVertices[0] << "V1 " << PyraGetVertices[1] << "V2 " << PyraGetVertices[2] << "V3 " << PyraGetVertices[3] << "V4 " << PyraGetVertices[4] << "Material " << somePyramid.Get_Material() << "\n" << std::endl;
+    eVectors.SetVector( 5.0,-5.0, 0.0);
+    fVectors.SetVector( 5.0, 5.0, 0.0);
+    gVectors.SetVector(-5.0, 5.0, 0.0);
+    hVectors.SetVector(-5.0,-5.0, 0.0);
 
-    Pyramid PyraCopyConstructor(somePyramid);
-    std::cout << "Copy constructor\n" << PyraCopyConstructor << std::endl;
+    SquareVertices_Rotated.clear(); // clear old array to ensure only new vectors are present
+    SquareVertices_Rotated = {eVectors, fVectors, gVectors, hVectors};
+    Rotated.Set_Vertices(SquareVertices_Rotated);
 
-    Vectors V0_Pyra(0,0,0);
-    Vectors V1_Pyra(5,0,0);
-    Vectors V2_Pyra(5,0,5);
-    Vectors V3_Pyra(0,0,5);
-    Vectors V4_Pyra(2.5,6,2.5);
-    std::vector<Vectors> morePyraGetVertices;
-    morePyraGetVertices.push_back(V0_Pyra);
-    morePyraGetVertices.push_back(V1_Pyra);
-    morePyraGetVertices.push_back(V2_Pyra);
-    morePyraGetVertices.push_back(V3_Pyra);
-    morePyraGetVertices.push_back(V4_Pyra);
-    Material Iron(2, 7310, "EF5690", "Iron");
+    Test_Blank.Rotate(90.0, 'x', Center_For_Rotation);
+    Testing_For_Error = Testing(Test_Blank, Rotated);
 
-    Pyramid anotherPyramid(morePyraGetVertices, anIrrelevantVectorOrder, Iron);
-    std::cout << "Non blank constructor\n" << anotherPyramid << std::endl;
+    if (Testing_For_Error == 0)
+        std::cout << "Rotate Function Works Properly For X-Axis Rotation" << std::endl;
+    else
+    {
+        std::cout << "Rotate Function Does Not Working Properly For X-Axis Rotation" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
+    }
 
-    somePyramid = anotherPyramid;
-    std::cout << "Operator=\n" << somePyramid << std::endl;
+    // Now to test the operator=  we will create a new cell
+    // it will be initlized to empty as previously seen
+    // then we will set Test_Blank = to the empty New_Blank_cell and test its operation
 
-    std::cout << "Volume of pyramid = " << somePyramid.Get_Volume() << std::endl;
+    Cell New_Blank_cell;
+    Test_Blank = New_Blank_cell;
 
-    std::cout << "Weight of pyramid = " << somePyramid.Get_Weight() << std::endl;
+    Testing_For_Error = Testing(Test_Blank, New_Blank_cell);
 
-    std::cout << "Centre of gravity of pyramid " << somePyramid.Get_Centre_Of_Gravity();
+    if (Testing_For_Error == 0)
+        std::cout << "Operator= Function Works Properly" << std::endl;
+    else
+    {
+        std::cout << "Operator= Function Did Not Work Properly" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
+    }
 
-    anotherPyramid.Rotate(90, 'y', anotherPyramid.Get_Centre_Of_Gravity());
-    std::cout << "\nRotation of operator= output pyramid 90 degrees along the y axis and around the geometric centre\n" << anotherPyramid << "\n\n\n\n\n\n" << std::endl;
+    std::cout << "************************" << std::endl;
+    if (Error == 0 )
+        std::cout << "Cell Test: Successful" << std::endl;
+    else
+        std::cout << "Cell Test: Failure" << std::endl;
+    std::cout << "************************" << std::endl;
 
+    std::cout << "------------------------------Tetrahedron Test Code------------------------------" << std::endl;
 
+    unsigned int Error_Tetrahedron = 0;
 
+    Tetrahedron Empty_Tetra;
+    if (Testing(Empty_Tetra, Empty_To_Compare_to) == 1 )
+        Error_Tetrahedron = 1;
 
+    // Now to test a fully constructed Cell
+    Vectors iVectors( 0.0,  0.0,  0.0);
+    Vectors jVectors( 5.0,  0.0,  1.0);
+    Vectors kVectors( 2.5,  3.2, -1.25);
+    Vectors lVectors(-1.9, -0.5, -2.23);
+    std::vector<Vectors> Vertices_Of_Tetra = {iVectors, jVectors, kVectors, lVectors};
+    std::vector<int> Vertices_Of_Tetra_Order = { 0, 1, 2, 3};
+    Material Gold(0, 19300.0, "D4AF37", "Gold" );
 
-    std::cout << "----------Hexahedron Test Code----------" << std::endl;
+    Tetrahedron Gold_Nugget(Vertices_Of_Tetra, Vertices_Of_Tetra_Order, Gold);
+    Testing_For_Error = Testing(Gold_Nugget, Vertices_Of_Tetra, Vertices_Of_Tetra_Order, Gold);
 
-    Hexahedron someHexahedron;
-    std::cout << "Blank constructor and cout\n" << someHexahedron << std::endl;
+    if (Testing_For_Error == 0)
+        std::cout << "Tetrahedron Set With Constructor Properly" << std::endl;
+    else
+    {
+        std::cout << "Tetrahedron Not Set With Constructor Properly" << std::endl;
+        Error_Tetrahedron = 1;
+        Testing_For_Error = 0;
+    }
 
-    std::vector<Vectors> HexaVertices;
-    HexaVertices.push_back(aVectors);
-    HexaVertices.push_back(bVectors);
-    HexaVertices.push_back(cVectors);
-    HexaVertices.push_back(dVectors);
-    HexaVertices.push_back(eVectors);
-    HexaVertices.push_back(fVectors);
-    HexaVertices.push_back(gVectors);
-    HexaVertices.push_back(hVectors);
+    Vectors Center_Of_Gold_Nugget(1.4, 0.675, -0.62);
+    if (Testing(Gold_Nugget, 5.6625, 109286.25, Center_Of_Gold_Nugget) == 1)
+        Error_Tetrahedron = 1;
 
-    someHexahedron.Set_Vertices(HexaVertices);
-    someHexahedron.Set_Vertices_Order(anIrrelevantVectorOrder);
-    someHexahedron.Set_Material(Aluminium);
+    std::cout << "************************" << std::endl;
+    if (Error_Tetrahedron == 0 )
+        std::cout << "Tetrahedron Test: Successful" << std::endl;
+    else
+        std::cout << "Tetrahedron Test: Failure" << std::endl;
+    std::cout << "************************" << std::endl;
 
-    std::vector<Vectors> HexaGetVertices = someHexahedron.Get_Vertices();
+    std::cout << "------------------------------Pyramid Test Code------------------------------" << std::endl;
 
-    std::cout << "Set and get functions\nV0 " << HexaGetVertices[0] << "V1 " << HexaGetVertices[1] << "V2 " << HexaGetVertices[2] << "V3 " << HexaGetVertices[3] << "V4 " << HexaGetVertices[4] << "V5 " << HexaGetVertices[5] << "V6 " << HexaGetVertices[6] << "V7 " << HexaGetVertices[7] << "Material " << someHexahedron.Get_Material() << std::endl;
+    unsigned int Error_Pyramid = 0;
 
-    Hexahedron HexaCopyConstructor(someHexahedron);
-    std::cout << "Copy constructor\n" << HexaCopyConstructor << std::endl;
+    Pyramid Empty_Pryamid;
+    if (Testing(Empty_Pryamid, Empty_To_Compare_to) == 1)
+        Error_Pyramid = 1;
 
-    Vectors V0_Hex(0,0,0);
-    Vectors V1_Hex(10,0,0);
-    Vectors V2_Hex(10,0,10);
-    Vectors V3_Hex(0,0,10);
-    Vectors V4_Hex(0,10,0);
-    Vectors V5_Hex(10,10,0);
-    Vectors V6_Hex(10,10,10);
-    Vectors V7_Hex(0,10,10);
-    std::vector<Vectors> moreHexaGetVertices;
-    moreHexaGetVertices.push_back(V0_Hex);
-    moreHexaGetVertices.push_back(V1_Hex);
-    moreHexaGetVertices.push_back(V2_Hex);
-    moreHexaGetVertices.push_back(V3_Hex);
-    moreHexaGetVertices.push_back(V4_Hex);
-    moreHexaGetVertices.push_back(V5_Hex);
-    moreHexaGetVertices.push_back(V6_Hex);
-    moreHexaGetVertices.push_back(V7_Hex);
-    Material Steel(3, 9980, "AC64AC", "Steel");
+    Vectors mVectors(-5.0,-5.0, 0.0);
+    Vectors nVectors( 5.0,-5.0, 0.0);
+    Vectors oVectors( 5.0, 5.0, 0.0);
+    Vectors pVectors(-5.0, 5.0, 0.0);
+    Vectors qVectors( 0.0, 0.0, 5.0);
+    std::vector<Vectors> Vertices_Of_Pyramid = {mVectors, nVectors, oVectors, pVectors, qVectors};
+    std::vector<int> Vertices_Of_Pryamid_Order = { 0, 1, 2, 3, 4};
+    Material LimeStone(1, 2711.0, "DFD8BF", "Limestone" );
 
-    Hexahedron anotherHexahedron(moreHexaGetVertices, anIrrelevantVectorOrder, Steel);
-    std::cout << "Non blank constructor\n" << anotherHexahedron << std::endl;
+    Pyramid Here_Lays_A_Pharaoh(Vertices_Of_Pyramid, Vertices_Of_Pryamid_Order, LimeStone);
+    Testing_For_Error = Testing(Here_Lays_A_Pharaoh, Vertices_Of_Pyramid, Vertices_Of_Pryamid_Order, LimeStone);
 
-    someHexahedron = anotherHexahedron;
-    std::cout << "Operator=\n" << someHexahedron << std::endl;
+     if (Testing_For_Error == 0)
+         std::cout << "Pyramid Set With Constructor Properly" << std::endl;
+     else
+     {
+         std::cout << "Pyramid Not Set With Constructor Properly" << std::endl;
+         Error_Pyramid = 1;
+         Testing_For_Error = 0;
+     }
+    Vectors Center_Of_The_Tomb(0.0, 0.0, 1.25);
+    if (Testing(Here_Lays_A_Pharaoh, (500.0/3.0) , ((500.0/3.0)*(2711.0)) , Center_Of_The_Tomb) == 1)
+        Error_Pyramid = 1;
 
-    std::cout << "Volume of hexahedron = " << someHexahedron.Get_Volume() << std::endl;
+    std::cout << "************************" << std::endl;
+    if (Error_Pyramid == 0 )
+        std::cout << "Pyramid Test: Successful" << std::endl;
+    else
+        std::cout << "Pyramid Test: Failure" << std::endl;
+    std::cout << "************************" << std::endl;
 
-    std::cout << "Weight of hexahedron = " << someHexahedron.Get_Weight() << std::endl;
+     std::cout << "------------------------------Hexahedron Test Code------------------------------" << std::endl;
 
-    std::cout << "Centre of gravity of hexahedron " << someHexahedron.Get_Centre_Of_Gravity();
+     unsigned int Error_Hexahedron = 0;
 
-    anotherHexahedron.Rotate(90, 'y', anotherHexahedron.Get_Centre_Of_Gravity());
-    std::cout << "\nRotation of operator= output hexahedron 90 degrees along the y axis and around the geometric centre\n" << anotherHexahedron << std::endl;
+     Hexahedron Empty_Hexahedron;
+     if (Testing(Empty_Hexahedron, Empty_To_Compare_to) == 1)
+        Error_Hexahedron = 1;
 
-    std::cout << "Finished running Script" << std::endl;
-    return 0;
+     Vectors rVectors(-1.5,-2.5,-1.5);
+     Vectors sVectors( 1.5,-2.5,-1.5);
+     Vectors tVectors( 1.5, 2.5,-1.5);
+     Vectors uVectors(-1.5, 2.5,-1.5);
+     Vectors vVectors(-2.5,-2.5, 2.5);
+     Vectors wVectors( 2.5,-2.5, 2.5);
+     Vectors xVectors( 2.5, 2.5, 2.5);
+     Vectors yVectors(-2.5, 2.5, 2.5);
+
+     std::vector<Vectors> Vertices_Of_Hexahedron = {rVectors, sVectors, tVectors, uVectors,
+                                                    vVectors, wVectors, xVectors, yVectors};
+     std::vector<int> Vertices_Of_Hexahedron_Order = { 0, 1, 2, 3, 4, 5, 6, 7};
+     Material Diamond(2, 3514.0, "B9F2FF", "Diamond" );
+
+     Hexahedron Dimaond_Stone(Vertices_Of_Hexahedron, Vertices_Of_Hexahedron_Order, Diamond);
+     Testing_For_Error = Testing(Dimaond_Stone, Vertices_Of_Hexahedron, Vertices_Of_Hexahedron_Order, Diamond);
+
+     if (Testing_For_Error == 0)
+         std::cout << "Hexahedron Set With Constructor Properly" << std::endl;
+     else
+     {
+         std::cout << "Hexahedron Not Set With Constructor Properly" << std::endl;
+         Error_Hexahedron = 1;
+         Testing_For_Error = 0;
+     }
+
+     Vectors Center_Of_The_Diamond(0.0, 0.0, (2.0/3.0) );
+     if (Testing(Dimaond_Stone, 80.0, 281120.0, Center_Of_The_Diamond) == 1)
+         Error_Hexahedron = 1;
+
+     std::cout << "************************" << std::endl;
+     if (Error_Hexahedron == 0 )
+         std::cout << "Hexahedron Test: Successful" << std::endl;
+     else
+         std::cout << "Hexahedron Test: Failure" << std::endl;
+     std::cout << "************************" << std::endl;
+
+    std::cout << "************************" << std::endl;
+    if ( (Error == 0 )&&(Error_Tetrahedron == 0)&&(Error_Pyramid == 0)&&(Error_Hexahedron == 0) )
+        std::cout << "End of Test: Successful" << std::endl;
+    else
+        std::cout << "End of Test: Failure" << std::endl;
+    std::cout << "************************" << std::endl;
+
+    return (Error == 0) ? 0 : 1;
 }
