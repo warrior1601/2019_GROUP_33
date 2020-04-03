@@ -999,3 +999,165 @@ void MainWindow::SetLightData(double *Data, std::string currentLine)
         }
     }
 }
+
+void MainWindow::on_FullScreen_clicked(bool checked)
+{
+
+	ui->statusBar->showMessage("FullScreen", 3000);
+	isFullScreen() ? showNormal() : showFullScreen(); //for full screen
+
+}
+
+
+void MainWindow::on_actioncube_triggered()
+{
+
+	ui->statusBar->showMessage("Coordinate Axes were Applied", 3000);
+	orientationWidget->SetOutlineColor(0.9300, 0.5700, 0.1300);
+	orientationWidget->SetOrientationMarker(axes);
+	orientationWidget->SetInteractor(renderWindowInteractor);
+	orientationWidget->SetViewport(10, 10, 10, 10);
+	orientationWidget->SetEnabled(1);
+	orientationWidget->InteractiveOn();
+	renderer->ResetCamera();
+
+	transform->Translate(-3, -3, 0);
+	axes->SetUserTransform(transform);
+	renderer->AddActor(axes);
+	renderWindow->Render();
+}
+
+void MainWindow::on_actionhelicopter_triggered()
+{
+	ui->statusBar->showMessage("Coordinate Axes were Applied", 3000);
+	orientationWidget->SetOutlineColor(0.9300, 0.5700, 0.1300);
+	orientationWidget->SetOrientationMarker(axes);
+	orientationWidget->SetInteractor(renderWindowInteractor);
+	orientationWidget->SetViewport(10, 10, 10, 10);
+	orientationWidget->SetEnabled(1);
+	orientationWidget->InteractiveOn();
+	renderer->ResetCamera();
+
+	transform->Translate(-10, -10, 0);
+	axes->SetUserTransform(transform);
+	renderer->AddActor(axes);
+	renderWindow->Render();
+}
+
+void MainWindow::on_actionplane_triggered()
+{
+	ui->statusBar->showMessage("Coordinate Axes were Applied", 3000);
+	orientationWidget->SetOutlineColor(0.9300, 0.5700, 0.1300);
+	orientationWidget->SetOrientationMarker(axes);
+	orientationWidget->SetInteractor(renderWindowInteractor);
+	orientationWidget->SetViewport(10, 10, 10, 10);
+	orientationWidget->SetEnabled(1);
+	orientationWidget->InteractiveOn();
+	renderer->ResetCamera();
+
+	transform->Translate(-5, -6, 0);
+	axes->SetUserTransform(transform);
+	renderer->AddActor(axes);
+	renderWindow->Render();
+}
+
+void MainWindow::on_actionsphere_triggered()
+{
+	ui->statusBar->showMessage("Coordinate Axes were Applied", 3000);
+	orientationWidget->SetOutlineColor(0.9300, 0.5700, 0.1300);
+	orientationWidget->SetOrientationMarker(axes);
+	orientationWidget->SetInteractor(renderWindowInteractor);
+	orientationWidget->SetViewport(10, 10, 10, 10);
+	orientationWidget->SetEnabled(1);
+	orientationWidget->InteractiveOn();
+	renderer->ResetCamera();
+
+	transform->Translate(-3, -3, 0);
+	axes->SetUserTransform(transform);
+	renderer->AddActor(axes);
+	renderWindow->Render();
+}
+
+void MainWindow::on_actionairbus_triggered()
+{
+	ui->statusBar->showMessage("Coordinate Axes were Applied", 3000);
+	orientationWidget->SetOutlineColor(0.9300, 0.5700, 0.1300);
+	orientationWidget->SetOrientationMarker(axes);
+	orientationWidget->SetInteractor(renderWindowInteractor);
+	orientationWidget->SetViewport(10, 10, 10, 10);
+	orientationWidget->SetEnabled(1);
+	orientationWidget->InteractiveOn();
+	renderer->ResetCamera();
+	axes->SetTotalLength(50, 50, 50);
+	transform->Translate(50, -50, -40);
+	axes->SetUserTransform(transform);
+	renderer->AddActor(axes);
+	renderWindow->Render();
+}
+
+void MainWindow::on_actionThunderbolt_triggered()
+{
+	ui->statusBar->showMessage("Coordinate Axes were Applied", 3000);
+	orientationWidget->SetOutlineColor(0.9300, 0.5700, 0.1300);
+	orientationWidget->SetOrientationMarker(axes);
+	orientationWidget->SetInteractor(renderWindowInteractor);
+	orientationWidget->SetViewport(10, 10, 10, 10);
+	orientationWidget->SetEnabled(1);
+	orientationWidget->InteractiveOn();
+	renderer->ResetCamera();
+	axes->SetTotalLength(300, 300, 300);
+	transform->Translate(500, -50, -40);
+	axes->SetUserTransform(transform);
+	renderer->AddActor(axes);
+	renderWindow->Render();
+}
+
+//void MainWindow::on_BoxW_clicked(bool checked)
+//{
+//
+//	if (checked) {
+//		vtkSmartPointer<vtkBoxWidget> boxWidget =
+//		vtkSmartPointer<vtkBoxWidget>::New();
+//		boxWidget->SetInteractor(interactor);
+//
+//		boxWidget->SetProp3D(actor);
+//		boxWidget->SetPlaceFactor(1.25); // Make the box 1.25x larger than the actor
+//		boxWidget->PlaceWidget();
+//
+//		//vtkSmartPointer<vtkMyCallback> callback =
+//		//vtkSmartPointer<vtkMyCallback>::New();
+//		boxWidget->AddObserver(vtkCommand::InteractionEvent, callback);
+//
+//		boxWidget->On();
+//		
+//		
+//	}
+//		renderWindow->Render();
+//}
+
+void MainWindow::on_actionRuler_triggered()
+{
+	ui->statusBar->showMessage("Ruler was Applied", 3000);
+	renderWindow->AddRenderer(renderer);
+	renderWindowInteractor->SetRenderWindow(renderWindow);
+	distanceWidget->SetInteractor(renderWindowInteractor);
+	distanceWidget->CreateDefaultRepresentation();
+	static_cast<vtkDistanceRepresentation*>(distanceWidget->GetRepresentation())
+		->SetLabelFormat("%-#6.3g mm");
+	renderWindowInteractor->Initialize();
+	renderWindow->Render();
+	distanceWidget->On();
+	renderWindowInteractor->Start();
+	ui->Display_Window->GetRenderWindow()->Render();
+
+	renderer->ResetCamera();
+	renderWindow->Render();
+	->SetInteractor(renderWindowInteractor);
+}
+
+void MainWindow::on_actionRemove_Ruler_triggered()
+{
+
+	distanceWidget->Off();
+	ui->Display_Window->GetRenderWindow()->Render();
+}
