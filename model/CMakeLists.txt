@@ -9,13 +9,13 @@ include_directories( include )
 
 # Addition of the Libraries needs to have the required headers for each class that is included to ensure that the library is built correctly
 
-add_library( Model 	source/Material.cpp;  include/Material.h;
-                    source/Vectors.cpp;   include/Vectors.h;
-                    source/Matrix.cpp;    include/Matrix.hpp;
-                    source/Cell.cpp;      include/Cell.hpp;
-                    source/Model.cpp;     include/Model.hpp;
-		                source/double_equality_function.cpp;	include/double_equality_function.h;
-	                               include/Testing_File_Functions.h;
+add_library( Model	source/Material.cpp;  			include/Material.h;
+                    	source/Vectors.cpp;   			include/Vectors.h;
+                    	source/Matrix.cpp;    			include/Matrix.hpp;
+                    	source/Cell.cpp;      			include/Cell.hpp;
+                    	source/Model.cpp;     			include/Model.hpp;
+		       	source/double_equality_function.cpp;	include/double_equality_function.h;
+	                              				include/Testing_File_Functions.h;
 )
 
 # Library check
@@ -41,60 +41,51 @@ target_link_libraries( ModelTestCode    Model )
 include ( CTest )
 
 # Create the CTests
-add_test( MaterialTestCode  MaterialTestCode )
-add_test( VectorsTestCode   VectorsTestCode  )
-add_test( MatrixTestCode    MatrixTestCode  )
-add_test( CellTestCode      CellTestCode )
-add_test( ModelTestCode    ModelTestCode )
+add_test( MaterialTestCode	MaterialTestCode )
+add_test( VectorsTestCode	VectorsTestCode  )
+add_test( MatrixTestCode   	MatrixTestCode  )
+add_test( CellTestCode     	CellTestCode )
+add_test( ModelTestCode    	ModelTestCode )
 
 # Copy the model files for ModelTestCode.exe/MaterialTestCode_CTest.exe in to build directory
 ADD_CUSTOM_COMMAND(TARGET ModelTestCode POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy
-                       ${CMAKE_CURRENT_SOURCE_DIR}/../example_models/ExampleModel1.mod
-                       ${CMAKE_CURRENT_SOURCE_DIR}/../build/model/ExampleModel1.mod )
+		   ${CMAKE_CURRENT_SOURCE_DIR}/../example_models/ExampleModel1.mod
+                   ${CMAKE_CURRENT_SOURCE_DIR}/../build/model/ExampleModel1.mod )
 
-ADD_CUSTOM_COMMAND(TARGET ModelTestCode POST_BUILD
-                   COMMAND ${CMAKE_COMMAND} -E copy
-                       ${CMAKE_CURRENT_SOURCE_DIR}/../example_models/ExampleModel2.mod
-                       ${CMAKE_CURRENT_SOURCE_DIR}/build/model/ExampleModel2.mod )
+ADD_CUSTOM_COMMAND(TARGET ModelTestCode POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy
+                   ${CMAKE_CURRENT_SOURCE_DIR}/../example_models/ExampleModel2.mod
+                   ${CMAKE_CURRENT_SOURCE_DIR}/build/model/ExampleModel2.mod )
 
-ADD_CUSTOM_COMMAND(TARGET ModelTestCode POST_BUILD
-                   COMMAND ${CMAKE_COMMAND} -E copy
-                       ${CMAKE_CURRENT_SOURCE_DIR}/../example_models/ExampleModel3.mod
-                       ${CMAKE_CURRENT_SOURCE_DIR}/build/model/ExampleModel3.mod )
+ADD_CUSTOM_COMMAND(TARGET ModelTestCode POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy
+                   ${CMAKE_CURRENT_SOURCE_DIR}/../example_models/ExampleModel3.mod
+                   ${CMAKE_CURRENT_SOURCE_DIR}/build/model/ExampleModel3.mod )
 
-ADD_CUSTOM_COMMAND(TARGET ModelTestCode POST_BUILD
-                   COMMAND ${CMAKE_COMMAND} -E copy
-                       ${CMAKE_CURRENT_SOURCE_DIR}/../example_models/Model_One.txt
-                       ${CMAKE_CURRENT_SOURCE_DIR}/build/model/Model_One.txt )
+ADD_CUSTOM_COMMAND(TARGET ModelTestCode POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy
+                   ${CMAKE_CURRENT_SOURCE_DIR}/../example_models/Model_One.txt
+                   ${CMAKE_CURRENT_SOURCE_DIR}/build/model/Model_One.txt )
 
-ADD_CUSTOM_COMMAND(TARGET ModelTestCode POST_BUILD
-                   COMMAND ${CMAKE_COMMAND} -E copy
-                       ${CMAKE_CURRENT_SOURCE_DIR}/../example_models/Model_Two.txt
-                       ${CMAKE_CURRENT_SOURCE_DIR}/build/model/Model_Two.txt )
+ADD_CUSTOM_COMMAND(TARGET ModelTestCode POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy
+                   ${CMAKE_CURRENT_SOURCE_DIR}/../example_models/Model_Two.txt
+                   ${CMAKE_CURRENT_SOURCE_DIR}/build/model/Model_Two.txt )
 
 
 # Copy the model files for ModelTestCode.exe/MaterialTestCode_CTest.exe in to debug directory
-ADD_CUSTOM_COMMAND(TARGET ModelTestCode POST_BUILD
-                   COMMAND ${CMAKE_COMMAND} -E copy
-                       ${CMAKE_CURRENT_SOURCE_DIR}/../example_models/ExampleModel1.mod
-                       ${CMAKE_CURRENT_SOURCE_DIR}/build/model/Debug/ExampleModel1.mod )
+ADD_CUSTOM_COMMAND(TARGET ModelTestCode POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy
+                   ${CMAKE_CURRENT_SOURCE_DIR}/../example_models/ExampleModel1.mod
+                   ${CMAKE_CURRENT_SOURCE_DIR}/build/model/Debug/ExampleModel1.mod )
 
-ADD_CUSTOM_COMMAND(TARGET ModelTestCode POST_BUILD
-                   COMMAND ${CMAKE_COMMAND} -E copy
-                       ${CMAKE_CURRENT_SOURCE_DIR}/../example_models/ExampleModel2.mod
-                       ${CMAKE_CURRENT_SOURCE_DIR}/build/model/Debug/ExampleModel2.mod )
+ADD_CUSTOM_COMMAND(TARGET ModelTestCode POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy
+                   ${CMAKE_CURRENT_SOURCE_DIR}/../example_models/ExampleModel2.mod
+                   ${CMAKE_CURRENT_SOURCE_DIR}/build/model/Debug/ExampleModel2.mod )
 
-ADD_CUSTOM_COMMAND(TARGET ModelTestCode POST_BUILD
-                   COMMAND ${CMAKE_COMMAND} -E copy
-                       ${CMAKE_CURRENT_SOURCE_DIR}/../example_models/ExampleModel3.mod
-                       ${CMAKE_CURRENT_SOURCE_DIR}/build/model/Debug/ExampleModel3.mod )
+ADD_CUSTOM_COMMAND(TARGET ModelTestCode POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy
+                   ${CMAKE_CURRENT_SOURCE_DIR}/../example_models/ExampleModel3.mod
+                   ${CMAKE_CURRENT_SOURCE_DIR}/build/model/Debug/ExampleModel3.mod )
 
-ADD_CUSTOM_COMMAND(TARGET ModelTestCode POST_BUILD
-                   COMMAND ${CMAKE_COMMAND} -E copy
-                       ${CMAKE_CURRENT_SOURCE_DIR}/../example_models/Model_One.txt
-                       ${CMAKE_CURRENT_SOURCE_DIR}/build/model/Debug/Model_One.txt )
+ADD_CUSTOM_COMMAND(TARGET ModelTestCode POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy
+                   ${CMAKE_CURRENT_SOURCE_DIR}/../example_models/Model_One.txt
+                   ${CMAKE_CURRENT_SOURCE_DIR}/build/model/Debug/Model_One.txt )
 
-ADD_CUSTOM_COMMAND(TARGET ModelTestCode POST_BUILD
-                   COMMAND ${CMAKE_COMMAND} -E copy
-                       ${CMAKE_CURRENT_SOURCE_DIR}/../example_models/Model_Two.txt
-                       ${CMAKE_CURRENT_SOURCE_DIR}/build/build/Debug/Model_Two.txt )
+ADD_CUSTOM_COMMAND(TARGET ModelTestCode POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy
+                   ${CMAKE_CURRENT_SOURCE_DIR}/../example_models/Model_Two.txt
+                   ${CMAKE_CURRENT_SOURCE_DIR}/build/build/Debug/Model_Two.txt )
