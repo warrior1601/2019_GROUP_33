@@ -1148,11 +1148,6 @@ void MainWindow::on_actionRuler_triggered()
 	renderWindow->Render();
 	distanceWidget->On();
 	renderWindowInteractor->Start();
-	ui->Display_Window->GetRenderWindow()->Render();
-
-	renderer->ResetCamera();
-	renderWindow->Render();
-	->SetInteractor(renderWindowInteractor);
 }
 
 void MainWindow::on_actionRemove_Ruler_triggered()
