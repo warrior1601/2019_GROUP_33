@@ -41,11 +41,12 @@ target_link_libraries( ModelTestCode    Model )
 include ( CTest )
 
 # Create the CTests
-add_test( MaterialTestCode	MaterialTestCode )
-add_test( VectorsTestCode	VectorsTestCode  )
-add_test( MatrixTestCode   	MatrixTestCode  )
-add_test( CellTestCode     	CellTestCode )
-add_test( ModelTestCode    	ModelTestCode )
+
+add_test( MaterialTestCode  MaterialTestCode )
+add_test( VectorsTestCode   VectorsTestCode  )
+add_test( MatrixTestCode    MatrixTestCode  )
+add_test( CellTestCode      CellTestCode )
+add_test( ModelTestCode    ModelTestCode )
 
 # Copy the model files for ModelTestCode.exe/MaterialTestCode_CTest.exe in to build directory
 ADD_CUSTOM_COMMAND(TARGET ModelTestCode POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy

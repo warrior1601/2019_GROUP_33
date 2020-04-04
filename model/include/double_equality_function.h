@@ -28,7 +28,7 @@ double Relative_Difference (double aValue, double bValue);
 /**
  * @brief Since doubles need to be tested in a certain way they
  * are rerouted to this function
- * @returns a error code if the two values differ by more than the
+ * @returns a error code of (1) if the two values differ by more than the
  * machines tolerance for determining a differnt double value
  */
 unsigned int Testing (double aValue, double bValue);

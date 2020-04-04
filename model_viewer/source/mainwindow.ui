@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1007</width>
-    <height>851</height>
+    <width>1065</width>
+    <height>897</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -110,6 +110,13 @@
                   </widget>
                  </item>
                  <item>
+                  <widget class="QCheckBox" name="BoxW">
+                   <property name="text">
+                    <string>BOX</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
                   <spacer name="horizontalSpacer">
                    <property name="orientation">
                     <enum>Qt::Horizontal</enum>
@@ -134,7 +141,7 @@
             <item>
              <widget class="QGroupBox" name="groupBox_2">
               <property name="title">
-               <string>Object</string>
+               <string>Object View</string>
               </property>
               <layout class="QHBoxLayout" name="horizontalLayout_10">
                <item>
@@ -173,9 +180,9 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="MeasurB">
+                  <widget class="QCheckBox" name="FullScreen">
                    <property name="text">
-                    <string>Measure</string>
+                    <string>Full Screen</string>
                    </property>
                   </widget>
                  </item>
@@ -410,7 +417,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1007</width>
+     <width>1065</width>
      <height>26</height>
     </rect>
    </property>
@@ -423,7 +430,28 @@
     <addaction name="actionLoad_Lights"/>
     <addaction name="actionSave_Lights"/>
    </widget>
+   <widget class="QMenu" name="menuViews">
+    <property name="title">
+     <string>Views</string>
+    </property>
+    <widget class="QMenu" name="menuCube">
+     <property name="title">
+      <string>Coordinate axes</string>
+     </property>
+     <addaction name="actioncube"/>
+     <addaction name="actionhelicopter"/>
+     <addaction name="actionairbus"/>
+     <addaction name="actionplane"/>
+     <addaction name="actionsphere"/>
+     <addaction name="actionThunderbolt"/>
+    </widget>
+    <addaction name="menuCube"/>
+    <addaction name="separator"/>
+    <addaction name="actionRuler"/>
+    <addaction name="actionRemove_Ruler"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuViews"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <widget class="QToolBar" name="toolBar">
@@ -479,6 +507,46 @@
    </property>
    <property name="text">
     <string>Load Lights</string>
+   </property>
+  </action>
+  <action name="actioncube">
+   <property name="text">
+    <string>cube</string>
+   </property>
+  </action>
+  <action name="actionhelicopter">
+   <property name="text">
+    <string>helicopter</string>
+   </property>
+  </action>
+  <action name="actionairbus">
+   <property name="text">
+    <string>airbus</string>
+   </property>
+  </action>
+  <action name="actionplane">
+   <property name="text">
+    <string>bawa plane</string>
+   </property>
+  </action>
+  <action name="actionsphere">
+   <property name="text">
+    <string>sphere</string>
+   </property>
+  </action>
+  <action name="actionThunderbolt">
+   <property name="text">
+    <string>Thunderbolt</string>
+   </property>
+  </action>
+  <action name="actionRuler">
+   <property name="text">
+    <string>Ruler</string>
+   </property>
+  </action>
+  <action name="actionRemove_Ruler">
+   <property name="text">
+    <string>Remove Ruler</string>
    </property>
   </action>
  </widget>

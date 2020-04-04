@@ -7,6 +7,7 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include <cmath>
+#include "double_equality_function.h"
 
 //Constructors and destructor
 Matrix3x3::Matrix3x3(const double& One, const double& Two, const double& Three,
@@ -45,7 +46,7 @@ Matrix3x3::Matrix3x3(void)
     //Add 0 to all rows so no indexing errors occur
     for (unsigned int i = 0; i < 3; i++)        //Loops through all rows
         for(unsigned int j = 0; j < 3; j++)     //Loops through all columns in this row
-            MatrixData[i].push_back(0);
+            MatrixData[i].push_back(0.0);
 }
 
 Matrix3x3::~Matrix3x3(void) { }
@@ -83,9 +84,37 @@ Matrix3x3& Matrix3x3::operator = (const Matrix3x3& aMatrix3x3)
     }
 }
 
-
-
-
+bool Matrix3x3::operator== (Matrix3x3& aMatrix3x3)
+{
+    if (!(Testing(MatrixData[0][0], aMatrix3x3.Get_Matrix_Data_1())))
+        if (!(Testing(MatrixData[0][1], aMatrix3x3.Get_Matrix_Data_2())))
+            if (!(Testing(MatrixData[0][2], aMatrix3x3.Get_Matrix_Data_3())))
+                if (!(Testing(MatrixData[1][0], aMatrix3x3.Get_Matrix_Data_4())))
+                    if (!(Testing(MatrixData[1][1], aMatrix3x3.Get_Matrix_Data_5())))
+                        if (!(Testing(MatrixData[1][2], aMatrix3x3.Get_Matrix_Data_6())))
+                            if (!(Testing(MatrixData[2][0], aMatrix3x3.Get_Matrix_Data_7())))
+                                if (!(Testing(MatrixData[2][1], aMatrix3x3.Get_Matrix_Data_8())))
+                                    if (!(Testing(MatrixData[2][2], aMatrix3x3.Get_Matrix_Data_9())))
+                                        return true;
+                                    else
+                                        return false;
+                                else
+                                    return false;
+                            else
+                                return false;
+                        else
+                            return false;
+                    else
+                        return false;
+                else
+                    return false;
+            else
+                return false;
+        else
+            return false;
+    else
+        return false;
+}
 
 Matrix3x3 Matrix3x3::operator+ (const Matrix3x3& aMatrix3x3)
 {
@@ -340,45 +369,45 @@ void Matrix3x3::Initialise_As_Rotation_Matrix(double Rotation_In_Degrees, char A
 
     switch (Axis_Of_Rotation) {
         case 'x':
-            MatrixData[0][0] = 1;
-            MatrixData[0][1] = 0;
-            MatrixData[0][2] = 0;
+            MatrixData[0][0] = 1.0;
+            MatrixData[0][1] = 0.0;
+            MatrixData[0][2] = 0.0;
 
-            MatrixData[1][0] = 0;
+            MatrixData[1][0] = 0.0;
             MatrixData[1][1] = cosineValue;
             MatrixData[1][2] = -sineValue;
 
-            MatrixData[2][0] = 0;
+            MatrixData[2][0] = 0.0;
             MatrixData[2][1] = sineValue;
             MatrixData[2][2] = cosineValue;
             break;
 
         case 'y':
             MatrixData[0][0] = cosineValue;
-            MatrixData[0][1] = 0;
+            MatrixData[0][1] = 0.0;
             MatrixData[0][2] = sineValue;
 
-            MatrixData[1][0] = 0;
-            MatrixData[1][1] = 1;
-            MatrixData[1][2] = 0;
+            MatrixData[1][0] = 0.0;
+            MatrixData[1][1] = 1.0;
+            MatrixData[1][2] = 0.0;
 
             MatrixData[2][0] = -sineValue;
-            MatrixData[2][1] = 0;
+            MatrixData[2][1] = 0.0;
             MatrixData[2][2] = cosineValue;
             break;
 
         case 'z':
             MatrixData[0][0] = cosineValue;
             MatrixData[0][1] = -sineValue;
-            MatrixData[0][2] = 0;
+            MatrixData[0][2] = 0.0;
 
             MatrixData[1][0] = sineValue;
             MatrixData[1][1] = cosineValue;
-            MatrixData[1][2] = 0;
+            MatrixData[1][2] = 0.0;
 
-            MatrixData[2][0] = 0;
-            MatrixData[2][1] = 0;
-            MatrixData[2][2] = 1;
+            MatrixData[2][0] = 0.0;
+            MatrixData[2][1] = 0.0;
+            MatrixData[2][2] = 1.0;
             break;
 
         default:
@@ -413,7 +442,7 @@ void Matrix3x3::Inverse_Matrix(void)
 {
     double DeterminantofMatrix = Get_Determinant(); //Store value now as matrix data will be changed
 
-    if (DeterminantofMatrix == 0)
+    if (!Testing(DeterminantofMatrix, 0.0))
     {
         std::cout << "Error, determinant of matrix is 0, therefore matrix is not invertible" << std::endl;
         return;

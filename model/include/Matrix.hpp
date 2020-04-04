@@ -61,6 +61,10 @@ public:
      */
     Matrix3x3& operator= (const Matrix3x3& aMatrix3x3);
 
+    /** @brief Checks to see if the two Matrices are equal returns true if they are
+     */
+    bool operator== (Matrix3x3& aMatrix3x3);
+
     /** @brief Returns the addition of two matrix3x3
      */
     Matrix3x3 operator+ (const Matrix3x3& aMatrix3x3);

@@ -24,6 +24,21 @@
 #include <vtkSTLWriter.h>
 #include <vtkTetra.h>
 #include <vtkUnstructuredGrid.h>
+#include <vtkAxesActor.h>
+#include <vtkOrientationMarkerWidget.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkTransform.h>
+#include <vtkRenderWindow.h>
+#include <vtkCamera.h>
+#include <vtkBoxWidget.h>
+#include <vtkCommand.h>
+#include <vtkTransform.h>
+#include <vtkInteractorStyleTrackballCamera.h>
+#include <vtkBoxRepresentation.h>
+#include <vtkDistanceWidget.h>
+#include <vtkDistanceRepresentation.h>
+#include <vtkRenderer.h>
+#include <vtkSmartPointer.h>
 
 #include <array>
 #include <vector>
@@ -67,6 +82,16 @@ private slots:
     void on_actionLoad_Lights_triggered();
     void on_Edit_Light_clicked();
     void on_Delete_Light_released();
+	void on_FullScreen_clicked(bool checked);
+	void on_actioncube_triggered();
+	void on_actionhelicopter_triggered();
+	void on_actionplane_triggered();
+	void on_actionsphere_triggered();
+	void on_actionThunderbolt_triggered();
+	void on_actionairbus_triggered();
+	void on_actionRuler_triggered();
+	//void on_BoxW_clicked(bool checked);
+	void on_actionRemove_Ruler_triggered();
 
 private:
     Ui::MainWindow *ui;
@@ -114,7 +139,16 @@ private:
     vtkSmartPointer<vtkPolyData> polydata = vtkSmartPointer<vtkPolyData>::New();
     vtkSmartPointer<vtkSTLWriter> stlWriter = vtkSmartPointer<vtkSTLWriter>::New();
 
+	vtkSmartPointer<vtkAxesActor> axes = vtkSmartPointer<vtkAxesActor>::New();
+	vtkSmartPointer<vtkOrientationMarkerWidget> orientationWidget = vtkSmartPointer<vtkOrientationMarkerWidget>::New();
+	vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor = vtkSmartPointer<vtkRenderWindowInteractor>::New();
+	vtkSmartPointer< vtkTransform> transform = vtkSmartPointer< vtkTransform>::New();
 
+	vtkSmartPointer<vtkBoxWidget> boxWidget = vtkSmartPointer<vtkBoxWidget>::New();
+	vtkSmartPointer<vtkRenderWindowInteractor> interactor = vtkSmartPointer<vtkRenderWindowInteractor>::New();
+	vtkSmartPointer<vtkInteractorStyleTrackballCamera> style = vtkSmartPointer<vtkInteractorStyleTrackballCamera>::New();
+	vtkSmartPointer<vtkRenderWindow> Mindow = vtkSmartPointer<vtkRenderWindow>::New();
+	vtkSmartPointer<vtkDistanceWidget> distanceWidget = vtkSmartPointer<vtkDistanceWidget>::New();
 };
 
 #endif // MAINWINDOW_H

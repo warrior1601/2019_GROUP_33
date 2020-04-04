@@ -12,251 +12,557 @@
 
 #include <iostream>
 #include "Matrix.hpp"
+#include "Testing_File_Functions.h"
+#include <cmath>
 
 int main()
 {
-	std::cout << "------------------------------Matrix.hpp Test Code------------------------------" << std::endl;
+    unsigned int Testing_For_Error = 0;
+    unsigned int Error = 0;
+    std::cout << "------------------------------Matrix.hpp Test Code------------------------------" << std::endl;
+    // First we test the constuctots and the get functions
+    Matrix3x3 Blank_Matrix;
 
-    Matrix3x3 BlankMatrix;
-    std::cout << "Blank constructor and cout\n" << BlankMatrix << std::endl;
+    Testing_For_Error = Testing(Blank_Matrix, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 
-
-
-    BlankMatrix.Set_Matrix_Data_1(1);
-    BlankMatrix.Set_Matrix_Data_2(2);
-    BlankMatrix.Set_Matrix_Data_3(3);
-    BlankMatrix.Set_Matrix_Data_4(4);
-    BlankMatrix.Set_Matrix_Data_5(5);
-    BlankMatrix.Set_Matrix_Data_6(6);
-    BlankMatrix.Set_Matrix_Data_7(7);
-    BlankMatrix.Set_Matrix_Data_8(8);
-    BlankMatrix.Set_Matrix_Data_9(9);
-
-
-
-    std::cout << "Set and get functions\n" << BlankMatrix.Get_Matrix_Data_1() << "\t" << BlankMatrix.Get_Matrix_Data_2() << "\t" << BlankMatrix.Get_Matrix_Data_3() << std::endl;
-    std::cout << BlankMatrix.Get_Matrix_Data_4() << "\t" << BlankMatrix.Get_Matrix_Data_5() << "\t" << BlankMatrix.Get_Matrix_Data_6() << std::endl;
-    std::cout << BlankMatrix.Get_Matrix_Data_7() << "\t" << BlankMatrix.Get_Matrix_Data_8() << "\t" << BlankMatrix.Get_Matrix_Data_9() << std::endl;
-
-
-
-    Matrix3x3 CopyConstructor(BlankMatrix);
-    std::cout << "\nCopy constructor\n" << CopyConstructor << std::endl;
-
-    Matrix3x3 someMatrix(9,8,7,6,5,4,3,2,1);
-    std::cout << "Non blank constructor\n" << someMatrix << std::endl;
-
-
-
-    Matrix3x3 OutputMatrix = someMatrix + BlankMatrix;
-    std::cout << "\nMatrix addition (and operator=)\n" << OutputMatrix << std::endl;
-    if (OutputMatrix.Get_Matrix_Data_1() != 10 || OutputMatrix.Get_Matrix_Data_2() != 10 || OutputMatrix.Get_Matrix_Data_3() != 10 ||
-        OutputMatrix.Get_Matrix_Data_4() != 10 || OutputMatrix.Get_Matrix_Data_5() != 10 || OutputMatrix.Get_Matrix_Data_6() != 10 ||
-        OutputMatrix.Get_Matrix_Data_7() != 10 || OutputMatrix.Get_Matrix_Data_8() != 10 || OutputMatrix.Get_Matrix_Data_9() != 10
-        )
+    if (Testing_For_Error == 0)
+        std::cout << "Blank Constructor and Get Functions Work Properly" << std::endl;
+    else
     {
-        std::cout << "operator+ with another Matrix3x3 failed" << std::endl;
-        exit(1);
+        std::cout << "Blank Constructor and Get Functions Do Not Work Properly" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
     }
 
-    OutputMatrix = someMatrix - BlankMatrix;
-    std::cout << "Matrix subtraction\n" << OutputMatrix << std::endl;
-    if (OutputMatrix.Get_Matrix_Data_1() != 8 || OutputMatrix.Get_Matrix_Data_2() != 6 || OutputMatrix.Get_Matrix_Data_3() != 4 ||
-        OutputMatrix.Get_Matrix_Data_4() != 2 || OutputMatrix.Get_Matrix_Data_5() != 0 || OutputMatrix.Get_Matrix_Data_6() != -2 ||
-        OutputMatrix.Get_Matrix_Data_7() != -4 || OutputMatrix.Get_Matrix_Data_8() != -6 || OutputMatrix.Get_Matrix_Data_9() != -8
-        )
+    Matrix3x3 Non_Blank_Matrix(-5.0, 0.0, 2.0, 2.36, -9.56, 0.0005, -0.00005, 9.62, 15623.0235);
+
+    Testing_For_Error = Testing(Non_Blank_Matrix, -5.0, 0.0, 2.0, 2.36, -9.56, 0.0005, -0.00005, 9.62, 15623.0235);
+
+    if (Testing_For_Error == 0)
+        std::cout << "Non Blank Constructor Works Properly" << std::endl;
+    else
     {
-        std::cout << "operator- with another Matrix3x3 failed" << std::endl;
-        exit(2);
+        std::cout << "Non Blank Constructor Does Not Work Properly" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
     }
 
-    OutputMatrix = someMatrix * BlankMatrix;
-    std::cout << "Matrix multiplication\n" << OutputMatrix << std::endl;
-    if (OutputMatrix.Get_Matrix_Data_1() != 90 || OutputMatrix.Get_Matrix_Data_2() != 114 || OutputMatrix.Get_Matrix_Data_3() != 138 ||
-        OutputMatrix.Get_Matrix_Data_4() != 54 || OutputMatrix.Get_Matrix_Data_5() != 69 || OutputMatrix.Get_Matrix_Data_6() != 84 ||
-        OutputMatrix.Get_Matrix_Data_7() != 18 || OutputMatrix.Get_Matrix_Data_8() != 24 || OutputMatrix.Get_Matrix_Data_9() != 30
-        )
+    Matrix3x3 Copy(Non_Blank_Matrix);
+
+    Testing_For_Error = Testing(Copy, Non_Blank_Matrix);
+
+    if (Testing_For_Error == 0)
+        std::cout << "Copy Constructor Works Properly" << std::endl;
+    else
     {
-        std::cout << "operator* with another Matrix3x3 failed" << std::endl;
-        exit(3);
+        std::cout << "Copy Constructor Does Not Work Properly" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
+    }
+    // Now we test set functions
+    // there are two ways to set the Matrix data the first, individually then all at once with a vector
+
+    Copy.Set_Matrix_Data_1(1.0);
+    Copy.Set_Matrix_Data_2(1.5);
+    Copy.Set_Matrix_Data_3(0.0);
+    Copy.Set_Matrix_Data_4(-1.0);
+    Copy.Set_Matrix_Data_5(-1.5);
+    Copy.Set_Matrix_Data_6(0.00025);
+    Copy.Set_Matrix_Data_7(-0.00025);
+    Copy.Set_Matrix_Data_8(789.235);
+    Copy.Set_Matrix_Data_9(-456.000001);
+
+    Testing_For_Error = Testing(Copy, 1.0, 1.5, 0.0, -1.0, -1.5, 0.00025, -0.00025, 789.235, -456.000001);
+
+    if (Testing_For_Error == 0)
+        std::cout << "Individually Set Functions Work Properly" << std::endl;
+    else
+    {
+        std::cout << "Individually Set Functions Do Not Work Properly" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
     }
 
-    BlankMatrix += someMatrix;
-    std::cout << "Matrix addition using +=\n" << BlankMatrix << std::endl;
-    if (BlankMatrix.Get_Matrix_Data_1() != 10 || BlankMatrix.Get_Matrix_Data_2() != 10 || BlankMatrix.Get_Matrix_Data_3() != 10 ||
-        BlankMatrix.Get_Matrix_Data_4() != 10 || BlankMatrix.Get_Matrix_Data_5() != 10 || BlankMatrix.Get_Matrix_Data_6() != 10 ||
-        BlankMatrix.Get_Matrix_Data_7() != 10 || BlankMatrix.Get_Matrix_Data_8() != 10 || BlankMatrix.Get_Matrix_Data_9() != 10
-        )
+    std::vector< std::vector<double> > aMatrixData;
+    std::vector< double > Rows;
+
+    aMatrixData.push_back(Rows);
+    aMatrixData.push_back(Rows);
+    aMatrixData.push_back(Rows);
+
+    aMatrixData[0].push_back(4.0);
+    aMatrixData[0].push_back(-4.0);
+    aMatrixData[0].push_back(0.0);
+
+    aMatrixData[1].push_back(12.32);
+    aMatrixData[1].push_back(0.000052);
+    aMatrixData[1].push_back(123456.321654);
+
+    aMatrixData[2].push_back(52.02);
+    aMatrixData[2].push_back(-5623.0);
+    aMatrixData[2].push_back(520.02);
+
+    Copy.Set_MatrixData(aMatrixData);
+
+    Testing_For_Error = Testing(Copy, 4.0, -4.0, 0.0, 12.32, 0.000052, 123456.321654, 52.02, -5623.0, 520.02);
+
+    if (Testing_For_Error == 0)
+        std::cout << "Vector Set Functions Works Properly" << std::endl;
+    else
     {
-        std::cout << "operator+= with another Matrix3x3 failed" << std::endl;
-        exit(4);
+        std::cout << "Vector Set Function Does Not Work Properly" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
     }
 
-    BlankMatrix -= someMatrix;
-    std::cout << "Matrix subtraction using -=\n" << BlankMatrix << std::endl;
-    if (BlankMatrix.Get_Matrix_Data_1() != 1 || BlankMatrix.Get_Matrix_Data_2() != 2 || BlankMatrix.Get_Matrix_Data_3() != 3 ||
-        BlankMatrix.Get_Matrix_Data_4() != 4 || BlankMatrix.Get_Matrix_Data_5() != 5 || BlankMatrix.Get_Matrix_Data_6() != 6 ||
-        BlankMatrix.Get_Matrix_Data_7() != 7 || BlankMatrix.Get_Matrix_Data_8() != 8 || BlankMatrix.Get_Matrix_Data_9() != 9
-        )
+    // Now we test the Overloaded operators
+
+    Copy = Blank_Matrix;
+
+    Testing_For_Error = Testing(Copy, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+
+    if (Testing_For_Error == 0)
+        std::cout << "Operator Overload for '=' Works Properly" << std::endl;
+    else
     {
-        std::cout << "operator-= with another Matrix3x3 failed" << std::endl;
-        exit(5);
+        std::cout << "Operator Overload for '=' Does Not Work Properly" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
     }
 
-    BlankMatrix *= someMatrix;
-    std::cout << "Matrix multiplication using *=\n" << BlankMatrix << std::endl;
-    if (BlankMatrix.Get_Matrix_Data_1() != 30 || BlankMatrix.Get_Matrix_Data_2() != 24 || BlankMatrix.Get_Matrix_Data_3() != 18 ||
-        BlankMatrix.Get_Matrix_Data_4() != 84 || BlankMatrix.Get_Matrix_Data_5() != 69 || BlankMatrix.Get_Matrix_Data_6() != 54 ||
-        BlankMatrix.Get_Matrix_Data_7() != 138 || BlankMatrix.Get_Matrix_Data_8() != 114 || BlankMatrix.Get_Matrix_Data_9() != 90
-        )
+    // I am going to create a Matrix3x3 that will be used for most of the Operator Overload operations
+
+    Matrix3x3 For_Operator_Operations(-7.5, -5.0, -2.5, -0.25, 0.0, 0.25, 2.5 , 5.0, 7.5);
+
+    Copy = Copy + For_Operator_Operations;
+
+    Testing_For_Error = Testing(Copy, -7.5, -5.0, -2.5, -0.25, 0.0, 0.25, 2.5 , 5.0, 7.5);
+
+    if (Testing_For_Error == 0)
+        std::cout << "Operator Overload for '+' A Matrix3x3 Works Properly" << std::endl;
+    else
     {
-        std::cout << "operator*= with another Matrix3x3 failed" << std::endl;
-        exit(7);
+        std::cout << "Operator Overload for '+' A Matrix3x3 Does Not Work Properly" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
+    }
+    // We also need to test that the Matrix3x3 For_Operator_Operations was unchanged
+    // This will be done after each Operator test
+
+    Testing_For_Error = Testing(For_Operator_Operations, -7.5, -5.0, -2.5, -0.25, 0.0, 0.25, 2.5 , 5.0, 7.5);
+
+    if (Testing_For_Error == 0)
+        std::cout << "For_Operator_Operations Was Unchanged" << std::endl;
+    else
+    {
+        std::cout << "For_Operator_Operations Was Changed" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
     }
 
+   Copy = Copy * For_Operator_Operations;
 
+   Testing_For_Error = Testing(Copy, 51.25, 25.0, -1.25, 2.5, 2.5, 2.5, -1.25 , 25.0, 51.25);
 
-    Vectors someVector(1,2,3);
-    Vectors OutputVectors = someMatrix * someVector;
-    std::cout << "\nMatrix and Vectors multiplication\n" << OutputVectors << std::endl;
-    if (OutputVectors.GetXVector() != 46 || OutputVectors.GetYVector() != 28 || OutputVectors.GetZVector() != 10)
+   if (Testing_For_Error == 0)
+       std::cout << "Operator Overload for '*' A Matrix3x3 Works Properly" << std::endl;
+   else
+   {
+       std::cout << "Operator Overload for '*' A Matrix3x3 Does Not Work Properly" << std::endl;
+       Error = 1;
+       Testing_For_Error = 0;
+   }
+
+   Testing_For_Error = Testing(For_Operator_Operations, -7.5, -5.0, -2.5, -0.25, 0.0, 0.25, 2.5 , 5.0, 7.5);
+
+   if (Testing_For_Error == 0)
+       std::cout << "For_Operator_Operations Was Unchanged" << std::endl;
+   else
+   {
+       std::cout << "For_Operator_Operations Was Changed" << std::endl;
+       Error = 1;
+       Testing_For_Error = 0;
+   }
+
+   Copy = Copy - For_Operator_Operations;
+
+   Testing_For_Error = Testing(Copy, 58.75, 30.0, 1.25, 2.75, 2.5, 2.25, -3.75, 20.0, 43.75);
+
+   if (Testing_For_Error == 0)
+       std::cout << "Operator Overload for '-' A Matrix3x3 Works Properly" << std::endl;
+   else
+   {
+       std::cout << "Operator Overload for '-' A Matrix3x3 Does Not Work Properly" << std::endl;
+       Error = 1;
+       Testing_For_Error = 0;
+   }
+
+   Testing_For_Error = Testing(For_Operator_Operations, -7.5, -5.0, -2.5, -0.25, 0.0, 0.25, 2.5 , 5.0, 7.5);
+
+   if (Testing_For_Error == 0)
+       std::cout << "For_Operator_Operations Was Unchanged" << std::endl;
+   else
+   {
+       std::cout << "For_Operator_Operations Was Changed" << std::endl;
+       Error = 1;
+       Testing_For_Error = 0;
+   }
+
+    Copy += For_Operator_Operations;
+
+    Testing_For_Error = Testing(Copy, 51.25, 25.0, -1.25, 2.5, 2.5, 2.5, -1.25, 25.0, 51.25);
+
+    if (Testing_For_Error == 0)
+        std::cout << "Operator Overload for '+=' A Matrix3x3 Works Properly" << std::endl;
+    else
     {
-        std::cout << "operator* with a vectors failed" << std::endl;
-        exit(8);
+        std::cout << "Operator Overload for '+=' A Matrix3x3 Does Not Work Properly" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
     }
 
+    Testing_For_Error = Testing(For_Operator_Operations, -7.5, -5.0, -2.5, -0.25, 0.0, 0.25, 2.5 , 5.0, 7.5);
 
-
-    OutputMatrix = someMatrix + 10;
-    std::cout << "\nMatrix addition with a number\n" << OutputMatrix << std::endl;
-    if (OutputMatrix.Get_Matrix_Data_1() != 19 || OutputMatrix.Get_Matrix_Data_2() != 18 || OutputMatrix.Get_Matrix_Data_3() != 17 ||
-        OutputMatrix.Get_Matrix_Data_4() != 16 || OutputMatrix.Get_Matrix_Data_5() != 15 || OutputMatrix.Get_Matrix_Data_6() != 14 ||
-        OutputMatrix.Get_Matrix_Data_7() != 13 || OutputMatrix.Get_Matrix_Data_8() != 12 || OutputMatrix.Get_Matrix_Data_9() != 11
-        )
+    if (Testing_For_Error == 0)
+        std::cout << "For_Operator_Operations Was Unchanged" << std::endl;
+    else
     {
-        std::cout << "operator+ with a scalar failed" << std::endl;
-        exit(9);
+        std::cout << "For_Operator_Operations Was Changed" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
     }
 
-    OutputMatrix = someMatrix - 10;
-    std::cout << "Matrix subtraction with a number\n" << OutputMatrix << std::endl;
-    if (OutputMatrix.Get_Matrix_Data_1() != -1 || OutputMatrix.Get_Matrix_Data_2() != -2 || OutputMatrix.Get_Matrix_Data_3() != -3 ||
-        OutputMatrix.Get_Matrix_Data_4() != -4 || OutputMatrix.Get_Matrix_Data_5() != -5 || OutputMatrix.Get_Matrix_Data_6() != -6 ||
-        OutputMatrix.Get_Matrix_Data_7() != -7 || OutputMatrix.Get_Matrix_Data_8() != -8 || OutputMatrix.Get_Matrix_Data_9() != -9
-        )
+    Copy *= For_Operator_Operations;
+
+    Testing_For_Error = Testing(Copy, -393.75, -262.5, -131.25, -13.125, 0.0, 13.125, 131.25, 262.5, 393.75);
+
+    if (Testing_For_Error == 0)
+        std::cout << "Operator Overload for '*=' A Matrix3x3 Works Properly" << std::endl;
+    else
     {
-        std::cout << "operator- with a scalar failed" << std::endl;
-        exit(10);
+        std::cout << "Operator Overload for '*=' A Matrix3x3 Does Not Work Properly" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
     }
 
-    OutputMatrix = someMatrix * 10;
-    std::cout << "Matrix multiplication with a number\n" << OutputMatrix << std::endl;
-    if (OutputMatrix.Get_Matrix_Data_1() != 90 || OutputMatrix.Get_Matrix_Data_2() != 80 || OutputMatrix.Get_Matrix_Data_3() != 70 ||
-        OutputMatrix.Get_Matrix_Data_4() != 60 || OutputMatrix.Get_Matrix_Data_5() != 50 || OutputMatrix.Get_Matrix_Data_6() != 40 ||
-        OutputMatrix.Get_Matrix_Data_7() != 30 || OutputMatrix.Get_Matrix_Data_8() != 20 || OutputMatrix.Get_Matrix_Data_9() != 10
-        )
+    Testing_For_Error = Testing(For_Operator_Operations, -7.5, -5.0, -2.5, -0.25, 0.0, 0.25, 2.5 , 5.0, 7.5);
+
+    if (Testing_For_Error == 0)
+        std::cout << "For_Operator_Operations Was Unchanged" << std::endl;
+    else
     {
-        std::cout << "operator* with a scalar failed" << std::endl;
-        exit(11);
+        std::cout << "For_Operator_Operations Was Changed" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
     }
 
-    OutputMatrix = someMatrix / 10;
-    std::cout << "Matrix division with a number\n" << OutputMatrix << std::endl;
-    if (OutputMatrix.Get_Matrix_Data_1() != 0.9 || OutputMatrix.Get_Matrix_Data_2() != 0.8 || OutputMatrix.Get_Matrix_Data_3() != 0.7 ||
-        OutputMatrix.Get_Matrix_Data_4() != 0.6 || OutputMatrix.Get_Matrix_Data_5() != 0.5 || OutputMatrix.Get_Matrix_Data_6() != 0.4 ||
-        OutputMatrix.Get_Matrix_Data_7() != 0.3 || OutputMatrix.Get_Matrix_Data_8() != 0.2 || OutputMatrix.Get_Matrix_Data_9() != 0.1
-        )
+    Copy -= For_Operator_Operations;
+
+    Testing_For_Error = Testing(Copy, -386.25, -257.5, -128.75, -12.875, 0.0, 12.875, 128.75, 257.5, 386.25);
+
+    if (Testing_For_Error == 0)
+        std::cout << "Operator Overload for '-=' A Matrix3x3 Works Properly" << std::endl;
+    else
     {
-        std::cout << "operator/ with a scalar failed" << std::endl;
-        exit(12);
+        std::cout << "Operator Overload for '-=' A Matrix3x3 Does Not Work Properly" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
     }
 
-    someMatrix += 10;
-    std::cout << "Matrix addition with a number using +=\n" << someMatrix << std::endl;
-    if (someMatrix.Get_Matrix_Data_1() != 19 || someMatrix.Get_Matrix_Data_2() != 18 || someMatrix.Get_Matrix_Data_3() != 17 ||
-        someMatrix.Get_Matrix_Data_4() != 16 || someMatrix.Get_Matrix_Data_5() != 15 || someMatrix.Get_Matrix_Data_6() != 14 ||
-        someMatrix.Get_Matrix_Data_7() != 13 || someMatrix.Get_Matrix_Data_8() != 12 || someMatrix.Get_Matrix_Data_9() != 11
-        )
+    Testing_For_Error = Testing(For_Operator_Operations, -7.5, -5.0, -2.5, -0.25, 0.0, 0.25, 2.5 , 5.0, 7.5);
+
+    if (Testing_For_Error == 0)
+        std::cout << "For_Operator_Operations Was Unchanged" << std::endl;
+    else
     {
-        std::cout << "operator+= with a scalar failed" << std::endl;
-        exit(11);
+        std::cout << "For_Operator_Operations Was Changed" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
     }
 
-    someMatrix -= 10;
-    std::cout << "Matrix subtraction with a number using -=\n" << someMatrix << std::endl;
-    if (someMatrix.Get_Matrix_Data_1() != 9 || someMatrix.Get_Matrix_Data_2() != 8 || someMatrix.Get_Matrix_Data_3() != 7 ||
-        someMatrix.Get_Matrix_Data_4() != 6 || someMatrix.Get_Matrix_Data_5() != 5 || someMatrix.Get_Matrix_Data_6() != 4 ||
-        someMatrix.Get_Matrix_Data_7() != 3 || someMatrix.Get_Matrix_Data_8() != 2 || someMatrix.Get_Matrix_Data_9() != 1
-        )
+    Vectors For_Multipling(-1.25, 1.25, 5.0);
+
+    Vectors Product_of_Matrix_and_Vectors = Copy * For_Multipling;
+
+    Testing_For_Error = Testing(Product_of_Matrix_and_Vectors, -482.8125, 80.46875, 2092.1875);
+
+    if (Testing_For_Error == 0)
+        std::cout << "Operator Overload for '*' by Vectors Works Properly" << std::endl;
+    else
     {
-        std::cout << "operator-= with a scalar failed" << std::endl;
-        exit(11);
+        std::cout << "Operator Overload for '*' by Vectors Does Not Work Properly" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
     }
 
-    someMatrix *= 10;
-    std::cout << "Matrix multiplication with a number using *=\n" << someMatrix << std::endl;
-    if (someMatrix.Get_Matrix_Data_1() != 90 || someMatrix.Get_Matrix_Data_2() != 80 || someMatrix.Get_Matrix_Data_3() != 70 ||
-        someMatrix.Get_Matrix_Data_4() != 60 || someMatrix.Get_Matrix_Data_5() != 50 || someMatrix.Get_Matrix_Data_6() != 40 ||
-        someMatrix.Get_Matrix_Data_7() != 30 || someMatrix.Get_Matrix_Data_8() != 20 || someMatrix.Get_Matrix_Data_9() != 10
-        )
+    Testing_For_Error = Testing(For_Multipling, -1.25, 1.25, 5.0);
+
+    if (Testing_For_Error == 0)
+        std::cout << "For_Multipling Was Unchanged" << std::endl;
+    else
     {
-        std::cout << "operator*= with a scalar failed" << std::endl;
-        exit(11);
+        std::cout << "For_Multipling Was Changed" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
     }
 
-    someMatrix /= 10;
-    std::cout << "Matrix division with a number using /=\n" << someMatrix << std::endl;
-    if (someMatrix.Get_Matrix_Data_1() != 9 || someMatrix.Get_Matrix_Data_2() != 8 || someMatrix.Get_Matrix_Data_3() != 7 ||
-        someMatrix.Get_Matrix_Data_4() != 6 || someMatrix.Get_Matrix_Data_5() != 5 || someMatrix.Get_Matrix_Data_6() != 4 ||
-        someMatrix.Get_Matrix_Data_7() != 3 || someMatrix.Get_Matrix_Data_8() != 2 || someMatrix.Get_Matrix_Data_9() != 1
-        )
+    Testing_For_Error = Testing(Copy, -386.25, -257.5, -128.75, -12.875, 0.0, 12.875, 128.75, 257.5, 386.25);
+
+    if (Testing_For_Error == 0)
+        std::cout << "Copy Matrix Was Unchanged" << std::endl;
+    else
     {
-        std::cout << "operator/= with a scalar failed" << std::endl;
-        exit(11);
+        std::cout << "Copy Matrix Was Changed" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
     }
 
+    Matrix3x3 Subtracted = Copy - 4.5;
 
+    Testing_For_Error = Testing(Subtracted, -390.75, -262.0, -133.25, -17.375, -4.5, 8.375, 124.25, 253.0, 381.75);
 
-    BlankMatrix.Initialise_As_Rotation_Matrix(90, 'y');
-    std::cout << "\nInitialising a matrix as a rotation matrix\n" << BlankMatrix << std::endl;
-    if (BlankMatrix.Get_Matrix_Data_1() != 0 || BlankMatrix.Get_Matrix_Data_2() != 0 || BlankMatrix.Get_Matrix_Data_3() != 1 ||
-        BlankMatrix.Get_Matrix_Data_4() != 0 || BlankMatrix.Get_Matrix_Data_5() != 1 || BlankMatrix.Get_Matrix_Data_6() != 0 ||
-        BlankMatrix.Get_Matrix_Data_7() != -1 || BlankMatrix.Get_Matrix_Data_8() != 0 || BlankMatrix.Get_Matrix_Data_9() != 0
-        )
+    if (Testing_For_Error == 0)
+        std::cout << "Operator Overload for '-' A Number Works Properly" << std::endl;
+    else
     {
-        std::cout << "Initialise_As_Rotation_Matrix() failed" << std::endl;
-        exit(17);
+        std::cout << "Operator Overload for '-' A Number Does Not Work Properly" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
     }
 
-    Matrix3x3 anotherMatrix(1,2,3,4,5,5,6,7,8);
-    anotherMatrix.Transpose_Matrix();
-    std::cout << "\nTransposing a matrix\n" << anotherMatrix << std::endl;
-    if (anotherMatrix.Get_Matrix_Data_1() != 1 || anotherMatrix.Get_Matrix_Data_2() != 4 || anotherMatrix.Get_Matrix_Data_3() != 6 ||
-        anotherMatrix.Get_Matrix_Data_4() != 2 || anotherMatrix.Get_Matrix_Data_5() != 5 || anotherMatrix.Get_Matrix_Data_6() != 7 ||
-        anotherMatrix.Get_Matrix_Data_7() != 3 || anotherMatrix.Get_Matrix_Data_8() != 5 || anotherMatrix.Get_Matrix_Data_9() != 8
-        )
+    Testing_For_Error = Testing(Copy, -386.25, -257.5, -128.75, -12.875, 0.0, 12.875, 128.75, 257.5, 386.25);
+
+    if (Testing_For_Error == 0)
+        std::cout << "Orginal Matrix Was Unchanged" << std::endl;
+    else
     {
-        std::cout << "Transpose_Matrix() failed" << std::endl;
-        exit(18);
+        std::cout << "Orginal Matrix Was Changed" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
     }
 
-    std::cout << "\nDeterminant of matrix = " << anotherMatrix.Get_Determinant() << std::endl;
-    if (anotherMatrix.Get_Determinant() != -5)
+    Matrix3x3 Added = Copy + 4.5;
+
+    Testing_For_Error = Testing(Added, -381.75, -253.0, -124.25, -8.375, 4.5, 17.375, 133.25, 262.0, 390.75);
+
+    if (Testing_For_Error == 0)
+        std::cout << "Operator Overload for '+' A Number Works Properly" << std::endl;
+    else
     {
-        std::cout << "Get_Determinant() failed" << std::endl;
-        exit(19);
+        std::cout << "Operator Overload for '+' A Number Does Not Work Properly" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
     }
 
-    anotherMatrix.Inverse_Matrix();
-    std::cout << "\nInverse of a matrix\n" << anotherMatrix << std::endl;
-    if (anotherMatrix.Get_Matrix_Data_1() != -1 || anotherMatrix.Get_Matrix_Data_2() != 0.4 || anotherMatrix.Get_Matrix_Data_3() != 0.4 ||
-        anotherMatrix.Get_Matrix_Data_4() != -1 || anotherMatrix.Get_Matrix_Data_5() != 2 || anotherMatrix.Get_Matrix_Data_6() != -1 ||
-        anotherMatrix.Get_Matrix_Data_7() != 1 || anotherMatrix.Get_Matrix_Data_8() != -1.4 || anotherMatrix.Get_Matrix_Data_9() != 0.6
-        )
+    Testing_For_Error = Testing(Copy, -386.25, -257.5, -128.75, -12.875, 0.0, 12.875, 128.75, 257.5, 386.25);
+
+    if (Testing_For_Error == 0)
+        std::cout << "Orginal Matrix Was Unchanged" << std::endl;
+    else
     {
-        std::cout << "Inverse_Matrix() failed" << std::endl;
-        exit(20);
+        std::cout << "Orginal Matrix Was Changed" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
     }
 
-    return 0;
-}
+    Matrix3x3 Multiplied = Copy * 0.25;
+
+    Testing_For_Error = Testing(Multiplied, -96.5625, -64.375, -32.1875, -3.21875, 0.0, 3.21875, 32.1875, 64.375, 96.5625);
+
+    if (Testing_For_Error == 0)
+        std::cout << "Operator Overload for '*' A Number Works Properly" << std::endl;
+    else
+    {
+        std::cout << "Operator Overload for '*' A Number Does Not Work Properly" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
+    }
+
+    Testing_For_Error = Testing(Copy, -386.25, -257.5, -128.75, -12.875, 0.0, 12.875, 128.75, 257.5, 386.25);
+
+    if (Testing_For_Error == 0)
+        std::cout << "Orginal Matrix Was Unchanged" << std::endl;
+    else
+    {
+        std::cout << "Orginal Matrix Was Changed" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
+    }
+
+    Matrix3x3 Divided = Copy / 4.0;
+
+    Testing_For_Error = Testing(Divided, -96.5625, -64.375, -32.1875, -3.21875, 0.0, 3.21875, 32.1875, 64.375, 96.5625);
+
+    if (Testing_For_Error == 0)
+        std::cout << "Operator Overload for '/' A Number Works Properly" << std::endl;
+    else
+    {
+        std::cout << "Operator Overload for '/' A Number Does Not Work Properly" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
+    }
+
+    Testing_For_Error = Testing(Copy, -386.25, -257.5, -128.75, -12.875, 0.0, 12.875, 128.75, 257.5, 386.25);
+
+    if (Testing_For_Error == 0)
+        std::cout << "Orginal Matrix Was Unchanged" << std::endl;
+    else
+    {
+        std::cout << "Orginal Matrix Was Changed" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
+    }
+
+    Copy -= 4.05;
+
+    Testing_For_Error = Testing(Copy, -390.3, -261.55, -132.8, -16.925, -4.05, 8.825, 124.7, 253.45, 382.2);
+
+    if (Testing_For_Error == 0)
+        std::cout << "Operator Overload for '-=' A Number Works Properly" << std::endl;
+    else
+    {
+        std::cout << "Operator Overload for '-=' A Number Does Not Work Properly" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
+    }
+
+    Copy += 0.05;
+
+    Testing_For_Error = Testing(Copy, -390.25, -261.50, -132.75, -16.875, -4.0, 8.875, 124.75, 253.5, 382.25);
+
+    if (Testing_For_Error == 0)
+        std::cout << "Operator Overload for '+=' A Number Works Properly" << std::endl;
+    else
+    {
+        std::cout << "Operator Overload for '+=' A Number Does Not Work Properly" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
+    }
+
+    Copy *= 0.05;
+
+    Testing_For_Error = Testing(Copy, -19.5125, -13.075, -6.6375, -0.84375, -0.2, 0.44375, 6.2375, 12.675, 19.1125);
+
+    if (Testing_For_Error == 0)
+        std::cout << "Operator Overload for '*=' A Number Works Properly" << std::endl;
+    else
+    {
+        std::cout << "Operator Overload for '*=' A Number Does Not Work Properly" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
+    }
+
+    Copy /= -2.0;
+
+    Testing_For_Error = Testing(Copy, 9.75625, 6.5375, 3.31875, 0.421875, 0.1, -0.221875, -3.11875, -6.3375, -9.55625);
+
+    if (Testing_For_Error == 0)
+        std::cout << "Operator Overload for '/=' A Number Works Properly" << std::endl;
+    else
+    {
+        std::cout << "Operator Overload for '/=' A Number Does Not Work Properly" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
+    }
+
+    Copy.Transpose_Matrix();
+
+    Testing_For_Error = Testing(Copy, 9.75625, 0.421875, -3.11875, 6.5375, 0.1, -6.3375, 3.31875, -0.221875, -9.55625);
+
+    if (Testing_For_Error == 0)
+        std::cout << "Transpose Matrix Function Works Properly" << std::endl;
+    else
+    {
+        std::cout << "Transpose Matrix Function Does Not Work Properly" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
+    }
+
+    Matrix3x3 For_Determinat_and_Inverse(2.0, 1.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0);
+
+    double Determinant = For_Determinat_and_Inverse.Get_Determinant();
+    Testing_For_Error = Testing(Determinant, -9.0);
+
+    if (Testing_For_Error == 0)
+        std::cout << "Determinant Function Works Properly" << std::endl;
+    else
+    {
+        std::cout << "Determinant Function Does Not Work Properly" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
+    }
+
+    Testing_For_Error = Testing(For_Determinat_and_Inverse, 2.0, 1.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0);
+    if (Testing_For_Error == 0)
+        std::cout << "Orginal Matrix Was Unchanged" << std::endl;
+    else
+    {
+        std::cout << "Orginal Matrix Was Changed" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
+    }
+
+    For_Determinat_and_Inverse.Inverse_Matrix();
+
+    Testing_For_Error = Testing(For_Determinat_and_Inverse, (1.0/3.0), (-5.0/3.0), (1.0), (-2.0/3.0), (1.0/3.0),(0.0), (1.0/3.0), (1.0), (-2.0/3.0) );
+
+    if (Testing_For_Error == 0)
+        std::cout << "Inverse Matrix Function Works Properly" << std::endl;
+    else
+    {
+        std::cout << "Inverse Matrix Function Does Not Work Properly" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
+    }
+
+    Matrix3x3 X_Rotation;
+    X_Rotation.Initialise_As_Rotation_Matrix(45.0, 'x');
+
+    Testing_For_Error = Testing(X_Rotation, 1.0, 0.0, 0.0, 0.0, (1.0/sqrt(2)), (-1.0/sqrt(2)), 0.0, (1.0/sqrt(2)), (1.0/sqrt(2)) );
+
+    if (Testing_For_Error == 0)
+        std::cout << "Initialise As Rotation Matrix 'x' Function Works Properly" << std::endl;
+    else
+    {
+        std::cout << "Initialise As Rotation Matrix 'x' Does Not Work Properly" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
+    }
+
+    Matrix3x3 Y_Rotation;
+    Y_Rotation.Initialise_As_Rotation_Matrix(90.0, 'y');
+
+    Testing_For_Error = Testing(Y_Rotation, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, -1.0, 0.0, 0.0);
+
+    if (Testing_For_Error == 0)
+        std::cout << "Initialise As Rotation Matrix 'y' Function Works Properly" << std::endl;
+    else
+    {
+        std::cout << "Initialise As Rotation Matrix 'y' Does Not Work Properly" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
+    }
+
+    Matrix3x3 Z_Rotation;
+    Z_Rotation.Initialise_As_Rotation_Matrix(135.0, 'z');
+
+    Testing_For_Error = Testing(Z_Rotation, (-1.0/sqrt(2)), (-1.0/sqrt(2)), 0.0, (1.0/sqrt(2)), (-1.0/sqrt(2)), 0.0, 0.0, 0.0, 1.0);
+
+    if (Testing_For_Error == 0)
+        std::cout << "Initialise As Rotation Matrix 'z' Function Works Properly" << std::endl;
+    else
+    {
+        std::cout << "Initialise As Rotation Matrix 'z' Does Not Work Properly" << std::endl;
+        Error = 1;
+        Testing_For_Error = 0;
+    }
+
+    std::cout << "************************" << std::endl;
+    if (Error == 0 )
+        std::cout << "End of Test: Success" << std::endl;
+    else
+        std::cout << "End of Test: Failure" << std::endl;
+    std::cout << "************************" << std::endl;
+
+    return (Error == 0) ? 0 : 1;
+};
