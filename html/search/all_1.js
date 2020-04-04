@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['cell',['Cell',['../class_cell.html',1,'Cell'],['../class_cell.html#a394510643e8664cf12b5efaf5cb99f71',1,'Cell::Cell()']]],
+  ['calc_5fdbl_5fepsilon_5ffor_5fmachine',['Calc_DBL_EPSILON_For_Machine',['../double__equality__function_8h.html#a16d964c3e6428cc9d1dc3a82a5dca189',1,'double_equality_function.h']]],
+  ['cell',['Cell',['../class_cell.html',1,'Cell'],['../class_cell.html#aab24f3f223f86c03968096edbd40a9f0',1,'Cell::Cell()']]],
   ['cell_2ehpp',['Cell.hpp',['../_cell_8hpp.html',1,'']]],
   ['cellarray',['cellArray',['../class_main_window.html#a9bd1a57c9e9f1ebc1fce347b7c9a1268',1,'MainWindow']]],
   ['cellorder',['cellOrder',['../class_model.html#a0ef63aa0fd2e9704503e08f62bdc151d',1,'Model']]],

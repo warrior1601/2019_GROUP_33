@@ -12,6 +12,7 @@ var searchData=
   ['matrix_2ehpp',['Matrix.hpp',['../_matrix_8hpp.html',1,'']]],
   ['matrix3x3',['Matrix3x3',['../class_matrix3x3.html',1,'Matrix3x3'],['../class_vectors.html#a7547c9c4cb7891d894ff6a5aef60a00d',1,'Vectors::Matrix3x3()'],['../class_matrix3x3.html#a23b363451a21f13cb794b67d23b991a7',1,'Matrix3x3::Matrix3x3(const double &amp;One, const double &amp;Two, const double &amp;Three, const double &amp;Four, const double &amp;Five, const double &amp;Six, const double &amp;Seven, const double &amp;Eight, const double &amp;Nine)'],['../class_matrix3x3.html#a824e781c0c3a691cfd614acb5f05bf4b',1,'Matrix3x3::Matrix3x3(const Matrix3x3 &amp;aMatrix3x3)'],['../class_matrix3x3.html#aae26d47c68855190ec70512046d7bac6',1,'Matrix3x3::Matrix3x3(void)']]],
   ['matrixdata',['MatrixData',['../class_matrix3x3.html#ab7e11a8b978798edc9ea79942500316f',1,'Matrix3x3']]],
+  ['max',['Max',['../double__equality__function_8h.html#a106e589d87e30bab19df8447fdea8758',1,'double_equality_function.h']]],
   ['model',['Model',['../class_model.html',1,'Model'],['../class_model.html#ac3050803a926bacf82b2c95219e89df5',1,'Model::Model(const Model &amp;aModel)'],['../class_model.html#aa26cb9f39a3e0356152a57a2d2ecfaef',1,'Model::Model(void)']]],
   ['model_2ehpp',['Model.hpp',['../_model_8hpp.html',1,'']]]
 ];
