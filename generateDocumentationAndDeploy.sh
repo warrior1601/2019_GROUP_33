@@ -30,7 +30,6 @@ __AUTHOR__="Jeroen de Bruijn"
 # Before this script is used there should already be a gh-pages branch in the
 # repository.
 #
-################################################################################
 
 ################################################################################
 ##### Setup this script and get the current gh-pages branch.               #####
