@@ -1,7 +1,7 @@
-* finish the doxygen comment for semester 2  
+---Jedidiah---
+* Doxygen comments for semester 2 code
 
-#################################################################
-
+---Chang---
 * QT/VTK objectives
   - Need a measuring tool
   - Ability to select cells
@@ -10,8 +10,7 @@
 
 * Clean up code and make sure all indented nicely and commented
 
-#################################################################
-
+---Junaid---                            
 * Wiki how to use observer  
 * Windows installer                                             
 * MacOS installer                                                 
