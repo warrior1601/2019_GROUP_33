@@ -7,6 +7,7 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include <cmath>
+#include "double_equality_function.h"
 
 //Constructors and destructor
 Matrix3x3::Matrix3x3(const double& One, const double& Two, const double& Three,
@@ -83,9 +84,37 @@ Matrix3x3& Matrix3x3::operator = (const Matrix3x3& aMatrix3x3)
     }
 }
 
-
-
-
+bool Matrix3x3::operator== (Matrix3x3& aMatrix3x3)
+{
+    if (!(Testing(MatrixData[0][0], aMatrix3x3.Get_Matrix_Data_1())))
+        if (!(Testing(MatrixData[0][1], aMatrix3x3.Get_Matrix_Data_2())))
+            if (!(Testing(MatrixData[0][2], aMatrix3x3.Get_Matrix_Data_3())))
+                if (!(Testing(MatrixData[1][0], aMatrix3x3.Get_Matrix_Data_4())))
+                    if (!(Testing(MatrixData[1][1], aMatrix3x3.Get_Matrix_Data_5())))
+                        if (!(Testing(MatrixData[1][2], aMatrix3x3.Get_Matrix_Data_6())))
+                            if (!(Testing(MatrixData[2][0], aMatrix3x3.Get_Matrix_Data_7())))
+                                if (!(Testing(MatrixData[2][1], aMatrix3x3.Get_Matrix_Data_8())))
+                                    if (!(Testing(MatrixData[2][2], aMatrix3x3.Get_Matrix_Data_9())))
+                                        return true;
+                                    else
+                                        return false;
+                                else
+                                    return false;
+                            else
+                                return false;
+                        else
+                            return false;
+                    else
+                        return false;
+                else
+                    return false;
+            else
+                return false;
+        else
+            return false;
+    else
+        return false;
+}
 
 Matrix3x3 Matrix3x3::operator+ (const Matrix3x3& aMatrix3x3)
 {

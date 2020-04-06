@@ -26,14 +26,14 @@ endif()
 # This creates the .exe file for each test code
 add_executable( MaterialTestCode  test_code/MaterialTestCode.cpp  )
 add_executable( VectorsTestCode   test_code/VectorsTestCode.cpp  )
-add_executable( MatrixTestCode 	  test_code/Matrix_TestCode.cpp  )
-add_executable( Cell_TestCode      test_code/CellTestCode.cpp  )
-add_executable( Model_TestCode 	  test_code/ModelTestCode.cpp  )
+add_executable( MatrixTestCode 	  test_code/MatrixTestCode.cpp  )
+add_executable( CellTestCode      test_code/CellTestCode.cpp  )
+add_executable( ModelTestCode 	  test_code/ModelTestCode.cpp  )
 
 # This links the libraries to the .exe file
 target_link_libraries( MaterialTestCode	Model )
 target_link_libraries( VectorsTestCode 	Model )
-target_link_libraries( Matrix_TestCode 	Model )
+target_link_libraries( MatrixTestCode 	Model )
 target_link_libraries( CellTestCode 	Model )
 target_link_libraries( ModelTestCode    Model )
 
@@ -44,8 +44,8 @@ include ( CTest )
 
 add_test( MaterialTestCode  MaterialTestCode )
 add_test( VectorsTestCode   VectorsTestCode  )
-add_test( MatrixTestCode    Matrix_TestCode  )
-add_test( Cell_TestCode      CellTestCode )
+add_test( MatrixTestCode    MatrixTestCode  )
+add_test( CellTestCode      CellTestCode )
 add_test( ModelTestCode    ModelTestCode )
 
 # Copy the model files for ModelTestCode.exe/MaterialTestCode_CTest.exe in to build directory

@@ -12,6 +12,7 @@
 
 int main()
 {
+    std::cout << "------------------------------Material.hpp Test Code------------------------------" << std::endl;
     unsigned int Testing_For_Error = 0;
     unsigned int Error = 0;
 
