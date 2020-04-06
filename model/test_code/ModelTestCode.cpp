@@ -88,10 +88,35 @@ int main()
     Empty_Model.Set_Vectors(List_of_Vectors);
 
     // now we need to create cells from the vectors and Materials then add them to the model
-    std::vector<Vectors> HexaVertices = {V0_Hex, V1_Hex, V2_Hex, V3_Hex, V4_Hex, V5_Hex, V6_Hex, V7_Hex};
-    std::vector<Vectors> TetraVertices = {V0_Tetra, V1_Tetra, V2_Tetra, V3_Tetra};
-    std::vector<int> aRelevantVectorsOrder = {0,1,2,3,4,5,6,7};
-    std::vector<int> aRelevantVectorsOrder2 = {8,9,10,11};
+    std::vector<Vectors> HexaVertices;
+    HexaVertices.push_back(V0_Hex);
+    HexaVertices.push_back(V1_Hex);
+    HexaVertices.push_back(V2_Hex);
+    HexaVertices.push_back(V3_Hex);
+    HexaVertices.push_back(V4_Hex);
+    HexaVertices.push_back(V5_Hex);
+    HexaVertices.push_back(V6_Hex);
+    HexaVertices.push_back(V7_Hex);
+    std::vector<Vectors> TetraVertices;
+    TetraVertices.push_back(V0_Tetra);
+    TetraVertices.push_back(V1_Tetra);
+    TetraVertices.push_back(V2_Tetra);
+    TetraVertices.push_back(V3_Tetra);
+    std::vector<int> aRelevantVectorsOrder;
+    aRelevantVectorsOrder.push_back(0);
+    aRelevantVectorsOrder.push_back(1);
+    aRelevantVectorsOrder.push_back(2);
+    aRelevantVectorsOrder.push_back(3);
+    aRelevantVectorsOrder.push_back(4);
+    aRelevantVectorsOrder.push_back(5);
+    aRelevantVectorsOrder.push_back(6);
+    aRelevantVectorsOrder.push_back(7);
+    std::vector<int> aRelevantVectorsOrder2;
+    aRelevantVectorsOrder2.push_back(8);
+    aRelevantVectorsOrder2.push_back(9);
+    aRelevantVectorsOrder2.push_back(10);
+    aRelevantVectorsOrder2.push_back(11);
+    
     Cell* aHexahedron = new Hexahedron (HexaVertices, aRelevantVectorsOrder, Diamond);
     Cell* aTetra = new Tetrahedron (TetraVertices, aRelevantVectorsOrder2, Gold);
 
@@ -289,8 +314,20 @@ int main()
 
     X_Rotated.Set_Vectors(X_Rotated_Vectors);
 
-    std::vector<Vectors> HexaVertices_X_Rotated = {V0_Hex_X_Rotated, V1_Hex_X_Rotated, V2_Hex_X_Rotated, V3_Hex_X_Rotated, V4_Hex_X_Rotated, V5_Hex_X_Rotated, V6_Hex_X_Rotated, V7_Hex_X_Rotated};
-    std::vector<Vectors> TetraVertices_X_Rotated = {V0_Tetra_X_Rotated, V1_Tetra_X_Rotated, V2_Tetra_X_Rotated, V3_Tetra_X_Rotated};
+    std::vector<Vectors> HexaVertices_X_Rotated;
+    HexaVertices_X_Rotated.push_back(V0_Hex_X_Rotated);
+    HexaVertices_X_Rotated.push_back(V1_Hex_X_Rotated);
+    HexaVertices_X_Rotated.push_back(V2_Hex_X_Rotated);
+    HexaVertices_X_Rotated.push_back(V3_Hex_X_Rotated);
+    HexaVertices_X_Rotated.push_back(V4_Hex_X_Rotated);
+    HexaVertices_X_Rotated.push_back(V5_Hex_X_Rotated);
+    HexaVertices_X_Rotated.push_back(V6_Hex_X_Rotated);
+    HexaVertices_X_Rotated.push_back(V7_Hex_X_Rotated);
+    std::vector<Vectors> TetraVertices_X_Rotated;
+    TetraVertices_X_Rotated.push_back(V0_Tetra_X_Rotated);
+    TetraVertices_X_Rotated.push_back(V1_Tetra_X_Rotated);
+    TetraVertices_X_Rotated.push_back(V2_Tetra_X_Rotated);
+    TetraVertices_X_Rotated.push_back(V3_Tetra_X_Rotated);
 
     Cell* aHexahedron_X_Rotated = new Hexahedron (HexaVertices_X_Rotated, aRelevantVectorsOrder, Diamond);
     Cell* aTetra_X_Rotated = new Tetrahedron (TetraVertices_X_Rotated, aRelevantVectorsOrder2, Gold);
@@ -357,8 +394,20 @@ int main()
 
     Y_Rotated.Set_Vectors(Y_Rotated_Vectors);
 
-    std::vector<Vectors> HexaVertices_Y_Rotated = {V0_Hex_Y_Rotated, V1_Hex_Y_Rotated, V2_Hex_Y_Rotated, V3_Hex_Y_Rotated, V4_Hex_Y_Rotated, V5_Hex_Y_Rotated, V6_Hex_Y_Rotated, V7_Hex_Y_Rotated};
-    std::vector<Vectors> TetraVertices_Y_Rotated = {V0_Tetra_Y_Rotated, V1_Tetra_Y_Rotated, V2_Tetra_Y_Rotated, V3_Tetra_Y_Rotated};
+    std::vector<Vectors> HexaVertices_Y_Rotated;
+    HexaVertices_Y_Rotated.push_back(V0_Hex_Y_Rotated);
+    HexaVertices_Y_Rotated.push_back(V1_Hex_Y_Rotated);
+    HexaVertices_Y_Rotated.push_back(V2_Hex_Y_Rotated);
+    HexaVertices_Y_Rotated.push_back(V3_Hex_Y_Rotated);
+    HexaVertices_Y_Rotated.push_back(V4_Hex_Y_Rotated);
+    HexaVertices_Y_Rotated.push_back(V5_Hex_Y_Rotated);
+    HexaVertices_Y_Rotated.push_back(V6_Hex_Y_Rotated);
+    HexaVertices_Y_Rotated.push_back(V7_Hex_Y_Rotated);
+    std::vector<Vectors> TetraVertices_Y_Rotated;
+    TetraVertices_Y_Rotated.push_back(V0_Tetra_Y_Rotated);
+    TetraVertices_Y_Rotated.push_back(V1_Tetra_Y_Rotated);
+    TetraVertices_Y_Rotated.push_back(V2_Tetra_Y_Rotated);
+    TetraVertices_Y_Rotated.push_back(V3_Tetra_Y_Rotated);
 
     Cell* aHexahedron_Y_Rotated = new Hexahedron (HexaVertices_Y_Rotated, aRelevantVectorsOrder, Diamond);
     Cell* aTetra_Y_Rotated = new Tetrahedron (TetraVertices_Y_Rotated, aRelevantVectorsOrder2, Gold);
@@ -425,8 +474,20 @@ int main()
 
     Z_Rotated.Set_Vectors(Z_Rotated_Vectors);
 
-    std::vector<Vectors> HexaVertices_Z_Rotated = {V0_Hex_Z_Rotated, V1_Hex_Z_Rotated, V2_Hex_Z_Rotated, V3_Hex_Z_Rotated, V4_Hex_Z_Rotated, V5_Hex_Z_Rotated, V6_Hex_Z_Rotated, V7_Hex_Z_Rotated};
-    std::vector<Vectors> TetraVertices_Z_Rotated = {V0_Tetra_Z_Rotated, V1_Tetra_Z_Rotated, V2_Tetra_Z_Rotated, V3_Tetra_Z_Rotated};
+    std::vector<Vectors> HexaVertices_Z_Rotated;
+    HexaVertices_Z_Rotated.push_back(V0_Hex_Z_Rotated);
+    HexaVertices_Z_Rotated.push_back(V1_Hex_Z_Rotated);
+    HexaVertices_Z_Rotated.push_back(V2_Hex_Z_Rotated);
+    HexaVertices_Z_Rotated.push_back(V3_Hex_Z_Rotated);
+    HexaVertices_Z_Rotated.push_back(V4_Hex_Z_Rotated);
+    HexaVertices_Z_Rotated.push_back(V5_Hex_Z_Rotated);
+    HexaVertices_Z_Rotated.push_back(V6_Hex_Z_Rotated);
+    HexaVertices_Z_Rotated.push_back(V7_Hex_Z_Rotated);
+    std::vector<Vectors> TetraVertices_Z_Rotated;
+    TetraVertices_Z_Rotated.push_back(V0_Tetra_Z_Rotated);
+    TetraVertices_Z_Rotated.push_back(V1_Tetra_Z_Rotated);
+    TetraVertices_Z_Rotated.push_back(V2_Tetra_Z_Rotated);
+    TetraVertices_Z_Rotated.push_back(V3_Tetra_Z_Rotated);
 
     Cell* aHexahedron_Z_Rotated = new Hexahedron (HexaVertices_Z_Rotated, aRelevantVectorsOrder, Diamond);
     Cell* aTetra_Z_Rotated = new Tetrahedron (TetraVertices_Z_Rotated, aRelevantVectorsOrder2, Gold);
