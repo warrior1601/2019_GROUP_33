@@ -23,19 +23,11 @@ endif()
 
 # Installer code
 if( ${BUILD_INSTALLERS} )
-	if( WIN32 )
+		if( WIN32 )
 		set( CPACK_GENERATOR NSIS )
-		install( TARGETS Model
-			 ARCHIVE
-			 DESTINATION lib
-			 COMPONENT libraries
-		)
-
-		install( TARGETS
-			 ARCHIVE
-			 DESTINATION lib
-			 COMPONENT libraries
-		)
+		else()
+		 	set(CPACK_GENERATOR ZIP)
+		endif()
 
 		install( TARGETS Observer
 			 RUNTIME
@@ -43,18 +35,18 @@ if( ${BUILD_INSTALLERS} )
 			 COMPONENT applications
 		)
 
-		install( FILES  model/include/Model.hpp;
-				model/include/Cell.hpp;
-				model/include/Matrix.hpp;
-				model/include/Vectors.h;
-				model/include/Material.h;
-				model_viewer/include/mainwindow.h;
-				model_viewer/include/edit_light.h;
-				model_viewer/include/filters.h;
-				model_viewer/include/vtklight_withname.h
-			 DESTINATION include
-			 COMPONENT headers
-		)
+		# install( FILES  model/include/Model.hpp;
+		# 		model/include/Cell.hpp;
+		# 		model/include/Matrix.hpp;
+		# 		model/include/Vectors.h;
+		# 		model/include/Material.h;
+		# 		model_viewer/include/mainwindow.h;
+		# 		model_viewer/include/edit_light.h;
+		# 		model_viewer/include/filters.h;
+		# 		model_viewer/include/vtklight_withname.h
+		# 	 DESTINATION include
+		# 	 COMPONENT headers
+		# )
 
 		# CPACK macros below here
 		set (CPACK_PACKAGE_NAME "Observer")
@@ -62,6 +54,8 @@ if( ${BUILD_INSTALLERS} )
 		set (CPACK_PACKAGE_DESCRIPTION_SUMMARY "Observer Installation")
 		set (CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
 		set (CPACK_PACKAGE_INSTALL_DIRECTORY "Observer")
+		set (CPACK_CREATE_DESKTOP_LINKS ON)
+		set (CPACK_RESOURCE_FILE_LICENSE ${CMAKE_CURRENT_SOURCE_DIR}/LICENSE.txt)
 
 		# Define components and their display names
 		set (CPACK_COMPONENTS_ALL applications libraries headers)
@@ -90,11 +84,19 @@ if( ${BUILD_INSTALLERS} )
 		set(CPACK_COMPONENT_LIBRARIES_INSTALL_TYPES Developer Full)
 		set(CPACK_COMPONENT_HEADERS_INSTALL_TYPES Developer Full)
 
-	else()
-		set(CPACK_GENERATOR ZIP)
-	endif()
-
 	# Must be after the last CPACK macros
 	include(CPack)
 
 endif()
+
+
+# # CPACK macros below here
+# set (CPACK_PACKAGE_NAME "Observer")
+# set (CPACK_PACKAGE_VENDOR "The Space Explorers")
+# set (CPACK_PACKAGE_DESCRIPTION_SUMMARY "Observer Installation")
+# set (CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
+# set (CPACK_PACKAGE_DIRECTORY "Observer")
+# set (CPACK_PACKAGE_INSTALL_DIRECTORY "Observer")
+# set (CPACK_RESOURCE_FILE_LICENSE ${CMAKE_CURRENT_SOURCE_DIR}/LICENSE.txt)
+# set (CPACK_PACKAGE_EXECUTABLES Observer;Observer)
+# set (CPACK_CREATE_DESKTOP_LINKS ON)
