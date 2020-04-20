@@ -59,11 +59,10 @@ void Filters::on_Shrink_Filter_toggled(bool Shrink_Filter_Status)
         {
 // When this function is called it ensures that all other fillters are
 // No longer being applied
-
         checked_Box_Status_Updater(1);
 
         Shrink_Filter->SetInputConnection( reader_Local->GetOutputPort() );
-        Shrink_Filter->SetShrinkFactor(.5);
+        Shrink_Filter->SetShrinkFactor(double(ui->Scale->value())/100.00);
         Shrink_Filter->Update();
         mapper_Local->SetInputConnection( Shrink_Filter->GetOutputPort() );
         }
@@ -81,19 +80,17 @@ void Filters::on_Shrink_Filter_toggled(bool Shrink_Filter_Status)
             //filter goes here//
       }
   }
-
 }
-// THis applies the Clipping Filter to the image on the MainWindow
+// This applies the Clipping Filter to the image on the MainWindow
 
 void Filters::on_Clipper_Filter_toggled(bool Clipper_Filter_Status)
 {
     if(Clipper_Filter_Status == true )
         {      
         checked_Box_Status_Updater(2);
-        // this will apply a clipping plane whose normal is the x-axis that crosses the x-axis at x=0
 
-        planeLeft->SetOrigin(0.0, 0.0, 0.0);
-        planeLeft->SetNormal(-1.0, 0.0, 0.0);
+        planeLeft->SetOrigin(double(ui->X_Origin->value()/10.0), double(ui->Y_Origin->value()/10.0), double(ui->Z_Origin->value()/10.0));
+        planeLeft->SetNormal(double(ui->X_Normal->value()/10.0), double(ui->Y_Normal->value()/10.0), double(ui->Z_Normal->value()/10.0));
 
         Clipper_Filter->SetInputConnection( reader_Local->GetOutputPort() ) ;
         Clipper_Filter->SetClipFunction( planeLeft.Get() );
@@ -161,15 +158,6 @@ void Filters::on_Z_Normal_valueChanged(int value)
     planeLeft->SetNormal(Filter_Scroll[0], Filter_Scroll[1], double (value)/10.00);
     renderWindow_Local->Render();
 }
-
-
-
-
-
-
-
-
-
 
 // When this function is called it ensures all other Filters are decatiated
 
