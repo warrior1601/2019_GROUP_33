@@ -158,6 +158,8 @@ void MainWindow::on_Reset_Camera_released()
     ui->statusBar->showMessage("Reset Button was clicked",3000);
     renderer->ResetCamera();
     double* CameraLocation = renderer->GetActiveCamera()->GetPosition();
+    ui->Horizontal_Shift->setValue(0);
+    ui->Vertical_Shift->setValue(0);
     //create a dispaly to show where the camer is currently at and where the focal point of the camer is.
     renderWindow->Render();
 }
@@ -221,10 +223,23 @@ void MainWindow::on_Z_Camera_Pos_valueChanged(int value)
 void MainWindow::on_Vertical_Shift_valueChanged(int arg1)
 {
     ui->statusBar->showMessage("Vertical Shift Value was Changed",3000);
-    static double Last_Value_Elevation= 0.0;
+    static double Last_Value_Elevation = 0.0;
     int Temp = arg1;
-    arg1 = arg1-Last_Value_Elevation;
-    renderer->GetActiveCamera()->Pitch(double (-arg1));
+
+    if (( arg1 == 0 )&&( abs(Last_Value_Elevation) == 1.0 ))
+    {
+        renderer->GetActiveCamera()->Pitch(double (Last_Value_Elevation));
+    }
+    else if ((arg1 == 0)&&(Last_Value_Elevation =! 0.0))
+    {
+       renderer->GetActiveCamera()->Pitch(double (arg1));
+    }
+
+    else
+    {
+        arg1 = arg1-Last_Value_Elevation;
+        renderer->GetActiveCamera()->Pitch(double (-arg1));
+    }
     Last_Value_Elevation = Temp;
     renderWindow->Render();
 }
@@ -232,10 +247,22 @@ void MainWindow::on_Vertical_Shift_valueChanged(int arg1)
 void MainWindow::on_Horizontal_Shift_valueChanged(int arg1)
 {
     ui->statusBar->showMessage("Horizontal Shift Value was Changed",3000);
-    static double Last_Value_Azimuth= 0.0;
+    static double Last_Value_Azimuth = 0.0;
     int Temp = arg1;
+
+    if (( arg1 == 0 )&&( abs(Last_Value_Azimuth) == 1.0 ))
+    {
+        renderer->GetActiveCamera()->Yaw(double (-Last_Value_Azimuth));
+    }
+    else if ((arg1 == 0 )&&( Last_Value_Azimuth =! 0.0 ))
+    {
+        renderer->GetActiveCamera()->Yaw(double (-arg1));
+    }
+    else
+    {
     arg1 = arg1-Last_Value_Azimuth;
     renderer->GetActiveCamera()->Yaw(double (arg1));
+    }
     Last_Value_Azimuth = Temp;
     renderWindow->Render();
 }
