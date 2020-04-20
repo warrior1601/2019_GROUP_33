@@ -92,7 +92,6 @@ private slots:
 	void on_actionThunderbolt_triggered();
 	void on_actionairbus_triggered();
 	void on_actionRuler_triggered();
-	//void on_BoxW_clicked(bool checked);
 	void on_actionRemove_Ruler_triggered();
 
 private:

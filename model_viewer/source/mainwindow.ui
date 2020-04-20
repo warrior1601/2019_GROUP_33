@@ -7,11 +7,11 @@
     <x>0</x>
     <y>0</y>
     <width>819</width>
-    <height>779</height>
+    <height>793</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Observer</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -35,7 +35,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QFrame" name="">
+     <widget class="QFrame" name="frame">
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <property name="sizeConstraint">
         <enum>QLayout::SetFixedSize</enum>
@@ -111,12 +111,8 @@
                     <property name="maximum">
                      <number>999</number>
                     </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QCheckBox" name="BoxW">
-                    <property name="text">
-                     <string>BOX</string>
+                    <property name="stepType">
+                     <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
                     </property>
                    </widget>
                   </item>
@@ -159,14 +155,14 @@
                      </size>
                     </property>
                     <property name="text">
-                     <string>Object Color</string>
+                     <string>Model Colour</string>
                     </property>
                    </widget>
                   </item>
                   <item>
                    <widget class="QPushButton" name="Change_Back_Ground_Color">
                     <property name="text">
-                     <string>Back Ground Color</string>
+                     <string>Background Colour</string>
                     </property>
                    </widget>
                   </item>
@@ -484,7 +480,7 @@
      <normalon>../images/Open.png</normalon>../resources/images/Open.png</iconset>
    </property>
    <property name="text">
-    <string>Open</string>
+    <string>Open Model</string>
    </property>
   </action>
   <action name="actionSave">
@@ -494,7 +490,7 @@
      <normalon>../images/Save_Icon.png</normalon>../resources/images/Save_Icon.png</iconset>
    </property>
    <property name="text">
-    <string>Save</string>
+    <string>Save Model</string>
    </property>
   </action>
   <action name="actionSave_Lights">
@@ -584,22 +580,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>Y_Camera_Pos</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>lcdnumber</receiver>
-   <slot>display(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>264</x>
-     <y>719</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>49</x>
-     <y>711</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>Z_Camera_Pos</sender>
    <signal>valueChanged(int)</signal>
    <receiver>lcdnumber</receiver>
@@ -612,6 +592,22 @@
     <hint type="destinationlabel">
      <x>50</x>
      <y>714</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Y_Camera_Pos</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>lcdnumber</receiver>
+   <slot>display(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>264</x>
+     <y>719</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>49</x>
+     <y>711</y>
     </hint>
    </hints>
   </connection>
