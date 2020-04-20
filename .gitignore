@@ -1,4 +1,5 @@
 # Contents of .gitignore
+Observer.bat
 *.com
 *.class
 *.dll

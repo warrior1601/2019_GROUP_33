@@ -10,7 +10,7 @@ foreach(p
 endforeach()
 
 # The name of the project and its curent version
-PROJECT( Model_Viewer VERSION 1.2.2 )
+PROJECT( Observer VERSION 1.2.2 )
 
 # The CMake build process might generate some new files in the current directory. This makes sure they can be found.
 set( CMAKE_INCLUDE_CURRENT_DIR ON )

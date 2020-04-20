@@ -1,7 +1,7 @@
 ---Jedidiah---
 finish the doxygen comment for semester 2                     
 pull from junaid for updated cmake list for model :white_check_mark:          
-automate test code testing :nerd_face: Working on this one starting 21/3/2020                               
+automate test code testing :nerd_face: Working on this one starting 21/3/2020 Finished 4/4/2020 :white_check_mark:                      
 
 QT/VTK objectives - need a measuring tool, ability to select cells, Display stats. of Model and individual cells, a few VTK widgets  <-- Jedidiah
 Clean up code and make sure all indented nicely and commented
