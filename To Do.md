@@ -1,13 +1,30 @@
----Jedidiah---
-finish the doxygen comment for semester 2                     
-pull from junaid for updated cmake list for model :white_check_mark:          
-automate test code testing :nerd_face: Working on this one starting 21/3/2020 Finished 4/4/2020 :white_check_mark:                      
+* Doxygen comment for semester 2  
 
-QT/VTK objectives - need a measuring tool, ability to select cells, Display stats. of Model and individual cells, a few VTK widgets  <-- Jedidiah
-Clean up code and make sure all indented nicely and commented
+#################################################################
 
----Junaid---                            
-wiki how to use observer
-Windows installer                                             
-macos installer                                                 
-some way of transferring .dlls over (and example_models?)
+* QT/VTK objectives
+  - Need a measuring tool
+  - Ability to select cells
+  - Display statistics of Model and individual cells
+  - Fix the following bugs:
+    * Open and save should be renamed to Open Model and Save Model
+    * Console?
+    * When camera is reset the vertical and horizontal shift number do not reset to 0
+    * What is BOX check box?
+    * Fullscreen check box is redundant
+    * Color to Colour
+    * object color to Model Colour
+    * back ground color to Background Colour
+    * Colour of material not being applied to the model
+    * Move filters to the object view box instead of new window
+    * X Y Z rotation dial not function correctly, values for all? maybe allow for values to be entered?
+    * Shrinker and clipper not function correctly
+
+* Clean up code and make sure all indented nicely and commented
+
+#################################################################
+
+* Windows installer                                             
+* MacOS installer                                                 
+* A way of transferring .dlls over (and example_models?)
+* icon and desktop shortcut

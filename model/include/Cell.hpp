@@ -2,8 +2,7 @@
 //  Computing Project
 //  Created by Junaid Afzal on 10/11/2019.
 
-/**
- *  @file This header file contains the parent class Cell and the sub-classes
+/** @file This header file contains the parent class Cell and the sub-classes
  *  Tetrahedron, Pyramid and Hexahedron. The cell represents an abstraction of all
  *  shapes and has the private member variables of Vertices containing all the vertices
  *  of the cell; aVerticesOrder which is a variable used only by the model class; and
@@ -130,7 +129,7 @@ private:
  *  @brief A sub-class of cell with all its private members being inherited from the cell class
  *  @details This class can calculate its volume, weight and centre of Gravity
  *  as well as all the abilities of cell
- *  \image html Tetrahedron.png "Tetrahedron Vertices Number Ordering" width=500cm
+ *  \image html tetrahedron.png "Tetrahedron Vertices Number Ordering" width=500cm
  *  @warning No error checking for negative densities
  */
 
@@ -192,7 +191,7 @@ public:
  *  @brief A sub-class of cell with all its private members being inherited from the cell class
  *  @details This class can calculate its volume, weight and centre of Gravity
  *  as well as all the abilities of cell
- *  \image html Pyramid.png "Pyramid Vertices Number Ordering" width=500cm
+ *  \image html pyramid.png "Pyramid Vertices Number Ordering" width=500cm
  *  @warning No error checking for negative densities
  */
 
@@ -230,9 +229,9 @@ public:
     virtual double Get_Weight(void);
 
      /** @brief Returns the centre of gravity of pyramid by splitting it in half diagonally along V0 - V2 "line"
-      *  to create two tetrahedrons and finding centre of gravity of each. Since the two tetrahedrons have equal
-      *  volume and density, they will have equal weight and therefore the centre of gravity of pyramid will be the average/midpoint
-      *  of the two tetrahedrons centres of gravities. See http://mathcentral.uregina.ca/QQ/database/QQ.09.06/siva1.html for more info
+      *  to create two tetrahedrons and finding centre of gravity of each.
+      *  @details Since the two tetrahedrons have equal  volume and density, they will have equal weight and therefore the
+      * centre of gravity of pyramid will be the average/midpoint of the two tetrahedrons centres of gravities. See http://mathcentral.uregina.ca/QQ/database/QQ.09.06/siva1.html for more info
       */
     virtual Vectors Get_Centre_Of_Gravity(void);
 
@@ -281,7 +280,8 @@ public:
     ~Hexahedron(void);
 
     /** @brief Returns the volume of hexahedron by splitting it in to three pyramids and
-     *  summing the volumes of all of them. See http://mathcentral.uregina.ca/QQ/database/QQ.09.06/siva1.html for more info
+     *  summing the volumes of all of them.
+     *  @details See http://mathcentral.uregina.ca/QQ/database/QQ.09.06/siva1.html for more info
      */
     virtual double Get_Volume(void);
 
@@ -290,8 +290,8 @@ public:
      */
     virtual double Get_Weight(void);
 
-    /** @brief Returns the centre of gravity of hexahedron by splitting it in to three pyramids and
-     *  find centre of gravity of each. Since the three pyramids have equal volume and density, they
+    /** @brief Returns the centre of gravity of hexahedron by splitting it in to three pyramids and find centre of gravity of each.
+     *  @details Since the three pyramids have equal volume and density, they
      *  will have equal weight and therefore the centre of gravity of hexahedron will be the average/midpoint
      *  of the three pyramid centres of gravities. See http://mathcentral.uregina.ca/QQ/database/QQ.09.06/siva1.html for more info
      */

@@ -1,4 +1,3 @@
-#!/bin/sh
 ################################################################################
 # Title         : generateDocumentationAndDeploy.sh
 # Date created  : 2016/02/22
@@ -9,7 +8,7 @@ __AUTHOR__="Jeroen de Bruijn"
 #   must be installed.
 # - Doxygen configuration file must have the destination directory empty and
 #   source code directory with a $(TRAVIS_BUILD_DIR) prefix.
-# - An gh-pages branch should already exist. See below for mor info on hoe to
+# - An gh-pages branch should already exist. See below for mor info on how to
 #   create a gh-pages branch.
 #
 # Required global variables:
@@ -31,7 +30,6 @@ __AUTHOR__="Jeroen de Bruijn"
 # Before this script is used there should already be a gh-pages branch in the
 # repository.
 #
-################################################################################
 
 ################################################################################
 ##### Setup this script and get the current gh-pages branch.               #####

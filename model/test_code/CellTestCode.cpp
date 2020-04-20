@@ -55,11 +55,19 @@ int main()
     Vectors cVectors( 5.0, 5.0,0.0);
     Vectors dVectors(-5.0, 5.0,0.0);
 
-    std::vector<Vectors> SquareVertices = {aVectors, bVectors, cVectors, dVectors};
+    std::vector<Vectors> SquareVertices;
+    SquareVertices.push_back(aVectors);
+    SquareVertices.push_back(bVectors);
+    SquareVertices.push_back(cVectors);
+    SquareVertices.push_back(dVectors);
     Test_Blank.Set_Vertices(SquareVertices);
 
     //Also need to Set the oder at which the Vectors should be arranged
-    std::vector<int> aRelaventOrder = {3, 2, 1, 0};
+    std::vector<int> aRelaventOrder;// = {3, 2, 1, 0};
+    aRelaventOrder.push_back(3);
+    aRelaventOrder.push_back(2);
+    aRelaventOrder.push_back(1);
+    aRelaventOrder.push_back(0);
     Test_Blank.Set_Vertices_Order(aRelaventOrder);
     Testing_For_Error = Testing(Test_Blank, SquareVertices, aRelaventOrder, Empty_To_Compare_to);
 
@@ -125,7 +133,11 @@ int main()
     Vectors gVectors(0.0, 5.0,-5.0);
     Vectors hVectors(0.0, 5.0, 5.0);
 
-    std::vector<Vectors> SquareVertices_Rotated = {eVectors, fVectors, gVectors, hVectors};
+    std::vector<Vectors> SquareVertices_Rotated;
+    SquareVertices_Rotated.push_back(eVectors);
+    SquareVertices_Rotated.push_back(fVectors);
+    SquareVertices_Rotated.push_back(gVectors);
+    SquareVertices_Rotated.push_back(hVectors);
     Rotated.Set_Vertices(SquareVertices_Rotated);
     Test_Blank.Rotate(90.0, 'y', Center_For_Rotation);
 
@@ -146,7 +158,10 @@ int main()
     hVectors.SetVector(-5.0, 0.0, 5.0);
 
     SquareVertices_Rotated.clear(); // clear old array to ensure only new vectors are present
-    SquareVertices_Rotated = {eVectors, fVectors, gVectors, hVectors};
+    SquareVertices_Rotated.push_back(eVectors);
+    SquareVertices_Rotated.push_back(fVectors);
+    SquareVertices_Rotated.push_back(gVectors);
+    SquareVertices_Rotated.push_back(hVectors);
     Rotated.Set_Vertices(SquareVertices_Rotated);
 
     Test_Blank.Rotate(90.0, 'z', Center_For_Rotation);
@@ -167,7 +182,10 @@ int main()
     hVectors.SetVector(-5.0,-5.0, 0.0);
 
     SquareVertices_Rotated.clear(); // clear old array to ensure only new vectors are present
-    SquareVertices_Rotated = {eVectors, fVectors, gVectors, hVectors};
+    SquareVertices_Rotated.push_back(eVectors);
+    SquareVertices_Rotated.push_back(fVectors);
+    SquareVertices_Rotated.push_back(gVectors);
+    SquareVertices_Rotated.push_back(hVectors);
     Rotated.Set_Vertices(SquareVertices_Rotated);
 
     Test_Blank.Rotate(90.0, 'x', Center_For_Rotation);
@@ -220,8 +238,16 @@ int main()
     Vectors jVectors( 5.0,  0.0,  1.0);
     Vectors kVectors( 2.5,  3.2, -1.25);
     Vectors lVectors(-1.9, -0.5, -2.23);
-    std::vector<Vectors> Vertices_Of_Tetra = {iVectors, jVectors, kVectors, lVectors};
-    std::vector<int> Vertices_Of_Tetra_Order = { 0, 1, 2, 3};
+    std::vector<Vectors> Vertices_Of_Tetra;
+    Vertices_Of_Tetra.push_back(iVectors);
+    Vertices_Of_Tetra.push_back(jVectors);
+    Vertices_Of_Tetra.push_back(kVectors);
+    Vertices_Of_Tetra.push_back(lVectors);
+    std::vector<int> Vertices_Of_Tetra_Order;
+    Vertices_Of_Tetra_Order.push_back(0);
+    Vertices_Of_Tetra_Order.push_back(1);
+    Vertices_Of_Tetra_Order.push_back(2);
+    Vertices_Of_Tetra_Order.push_back(3);
     Material Gold(0, 19300.0, "D4AF37", "Gold" );
 
     Tetrahedron Gold_Nugget(Vertices_Of_Tetra, Vertices_Of_Tetra_Order, Gold);
@@ -260,8 +286,18 @@ int main()
     Vectors oVectors( 5.0, 5.0, 0.0);
     Vectors pVectors(-5.0, 5.0, 0.0);
     Vectors qVectors( 0.0, 0.0, 5.0);
-    std::vector<Vectors> Vertices_Of_Pyramid = {mVectors, nVectors, oVectors, pVectors, qVectors};
-    std::vector<int> Vertices_Of_Pryamid_Order = { 0, 1, 2, 3, 4};
+    std::vector<Vectors> Vertices_Of_Pyramid;
+    Vertices_Of_Pyramid.push_back(mVectors);
+    Vertices_Of_Pyramid.push_back(nVectors);
+    Vertices_Of_Pyramid.push_back(oVectors);
+    Vertices_Of_Pyramid.push_back(pVectors);
+    Vertices_Of_Pyramid.push_back(qVectors);
+    std::vector<int> Vertices_Of_Pryamid_Order;
+    Vertices_Of_Pryamid_Order.push_back(0);
+    Vertices_Of_Pryamid_Order.push_back(1);
+    Vertices_Of_Pryamid_Order.push_back(2);
+    Vertices_Of_Pryamid_Order.push_back(3);
+    Vertices_Of_Pryamid_Order.push_back(4);
     Material LimeStone(1, 2711.0, "DFD8BF", "Limestone" );
 
     Pyramid Here_Lays_A_Pharaoh(Vertices_Of_Pyramid, Vertices_Of_Pryamid_Order, LimeStone);
@@ -286,50 +322,64 @@ int main()
         std::cout << "Pyramid Test: Failure" << std::endl;
     std::cout << "************************" << std::endl;
 
-     std::cout << "------------------------------Hexahedron Test Code------------------------------" << std::endl;
+    std::cout << "------------------------------Hexahedron Test Code------------------------------" << std::endl;
 
-     unsigned int Error_Hexahedron = 0;
+    unsigned int Error_Hexahedron = 0;
 
-     Hexahedron Empty_Hexahedron;
-     if (Testing(Empty_Hexahedron, Empty_To_Compare_to) == 1)
+    Hexahedron Empty_Hexahedron;
+    if (Testing(Empty_Hexahedron, Empty_To_Compare_to) == 1)
         Error_Hexahedron = 1;
 
-     Vectors rVectors(-1.5,-2.5,-1.5);
-     Vectors sVectors( 1.5,-2.5,-1.5);
-     Vectors tVectors( 1.5, 2.5,-1.5);
-     Vectors uVectors(-1.5, 2.5,-1.5);
-     Vectors vVectors(-2.5,-2.5, 2.5);
-     Vectors wVectors( 2.5,-2.5, 2.5);
-     Vectors xVectors( 2.5, 2.5, 2.5);
-     Vectors yVectors(-2.5, 2.5, 2.5);
+    Vectors rVectors(-1.5,-2.5,-1.5);
+    Vectors sVectors( 1.5,-2.5,-1.5);
+    Vectors tVectors( 1.5, 2.5,-1.5);
+    Vectors uVectors(-1.5, 2.5,-1.5);
+    Vectors vVectors(-2.5,-2.5, 2.5);
+    Vectors wVectors( 2.5,-2.5, 2.5);
+    Vectors xVectors( 2.5, 2.5, 2.5);
+    Vectors yVectors(-2.5, 2.5, 2.5);
+    std::vector<Vectors> Vertices_Of_Hexahedron;
+    Vertices_Of_Hexahedron.push_back(rVectors);
+    Vertices_Of_Hexahedron.push_back(sVectors);
+    Vertices_Of_Hexahedron.push_back(tVectors);
+    Vertices_Of_Hexahedron.push_back(uVectors);
+    Vertices_Of_Hexahedron.push_back(vVectors);
+    Vertices_Of_Hexahedron.push_back(wVectors);
+    Vertices_Of_Hexahedron.push_back(xVectors);
+    Vertices_Of_Hexahedron.push_back(yVectors);
+    std::vector<int> Vertices_Of_Hexahedron_Order;
+    Vertices_Of_Hexahedron_Order.push_back(0);
+    Vertices_Of_Hexahedron_Order.push_back(1);
+    Vertices_Of_Hexahedron_Order.push_back(2);
+    Vertices_Of_Hexahedron_Order.push_back(3);
+    Vertices_Of_Hexahedron_Order.push_back(4);
+    Vertices_Of_Hexahedron_Order.push_back(5);
+    Vertices_Of_Hexahedron_Order.push_back(6);
+    Vertices_Of_Hexahedron_Order.push_back(7);
+    Material Diamond(2, 3514.0, "B9F2FF", "Diamond" );
 
-     std::vector<Vectors> Vertices_Of_Hexahedron = {rVectors, sVectors, tVectors, uVectors,
-                                                    vVectors, wVectors, xVectors, yVectors};
-     std::vector<int> Vertices_Of_Hexahedron_Order = { 0, 1, 2, 3, 4, 5, 6, 7};
-     Material Diamond(2, 3514.0, "B9F2FF", "Diamond" );
+    Hexahedron Dimaond_Stone(Vertices_Of_Hexahedron, Vertices_Of_Hexahedron_Order, Diamond);
+    Testing_For_Error = Testing(Dimaond_Stone, Vertices_Of_Hexahedron, Vertices_Of_Hexahedron_Order, Diamond);
+    
+    if (Testing_For_Error == 0)
+        std::cout << "Hexahedron Set With Constructor Properly" << std::endl;
+    else
+    {
+        std::cout << "Hexahedron Not Set With Constructor Properly" << std::endl;
+        Error_Hexahedron = 1;
+        Testing_For_Error = 0;
+    }
 
-     Hexahedron Dimaond_Stone(Vertices_Of_Hexahedron, Vertices_Of_Hexahedron_Order, Diamond);
-     Testing_For_Error = Testing(Dimaond_Stone, Vertices_Of_Hexahedron, Vertices_Of_Hexahedron_Order, Diamond);
+    Vectors Center_Of_The_Diamond(0.0, 0.0, (2.0/3.0) );
+    if (Testing(Dimaond_Stone, 80.0, 281120.0, Center_Of_The_Diamond) == 1)
+        Error_Hexahedron = 1;
 
-     if (Testing_For_Error == 0)
-         std::cout << "Hexahedron Set With Constructor Properly" << std::endl;
-     else
-     {
-         std::cout << "Hexahedron Not Set With Constructor Properly" << std::endl;
-         Error_Hexahedron = 1;
-         Testing_For_Error = 0;
-     }
-
-     Vectors Center_Of_The_Diamond(0.0, 0.0, (2.0/3.0) );
-     if (Testing(Dimaond_Stone, 80.0, 281120.0, Center_Of_The_Diamond) == 1)
-         Error_Hexahedron = 1;
-
-     std::cout << "************************" << std::endl;
-     if (Error_Hexahedron == 0 )
-         std::cout << "Hexahedron Test: Successful" << std::endl;
-     else
-         std::cout << "Hexahedron Test: Failure" << std::endl;
-     std::cout << "************************" << std::endl;
+    std::cout << "************************" << std::endl;
+    if (Error_Hexahedron == 0 )
+        std::cout << "Hexahedron Test: Successful" << std::endl;
+    else
+        std::cout << "Hexahedron Test: Failure" << std::endl;
+    std::cout << "************************" << std::endl;
 
     std::cout << "************************" << std::endl;
     if ( (Error == 0 )&&(Error_Tetrahedron == 0)&&(Error_Pyramid == 0)&&(Error_Hexahedron == 0) )

@@ -23,13 +23,13 @@
  *  @details The two intended ways of loading the model are through the copy constructor or
  *  the Load_Model function. With the latter the chosen file must be a .txt or .mod and written in the format:
  *  \n\n m 0 8960 b87373 copper
- *  \n Reading the line left to right, this declares a material with materialID of 0, density of 8960,
+ *  \n Reading the line left to right, this declares a material with material ID of 0, density of 8960,
  *  colour of R=B8 G=73 B=73, and name of copper.
  *  \n\n v 10 25 20 25
- *  \n Reading the line left to right, this declares a vectors with a vectorID of 10, X co-ordinate of 25,
+ *  \n Reading the line left to right, this declares a vectors with a vector ID of 10, X co-ordinate of 25,
  *  Y co-ordinate of 20, and Z co-ordinate of 25
  *  \n\n c 2 h 2 28 9 10 11 12 13 14 15
- *  \n Reading the line left to right, this declares a cell with cellID of 2, cell type of hexahedron
+ *  \n Reading the line left to right, this declares a cell with cell ID of 2, cell type of hexahedron
  *  (note that tetrahedron = t and pyramid = p), materialID of 2, and the next eight values are the VectorsID of
  *  that need to be retrieved from the manyVectors list.
  */
@@ -153,13 +153,13 @@ public:
     void Rotate(double Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Centre_Of_Rotation);
 
 private:
-    std::vector<Material> manyMaterials;           ///< The list of materials in model, where manyMaterials index position = MaterialID
-    std::vector<Vectors> manyVectors;              ///< The list of vectors in model, where manyVectors index position = VectorsID
-    std::vector<Cell*> manyCells;                  ///< The list of cells in model, where manyCells index postion = CellID
+    std::vector<Material> manyMaterials;           ///< The list of materials in model, where manyMaterials index position = Material ID
+    std::vector<Vectors> manyVectors;              ///< The list of vectors in model, where manyVectors index position = Vectors ID
+    std::vector<Cell*> manyCells;                  ///< The list of cells in model, where manyCells index postion = Cell ID
     std::string cellOrder;                         ///< The list representing the order in which the different types cells were created from the load file so that the save file can be saved with minimal changes
 
     std::vector<int> Get_Vectors_Being_Used(void); ///< Returns the vectors from manyVectors being used in cells and is a required function for Get_Geometric_Centre() and Get_Overall_Dimensions()
-    std::vector<Vectors> Get_Min_Max(void);        ///< Returns the most positive and most negative vectors required function for Get_Geometric_Centre() and Get_Overall_Dimensions()
+    std::vector<Vectors> Get_Min_Max(void);        ///< Returns the most positive and most negative vectors and is required function for Get_Geometric_Centre() and Get_Overall_Dimensions()
 };
 
 #endif // Model_hpp
