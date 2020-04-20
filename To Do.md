@@ -9,7 +9,7 @@
   - Fix the following bugs:
     * Open and save should be renamed to Open Model and Save Model
 
-		: Jed : Fixed (4/20/2020)
+			: Jed : Fixed (4/20/2020)
 
     * Console?  
 	: Jed : What does this mean??
