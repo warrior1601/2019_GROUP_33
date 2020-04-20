@@ -7,8 +7,10 @@
   - Ability to select cells
   - Display statistics of Model and individual cells
   - Fix the following bugs:
-    * Open and save should be renamed to Open Model and Save Model 
-	: Jed : Fixed (4/20/2020)
+    * Open and save should be renamed to Open Model and Save Model
+
+		: Jed : Fixed (4/20/2020)
+
     * Console?  
 	: Jed : What does this mean??
     * When camera is reset the vertical and horizontal shift number do not reset to 0 
