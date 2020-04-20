@@ -1112,47 +1112,41 @@ void MainWindow::on_actionThunderbolt_triggered()
 	renderWindow->Render();
 }
 
-//void MainWindow::on_BoxW_clicked(bool checked)
-//{
-//
-//	if (checked) {
-//		vtkSmartPointer<vtkBoxWidget> boxWidget =
-//		vtkSmartPointer<vtkBoxWidget>::New();
-//		boxWidget->SetInteractor(interactor);
-//
-//		boxWidget->SetProp3D(actor);
-//		boxWidget->SetPlaceFactor(1.25); // Make the box 1.25x larger than the actor
-//		boxWidget->PlaceWidget();
-//
-//		//vtkSmartPointer<vtkMyCallback> callback =
-//		//vtkSmartPointer<vtkMyCallback>::New();
-//		boxWidget->AddObserver(vtkCommand::InteractionEvent, callback);
-//
-//		boxWidget->On();
-//		
-//		
-//	}
-//		renderWindow->Render();
-//}
+/*void MainWindow::on_BoxW_clicked(bool checked)
+{
+
+        if (checked) {
+                vtkSmartPointer<vtkBoxWidget> boxWidget =
+                vtkSmartPointer<vtkBoxWidget>::New();
+                boxWidget->SetInteractor(interactor);
+
+                boxWidget->SetProp3D(actor);
+                boxWidget->SetPlaceFactor(1.25); // Make the box 1.25x larger than the actor
+                boxWidget->PlaceWidget();
+
+                //vtkSmartPointer<vtkMyCallback> callback =
+                //vtkSmartPointer<vtkMyCallback>::New();
+                boxWidget->AddObserver(vtkCommand::InteractionEvent, callback);
+
+                boxWidget->On();
+
+
+        }
+                renderWindow->Render();
+}*/
 
 void MainWindow::on_actionRuler_triggered()
 {
-	ui->statusBar->showMessage("Ruler was Applied", 3000);
-	renderWindow->AddRenderer(renderer);
-	renderWindowInteractor->SetRenderWindow(renderWindow);
-	distanceWidget->SetInteractor(renderWindowInteractor);
-	distanceWidget->CreateDefaultRepresentation();
-	static_cast<vtkDistanceRepresentation*>(distanceWidget->GetRepresentation())
-		->SetLabelFormat("%-#6.3g mm");
-	renderWindowInteractor->Initialize();
-	renderWindow->Render();
-	distanceWidget->On();
-	renderWindowInteractor->Start();
+        ui->statusBar->showMessage("Ruler Removed", 3000);
+        distanceWidget->On();
+        renderWindow->Render();
+
+
 }
 
 void MainWindow::on_actionRemove_Ruler_triggered()
 {
-
+        ui->statusBar->showMessage("Ruler Added", 3000);
 	distanceWidget->Off();
-	ui->Display_Window->GetRenderWindow()->Render();
+        renderWindow->Render();
 }
