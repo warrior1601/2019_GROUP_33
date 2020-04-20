@@ -7,13 +7,14 @@ cmake_minimum_required( VERSION 3.9.2 )
 project( Observer VERSION 1.2.1)
 
 # Boolean to adjust want you want to build
-set( BUILD_MODEL_TEST_CODE 	FALSE )
+set( BUILD_MODEL_TEST_CODE 	TRUE )
 set( BUILD_OBSERVER 		TRUE )
 set( BUILD_INSTALLERS		FALSE )
 
 # All booleans require the model library
 if ( ${BUILD_MODEL_TEST_CODE} )
 	add_subdirectory ( model )
+
 endif()
 
 # Observer and installer require the model_viewer library and Observer executable

@@ -62,9 +62,13 @@ private slots:
 
     void on_Shrink_Filter_toggled(bool Shrink_Filter_Status);
     void on_Clipper_Filter_toggled(bool Clipper_Filter_Status);
-    void on_X_valueChanged(int value);
-    void on_Y_valueChanged(int value);
-    void on_Z_valueChanged(int value);
+    void on_X_Origin_valueChanged(int value);
+    void on_Y_Origin_valueChanged(int value);
+    void on_Z_Origin_valueChanged(int value);
+    void on_X_Normal_valueChanged(int value);
+    void on_Y_Normal_valueChanged(int value);
+    void on_Z_Normal_valueChanged(int value);
+    void on_Scale_valueChanged(int value);
 
 private:
     Ui::Filters *ui;

@@ -1027,15 +1027,6 @@ void MainWindow::SetLightData(double *Data, std::string currentLine)
     }
 }
 
-void MainWindow::on_FullScreen_clicked(bool checked)
-{
-
-	ui->statusBar->showMessage("FullScreen", 3000);
-	isFullScreen() ? showNormal() : showFullScreen(); //for full screen
-
-}
-
-
 void MainWindow::on_actioncube_triggered()
 {
 

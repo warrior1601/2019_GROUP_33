@@ -180,13 +180,6 @@
                    </widget>
                   </item>
                   <item>
-                   <widget class="QCheckBox" name="FullScreen">
-                    <property name="text">
-                     <string>Full Screen</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
                    <spacer name="horizontalSpacer_3">
                     <property name="orientation">
                      <enum>Qt::Horizontal</enum>

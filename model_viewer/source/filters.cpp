@@ -105,38 +105,72 @@ void Filters::on_Clipper_Filter_toggled(bool Clipper_Filter_Status)
         }
         renderWindow_Local->Render();
 }
-// This function is tied to the X-Value scroll Box and sets values for several different filters
-// Since only one filter can be active at a time this is ok. Re-work will need to be done to allow
-// More than one filter to be applied at a time.
 
-void Filters::on_X_valueChanged(int value)
+void Filters::on_Scale_valueChanged(int value)
+{
+    Shrink_Filter->SetShrinkFactor((double (value))/100.00);
+    renderWindow_Local->Render();
+}
+
+void Filters::on_X_Origin_valueChanged(int value)
+{
+// This sets the Clipping Filter's X-Domain loaction
+
+    double* Filter_Scroll = planeLeft->GetOrigin();
+    planeLeft->SetOrigin(double (value)/10.00, Filter_Scroll[1], Filter_Scroll[2]);
+    renderWindow_Local->Render();
+}
+
+void Filters::on_Y_Origin_valueChanged(int value)
+{
+// This sets the Clipping Filter's Y-Domain loaction
+    double* Filter_Scroll = planeLeft->GetOrigin();
+    planeLeft->SetOrigin(Filter_Scroll[0], double (value)/10.00 ,Filter_Scroll[2]);
+    renderWindow_Local->Render();
+}
+
+void Filters::on_Z_Origin_valueChanged(int value)
+{
+// This sets the Clipping Filter's Z-Domain loaction
+    double* Filter_Scroll = planeLeft->GetOrigin();
+    planeLeft->SetOrigin(Filter_Scroll[0], Filter_Scroll[1], double (value)/10.00);
+    renderWindow_Local->Render();
+}
+
+void Filters::on_X_Normal_valueChanged(int value)
 {
 // This sets the Clipping Filter's X-Domain loaction
 
     double* Filter_Scroll = planeLeft->GetNormal();
-    planeLeft->SetOrigin(double (value)/100.00, Filter_Scroll[1], Filter_Scroll[2]);
-// This sets the value for the Shrink FIlter if when it is active
-
-    if ((value > 0) && (value <= 100))
-    {
-        Shrink_Filter->SetShrinkFactor((double (value))/100.00);
-    }
+    planeLeft->SetNormal(double (value)/10.00, Filter_Scroll[1], Filter_Scroll[2]);
     renderWindow_Local->Render();
 }
 
-void Filters::on_Y_valueChanged(int value)
+void Filters::on_Y_Normal_valueChanged(int value)
 {
+// This sets the Clipping Filter's Y-Domain loaction
     double* Filter_Scroll = planeLeft->GetNormal();
-    planeLeft->SetNormal(Filter_Scroll[0], double (value)/100.00 ,Filter_Scroll[2]);
+    planeLeft->SetNormal(Filter_Scroll[0], double (value)/10.00 ,Filter_Scroll[2]);
     renderWindow_Local->Render();
 }
 
-void Filters::on_Z_valueChanged(int value)
+void Filters::on_Z_Normal_valueChanged(int value)
 {
+// This sets the Clipping Filter's Z-Domain loaction
     double* Filter_Scroll = planeLeft->GetNormal();
-    planeLeft->SetNormal(Filter_Scroll[0], Filter_Scroll[1], double (value)/100.00);
+    planeLeft->SetNormal(Filter_Scroll[0], Filter_Scroll[1], double (value)/10.00);
     renderWindow_Local->Render();
 }
+
+
+
+
+
+
+
+
+
+
 // When this function is called it ensures all other Filters are decatiated
 
 void Filters::checked_Box_Status_Updater(int CheckBox_Number)

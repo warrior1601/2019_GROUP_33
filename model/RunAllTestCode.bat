@@ -16,4 +16,4 @@ MatrixTestCode.exe
 
 mingw32-make test
 cd ..
-rmdir /Q /S build
+#rmdir /Q /S build
