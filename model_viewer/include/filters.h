@@ -46,10 +46,8 @@ public:
 
     void Open_Dialog(vtkSmartPointer<vtkSTLReader> &Passedreader,
               vtkSmartPointer<vtkDataSetMapper> &Passmapper,
-              vtkSmartPointer<vtkGenericOpenGLRenderWindow> &PassedWindow);
-
-    void open( std::vector<vtkSmartPointer<vtkDataSetMapper>> &ListOfMappers,
-               vtkSmartPointer<vtkGenericOpenGLRenderWindow> &PassedWindow);
+              vtkSmartPointer<vtkGenericOpenGLRenderWindow> &PassedWindow,
+              bool &PassedFilterWindowOpenStatus);
 
 private slots:
 
@@ -69,19 +67,24 @@ private slots:
     void on_Y_Normal_valueChanged(int value);
     void on_Z_Normal_valueChanged(int value);
     void on_Scale_valueChanged(int value);
+    void on_Close_clicked();
 
 private:
     Ui::Filters *ui;
-// This is set to true if opened with and *.stl file otherwise set to false
-    bool OpenMethod = true;
+    bool *FilterWindowOpenStatus;
 
 // The smart pointers are created and only initilized when the open function is called
-// The smaprt pointer that are over written are denoted by *_Local
+// The smaprt pointer that are over written are denoted by *_Local and *_Revert to return the model to its
+// Original settings when the window closes.
 
     vtkSmartPointer<vtkGenericOpenGLRenderWindow> renderWindow_Local = vtkSmartPointer<vtkGenericOpenGLRenderWindow>::New();
     vtkSmartPointer<vtkSTLReader> reader_Local = vtkSmartPointer<vtkSTLReader>::New();
     vtkSmartPointer<vtkDataSetMapper> mapper_Local = vtkSmartPointer<vtkDataSetMapper>::New();
     std::vector<vtkSmartPointer<vtkDataSetMapper>> ListOfMappers_Local;
+
+    vtkSmartPointer<vtkGenericOpenGLRenderWindow> renderWindow_Revert = vtkSmartPointer<vtkGenericOpenGLRenderWindow>::New();
+    vtkSmartPointer<vtkSTLReader> reader_Revert = vtkSmartPointer<vtkSTLReader>::New();
+    vtkSmartPointer<vtkDataSetMapper> mapper_Revert = vtkSmartPointer<vtkDataSetMapper>::New();
 // These are filter specific smart pointers
 
     vtkSmartPointer<vtkClipDataSet> Clipper_Filter = vtkSmartPointer<vtkClipDataSet>::New();

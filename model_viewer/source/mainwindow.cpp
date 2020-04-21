@@ -169,13 +169,23 @@ void MainWindow::on_Apply_Filters_released()
     ui->statusBar->showMessage(" Apply Filter Button was clicked",3000);
     // This open a Modaless window which allows
     // User interaction with the mainwindow while open
-
     if (LoadedFileType == true)
     {
-        filters =new Filters(this);
-        filters->setWindowTitle("Apply Filters");
-        filters->show();
-        filters->Open_Dialog(reader, mapper, renderWindow);
+        if (FilterWindowOpenStatus == false)
+        {
+            FilterWindowOpenStatus = true;
+            filters =new Filters(this);
+            filters->setWindowTitle("Apply Filters");
+            filters->show();
+            filters->Open_Dialog(reader, mapper, renderWindow, FilterWindowOpenStatus);
+        }
+        else
+        {
+            QMessageBox FilterMessage;
+            FilterMessage.setWindowTitle("Error");
+            FilterMessage.setText("A filter window is already open.");
+            FilterMessage.exec();
+        }
     }
     else
     {

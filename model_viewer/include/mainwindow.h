@@ -97,6 +97,7 @@ private:
     Ui::MainWindow *ui;
 // This is the file type loaded true for *.stl false for *.mod and *.txt
     bool LoadedFileType = true;
+    bool FilterWindowOpenStatus = false;
 // These pointers are for the Secondary windows that control funtions
 // That allows the user to interact with the image
 

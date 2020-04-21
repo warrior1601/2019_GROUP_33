@@ -27,34 +27,30 @@ Filters::~Filters()
 
 void Filters::Open_Dialog(vtkSmartPointer<vtkSTLReader> &Passedreader,
                    vtkSmartPointer<vtkDataSetMapper> &Passmapper,
-                   vtkSmartPointer<vtkGenericOpenGLRenderWindow> &PassedWindow)
+                   vtkSmartPointer<vtkGenericOpenGLRenderWindow> &PassedWindow,
+                   bool &PassedFilterWindowOpenStatus)
 {
 // Sets the Local smart pointer used to render the image on th MainWindow
 // now the *->Render() can be called.
-    OpenMethod = true;
+    FilterWindowOpenStatus = &PassedFilterWindowOpenStatus;
     renderWindow_Local = PassedWindow;
     reader_Local = Passedreader;
     mapper_Local = Passmapper;
 }
 
-void Filters::open( std::vector<vtkSmartPointer<vtkDataSetMapper>> &PassedListOfMappers,
-                    vtkSmartPointer<vtkGenericOpenGLRenderWindow> &PassedWindow)
+void Filters::on_Close_clicked()
 {
-// Sets the Local smart pointer used to render the image on th MainWindow
-// now the *->Render() can be called.
-    OpenMethod = false;
-    renderWindow_Local = PassedWindow;
-    ListOfMappers_Local = PassedListOfMappers;
+    ui->Clipper_Filter->setCheckState(Qt::Unchecked);
+    ui->Shrink_Filter->setCheckState(Qt::Unchecked);
+    *FilterWindowOpenStatus = false;
+    renderWindow_Local->Render();
+    this->close();
 }
-
-
 
 // This appies the shrink Filter to the image on the MainWindow
 
 void Filters::on_Shrink_Filter_toggled(bool Shrink_Filter_Status)
 {
-  if (OpenMethod == true)
-  {
     if(Shrink_Filter_Status == true )
         {
 // When this function is called it ensures that all other fillters are
@@ -71,15 +67,6 @@ void Filters::on_Shrink_Filter_toggled(bool Shrink_Filter_Status)
          mapper_Local->SetInputConnection( reader_Local->GetOutputPort() );
         }
         renderWindow_Local->Render();
-  }
-  else
-  {
-      if(Shrink_Filter_Status == true )
-      {
-        checked_Box_Status_Updater(1);
-            //filter goes here//
-      }
-  }
 }
 // This applies the Clipping Filter to the image on the MainWindow
 
