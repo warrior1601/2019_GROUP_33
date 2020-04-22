@@ -18,4 +18,4 @@ Observer is a three dimensional model viewer, where a model is a shape that is m
   * [Wiki](https://github.com/RefreshedMoose/2019_GROUP_33/wiki)
 
 # Screenshots
-- do this last for both macos and windows
+- do this last for both macos and windows and update installers
