@@ -13,7 +13,7 @@
 
     * Console?  
 
-			: Jed : What does this mean??
+			: Jed : Fixed (4/22/2020)
 
     * When camera is reset the vertical and horizontal shift number do not reset to 0 
 
@@ -25,7 +25,7 @@
 
     * Fullscreen check box is redundant 
 
-			: Jed : agreed shall I remove it then?
+			: Jed : removed (4/21/2020)
 
     * Color to Colour 
 
@@ -50,11 +50,12 @@
 
     * X Y Z rotation dial not function correctly, values for all? maybe allow for values to be entered?
 
-			: Jed : This reason I used a dial here is to demonstrate that we can use different widgets since spin boxes are used else where. The mark sheet says to use several different QT widgets. But I agree that a double spin box would be better used here. How do you see that they do not function correctly? 
+			: Jed : Z dial fix starting location fixed (4/22/2020)
+			: Jed : Bug with Z rotation still 
 
     * Shrinker and clipper not function correctly
 
-			: Jed : filters only work on stl files for now. What errors do you see. It seems to work properly for me
+			: Jed : fixed (4/21/2020)
 
 * Clean up code and make sure all indented nicely and commented
 
