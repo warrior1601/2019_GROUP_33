@@ -169,13 +169,23 @@ void MainWindow::on_Apply_Filters_released()
     ui->statusBar->showMessage(" Apply Filter Button was clicked",3000);
     // This open a Modaless window which allows
     // User interaction with the mainwindow while open
-
     if (LoadedFileType == true)
     {
-        filters =new Filters(this);
-        filters->setWindowTitle("Apply Filters");
-        filters->show();
-        filters->Open_Dialog(reader, mapper, renderWindow);
+        if (FilterWindowOpenStatus == false)
+        {
+            FilterWindowOpenStatus = true;
+            filters =new Filters(this);
+            filters->setWindowTitle("Apply Filters");
+            filters->show();
+            filters->Open_Dialog(reader, mapper, renderWindow, FilterWindowOpenStatus);
+        }
+        else
+        {
+            QMessageBox FilterMessage;
+            FilterMessage.setWindowTitle("Error");
+            FilterMessage.setText("A filter window is already open.");
+            FilterMessage.exec();
+        }
     }
     else
     {
@@ -1027,15 +1037,6 @@ void MainWindow::SetLightData(double *Data, std::string currentLine)
     }
 }
 
-void MainWindow::on_FullScreen_clicked(bool checked)
-{
-
-	ui->statusBar->showMessage("FullScreen", 3000);
-	isFullScreen() ? showNormal() : showFullScreen(); //for full screen
-
-}
-
-
 void MainWindow::on_actioncube_triggered()
 {
 
@@ -1138,29 +1139,6 @@ void MainWindow::on_actionThunderbolt_triggered()
 	renderer->AddActor(axes);
 	renderWindow->Render();
 }
-
-/*void MainWindow::on_BoxW_clicked(bool checked)
-{
-
-        if (checked) {
-                vtkSmartPointer<vtkBoxWidget> boxWidget =
-                vtkSmartPointer<vtkBoxWidget>::New();
-                boxWidget->SetInteractor(interactor);
-
-                boxWidget->SetProp3D(actor);
-                boxWidget->SetPlaceFactor(1.25); // Make the box 1.25x larger than the actor
-                boxWidget->PlaceWidget();
-
-                //vtkSmartPointer<vtkMyCallback> callback =
-                //vtkSmartPointer<vtkMyCallback>::New();
-                boxWidget->AddObserver(vtkCommand::InteractionEvent, callback);
-
-                boxWidget->On();
-
-
-        }
-                renderWindow->Render();
-}*/
 
 void MainWindow::on_actionRuler_triggered()
 {

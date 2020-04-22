@@ -84,7 +84,6 @@ private slots:
     void on_actionLoad_Lights_triggered();
     void on_Edit_Light_clicked();
     void on_Delete_Light_released();
-	void on_FullScreen_clicked(bool checked);
 	void on_actioncube_triggered();
 	void on_actionhelicopter_triggered();
 	void on_actionplane_triggered();
@@ -98,6 +97,7 @@ private:
     Ui::MainWindow *ui;
 // This is the file type loaded true for *.stl false for *.mod and *.txt
     bool LoadedFileType = true;
+    bool FilterWindowOpenStatus = false;
 // These pointers are for the Secondary windows that control funtions
 // That allows the user to interact with the image
 
