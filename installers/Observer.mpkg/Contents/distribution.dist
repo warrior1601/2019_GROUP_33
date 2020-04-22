@@ -21,7 +21,7 @@
     <!--+==========================+
         |    Package References    |
         +==========================+-->
-    <pkg-ref id="com.mygreatcompany.pkg.Observer" version="1.0" installKBytes="1441">file:./Contents/Packages/Observer.pkg</pkg-ref>
+    <pkg-ref id="com.mygreatcompany.pkg.Observer" version="1.0" installKBytes="1436">file:./Contents/Packages/Observer.pkg</pkg-ref>
     <!--+==========================+
         |    JavaScript Scripts    |
         +==========================+-->
