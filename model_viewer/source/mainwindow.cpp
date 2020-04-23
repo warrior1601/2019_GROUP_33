@@ -126,6 +126,13 @@ void MainWindow::on_Add_Light_released()
     }
 }
 
+void MainWindow::on_Select_Light_editTextChanged(const QString &text)
+{
+    ListOfLights.at(ui->Select_Light->currentIndex()).SetName(text);
+    ui->Select_Light->setItemText(ui->Select_Light->currentIndex(),ListOfLights.at(ui->Select_Light->currentIndex()).GetName());
+}
+
+
 QString MainWindow::InputQString()
 {
     bool ok;
@@ -160,8 +167,12 @@ void MainWindow::on_Reset_Camera_released()
     ui->statusBar->showMessage("Reset Button was clicked",3000);
     renderer->ResetCamera();
     double* CameraLocation = renderer->GetActiveCamera()->GetPosition();
+    std::cout << "Camera Location: " << CameraLocation[0] << " " << CameraLocation[1] << " " << CameraLocation[2] << std::endl;
     ui->Horizontal_Shift->setValue(0);
     ui->Vertical_Shift->setValue(0);
+    ui->X_Camera_Pos->setValue(0);
+    ui->Y_Camera_Pos->setValue(0);
+    ui->Z_Camera_Pos->setValue(0);
     //create a dispaly to show where the camer is currently at and where the focal point of the camer is.
     renderWindow->Render();
 }

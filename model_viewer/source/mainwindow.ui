@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>831</width>
-    <height>746</height>
+    <height>767</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -170,61 +170,6 @@
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_2">
            <item>
-            <layout class="QVBoxLayout" name="verticalLayout_9">
-             <property name="sizeConstraint">
-              <enum>QLayout::SetMaximumSize</enum>
-             </property>
-             <item alignment="Qt::AlignHCenter">
-              <widget class="QLabel" name="label_5">
-               <property name="maximumSize">
-                <size>
-                 <width>36</width>
-                 <height>13</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>Y-Plane</string>
-               </property>
-              </widget>
-             </item>
-             <item alignment="Qt::AlignHCenter">
-              <widget class="QDial" name="Y_Camera_Pos">
-               <property name="maximumSize">
-                <size>
-                 <width>61</width>
-                 <height>51</height>
-                </size>
-               </property>
-               <property name="minimum">
-                <number>-360</number>
-               </property>
-               <property name="maximum">
-                <number>360</number>
-               </property>
-               <property name="wrapping">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item alignment="Qt::AlignHCenter">
-              <widget class="QLCDNumber" name="lcdNumber">
-               <property name="minimumSize">
-                <size>
-                 <width>64</width>
-                 <height>31</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>64</width>
-                 <height>31</height>
-                </size>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
             <layout class="QVBoxLayout" name="verticalLayout_5">
              <property name="sizeConstraint">
               <enum>QLayout::SetMaximumSize</enum>
@@ -263,6 +208,61 @@
              </item>
              <item alignment="Qt::AlignHCenter">
               <widget class="QLCDNumber" name="lcdnumber">
+               <property name="minimumSize">
+                <size>
+                 <width>64</width>
+                 <height>31</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>64</width>
+                 <height>31</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_9">
+             <property name="sizeConstraint">
+              <enum>QLayout::SetMaximumSize</enum>
+             </property>
+             <item alignment="Qt::AlignHCenter">
+              <widget class="QLabel" name="label_5">
+               <property name="maximumSize">
+                <size>
+                 <width>36</width>
+                 <height>13</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>Y-Plane</string>
+               </property>
+              </widget>
+             </item>
+             <item alignment="Qt::AlignHCenter">
+              <widget class="QDial" name="Y_Camera_Pos">
+               <property name="maximumSize">
+                <size>
+                 <width>61</width>
+                 <height>51</height>
+                </size>
+               </property>
+               <property name="minimum">
+                <number>-360</number>
+               </property>
+               <property name="maximum">
+                <number>360</number>
+               </property>
+               <property name="wrapping">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item alignment="Qt::AlignHCenter">
+              <widget class="QLCDNumber" name="lcdNumber">
                <property name="minimumSize">
                 <size>
                  <width>64</width>
@@ -495,6 +495,9 @@
                    <height>20</height>
                   </size>
                  </property>
+                 <property name="editable">
+                  <bool>true</bool>
+                 </property>
                 </widget>
                </item>
               </layout>
@@ -669,5 +672,54 @@
   </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>X_Camera_Pos</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>lcdnumber</receiver>
+   <slot>display(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>53</x>
+     <y>660</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>54</x>
+     <y>696</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Y_Camera_Pos</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>lcdNumber</receiver>
+   <slot>display(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>122</x>
+     <y>655</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>127</x>
+     <y>699</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Z_Camera_Pos</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>lcdNumber_2</receiver>
+   <slot>display(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>195</x>
+     <y>657</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>197</x>
+     <y>706</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

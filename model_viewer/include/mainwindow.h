@@ -70,6 +70,7 @@ private slots:
 
     void on_Change_Object_Color_released();
     void on_Add_Light_released();
+    void on_Select_Light_editTextChanged(const QString &text);
     void on_Change_Back_Ground_Color_released();
     void on_Reset_Camera_released();
     void on_Apply_Filters_released();
