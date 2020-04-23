@@ -1,5 +1,6 @@
 # Contents of .gitignore
 Observer.bat
+Doxyfile_local.f
 *.com
 *.class
 *.dll

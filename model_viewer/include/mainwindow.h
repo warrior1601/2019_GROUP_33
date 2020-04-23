@@ -78,7 +78,7 @@ private slots:
     void on_Z_Camera_Pos_valueChanged(int value);
     void on_Vertical_Shift_valueChanged(int arg1);
     void on_Horizontal_Shift_valueChanged(int arg1);
-    void on_actionOpen_triggered();
+    int on_actionOpen_triggered();
     void on_actionSave_triggered();
     void on_actionSave_Lights_triggered();
     void on_actionLoad_Lights_triggered();

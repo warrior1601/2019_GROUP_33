@@ -51,7 +51,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect( this, &MainWindow::statusUpdateMessage, ui->statusBar, &QStatusBar::showMessage );
     // First this the file does is loads a valid file
 
-    on_actionOpen_triggered();
+    if (on_actionOpen_triggered() == 1)
+        exit (1);
+
     // Adding a camera light
 
     vtkLight_WithName light;
@@ -277,7 +279,7 @@ void MainWindow::on_Horizontal_Shift_valueChanged(int arg1)
     renderWindow->Render();
 }
 
-void MainWindow::on_actionOpen_triggered()
+int MainWindow::on_actionOpen_triggered()
 {
     ui->statusBar->showMessage("Open Action Triggered",3000);
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), "../../../example_models",
@@ -679,7 +681,9 @@ void MainWindow::on_actionOpen_triggered()
         QMessageBox msgBox;
         msgBox.setText("No file was selected to open.");
         msgBox.exec();
+        return (1);
     }
+    return (0);
 }
 
 void MainWindow::on_actionSave_triggered()
@@ -1142,16 +1146,22 @@ void MainWindow::on_actionThunderbolt_triggered()
 
 void MainWindow::on_actionRuler_triggered()
 {
-        ui->statusBar->showMessage("Ruler Removed", 3000);
-        distanceWidget->On();
-        renderWindow->Render();
-
-
+    ui->statusBar->showMessage("Ruler was Applied", 3000);
+    renderWindowInteractor->SetRenderWindow(renderWindow);
+    distanceWidget->SetInteractor(renderWindowInteractor);
+    distanceWidget->CreateDefaultRepresentation();
+    static_cast<vtkDistanceRepresentation*>(distanceWidget->GetRepresentation())->SetLabelFormat("%-#6.3g mm");
+    renderWindowInteractor->Initialize();
+    renderWindow->Render();
+    distanceWidget->On();
+    renderWindowInteractor->Start();
 }
 
 void MainWindow::on_actionRemove_Ruler_triggered()
 {
-        ui->statusBar->showMessage("Ruler Added", 3000);
+        ui->statusBar->showMessage("Ruler Removed", 3000);
 	distanceWidget->Off();
+        renderWindowInteractor->Initialize();
+        renderWindowInteractor->Disable();
         renderWindow->Render();
 }
