@@ -8,7 +8,7 @@ project( Observer VERSION 1.2.1)
 
 # Boolean to adjust want you want to build
 set( BUILD_MODEL_TEST_CODE 	TRUE )
-set( BUILD_OBSERVER 		TRUE )
+set( BUILD_OBSERVER 		FALSE )
 set( BUILD_INSTALLERS		FALSE )
 
 # All booleans require the model library
@@ -89,15 +89,3 @@ if( ${BUILD_INSTALLERS} )
 	include(CPack)
 
 endif()
-
-
-# # CPACK macros below here
-# set (CPACK_PACKAGE_NAME "Observer")
-# set (CPACK_PACKAGE_VENDOR "The Space Explorers")
-# set (CPACK_PACKAGE_DESCRIPTION_SUMMARY "Observer Installation")
-# set (CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
-# set (CPACK_PACKAGE_DIRECTORY "Observer")
-# set (CPACK_PACKAGE_INSTALL_DIRECTORY "Observer")
-# set (CPACK_RESOURCE_FILE_LICENSE ${CMAKE_CURRENT_SOURCE_DIR}/LICENSE.txt)
-# set (CPACK_PACKAGE_EXECUTABLES Observer;Observer)
-# set (CPACK_CREATE_DESKTOP_LINKS ON)
