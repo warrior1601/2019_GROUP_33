@@ -16,12 +16,12 @@
         <line choice="installer_choice_1"/>
     </choices-outline>
     <choice id="installer_choice_1" start_enabled="false" start_selected="true" title="Observer" description="INSTALLER_CHOICE_1_DESCRIPTION">
-        <pkg-ref id="com.mygreatcompany.pkg.Observer"/>
+        <pkg-ref id="com.TheSpaceExplorers.pkg.Observer"/>
     </choice>
     <!--+==========================+
         |    Package References    |
         +==========================+-->
-    <pkg-ref id="com.mygreatcompany.pkg.Observer" version="1.0" installKBytes="1436">file:./Contents/Packages/Observer.pkg</pkg-ref>
+    <pkg-ref id="com.TheSpaceExplorers.pkg.Observer" version="1.0" installKBytes="1433">file:./Contents/Packages/Observer.pkg</pkg-ref>
     <!--+==========================+
         |    JavaScript Scripts    |
         +==========================+-->
