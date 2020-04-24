@@ -25,7 +25,8 @@ class Edit_Light;
 }
 
 /** @class Edit_Light edit_light.h "edit_light.h"
- *  @brief The Edit_Light class enables the user to adjust light settings
+ *  @brief The Edit_Light class enables the user to adjust light settings. Many instences of this dialog box can be opened at one time.
+ *  This enbles the user to edit multiple light at one time. Future upgrades will ensure that only one dialog box can be opened per light.
  */
 class Edit_Light : public QDialog
 {
@@ -78,18 +79,15 @@ private slots:
     /** @brief This function allows for the Z-Coordinate of the focal of the light to be changed
      */
     void on_Light_Z_Coordinate_Focal_Point_valueChanged(int arg1);
-    /** @brief on_LightName_textEdited
-     */
-    void on_LightName_textEdited(const QString &arg1);
-    /** @brief on_Light_Switch_toggled
+    /** @brief Toggles the light On/Off
      */
     void on_Light_Switch_toggled(bool checked);
 
 
 private:
-    Ui::Edit_Light *ui;
-    vtkSmartPointer<vtkGenericOpenGLRenderWindow> renderWindow =vtkSmartPointer<vtkGenericOpenGLRenderWindow>::New();
-    vtkLight_WithName *light_Local;
+    Ui::Edit_Light *ui; ///< This is the User Interface
+    vtkSmartPointer<vtkGenericOpenGLRenderWindow> renderWindow =vtkSmartPointer<vtkGenericOpenGLRenderWindow>::New(); ///< This allows the MainWindow to be rendered from the Edit Light Dialog box
+    vtkLight_WithName *light_Local; ///< This allow the editing of the light to take place, only for the selected liht that is in the title of the Edit Light dialog box
 };
 
 #endif // EDIT_LIGHT_H

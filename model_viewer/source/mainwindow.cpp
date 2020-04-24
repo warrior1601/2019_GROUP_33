@@ -1,44 +1,17 @@
 //--------------------mainwindow.cpp--------------------//
 
-
 // MainWindow.cpp
-// WorkSheet 6 Computing Project
+// Computing Project
 // Edited By Jedidiah Paterson on 02/22/2020.
 // Copyright @ 2020 Jedidiah Paterson. All right reserved.
 // This file loads an Image onto a GUI (Grapgical User Interface)
 // Impleminting the function defined in MainWindow.h and connected
 // To the buttons on MainWindow.ui
 
-#include <iomanip>
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <string>
 using namespace std;
-
-#include <vtkCamera.h>
-#include <vtkInformation.h>
-#include <vtkProperty.h>
-#include <vtkRenderer.h>
-#include <vtkTriangle.h>
-
-#include <QColorDialog>
-#include <QDebug>           // TROUBLESHOOTING ONLY //
-#include <QFileDialog>
-#include <QInputDialog>
-#include <QMessageBox>
-
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "edit_light.h"
-#include "vtklight_withname.h"
-
-#include "Material.h"
-#include "Vectors.h"
-#include "Matrix.hpp"
-#include "Cell.hpp"
-#include "Model.hpp"
 
 //-------------Constructor------------//
 
@@ -255,7 +228,7 @@ void MainWindow::on_Vertical_Shift_valueChanged(int arg1)
     }
     else if ((arg1 == 0)&&(Last_Value_Elevation =! 0.0))
     {
-       renderer->GetActiveCamera()->Pitch(double (arg1));
+        renderer->GetActiveCamera()->Pitch(double (arg1));
     }
 
     else
@@ -283,8 +256,8 @@ void MainWindow::on_Horizontal_Shift_valueChanged(int arg1)
     }
     else
     {
-    arg1 = arg1-Last_Value_Azimuth;
-    renderer->GetActiveCamera()->Yaw(double (arg1));
+        arg1 = arg1-Last_Value_Azimuth;
+        renderer->GetActiveCamera()->Yaw(double (arg1));
     }
     Last_Value_Azimuth = Temp;
     renderWindow->Render();
@@ -1055,104 +1028,104 @@ void MainWindow::SetLightData(double *Data, std::string currentLine)
 void MainWindow::on_actioncube_triggered()
 {
 
-	ui->statusBar->showMessage("Coordinate Axes were Applied", 3000);
-	orientationWidget->SetOutlineColor(0.9300, 0.5700, 0.1300);
-	orientationWidget->SetOrientationMarker(axes);
-	orientationWidget->SetInteractor(renderWindowInteractor);
-	orientationWidget->SetViewport(10, 10, 10, 10);
-	orientationWidget->SetEnabled(1);
-	orientationWidget->InteractiveOn();
-	renderer->ResetCamera();
+    ui->statusBar->showMessage("Coordinate Axes were Applied", 3000);
+    orientationWidget->SetOutlineColor(0.9300, 0.5700, 0.1300);
+    orientationWidget->SetOrientationMarker(axes);
+    orientationWidget->SetInteractor(renderWindowInteractor);
+    orientationWidget->SetViewport(10, 10, 10, 10);
+    orientationWidget->SetEnabled(1);
+    orientationWidget->InteractiveOn();
+    renderer->ResetCamera();
 
-	transform->Translate(-3, -3, 0);
-	axes->SetUserTransform(transform);
-	renderer->AddActor(axes);
-	renderWindow->Render();
+    transform->Translate(-3, -3, 0);
+    axes->SetUserTransform(transform);
+    renderer->AddActor(axes);
+    renderWindow->Render();
 }
 
 void MainWindow::on_actionhelicopter_triggered()
 {
-	ui->statusBar->showMessage("Coordinate Axes were Applied", 3000);
-	orientationWidget->SetOutlineColor(0.9300, 0.5700, 0.1300);
-	orientationWidget->SetOrientationMarker(axes);
-	orientationWidget->SetInteractor(renderWindowInteractor);
-	orientationWidget->SetViewport(10, 10, 10, 10);
-	orientationWidget->SetEnabled(1);
-	orientationWidget->InteractiveOn();
-	renderer->ResetCamera();
+    ui->statusBar->showMessage("Coordinate Axes were Applied", 3000);
+    orientationWidget->SetOutlineColor(0.9300, 0.5700, 0.1300);
+    orientationWidget->SetOrientationMarker(axes);
+    orientationWidget->SetInteractor(renderWindowInteractor);
+    orientationWidget->SetViewport(10, 10, 10, 10);
+    orientationWidget->SetEnabled(1);
+    orientationWidget->InteractiveOn();
+    renderer->ResetCamera();
 
-	transform->Translate(-10, -10, 0);
-	axes->SetUserTransform(transform);
-	renderer->AddActor(axes);
-	renderWindow->Render();
+    transform->Translate(-10, -10, 0);
+    axes->SetUserTransform(transform);
+    renderer->AddActor(axes);
+    renderWindow->Render();
 }
 
 void MainWindow::on_actionplane_triggered()
 {
-	ui->statusBar->showMessage("Coordinate Axes were Applied", 3000);
-	orientationWidget->SetOutlineColor(0.9300, 0.5700, 0.1300);
-	orientationWidget->SetOrientationMarker(axes);
-	orientationWidget->SetInteractor(renderWindowInteractor);
-	orientationWidget->SetViewport(10, 10, 10, 10);
-	orientationWidget->SetEnabled(1);
-	orientationWidget->InteractiveOn();
-	renderer->ResetCamera();
+    ui->statusBar->showMessage("Coordinate Axes were Applied", 3000);
+    orientationWidget->SetOutlineColor(0.9300, 0.5700, 0.1300);
+    orientationWidget->SetOrientationMarker(axes);
+    orientationWidget->SetInteractor(renderWindowInteractor);
+    orientationWidget->SetViewport(10, 10, 10, 10);
+    orientationWidget->SetEnabled(1);
+    orientationWidget->InteractiveOn();
+    renderer->ResetCamera();
 
-	transform->Translate(-5, -6, 0);
-	axes->SetUserTransform(transform);
-	renderer->AddActor(axes);
-	renderWindow->Render();
+    transform->Translate(-5, -6, 0);
+    axes->SetUserTransform(transform);
+    renderer->AddActor(axes);
+    renderWindow->Render();
 }
 
 void MainWindow::on_actionsphere_triggered()
 {
-	ui->statusBar->showMessage("Coordinate Axes were Applied", 3000);
-	orientationWidget->SetOutlineColor(0.9300, 0.5700, 0.1300);
-	orientationWidget->SetOrientationMarker(axes);
-	orientationWidget->SetInteractor(renderWindowInteractor);
-	orientationWidget->SetViewport(10, 10, 10, 10);
-	orientationWidget->SetEnabled(1);
-	orientationWidget->InteractiveOn();
-	renderer->ResetCamera();
+    ui->statusBar->showMessage("Coordinate Axes were Applied", 3000);
+    orientationWidget->SetOutlineColor(0.9300, 0.5700, 0.1300);
+    orientationWidget->SetOrientationMarker(axes);
+    orientationWidget->SetInteractor(renderWindowInteractor);
+    orientationWidget->SetViewport(10, 10, 10, 10);
+    orientationWidget->SetEnabled(1);
+    orientationWidget->InteractiveOn();
+    renderer->ResetCamera();
 
-	transform->Translate(-3, -3, 0);
-	axes->SetUserTransform(transform);
-	renderer->AddActor(axes);
-	renderWindow->Render();
+    transform->Translate(-3, -3, 0);
+    axes->SetUserTransform(transform);
+    renderer->AddActor(axes);
+    renderWindow->Render();
 }
 
 void MainWindow::on_actionairbus_triggered()
 {
-	ui->statusBar->showMessage("Coordinate Axes were Applied", 3000);
-	orientationWidget->SetOutlineColor(0.9300, 0.5700, 0.1300);
-	orientationWidget->SetOrientationMarker(axes);
-	orientationWidget->SetInteractor(renderWindowInteractor);
-	orientationWidget->SetViewport(10, 10, 10, 10);
-	orientationWidget->SetEnabled(1);
-	orientationWidget->InteractiveOn();
-	renderer->ResetCamera();
-	axes->SetTotalLength(50, 50, 50);
-	transform->Translate(50, -50, -40);
-	axes->SetUserTransform(transform);
-	renderer->AddActor(axes);
-	renderWindow->Render();
+    ui->statusBar->showMessage("Coordinate Axes were Applied", 3000);
+    orientationWidget->SetOutlineColor(0.9300, 0.5700, 0.1300);
+    orientationWidget->SetOrientationMarker(axes);
+    orientationWidget->SetInteractor(renderWindowInteractor);
+    orientationWidget->SetViewport(10, 10, 10, 10);
+    orientationWidget->SetEnabled(1);
+    orientationWidget->InteractiveOn();
+    renderer->ResetCamera();
+    axes->SetTotalLength(50, 50, 50);
+    transform->Translate(50, -50, -40);
+    axes->SetUserTransform(transform);
+    renderer->AddActor(axes);
+    renderWindow->Render();
 }
 
 void MainWindow::on_actionThunderbolt_triggered()
 {
-	ui->statusBar->showMessage("Coordinate Axes were Applied", 3000);
-	orientationWidget->SetOutlineColor(0.9300, 0.5700, 0.1300);
-	orientationWidget->SetOrientationMarker(axes);
-	orientationWidget->SetInteractor(renderWindowInteractor);
-	orientationWidget->SetViewport(10, 10, 10, 10);
-	orientationWidget->SetEnabled(1);
-	orientationWidget->InteractiveOn();
-	renderer->ResetCamera();
-	axes->SetTotalLength(300, 300, 300);
-	transform->Translate(500, -50, -40);
-	axes->SetUserTransform(transform);
-	renderer->AddActor(axes);
-	renderWindow->Render();
+    ui->statusBar->showMessage("Coordinate Axes were Applied", 3000);
+    orientationWidget->SetOutlineColor(0.9300, 0.5700, 0.1300);
+    orientationWidget->SetOrientationMarker(axes);
+    orientationWidget->SetInteractor(renderWindowInteractor);
+    orientationWidget->SetViewport(10, 10, 10, 10);
+    orientationWidget->SetEnabled(1);
+    orientationWidget->InteractiveOn();
+    renderer->ResetCamera();
+    axes->SetTotalLength(300, 300, 300);
+    transform->Translate(500, -50, -40);
+    axes->SetUserTransform(transform);
+    renderer->AddActor(axes);
+    renderWindow->Render();
 }
 
 void MainWindow::on_actionRuler_triggered()
@@ -1170,9 +1143,9 @@ void MainWindow::on_actionRuler_triggered()
 
 void MainWindow::on_actionRemove_Ruler_triggered()
 {
-        ui->statusBar->showMessage("Ruler Removed", 3000);
-	distanceWidget->Off();
-        renderWindowInteractor->Initialize();
-        renderWindowInteractor->Disable();
-        renderWindow->Render();
+    ui->statusBar->showMessage("Ruler Removed", 3000);
+    distanceWidget->Off();
+    renderWindowInteractor->Initialize();
+    renderWindowInteractor->Disable();
+    renderWindow->Render();
 }

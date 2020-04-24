@@ -147,13 +147,6 @@ void Edit_Light::on_Light_Z_Coordinate_Focal_Point_valueChanged(int arg1)
     light_Local->light->SetFocalPoint(LightFocus[0],LightFocus[1],double (arg1));
     renderWindow->Render();
 }
-// This function does not yet work
-
-void Edit_Light::on_LightName_textEdited(const QString &arg1)
-{
-    light_Local->SetName(arg1);
-    renderWindow->Render();
-}
 
 void Edit_Light::on_Light_Switch_toggled(bool checked)
 {
