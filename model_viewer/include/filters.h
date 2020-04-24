@@ -101,6 +101,7 @@ private slots:
      * @brief Runs the close procedures for the Filters window. Reverting the model and resetting the Filter Window Open Status.
      */
     void on_Close_clicked();
+    void closeEvent(QCloseEvent *event);
 
 private:
     Ui::Filters *ui;          ////< @brief This it is the user interface.

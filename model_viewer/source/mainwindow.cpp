@@ -630,11 +630,26 @@ int MainWindow::on_actionOpen_triggered()
                     ListOfActors[i]->GetProperty()->SetColor(Red_remapped,Green_remapped,Blue_remapped);
                     ListOfRenderers[0]->AddActor(ListOfActors[i]);
                     hexaherdon_cont++;
+
+                    polydata->Initialize();
+                    polydata->SetPolys(cellArray);
+                    polydata->SetPolys(TriangleArray);
+                    polydata->SetPoints(points);
+
+                    QString NewSTLFilePath = QFileDialog::getSaveFileName(this, tr("Test_Hex: "),
+                                                                          "../../example_models/New stl file",tr("Stl (*.stl)"));
+                    std::string STLFilePath = NewSTLFilePath.toUtf8().constData();
+                    stlWriter->SetFileName(STLFilePath.c_str());
+                    stlWriter->SetInputData(polydata);
+                    stlWriter->Write();
+
+
                 }
             }
             ListOfRenderers[0]->ResetCameraClippingRange();
 
             ListOfRenderers[0]->SetBackground( colors->GetColor3d("Silver").GetData() );
+           /*
             polydata->Initialize();
             polydata->SetPolys(cellArray);
             polydata->SetPolys(TriangleArray);
@@ -648,6 +663,7 @@ int MainWindow::on_actionOpen_triggered()
             stlWriter->Write();
 
             std::cout << polydata->GetNumberOfPolys() << std::endl;
+            */
             renderer->ResetCamera();
             renderWindow->Render();
         }
@@ -1151,13 +1167,8 @@ void MainWindow::on_Model_Statistics_released()
 {
     if (LoadedFileType == false)
     {
-
-        std::cout << ModelOne.Get_Volume() << std::endl;
-       // Edit_LightDialog =new Edit_Light(this);
-       // Edit_LightDialog->setWindowTitle(ListOfLights.at(ui->Select_Light->currentIndex()).GetName());
-       // Edit_LightDialog->show();
-         QMessageBox *msgBox = new QMessageBox(this);
-         msgBox->setWindowTitle("Model Statistics");
+         QMessageBox Statistics;
+         Statistics.setWindowTitle("Model Statistics");
          QString Density = QString::number(ModelOne.Get_Weight()/ModelOne.Get_Volume());
          QString Volume =  QString::number(ModelOne.Get_Volume());
          QString Weight =  QString::number(ModelOne.Get_Weight());
@@ -1177,15 +1188,13 @@ void MainWindow::on_Model_Statistics_released()
                             "Y: " +  QString::number(Overall_Dimensions.GetYVector()) + " " +
                             "Z: " +  QString::number(Overall_Dimensions.GetZVector()));
 
-         msgBox->setText( "Density: " + Density+ "\n" +
+         Statistics.setText( "Density: " + Density+ "\n" +
                           "Weight: "  + Weight + "\n" +
                           "Volume: "  + Volume + "\n" +
                           "Centre Of Gravity: " + COG + "\n" +
                           "Geometric Centre: " + Geo_Centre + "\n"
                           "Overall Dimensions: " + Overall);
-         msgBox->exec();
-
-
+         Statistics.exec();
     }
     else
     {
