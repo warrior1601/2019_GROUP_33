@@ -105,7 +105,6 @@ void MainWindow::on_Select_Light_editTextChanged(const QString &text)
     ui->Select_Light->setItemText(ui->Select_Light->currentIndex(),ListOfLights.at(ui->Select_Light->currentIndex()).GetName());
 }
 
-
 QString MainWindow::InputQString()
 {
     bool ok;
@@ -315,8 +314,8 @@ int MainWindow::on_actionOpen_triggered()
             points->Initialize();
             cellArray->Initialize();
             TriangleArray->Initialize();
-
-            Model ModelOne;
+            Model Empty;
+            ModelOne = Empty;
             ModelOne.Load_Model(FilePath);
             vtkSmartPointer<vtkRenderer> Renderer = vtkSmartPointer<vtkRenderer>::New();
             ListOfRenderers.push_back(Renderer);
@@ -393,8 +392,6 @@ int MainWindow::on_actionOpen_triggered()
                     ListOfMappers[i]->SetInputData(ListOfUgs[i]);
                     ListOfActors[i]->SetMapper(ListOfMappers[i]);
 
-
-                    // put in function ??//
                     col =  Test.Get_Material().GetColour();
                     std::string RGB_Red = col.substr(0,2);
                     std::string RGB_Green = col.substr(2,2);
@@ -640,7 +637,7 @@ int MainWindow::on_actionOpen_triggered()
             ListOfRenderers[0]->SetBackground( colors->GetColor3d("Silver").GetData() );
             polydata->Initialize();
             polydata->SetPolys(cellArray);
-            //polydata->SetPolys(TriangleArray);
+            polydata->SetPolys(TriangleArray);
             polydata->SetPoints(points);
 
             QString NewSTLFilePath = QFileDialog::getSaveFileName(this, tr("Save File"),
@@ -1148,4 +1145,53 @@ void MainWindow::on_actionRemove_Ruler_triggered()
     renderWindowInteractor->Initialize();
     renderWindowInteractor->Disable();
     renderWindow->Render();
+}
+
+void MainWindow::on_Model_Statistics_released()
+{
+    if (LoadedFileType == false)
+    {
+
+        std::cout << ModelOne.Get_Volume() << std::endl;
+       // Edit_LightDialog =new Edit_Light(this);
+       // Edit_LightDialog->setWindowTitle(ListOfLights.at(ui->Select_Light->currentIndex()).GetName());
+       // Edit_LightDialog->show();
+         QMessageBox *msgBox = new QMessageBox(this);
+         msgBox->setWindowTitle("Model Statistics");
+         QString Density = QString::number(ModelOne.Get_Weight()/ModelOne.Get_Volume());
+         QString Volume =  QString::number(ModelOne.Get_Volume());
+         QString Weight =  QString::number(ModelOne.Get_Weight());
+
+         Vectors Centre_Of_Gravity = ModelOne.Get_Centre_Of_Gravity();
+         QString COG = ("X: " +  QString::number(Centre_Of_Gravity.GetXVector()) + " " +
+                        "Y: " +  QString::number(Centre_Of_Gravity.GetYVector()) + " " +
+                        "Z: " +  QString::number(Centre_Of_Gravity.GetZVector()));
+
+         Vectors Geometric_Centre = ModelOne.Get_Geometric_Centre();
+         QString Geo_Centre = ("X: " +  QString::number(Geometric_Centre.GetXVector()) + " " +
+                               "Y: " +  QString::number(Geometric_Centre.GetYVector()) + " " +
+                               "Z: " +  QString::number(Geometric_Centre.GetZVector()));
+
+         Vectors Overall_Dimensions = ModelOne.Get_Overall_Dimensions();
+         QString Overall = ("X: " +  QString::number(Overall_Dimensions.GetXVector()) + " " +
+                            "Y: " +  QString::number(Overall_Dimensions.GetYVector()) + " " +
+                            "Z: " +  QString::number(Overall_Dimensions.GetZVector()));
+
+         msgBox->setText( "Density: " + Density+ "\n" +
+                          "Weight: "  + Weight + "\n" +
+                          "Volume: "  + Volume + "\n" +
+                          "Centre Of Gravity: " + COG + "\n" +
+                          "Geometric Centre: " + Geo_Centre + "\n"
+                          "Overall Dimensions: " + Overall);
+         msgBox->exec();
+
+
+    }
+    else
+    {
+        QMessageBox msgBox;
+        msgBox.setWindowTitle("Model Statistics");
+        msgBox.setText("Currently Statiscs are only available for .MOD and .TXT files");
+        msgBox.exec();
+    }
 }

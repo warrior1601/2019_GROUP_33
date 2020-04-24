@@ -166,6 +166,10 @@ private slots:
     /** @brief This function removes the measuring ruler tool from the window. Needs to be fix becuase it does not return the window to mouse interaction properly
      */
     void on_actionRemove_Ruler_triggered();
+    /** @brief This functions displays the Weight, Volume, Center of Gavity, Overal Dimensions, and Density of the model.
+     * Currently this only applies to .MOD/.TXT files
+     */
+    void on_Model_Statistics_released();
 
 private:
 //-------Private Functions--------//
@@ -177,10 +181,16 @@ private:
     void SetLightData(double *Data, std::string currentLine);
 //-------Private Members---------//
     Ui::MainWindow *ui; ///< This is the User Interface
-    bool LoadedFileType = true; ///< This is used to track what type of file is loaded either .STL or .MOD/.TXT
+    bool LoadedFileType = true; ///< This is used to track what type of file is loaded either .STL = true or .MOD/.TXT = false
     bool FilterWindowOpenStatus = false; ///< This tracks if the filter window is open or closed. If true a window is open and the user can not open another window
     Edit_Light *Edit_LightDialog; ///< This is a pointer to the Edit light dialog box
     Filters *filters; ///< This is a pointer to the filters dialog box
+
+
+
+    Model ModelOne;
+
+
 
     std::vector<vtkLight_WithName> ListOfLights; ///< This is a list of the vtkLights_withname
     std::vector<std::array<double, 3>> pointCoordinates; ///<This list stores the points used in a loaded model
@@ -212,6 +222,8 @@ private:
 
     vtkSmartPointer<vtkPolyData> polydata = vtkSmartPointer<vtkPolyData>::New();
     vtkSmartPointer<vtkSTLWriter> stlWriter = vtkSmartPointer<vtkSTLWriter>::New();
+
+
 ///----Check this put when you have time with below ----////
     vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor = vtkSmartPointer<vtkRenderWindowInteractor>::New();
     vtkSmartPointer<vtkDistanceWidget> distanceWidget = vtkSmartPointer<vtkDistanceWidget>::New();
