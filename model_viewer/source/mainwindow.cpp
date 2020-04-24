@@ -1,44 +1,17 @@
 //--------------------mainwindow.cpp--------------------//
 
-
 // MainWindow.cpp
-// WorkSheet 6 Computing Project
+// Computing Project
 // Edited By Jedidiah Paterson on 02/22/2020.
 // Copyright @ 2020 Jedidiah Paterson. All right reserved.
 // This file loads an Image onto a GUI (Grapgical User Interface)
 // Impleminting the function defined in MainWindow.h and connected
 // To the buttons on MainWindow.ui
 
-#include <iomanip>
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <string>
 using namespace std;
-
-#include <vtkCamera.h>
-#include <vtkInformation.h>
-#include <vtkProperty.h>
-#include <vtkRenderer.h>
-#include <vtkTriangle.h>
-
-#include <QColorDialog>
-#include <QDebug>           // TROUBLESHOOTING ONLY //
-#include <QFileDialog>
-#include <QInputDialog>
-#include <QMessageBox>
-
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "edit_light.h"
-#include "vtklight_withname.h"
-
-#include "Material.h"
-#include "Vectors.h"
-#include "Matrix.hpp"
-#include "Cell.hpp"
-#include "Model.hpp"
 
 //-------------Constructor------------//
 
@@ -51,7 +24,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect( this, &MainWindow::statusUpdateMessage, ui->statusBar, &QStatusBar::showMessage );
     // First this the file does is loads a valid file
 
-    on_actionOpen_triggered();
+    if (on_actionOpen_triggered() == 1)
+        exit (1);
+
     // Adding a camera light
 
     vtkLight_WithName light;
@@ -124,6 +99,12 @@ void MainWindow::on_Add_Light_released()
     }
 }
 
+void MainWindow::on_Select_Light_editTextChanged(const QString &text)
+{
+    ListOfLights.at(ui->Select_Light->currentIndex()).SetName(text);
+    ui->Select_Light->setItemText(ui->Select_Light->currentIndex(),ListOfLights.at(ui->Select_Light->currentIndex()).GetName());
+}
+
 QString MainWindow::InputQString()
 {
     bool ok;
@@ -158,8 +139,12 @@ void MainWindow::on_Reset_Camera_released()
     ui->statusBar->showMessage("Reset Button was clicked",3000);
     renderer->ResetCamera();
     double* CameraLocation = renderer->GetActiveCamera()->GetPosition();
+    std::cout << "Camera Location: " << CameraLocation[0] << " " << CameraLocation[1] << " " << CameraLocation[2] << std::endl;
     ui->Horizontal_Shift->setValue(0);
     ui->Vertical_Shift->setValue(0);
+    ui->X_Camera_Pos->setValue(0);
+    ui->Y_Camera_Pos->setValue(0);
+    ui->Z_Camera_Pos->setValue(0);
     //create a dispaly to show where the camer is currently at and where the focal point of the camer is.
     renderWindow->Render();
 }
@@ -242,7 +227,7 @@ void MainWindow::on_Vertical_Shift_valueChanged(int arg1)
     }
     else if ((arg1 == 0)&&(Last_Value_Elevation =! 0.0))
     {
-       renderer->GetActiveCamera()->Pitch(double (arg1));
+        renderer->GetActiveCamera()->Pitch(double (arg1));
     }
 
     else
@@ -270,14 +255,14 @@ void MainWindow::on_Horizontal_Shift_valueChanged(int arg1)
     }
     else
     {
-    arg1 = arg1-Last_Value_Azimuth;
-    renderer->GetActiveCamera()->Yaw(double (arg1));
+        arg1 = arg1-Last_Value_Azimuth;
+        renderer->GetActiveCamera()->Yaw(double (arg1));
     }
     Last_Value_Azimuth = Temp;
     renderWindow->Render();
 }
 
-void MainWindow::on_actionOpen_triggered()
+int MainWindow::on_actionOpen_triggered()
 {
     ui->statusBar->showMessage("Open Action Triggered",3000);
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), "../../../example_models",
@@ -329,8 +314,8 @@ void MainWindow::on_actionOpen_triggered()
             points->Initialize();
             cellArray->Initialize();
             TriangleArray->Initialize();
-
-            Model ModelOne;
+            Model Empty;
+            ModelOne = Empty;
             ModelOne.Load_Model(FilePath);
             vtkSmartPointer<vtkRenderer> Renderer = vtkSmartPointer<vtkRenderer>::New();
             ListOfRenderers.push_back(Renderer);
@@ -407,8 +392,6 @@ void MainWindow::on_actionOpen_triggered()
                     ListOfMappers[i]->SetInputData(ListOfUgs[i]);
                     ListOfActors[i]->SetMapper(ListOfMappers[i]);
 
-
-                    // put in function ??//
                     col =  Test.Get_Material().GetColour();
                     std::string RGB_Red = col.substr(0,2);
                     std::string RGB_Green = col.substr(2,2);
@@ -654,7 +637,7 @@ void MainWindow::on_actionOpen_triggered()
             ListOfRenderers[0]->SetBackground( colors->GetColor3d("Silver").GetData() );
             polydata->Initialize();
             polydata->SetPolys(cellArray);
-            //polydata->SetPolys(TriangleArray);
+            polydata->SetPolys(TriangleArray);
             polydata->SetPoints(points);
 
             QString NewSTLFilePath = QFileDialog::getSaveFileName(this, tr("Save File"),
@@ -679,7 +662,9 @@ void MainWindow::on_actionOpen_triggered()
         QMessageBox msgBox;
         msgBox.setText("No file was selected to open.");
         msgBox.exec();
+        return (1);
     }
+    return (0);
 }
 
 void MainWindow::on_actionSave_triggered()
@@ -1040,118 +1025,173 @@ void MainWindow::SetLightData(double *Data, std::string currentLine)
 void MainWindow::on_actioncube_triggered()
 {
 
-	ui->statusBar->showMessage("Coordinate Axes were Applied", 3000);
-	orientationWidget->SetOutlineColor(0.9300, 0.5700, 0.1300);
-	orientationWidget->SetOrientationMarker(axes);
-	orientationWidget->SetInteractor(renderWindowInteractor);
-	orientationWidget->SetViewport(10, 10, 10, 10);
-	orientationWidget->SetEnabled(1);
-	orientationWidget->InteractiveOn();
-	renderer->ResetCamera();
+    ui->statusBar->showMessage("Coordinate Axes were Applied", 3000);
+    orientationWidget->SetOutlineColor(0.9300, 0.5700, 0.1300);
+    orientationWidget->SetOrientationMarker(axes);
+    orientationWidget->SetInteractor(renderWindowInteractor);
+    orientationWidget->SetViewport(10, 10, 10, 10);
+    orientationWidget->SetEnabled(1);
+    orientationWidget->InteractiveOn();
+    renderer->ResetCamera();
 
-	transform->Translate(-3, -3, 0);
-	axes->SetUserTransform(transform);
-	renderer->AddActor(axes);
-	renderWindow->Render();
+    transform->Translate(-3, -3, 0);
+    axes->SetUserTransform(transform);
+    renderer->AddActor(axes);
+    renderWindow->Render();
 }
 
 void MainWindow::on_actionhelicopter_triggered()
 {
-	ui->statusBar->showMessage("Coordinate Axes were Applied", 3000);
-	orientationWidget->SetOutlineColor(0.9300, 0.5700, 0.1300);
-	orientationWidget->SetOrientationMarker(axes);
-	orientationWidget->SetInteractor(renderWindowInteractor);
-	orientationWidget->SetViewport(10, 10, 10, 10);
-	orientationWidget->SetEnabled(1);
-	orientationWidget->InteractiveOn();
-	renderer->ResetCamera();
+    ui->statusBar->showMessage("Coordinate Axes were Applied", 3000);
+    orientationWidget->SetOutlineColor(0.9300, 0.5700, 0.1300);
+    orientationWidget->SetOrientationMarker(axes);
+    orientationWidget->SetInteractor(renderWindowInteractor);
+    orientationWidget->SetViewport(10, 10, 10, 10);
+    orientationWidget->SetEnabled(1);
+    orientationWidget->InteractiveOn();
+    renderer->ResetCamera();
 
-	transform->Translate(-10, -10, 0);
-	axes->SetUserTransform(transform);
-	renderer->AddActor(axes);
-	renderWindow->Render();
+    transform->Translate(-10, -10, 0);
+    axes->SetUserTransform(transform);
+    renderer->AddActor(axes);
+    renderWindow->Render();
 }
 
 void MainWindow::on_actionplane_triggered()
 {
-	ui->statusBar->showMessage("Coordinate Axes were Applied", 3000);
-	orientationWidget->SetOutlineColor(0.9300, 0.5700, 0.1300);
-	orientationWidget->SetOrientationMarker(axes);
-	orientationWidget->SetInteractor(renderWindowInteractor);
-	orientationWidget->SetViewport(10, 10, 10, 10);
-	orientationWidget->SetEnabled(1);
-	orientationWidget->InteractiveOn();
-	renderer->ResetCamera();
+    ui->statusBar->showMessage("Coordinate Axes were Applied", 3000);
+    orientationWidget->SetOutlineColor(0.9300, 0.5700, 0.1300);
+    orientationWidget->SetOrientationMarker(axes);
+    orientationWidget->SetInteractor(renderWindowInteractor);
+    orientationWidget->SetViewport(10, 10, 10, 10);
+    orientationWidget->SetEnabled(1);
+    orientationWidget->InteractiveOn();
+    renderer->ResetCamera();
 
-	transform->Translate(-5, -6, 0);
-	axes->SetUserTransform(transform);
-	renderer->AddActor(axes);
-	renderWindow->Render();
+    transform->Translate(-5, -6, 0);
+    axes->SetUserTransform(transform);
+    renderer->AddActor(axes);
+    renderWindow->Render();
 }
 
 void MainWindow::on_actionsphere_triggered()
 {
-	ui->statusBar->showMessage("Coordinate Axes were Applied", 3000);
-	orientationWidget->SetOutlineColor(0.9300, 0.5700, 0.1300);
-	orientationWidget->SetOrientationMarker(axes);
-	orientationWidget->SetInteractor(renderWindowInteractor);
-	orientationWidget->SetViewport(10, 10, 10, 10);
-	orientationWidget->SetEnabled(1);
-	orientationWidget->InteractiveOn();
-	renderer->ResetCamera();
+    ui->statusBar->showMessage("Coordinate Axes were Applied", 3000);
+    orientationWidget->SetOutlineColor(0.9300, 0.5700, 0.1300);
+    orientationWidget->SetOrientationMarker(axes);
+    orientationWidget->SetInteractor(renderWindowInteractor);
+    orientationWidget->SetViewport(10, 10, 10, 10);
+    orientationWidget->SetEnabled(1);
+    orientationWidget->InteractiveOn();
+    renderer->ResetCamera();
 
-	transform->Translate(-3, -3, 0);
-	axes->SetUserTransform(transform);
-	renderer->AddActor(axes);
-	renderWindow->Render();
+    transform->Translate(-3, -3, 0);
+    axes->SetUserTransform(transform);
+    renderer->AddActor(axes);
+    renderWindow->Render();
 }
 
 void MainWindow::on_actionairbus_triggered()
 {
-	ui->statusBar->showMessage("Coordinate Axes were Applied", 3000);
-	orientationWidget->SetOutlineColor(0.9300, 0.5700, 0.1300);
-	orientationWidget->SetOrientationMarker(axes);
-	orientationWidget->SetInteractor(renderWindowInteractor);
-	orientationWidget->SetViewport(10, 10, 10, 10);
-	orientationWidget->SetEnabled(1);
-	orientationWidget->InteractiveOn();
-	renderer->ResetCamera();
-	axes->SetTotalLength(50, 50, 50);
-	transform->Translate(50, -50, -40);
-	axes->SetUserTransform(transform);
-	renderer->AddActor(axes);
-	renderWindow->Render();
+    ui->statusBar->showMessage("Coordinate Axes were Applied", 3000);
+    orientationWidget->SetOutlineColor(0.9300, 0.5700, 0.1300);
+    orientationWidget->SetOrientationMarker(axes);
+    orientationWidget->SetInteractor(renderWindowInteractor);
+    orientationWidget->SetViewport(10, 10, 10, 10);
+    orientationWidget->SetEnabled(1);
+    orientationWidget->InteractiveOn();
+    renderer->ResetCamera();
+    axes->SetTotalLength(50, 50, 50);
+    transform->Translate(50, -50, -40);
+    axes->SetUserTransform(transform);
+    renderer->AddActor(axes);
+    renderWindow->Render();
 }
 
 void MainWindow::on_actionThunderbolt_triggered()
 {
-	ui->statusBar->showMessage("Coordinate Axes were Applied", 3000);
-	orientationWidget->SetOutlineColor(0.9300, 0.5700, 0.1300);
-	orientationWidget->SetOrientationMarker(axes);
-	orientationWidget->SetInteractor(renderWindowInteractor);
-	orientationWidget->SetViewport(10, 10, 10, 10);
-	orientationWidget->SetEnabled(1);
-	orientationWidget->InteractiveOn();
-	renderer->ResetCamera();
-	axes->SetTotalLength(300, 300, 300);
-	transform->Translate(500, -50, -40);
-	axes->SetUserTransform(transform);
-	renderer->AddActor(axes);
-	renderWindow->Render();
+    ui->statusBar->showMessage("Coordinate Axes were Applied", 3000);
+    orientationWidget->SetOutlineColor(0.9300, 0.5700, 0.1300);
+    orientationWidget->SetOrientationMarker(axes);
+    orientationWidget->SetInteractor(renderWindowInteractor);
+    orientationWidget->SetViewport(10, 10, 10, 10);
+    orientationWidget->SetEnabled(1);
+    orientationWidget->InteractiveOn();
+    renderer->ResetCamera();
+    axes->SetTotalLength(300, 300, 300);
+    transform->Translate(500, -50, -40);
+    axes->SetUserTransform(transform);
+    renderer->AddActor(axes);
+    renderWindow->Render();
 }
 
 void MainWindow::on_actionRuler_triggered()
 {
-        ui->statusBar->showMessage("Ruler Removed", 3000);
-        distanceWidget->On();
-        renderWindow->Render();
-
-
+    ui->statusBar->showMessage("Ruler was Applied", 3000);
+    renderWindowInteractor->SetRenderWindow(renderWindow);
+    distanceWidget->SetInteractor(renderWindowInteractor);
+    distanceWidget->CreateDefaultRepresentation();
+    static_cast<vtkDistanceRepresentation*>(distanceWidget->GetRepresentation())->SetLabelFormat("%-#6.3g mm");
+    renderWindowInteractor->Initialize();
+    renderWindow->Render();
+    distanceWidget->On();
+    renderWindowInteractor->Start();
 }
 
 void MainWindow::on_actionRemove_Ruler_triggered()
 {
-        ui->statusBar->showMessage("Ruler Added", 3000);
-	distanceWidget->Off();
-        renderWindow->Render();
+    ui->statusBar->showMessage("Ruler Removed", 3000);
+    distanceWidget->Off();
+    renderWindowInteractor->Initialize();
+    renderWindowInteractor->Disable();
+    renderWindow->Render();
+}
+
+void MainWindow::on_Model_Statistics_released()
+{
+    if (LoadedFileType == false)
+    {
+
+        std::cout << ModelOne.Get_Volume() << std::endl;
+       // Edit_LightDialog =new Edit_Light(this);
+       // Edit_LightDialog->setWindowTitle(ListOfLights.at(ui->Select_Light->currentIndex()).GetName());
+       // Edit_LightDialog->show();
+         QMessageBox *msgBox = new QMessageBox(this);
+         msgBox->setWindowTitle("Model Statistics");
+         QString Density = QString::number(ModelOne.Get_Weight()/ModelOne.Get_Volume());
+         QString Volume =  QString::number(ModelOne.Get_Volume());
+         QString Weight =  QString::number(ModelOne.Get_Weight());
+
+         Vectors Centre_Of_Gravity = ModelOne.Get_Centre_Of_Gravity();
+         QString COG = ("X: " +  QString::number(Centre_Of_Gravity.GetXVector()) + " " +
+                        "Y: " +  QString::number(Centre_Of_Gravity.GetYVector()) + " " +
+                        "Z: " +  QString::number(Centre_Of_Gravity.GetZVector()));
+
+         Vectors Geometric_Centre = ModelOne.Get_Geometric_Centre();
+         QString Geo_Centre = ("X: " +  QString::number(Geometric_Centre.GetXVector()) + " " +
+                               "Y: " +  QString::number(Geometric_Centre.GetYVector()) + " " +
+                               "Z: " +  QString::number(Geometric_Centre.GetZVector()));
+
+         Vectors Overall_Dimensions = ModelOne.Get_Overall_Dimensions();
+         QString Overall = ("X: " +  QString::number(Overall_Dimensions.GetXVector()) + " " +
+                            "Y: " +  QString::number(Overall_Dimensions.GetYVector()) + " " +
+                            "Z: " +  QString::number(Overall_Dimensions.GetZVector()));
+
+         msgBox->setText( "Density: " + Density+ "\n" +
+                          "Weight: "  + Weight + "\n" +
+                          "Volume: "  + Volume + "\n" +
+                          "Centre Of Gravity: " + COG + "\n" +
+                          "Geometric Centre: " + Geo_Centre + "\n"
+                          "Overall Dimensions: " + Overall);
+         msgBox->exec();
+
+
+    }
+    else
+    {
+        QMessageBox msgBox;
+        msgBox.setWindowTitle("Model Statistics");
+        msgBox.setText("Currently Statiscs are only available for .MOD and .TXT files");
+        msgBox.exec();
+    }
 }
