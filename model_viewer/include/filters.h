@@ -101,6 +101,8 @@ private slots:
      * @brief Runs the close procedures for the Filters window. Reverting the model and resetting the Filter Window Open Status.
      */
     void on_Close_clicked();
+    /** @brief This is a standard close even for a window. inside of this close even calls the function on_close_clicked()
+     */
     void closeEvent(QCloseEvent *event);
 
 private:
