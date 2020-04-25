@@ -44,6 +44,12 @@ void Filters::on_Close_clicked()
     renderWindow_Local->Render();
     this->close();
 }
+
+void Filters::closeEvent(QCloseEvent *event)
+{
+    on_Close_clicked();
+}
+
 // This appies the shrink Filter to the image on the MainWindow
 void Filters::on_Shrink_Filter_toggled(bool Shrink_Filter_Status)
 {

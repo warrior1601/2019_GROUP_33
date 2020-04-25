@@ -171,6 +171,14 @@ private slots:
      */
     void on_Model_Statistics_released();
 
+    void on_Tetra_Highlight_stateChanged(int state);
+
+    void on_Pyramid_Highlight_stateChanged(int state);
+
+    void on_Hexahedron_Highlight_stateChanged(int state);
+
+    void on_Highlight_released();
+
 private:
 //-------Private Functions--------//
     /** @brief This function allows for the user to input text
@@ -186,16 +194,32 @@ private:
     Edit_Light *Edit_LightDialog; ///< This is a pointer to the Edit light dialog box
     Filters *filters; ///< This is a pointer to the filters dialog box
 
-
+    double Highlight_red = 0; ///< This stores the red value that user has selected for highlighting cells
+    double Highlight_green = 0; ///< This stores the green value that user has selected for highlighting cells
+    double Highlight_blue = 0; ///< This stores the blue value that user has selected for highlighting cells
 
     Model ModelOne;
-
-
 
     std::vector<vtkLight_WithName> ListOfLights; ///< This is a list of the vtkLights_withname
     std::vector<std::array<double, 3>> pointCoordinates; ///<This list stores the points used in a loaded model
 
-    std::vector<vtkSmartPointer<vtkActor>> ListOfActors; ///< This is a list of all the actors present
+    std::vector<vtkSmartPointer<vtkActor>> ListOfActors_tetra; ///< This is a list of all the actors present on tetrahedrons
+    std::vector<vtkSmartPointer<vtkActor>> ListOfActors_pyramid; ///< This is a list of all the actors present on pyramids
+    std::vector<vtkSmartPointer<vtkActor>> ListOfActors_hexahedron; ///< This is a list of all the acotrs present on hexahedrons
+
+    double Temp_Tetra_color_red; ///< This stores the orginal red value for a highlighted cell
+    double Temp_Tetra_color_green; ///< This stores the orginal green value for a highlighted cell
+    double Temp_Tetra_color_blue; ///< This stores the orginal blue value for a highlighted cell
+
+    double Temp_Pyramid_color_red; ///< This stores the orginal red value for a highlighted cell
+    double Temp_Pyramid_color_green; ///< This stores the orginal green value for a highlighted cell
+    double Temp_Pyramid_color_blue; ///< This stores the orginal blue value for a highlighted cell
+
+    double Temp_Hexahedron_color_red; ///< This stores the orginal red value for a highlighted cell
+    double Temp_Hexahedron_color_green; ///< This stores the orginal green value for a highlighted cell
+    double Temp_Hexahedron_color_blue; ///< This stores the orginal blue value for a highlighted cell
+
+
     vtkSmartPointer<vtkActor> actor = vtkSmartPointer<vtkActor>::New();
     vtkSmartPointer<vtkNamedColors> colors = vtkSmartPointer<vtkNamedColors>::New();
 

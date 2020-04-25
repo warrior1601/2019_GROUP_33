@@ -265,6 +265,10 @@ void MainWindow::on_Horizontal_Shift_valueChanged(int arg1)
 int MainWindow::on_actionOpen_triggered()
 {
     ui->statusBar->showMessage("Open Action Triggered",3000);
+    ui->Tetra_Highlight->setCheckState(Qt::Unchecked);
+    ui->Pyramid_Highlight->setCheckState(Qt::Unchecked);
+    ui->Hexahedron_Highlight->setCheckState(Qt::Unchecked);
+
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), "../../../example_models",
                                                     tr("STL Files(*.stl);;Text files (*.txt);;MOD Files(*.mod)"));
     std::string FilePath = fileName.toUtf8().constData();
@@ -280,8 +284,13 @@ int MainWindow::on_actionOpen_triggered()
         ListOfRenderers.clear();
         ListOfMappers.clear();
         ListOfUgs.clear();
-        ListOfActors.clear();
-        ListOfTriangles.clear();
+        ListOfActors_tetra.clear();
+        ListOfActors_pyramid.clear();
+        ListOfActors_hexahedron.clear();
+        ListOfTriangles.clear(); 
+        ui->List_Of_Pyramids->clear();
+        ui->List_Of_Tetras->clear();
+        ui->List_Of_Hexahedrons->clear();
 
         std::size_t found = FilePath.find_last_of(".");
         std::cout << "File type is: " << FilePath.substr(found+1) << std::endl;
@@ -308,12 +317,14 @@ int MainWindow::on_actionOpen_triggered()
             std::string currentLine;
             unsigned int tetra_count = 0;
             unsigned int pyramid_count = 0;
-            unsigned int hexaherdon_cont = 0;
+            unsigned int hexahedron_count = 0;
             unsigned int triangle_count = 0;
 
+            unsigned int tetra_actor_count = 0;
+            unsigned int pryamid_actor_count = 0;
+            unsigned int hexahedron_actor_count = 0;
+
             points->Initialize();
-            cellArray->Initialize();
-            TriangleArray->Initialize();
             Model Empty;
             ModelOne = Empty;
             ModelOne.Load_Model(FilePath);
@@ -334,11 +345,13 @@ int MainWindow::on_actionOpen_triggered()
             }
             for (unsigned int i = 0; i < ModelOne.Get_Cell_Order().size(); i++)
             {
+                cellArray->Initialize();
+                TriangleArray->Initialize();
+
                 vtkSmartPointer<vtkDataSetMapper> mapper = vtkSmartPointer<vtkDataSetMapper>::New();
                 ListOfMappers.push_back(mapper);
 
                 vtkSmartPointer<vtkActor> actor = vtkSmartPointer<vtkActor>::New();
-                ListOfActors.push_back(actor);
 
                 vtkSmartPointer<vtkUnstructuredGrid> ug = vtkSmartPointer<vtkUnstructuredGrid>::New();
                 ListOfUgs.push_back(ug);
@@ -347,6 +360,7 @@ int MainWindow::on_actionOpen_triggered()
                 Cell Test = *ModelOne.Get_Cells()[i];
                 if (ModelOne.Get_Cell_Order()[i] == 't')
                 {
+                    ListOfActors_tetra.push_back(actor);
                     ListOfUgs[i]->SetPoints(points);
                     vtkSmartPointer<vtkTetra> tetra = vtkSmartPointer<vtkTetra>::New();
                     ListOfTetras.push_back(tetra);
@@ -390,7 +404,7 @@ int MainWindow::on_actionOpen_triggered()
                     cellArray->InsertNextCell(ListOfTetras[tetra_count]);
                     ListOfUgs[i]->InsertNextCell(tetra->GetCellType(), ListOfTetras[tetra_count]->GetPointIds());
                     ListOfMappers[i]->SetInputData(ListOfUgs[i]);
-                    ListOfActors[i]->SetMapper(ListOfMappers[i]);
+                    ListOfActors_tetra[tetra_actor_count]->SetMapper(ListOfMappers[i]);
 
                     col =  Test.Get_Material().GetColour();
                     std::string RGB_Red = col.substr(0,2);
@@ -409,13 +423,18 @@ int MainWindow::on_actionOpen_triggered()
                     std::istringstream(RGB_Blue) >> std::hex >> Blue;
                     double Blue_remapped = (0.0 + (1.0 - 0.0) * ((Blue - 0.0) / (255 - 0.0)));
 
-                    ListOfActors[i]->GetProperty()->SetColor(Red_remapped,Green_remapped,Blue_remapped);
-                    ListOfRenderers[0]->AddActor(ListOfActors[i]);
+                    ListOfActors_tetra[tetra_actor_count]->GetProperty()->SetColor(Red_remapped,Green_remapped,Blue_remapped);
+                    ListOfRenderers[0]->AddActor(ListOfActors_tetra[tetra_actor_count]);
+
+                    ui->List_Of_Tetras->addItem("Tetrahedron "  + (QString::number(tetra_count + 1)) );
+
+                    tetra_actor_count++;
                     tetra_count++;
                 }
 
                 if (ModelOne.Get_Cell_Order()[i] == 'p')
                 {
+                    ListOfActors_pyramid.push_back(actor);
                     ListOfUgs[i]->SetPoints(points);
                     vtkSmartPointer<vtkPyramid> pyramid = vtkSmartPointer<vtkPyramid>::New();
                     ListOfPyramids.push_back(pyramid);
@@ -475,7 +494,7 @@ int MainWindow::on_actionOpen_triggered()
                     cellArray->InsertNextCell (ListOfPyramids[pyramid_count]);
                     ListOfUgs[i]->InsertNextCell(pyramid->GetCellType(), ListOfPyramids[pyramid_count]->GetPointIds());
                     ListOfMappers[i]->SetInputData(ListOfUgs[i]);
-                    ListOfActors[i]->SetMapper(ListOfMappers[i]);
+                    ListOfActors_pyramid[pryamid_actor_count]->SetMapper(ListOfMappers[i]);
                     col =  Test.Get_Material().GetColour();
                     std::string RGB_Red = col.substr(0,2);
                     std::string RGB_Green = col.substr(2,2);
@@ -494,19 +513,25 @@ int MainWindow::on_actionOpen_triggered()
                     std::istringstream(RGB_Blue) >> std::hex >> Blue;
                     double Blue_remapped = (0.0 + (1.0 - 0.0) * ((Blue - 0.0) / (255 - 0.0)));
 
-                    ListOfActors[i]->GetProperty()->SetColor(Red_remapped,Green_remapped,Blue_remapped);
-                    ListOfRenderers[0]->AddActor(ListOfActors[i]);
+                    ListOfActors_pyramid[pryamid_actor_count]->GetProperty()->SetColor(Red_remapped,Green_remapped,Blue_remapped);
+                    ListOfRenderers[0]->AddActor(ListOfActors_pyramid[pryamid_actor_count]);
+
+                    ui->List_Of_Pyramids->addItem("Pyramid " + (QString::number(pyramid_count + 1)) );
+
+                    pryamid_actor_count++;
                     pyramid_count++;
                 }
 
                 if (ModelOne.Get_Cell_Order()[i] == 'h')
                 {
+
+                    ListOfActors_hexahedron.push_back(actor);
                     ListOfUgs[i]->SetPoints(points);
                     vtkSmartPointer<vtkHexahedron> hex = vtkSmartPointer<vtkHexahedron>::New();
                     ListOfHexs.push_back(hex);
                     for ( vtkIdType vtkId = 0; vtkId < 8; vtkId++)
                     {
-                        ListOfHexs[hexaherdon_cont]->GetPointIds()->SetId(vtkId, vtkIdType (Test.Get_Vertices_Order()[vtkId]) );
+                        ListOfHexs[hexahedron_count]->GetPointIds()->SetId(vtkId, vtkIdType (Test.Get_Vertices_Order()[vtkId]) );
                     }
                     //Loading Triangles
                     vtkSmartPointer<vtkTriangle> triangle_Hex_0 = vtkSmartPointer<vtkTriangle>::New();
@@ -605,10 +630,10 @@ int MainWindow::on_actionOpen_triggered()
                     TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
                     triangle_count++;
 
-                    cellArray->InsertNextCell(ListOfHexs[hexaherdon_cont]);
-                    ListOfUgs[i]->InsertNextCell(VTK_HEXAHEDRON, ListOfHexs[hexaherdon_cont]->GetPointIds() );
+                    cellArray->InsertNextCell(ListOfHexs[hexahedron_count]);
+                    ListOfUgs[i]->InsertNextCell(VTK_HEXAHEDRON, ListOfHexs[hexahedron_count]->GetPointIds() );
                     ListOfMappers[i]->SetInputData(ListOfUgs[i]);
-                    ListOfActors[i]->SetMapper(ListOfMappers[i]);
+                    ListOfActors_hexahedron[hexahedron_actor_count]->SetMapper(ListOfMappers[i]);
 
                     col =  Test.Get_Material().GetColour();
                     std::string RGB_Red = col.substr(0,2);
@@ -627,14 +652,33 @@ int MainWindow::on_actionOpen_triggered()
                     std::istringstream(RGB_Blue) >> std::hex >> Blue;
                     double Blue_remapped = (0.0 + (1.0 - 0.0) * ((Blue - 0.0) / (255 - 0.0)));
 
-                    ListOfActors[i]->GetProperty()->SetColor(Red_remapped,Green_remapped,Blue_remapped);
-                    ListOfRenderers[0]->AddActor(ListOfActors[i]);
-                    hexaherdon_cont++;
+                    ListOfActors_hexahedron[hexahedron_actor_count]->GetProperty()->SetColor(Red_remapped,Green_remapped,Blue_remapped);
+                    ListOfRenderers[0]->AddActor(ListOfActors_hexahedron[hexahedron_actor_count]);
+
+                    ui->List_Of_Hexahedrons->addItem("Hexahedron " + (QString::number(hexahedron_count + 1)) );
+
+                    hexahedron_actor_count++;
+                    hexahedron_count++;
+/*
+                    polydata->Initialize();
+                    polydata->SetPolys(cellArray);
+                    polydata->SetPolys(TriangleArray);
+                    polydata->SetPoints(points);
+
+                    QString NewSTLFilePath = QFileDialog::getSaveFileName(this, tr("Save File: "),
+                                                                          "../../example_models/New stl file",tr("Stl (*.stl)"));
+                    std::string STLFilePath = NewSTLFilePath.toUtf8().constData();
+                    stlWriter->SetFileName(STLFilePath.c_str());
+                    stlWriter->SetInputData(polydata);
+                    stlWriter->Write();
+*/
+
                 }
             }
             ListOfRenderers[0]->ResetCameraClippingRange();
 
             ListOfRenderers[0]->SetBackground( colors->GetColor3d("Silver").GetData() );
+           /*
             polydata->Initialize();
             polydata->SetPolys(cellArray);
             polydata->SetPolys(TriangleArray);
@@ -648,6 +692,7 @@ int MainWindow::on_actionOpen_triggered()
             stlWriter->Write();
 
             std::cout << polydata->GetNumberOfPolys() << std::endl;
+            */
             renderer->ResetCamera();
             renderWindow->Render();
         }
@@ -1151,13 +1196,8 @@ void MainWindow::on_Model_Statistics_released()
 {
     if (LoadedFileType == false)
     {
-
-        std::cout << ModelOne.Get_Volume() << std::endl;
-       // Edit_LightDialog =new Edit_Light(this);
-       // Edit_LightDialog->setWindowTitle(ListOfLights.at(ui->Select_Light->currentIndex()).GetName());
-       // Edit_LightDialog->show();
-         QMessageBox *msgBox = new QMessageBox(this);
-         msgBox->setWindowTitle("Model Statistics");
+         QMessageBox Statistics;
+         Statistics.setWindowTitle("Model Statistics");
          QString Density = QString::number(ModelOne.Get_Weight()/ModelOne.Get_Volume());
          QString Volume =  QString::number(ModelOne.Get_Volume());
          QString Weight =  QString::number(ModelOne.Get_Weight());
@@ -1177,15 +1217,13 @@ void MainWindow::on_Model_Statistics_released()
                             "Y: " +  QString::number(Overall_Dimensions.GetYVector()) + " " +
                             "Z: " +  QString::number(Overall_Dimensions.GetZVector()));
 
-         msgBox->setText( "Density: " + Density+ "\n" +
+         Statistics.setText( "Density: " + Density+ "\n" +
                           "Weight: "  + Weight + "\n" +
                           "Volume: "  + Volume + "\n" +
                           "Centre Of Gravity: " + COG + "\n" +
                           "Geometric Centre: " + Geo_Centre + "\n"
                           "Overall Dimensions: " + Overall);
-         msgBox->exec();
-
-
+         Statistics.exec();
     }
     else
     {
@@ -1195,3 +1233,73 @@ void MainWindow::on_Model_Statistics_released()
         msgBox.exec();
     }
 }
+
+void MainWindow::on_Tetra_Highlight_stateChanged(int state)
+{
+    ui->statusBar->showMessage("Tetra highltight toggled ",3000);
+    if (state == 2)
+    {
+        ListOfActors_tetra[(ui->List_Of_Tetras->currentIndex())]->GetProperty()->GetColor(Temp_Tetra_color_red, Temp_Tetra_color_green, Temp_Tetra_color_blue);
+        ListOfActors_tetra[(ui->List_Of_Tetras->currentIndex())]->GetProperty()->SetColor(Highlight_red, Highlight_green, Highlight_blue);
+        ui->List_Of_Tetras->setEnabled(false);
+    }
+    else
+    {
+        ListOfActors_tetra[(ui->List_Of_Tetras->currentIndex())]->GetProperty()->SetColor(Temp_Tetra_color_red, Temp_Tetra_color_green, Temp_Tetra_color_blue);
+        ui->List_Of_Tetras->setEnabled(true);
+    }
+    renderWindow->Render();
+}
+
+void MainWindow::on_Pyramid_Highlight_stateChanged(int state)
+{
+    ui->statusBar->showMessage("Pyramid highltight toggled ",3000);
+    if (state == 2)
+    {
+        ListOfActors_pyramid[(ui->List_Of_Pyramids->currentIndex())]->GetProperty()->GetColor(Temp_Pyramid_color_red, Temp_Pyramid_color_green, Temp_Pyramid_color_blue);
+        ListOfActors_pyramid[(ui->List_Of_Pyramids->currentIndex())]->GetProperty()->SetColor(Highlight_red, Highlight_green, Highlight_blue);
+        ui->List_Of_Pyramids->setEnabled(false);
+    }
+    else
+    {
+        ListOfActors_pyramid[(ui->List_Of_Pyramids->currentIndex())]->GetProperty()->SetColor(Temp_Pyramid_color_red, Temp_Pyramid_color_green, Temp_Pyramid_color_blue);
+        ui->List_Of_Pyramids->setEnabled(true);
+    }
+    renderWindow->Render();
+}
+
+void MainWindow::on_Hexahedron_Highlight_stateChanged(int state)
+{
+    ui->statusBar->showMessage("Hexahedron highltight toggled ",3000);
+    if (state == 2)
+    {
+        ListOfActors_hexahedron[(ui->List_Of_Hexahedrons->currentIndex())]->GetProperty()->GetColor(Temp_Hexahedron_color_red, Temp_Hexahedron_color_green, Temp_Hexahedron_color_blue);
+        ListOfActors_hexahedron[(ui->List_Of_Hexahedrons->currentIndex())]->GetProperty()->SetColor(Highlight_red, Highlight_green, Highlight_blue);
+        ui->List_Of_Hexahedrons->setEnabled(false);
+    }
+    else
+    {
+        ListOfActors_hexahedron[(ui->List_Of_Hexahedrons->currentIndex())]->GetProperty()->SetColor(Temp_Hexahedron_color_red, Temp_Hexahedron_color_green, Temp_Hexahedron_color_blue);
+        ui->List_Of_Hexahedrons->setEnabled(true);
+    }
+    renderWindow->Render();
+}
+
+void MainWindow::on_Highlight_released()
+{
+    QColor Color = QColorDialog::getColor(Qt::white,this,"Choose Color");
+    //checks to ensure that the selector color is valid
+    if(Color.isValid())
+    {
+        //converts the QColor to RGB values ranging from 0.0 through 1.0 to be used by SetColor function
+        Highlight_red = Color.redF();
+        Highlight_green = Color.greenF();
+        Highlight_blue = Color.blueF();
+    }
+}
+
+
+
+
+
+

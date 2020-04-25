@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>831</width>
-    <height>767</height>
+    <height>774</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -204,6 +204,13 @@
                    </property>
                    <property name="text">
                     <string>Background Colour</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="Highlight">
+                   <property name="text">
+                    <string>Highlight</string>
                    </property>
                   </widget>
                  </item>
@@ -519,17 +526,65 @@
       <item>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <spacer name="horizontalSpacer">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
+         <layout class="QGridLayout" name="gridLayout_2">
+          <item row="1" column="0">
+           <widget class="QGroupBox" name="Pyramids">
+            <property name="title">
+             <string>Pyramids</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_4">
+             <item>
+              <widget class="QComboBox" name="List_Of_Pyramids"/>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="Pyramid_Highlight">
+               <property name="text">
+                <string>Highlight Cell On/Off</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QGroupBox" name="Hexahedron">
+            <property name="title">
+             <string>Hexahedron</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_7">
+             <item>
+              <widget class="QComboBox" name="List_Of_Hexahedrons"/>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="Hexahedron_Highlight">
+               <property name="text">
+                <string>Highlight Cell On/Off</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QGroupBox" name="Tetrahrdons">
+            <property name="title">
+             <string>Tetrahrdons</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_2">
+             <item>
+              <widget class="QComboBox" name="List_Of_Tetras"/>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="Tetra_Highlight">
+               <property name="text">
+                <string>Highlight Cell On/Off</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </item>
