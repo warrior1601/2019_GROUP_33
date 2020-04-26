@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>business-and-finance.png</file>
+        <file>Open.png</file>
+        <file>Save_Icon.png</file>
+        <file>spotlight.png</file>
+    </qresource>
+</RCC>
