@@ -145,7 +145,7 @@ void MainWindow::on_Reset_Camera_released()
     ui->X_Camera_Pos->setValue(0);
     ui->Y_Camera_Pos->setValue(0);
     ui->Z_Camera_Pos->setValue(0);
-    //create a dispaly to show where the camer is currently at and where the focal point of the camer is.
+    //create a dispaly to show where the camera is currently at and where the focal point of the camera is.
     renderWindow->Render();
 }
 
@@ -994,7 +994,7 @@ void MainWindow::on_actionSave_Lights_triggered()
     std::streambuf *psbuf;
     auto *coutbuf = std::cout.rdbuf();
     std::ofstream filestr;
-    filestr.open ((fileName.toStdString()));//, std::ios::app);
+    filestr.open ((fileName.toStdString()));
 
     if (!filestr.is_open())
     {
@@ -1259,56 +1259,73 @@ void MainWindow::on_Model_Statistics_released()
 void MainWindow::on_Tetra_Highlight_stateChanged(int state)
 {
     ui->statusBar->showMessage("Tetra highltight toggled ",3000);
-    if (state == 2)
+
+    if (LoadedFileType == false)
     {
-        ListOfActors_tetra[(ui->List_Of_Tetras->currentIndex())]->GetProperty()->GetColor(Temp_Tetra_color_red, Temp_Tetra_color_green, Temp_Tetra_color_blue);
-        ListOfActors_tetra[(ui->List_Of_Tetras->currentIndex())]->GetProperty()->SetColor(Highlight_red, Highlight_green, Highlight_blue);
-        ui->List_Of_Tetras->setEnabled(false);
+        if (state == 2)
+        {
+            ListOfActors_tetra[(ui->List_Of_Tetras->currentIndex())]->GetProperty()->GetColor(Temp_Tetra_color_red, Temp_Tetra_color_green, Temp_Tetra_color_blue);
+            ListOfActors_tetra[(ui->List_Of_Tetras->currentIndex())]->GetProperty()->SetColor(Highlight_red, Highlight_green, Highlight_blue);
+            ui->List_Of_Tetras->setEnabled(false);
+            ui->Pyramid_Highlight->setCheckState(Qt::Unchecked);
+            ui->Hexahedron_Highlight->setCheckState(Qt::Unchecked);
+        }
+        else
+        {
+            ListOfActors_tetra[(ui->List_Of_Tetras->currentIndex())]->GetProperty()->SetColor(Temp_Tetra_color_red, Temp_Tetra_color_green, Temp_Tetra_color_blue);
+            ui->List_Of_Tetras->setEnabled(true);
+        }
+        renderWindow->Render();
     }
-    else
-    {
-        ListOfActors_tetra[(ui->List_Of_Tetras->currentIndex())]->GetProperty()->SetColor(Temp_Tetra_color_red, Temp_Tetra_color_green, Temp_Tetra_color_blue);
-        ui->List_Of_Tetras->setEnabled(true);
-    }
-    renderWindow->Render();
 }
 
 void MainWindow::on_Pyramid_Highlight_stateChanged(int state)
 {
     ui->statusBar->showMessage("Pyramid highltight toggled ",3000);
-    if (state == 2)
+    if (LoadedFileType == false)
     {
-        ListOfActors_pyramid[(ui->List_Of_Pyramids->currentIndex())]->GetProperty()->GetColor(Temp_Pyramid_color_red, Temp_Pyramid_color_green, Temp_Pyramid_color_blue);
-        ListOfActors_pyramid[(ui->List_Of_Pyramids->currentIndex())]->GetProperty()->SetColor(Highlight_red, Highlight_green, Highlight_blue);
-        ui->List_Of_Pyramids->setEnabled(false);
+        if (state == 2)
+        {
+            ListOfActors_pyramid[(ui->List_Of_Pyramids->currentIndex())]->GetProperty()->GetColor(Temp_Pyramid_color_red, Temp_Pyramid_color_green, Temp_Pyramid_color_blue);
+            ListOfActors_pyramid[(ui->List_Of_Pyramids->currentIndex())]->GetProperty()->SetColor(Highlight_red, Highlight_green, Highlight_blue);
+            ui->List_Of_Pyramids->setEnabled(false);
+            ui->Tetra_Highlight->setCheckState(Qt::Unchecked);
+            ui->Hexahedron_Highlight->setCheckState(Qt::Unchecked);
+        }
+        else
+        {
+            ListOfActors_pyramid[(ui->List_Of_Pyramids->currentIndex())]->GetProperty()->SetColor(Temp_Pyramid_color_red, Temp_Pyramid_color_green, Temp_Pyramid_color_blue);
+            ui->List_Of_Pyramids->setEnabled(true);
+        }
+        renderWindow->Render();
     }
-    else
-    {
-        ListOfActors_pyramid[(ui->List_Of_Pyramids->currentIndex())]->GetProperty()->SetColor(Temp_Pyramid_color_red, Temp_Pyramid_color_green, Temp_Pyramid_color_blue);
-        ui->List_Of_Pyramids->setEnabled(true);
-    }
-    renderWindow->Render();
 }
 
 void MainWindow::on_Hexahedron_Highlight_stateChanged(int state)
 {
     ui->statusBar->showMessage("Hexahedron highltight toggled ",3000);
-    if (state == 2)
+    if (LoadedFileType == false)
     {
-        ListOfActors_hexahedron[(ui->List_Of_Hexahedrons->currentIndex())]->GetProperty()->GetColor(Temp_Hexahedron_color_red, Temp_Hexahedron_color_green, Temp_Hexahedron_color_blue);
-        ListOfActors_hexahedron[(ui->List_Of_Hexahedrons->currentIndex())]->GetProperty()->SetColor(Highlight_red, Highlight_green, Highlight_blue);
-        ui->List_Of_Hexahedrons->setEnabled(false);
+        if (state == 2)
+        {
+            ListOfActors_hexahedron[(ui->List_Of_Hexahedrons->currentIndex())]->GetProperty()->GetColor(Temp_Hexahedron_color_red, Temp_Hexahedron_color_green, Temp_Hexahedron_color_blue);
+            ListOfActors_hexahedron[(ui->List_Of_Hexahedrons->currentIndex())]->GetProperty()->SetColor(Highlight_red, Highlight_green, Highlight_blue);
+            ui->List_Of_Hexahedrons->setEnabled(false);
+            ui->Tetra_Highlight->setCheckState(Qt::Unchecked);
+            ui->Pyramid_Highlight->setCheckState(Qt::Unchecked);
+        }
+        else
+        {
+            ListOfActors_hexahedron[(ui->List_Of_Hexahedrons->currentIndex())]->GetProperty()->SetColor(Temp_Hexahedron_color_red, Temp_Hexahedron_color_green, Temp_Hexahedron_color_blue);
+            ui->List_Of_Hexahedrons->setEnabled(true);
+        }
+        renderWindow->Render();
     }
-    else
-    {
-        ListOfActors_hexahedron[(ui->List_Of_Hexahedrons->currentIndex())]->GetProperty()->SetColor(Temp_Hexahedron_color_red, Temp_Hexahedron_color_green, Temp_Hexahedron_color_blue);
-        ui->List_Of_Hexahedrons->setEnabled(true);
-    }
-    renderWindow->Render();
 }
 
 void MainWindow::on_Highlight_released()
 {
+    ui->statusBar->showMessage("Highlight color change in progess ",3000);
     QColor Color = QColorDialog::getColor(Qt::white,this,"Choose Color");
     //checks to ensure that the selector color is valid
     if(Color.isValid())
@@ -1317,5 +1334,170 @@ void MainWindow::on_Highlight_released()
         Highlight_red = Color.redF();
         Highlight_green = Color.greenF();
         Highlight_blue = Color.blueF();
+    }
+}
+
+void MainWindow::on_Cell_Statistics_released()
+{
+    ui->statusBar->showMessage("Cell Stats requested ",3000);
+    if (LoadedFileType == false)
+    {
+       QMessageBox Statistics;
+       if(ui->Tetra_Highlight->checkState() == 2)
+       {
+           ui->statusBar->showMessage("Tetras Stats",3000);
+           Statistics.setWindowTitle("Highlight Tetrahedron Statistics");
+
+           int Tetra_count = 0; // Needs to be int to match type of currentIndex() return
+           QString Material;
+           QString Density;
+           QString Weight;
+           QString Volume;
+           for (unsigned int i = 0; i < ModelOne.Get_Cell_Order().size(); i++)
+           {
+               Cell Test = *ModelOne.Get_Cells()[i];
+               if (ModelOne.Get_Cell_Order()[i] == 't')
+               {
+                   if (Tetra_count == ui->List_Of_Tetras->currentIndex() )
+                   {
+                       auto *coutbuf = std::cout.rdbuf();
+                       std::stringstream buffer;
+                       std::streambuf *old = std::cout.rdbuf(buffer.rdbuf());
+
+                       std::cout << Test.Get_Material() << std::endl;
+                       std::string redirect = buffer.str();
+                       std::cout.rdbuf(coutbuf);
+
+                       Material = QString::fromStdString(redirect);
+                       Density  = QString::number((Test.Get_Weight()/Test.Get_Volume() ));
+                       Weight   = QString::number((Test.Get_Weight() ));
+                       Volume   = QString::number((Test.Get_Volume() ));
+
+                   }
+                   Tetra_count++;
+               }
+           }
+/*
+           Vectors Centre_Of_Gravity = ListOfTetras[(ui->List_Of_Tetras->currentIndex())].Get_Centre_Of_Gravity();
+           QString COG = ("X: " +  QString::number(Centre_Of_Gravity.GetXVector()) + " " +
+                          "Y: " +  QString::number(Centre_Of_Gravity.GetYVector()) + " " +
+                          "Z: " +  QString::number(Centre_Of_Gravity.GetZVector()));
+*/
+         //  std::vector<Vectors> Vertices = ListOfTetras[(ui->List_Of_Tetras->currentIndex())].Get_Vertices();
+           // std::cout but redirect the out buffer
+           Statistics.setText( "Material: "+ Material+ "\n" +
+                               "Density: " + Density + "\n" +
+                               "Weight: "  + Weight  + "\n" +
+                               "Volume: "  + Volume);//  + "\n" +
+                               //"Centre Of Gravity: " + COG + "\n");// +
+                               //"Vectors: " + Points);*/
+
+           Statistics.exec();
+       }
+       //ListOfPyramids
+       //ListOfHexs
+       if(ui->Pyramid_Highlight->checkState() == 2)
+       {
+           ui->statusBar->showMessage("Pyramids Stats",3000);
+           Statistics.setWindowTitle("Highlight Pyramid Statistics");
+
+           int Pyramid_count = 0; // Needs to be int to match type of currentIndex() return
+           QString Material;
+           QString Density;
+           QString Weight;
+           QString Volume;
+           for (unsigned int i = 0; i < ModelOne.Get_Cell_Order().size(); i++)
+           {
+               Cell Test = *ModelOne.Get_Cells()[i];
+               if (ModelOne.Get_Cell_Order()[i] == 'h')
+               {
+                   if (Pyramid_count == ui->List_Of_Pyramids->currentIndex() )
+                   {
+                       auto *coutbuf = std::cout.rdbuf();
+                       std::stringstream buffer;
+                       std::streambuf *old = std::cout.rdbuf(buffer.rdbuf());
+
+                       std::cout << Test.Get_Material() << std::endl;
+                       std::string redirect = buffer.str();
+                       std::cout.rdbuf(coutbuf);
+
+                       Material = QString::fromStdString(redirect);
+                       Density  = QString::number((Test.Get_Weight()/Test.Get_Volume() ));
+                       Weight   = QString::number((Test.Get_Weight() ));
+                       Volume   = QString::number((Test.Get_Volume() ));
+
+                   }
+                   Pyramid_count++;
+               }
+           }
+/*
+           Vectors Centre_Of_Gravity = ListOfTetras[(ui->List_Of_Tetras->currentIndex())].Get_Centre_Of_Gravity();
+           QString COG = ("X: " +  QString::number(Centre_Of_Gravity.GetXVector()) + " " +
+                          "Y: " +  QString::number(Centre_Of_Gravity.GetYVector()) + " " +
+                          "Z: " +  QString::number(Centre_Of_Gravity.GetZVector()));
+*/
+         //  std::vector<Vectors> Vertices = ListOfTetras[(ui->List_Of_Tetras->currentIndex())].Get_Vertices();
+           // std::cout but redirect the out buffer
+           Statistics.setText( "Material: "+ Material+ "\n" +
+                               "Density: " + Density + "\n" +
+                               "Weight: "  + Weight  + "\n" +
+                               "Volume: "  + Volume);//  + "\n" +
+                               //"Centre Of Gravity: " + COG + "\n");// +
+                               //"Vectors: " + Points);*/
+
+           Statistics.exec();
+       }
+
+       if(ui->Hexahedron_Highlight->checkState() == 2)
+       {
+           ui->statusBar->showMessage("Hexahedrons Stats",3000);
+           Statistics.setWindowTitle("Highlight Hexahedron Statistics");
+
+           int Hexahedron_count = 0; // Needs to be int to match type of currentIndex() return
+           QString Material;
+           QString Density;
+           QString Weight;
+           QString Volume;
+           for (unsigned int i = 0; i < ModelOne.Get_Cell_Order().size(); i++)
+           {
+               Cell Test = *ModelOne.Get_Cells()[i];
+               if (ModelOne.Get_Cell_Order()[i] == 'h')
+               {
+                   if (Hexahedron_count == ui->List_Of_Hexahedrons->currentIndex() )
+                   {
+                       auto *coutbuf = std::cout.rdbuf();
+                       std::stringstream buffer;
+                       std::streambuf *old = std::cout.rdbuf(buffer.rdbuf());
+
+                       std::cout << Test.Get_Material() << std::endl;
+                       std::string redirect = buffer.str();
+                       std::cout.rdbuf(coutbuf);
+
+                       Material = QString::fromStdString(redirect);
+                       Density  = QString::number((Test.Get_Weight()/Test.Get_Volume() ));
+                       Weight   = QString::number((Test.Get_Weight() ));
+                       Volume   = QString::number((Test.Get_Volume() ));
+
+                   }
+                   Hexahedron_count++;
+               }
+           }
+/*
+           Vectors Centre_Of_Gravity = ListOfTetras[(ui->List_Of_Tetras->currentIndex())].Get_Centre_Of_Gravity();
+           QString COG = ("X: " +  QString::number(Centre_Of_Gravity.GetXVector()) + " " +
+                          "Y: " +  QString::number(Centre_Of_Gravity.GetYVector()) + " " +
+                          "Z: " +  QString::number(Centre_Of_Gravity.GetZVector()));
+*/
+         //  std::vector<Vectors> Vertices = ListOfTetras[(ui->List_Of_Tetras->currentIndex())].Get_Vertices();
+           // std::cout but redirect the out buffer
+           Statistics.setText( "Material: "+ Material+ "\n" +
+                               "Density: " + Density + "\n" +
+                               "Weight: "  + Weight  + "\n" +
+                               "Volume: "  + Volume);//  + "\n" +
+                               //"Centre Of Gravity: " + COG + "\n");// +
+                               //"Vectors: " + Points);*/
+
+           Statistics.exec();
+       }
     }
 }

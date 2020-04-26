@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1687</width>
-    <height>949</height>
+    <width>1059</width>
+    <height>897</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -208,14 +208,14 @@
                </property>
                <property name="minimumSize">
                 <size>
-                 <width>0</width>
-                 <height>0</height>
+                 <width>75</width>
+                 <height>100</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>16777215</width>
-                 <height>16777215</height>
+                 <width>75</width>
+                 <height>100</height>
                 </size>
                </property>
                <property name="minimum">
@@ -245,8 +245,8 @@
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>16777215</width>
-                 <height>16777215</height>
+                 <width>75</width>
+                 <height>23</height>
                 </size>
                </property>
               </widget>
@@ -299,8 +299,8 @@
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>16777215</width>
-                 <height>16777215</height>
+                 <width>75</width>
+                 <height>100</height>
                 </size>
                </property>
                <property name="minimum">
@@ -330,8 +330,8 @@
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>16777215</width>
-                 <height>16777215</height>
+                 <width>75</width>
+                 <height>23</height>
                 </size>
                </property>
               </widget>
@@ -384,8 +384,8 @@
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>16777215</width>
-                 <height>16777215</height>
+                 <width>75</width>
+                 <height>100</height>
                 </size>
                </property>
                <property name="minimum">
@@ -415,8 +415,8 @@
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>16777215</width>
-                 <height>16777215</height>
+                 <width>75</width>
+                 <height>23</height>
                 </size>
                </property>
               </widget>
@@ -728,6 +728,12 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="maximumSize">
+         <size>
+          <width>265</width>
+          <height>59</height>
+         </size>
+        </property>
         <property name="title">
          <string>Colour</string>
         </property>
@@ -796,6 +802,12 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="maximumSize">
+         <size>
+          <width>265</width>
+          <height>59</height>
+         </size>
+        </property>
         <property name="title">
          <string>Filters</string>
         </property>
@@ -849,13 +861,29 @@
          <item row="3" column="0">
           <widget class="QGroupBox" name="IndividualCellHighlighterGroupBox">
            <property name="title">
-            <string>Individual Cell Highlighter</string>
+            <string>Individual Cell Selector</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
            </property>
            <layout class="QGridLayout" name="gridLayout_6">
-            <item row="2" column="0">
+            <item row="3" column="0">
+             <spacer name="verticalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Fixed</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>5</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="4" column="0">
              <layout class="QHBoxLayout" name="TetrahedronHorizontalLayout">
               <item>
                <widget class="QLabel" name="TetrahedronLabel">
@@ -931,108 +959,7 @@
               </item>
              </layout>
             </item>
-            <item row="0" column="0">
-             <widget class="QPushButton" name="Highlight">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>26</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>21</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>Colour of Highlighted(s) Cell</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="0">
-             <layout class="QHBoxLayout" name="HexahedronHorizontalLayout">
-              <item>
-               <widget class="QLabel" name="HexahedronLabel">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>75</width>
-                  <height>21</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>Hexahedrons</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QComboBox" name="List_Of_Hexahedrons">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Ignored">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>116</width>
-                  <height>21</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="Hexahedron_Highlight">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>21</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>On/Off</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item row="3" column="0">
+            <item row="5" column="0">
              <layout class="QHBoxLayout" name="PyramidHorizontalLayout">
               <item>
                <widget class="QLabel" name="PyramidLabel">
@@ -1108,21 +1035,123 @@
               </item>
              </layout>
             </item>
+            <item row="6" column="0">
+             <layout class="QHBoxLayout" name="HexahedronHorizontalLayout">
+              <item>
+               <widget class="QLabel" name="HexahedronLabel">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>75</width>
+                  <height>21</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>Hexahedrons</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="List_Of_Hexahedrons">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Ignored">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>116</width>
+                  <height>21</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="Hexahedron_Highlight">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>21</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>On/Off</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
             <item row="1" column="0">
-             <spacer name="verticalSpacer_2">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeType">
-               <enum>QSizePolicy::Fixed</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>5</height>
-               </size>
-              </property>
-             </spacer>
+             <layout class="QHBoxLayout" name="horizontalLayout_2">
+              <item>
+               <widget class="QPushButton" name="Highlight">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>127</width>
+                  <height>23</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>127</width>
+                  <height>23</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>Colour of Selectod Cell</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="Cell_Statistics">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string> Cell Statistics</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
            </layout>
           </widget>
