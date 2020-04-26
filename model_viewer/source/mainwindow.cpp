@@ -21,7 +21,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     // This Sets the RinderWindow to the *.ui files Widget named Display_Window
 
     ui->Display_Window->SetRenderWindow( renderWindow );
-    connect( this, &MainWindow::statusUpdateMessage, ui->statusBar, &QStatusBar::showMessage );
     // First this the file does is loads a valid file
 
     // if (on_actionOpen_triggered() == 1)
@@ -56,7 +55,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_Change_Object_Color_released()
 {
-    ui->statusBar->showMessage("Change Object Color Button was clicked",3000);
     //Opens Dialog Box to allow the use to chose a color
     QColor Color = QColorDialog::getColor(Qt::white,this,"Choose Color");
     //checks to ensure that the selector color is valid
@@ -74,7 +72,6 @@ void MainWindow::on_Change_Object_Color_released()
 
 void MainWindow::on_Add_Light_released()
 {
-    ui->statusBar->showMessage("Add Light Button was clicked",3000);
     vtkLight_WithName light;
     light.SetName(InputQString());
     ListOfLights.push_back(light);
@@ -120,7 +117,6 @@ QString MainWindow::InputQString()
 
 void MainWindow::on_Change_Back_Ground_Color_released()
 {
-    ui->statusBar->showMessage("Change Color Back Ground Button was clicked",3000);
     QColor Color = QColorDialog::getColor(Qt::white,this,"Choose Back Ground Color");
     if(Color.isValid())
     {
@@ -136,7 +132,6 @@ void MainWindow::on_Change_Back_Ground_Color_released()
 //One comment to look at in this function
 void MainWindow::on_Reset_Camera_released()
 {
-    ui->statusBar->showMessage("Reset Button was clicked",3000);
     renderer->ResetCamera();
     double* CameraLocation = renderer->GetActiveCamera()->GetPosition();
     std::cout << "Camera Location: " << CameraLocation[0] << " " << CameraLocation[1] << " " << CameraLocation[2] << std::endl;
@@ -151,7 +146,6 @@ void MainWindow::on_Reset_Camera_released()
 
 void MainWindow::on_Apply_Filters_released()
 {
-    ui->statusBar->showMessage(" Apply Filter Button was clicked",3000);
     // This open a Modaless window which allows
     // User interaction with the mainwindow while open
     if (LoadedFileType == true)
@@ -164,27 +158,15 @@ void MainWindow::on_Apply_Filters_released()
             filters->show();
             filters->Open_Dialog(reader, mapper, renderWindow, FilterWindowOpenStatus);
         }
-        else
-        {
-            QMessageBox FilterMessage;
-            FilterMessage.setWindowTitle("Error");
-            FilterMessage.setText("A filter window is already open.");
-            FilterMessage.exec();
-        }
     }
     else
     {
-        QMessageBox FilterMessage;
-        FilterMessage.setWindowTitle("Error");
-        FilterMessage.setText("Filters can only be applied to stl files.");
-        FilterMessage.exec();
-        ui->statusBar->showMessage("Filters can only be applied to stl files",3000);
+        QMessageBox::critical(this, "Runtime Error", "Filters are only available for models loaded from .stl files");
     }
 }
 
 void MainWindow::on_X_Camera_Pos_valueChanged(int value)
 {
-    ui->statusBar->showMessage("X Camera Position Value was Changed",3000);
     static int Last_Value_Pitch = 0.0;
     int Temp = value;
     value = value-Last_Value_Pitch;
@@ -195,7 +177,6 @@ void MainWindow::on_X_Camera_Pos_valueChanged(int value)
 
 void MainWindow::on_Y_Camera_Pos_valueChanged(int value)
 {
-    ui->statusBar->showMessage("Y Camera Position Value was Changed",3000);
     static double Last_Value_Roll = 0.0;
     int Temp = value;
     value = value-Last_Value_Roll;
@@ -206,7 +187,6 @@ void MainWindow::on_Y_Camera_Pos_valueChanged(int value)
 
 void MainWindow::on_Z_Camera_Pos_valueChanged(int value)
 {
-    ui->statusBar->showMessage("Z Camera Position Value was Changed",3000);
     static double Last_Value_Yaw= 0.0;
     int Temp = value;
     value = value-Last_Value_Yaw;
@@ -217,7 +197,6 @@ void MainWindow::on_Z_Camera_Pos_valueChanged(int value)
 
 void MainWindow::on_Vertical_Shift_valueChanged(int arg1)
 {
-    ui->statusBar->showMessage("Vertical Shift Value was Changed",3000);
     static double Last_Value_Elevation = 0.0;
     int Temp = arg1;
 
@@ -241,7 +220,6 @@ void MainWindow::on_Vertical_Shift_valueChanged(int arg1)
 
 void MainWindow::on_Horizontal_Shift_valueChanged(int arg1)
 {
-    ui->statusBar->showMessage("Horizontal Shift Value was Changed",3000);
     static double Last_Value_Azimuth = 0.0;
     int Temp = arg1;
 
@@ -262,9 +240,8 @@ void MainWindow::on_Horizontal_Shift_valueChanged(int arg1)
     renderWindow->Render();
 }
 
-int MainWindow::on_actionOpen_triggered()
+void MainWindow::on_actionOpen_triggered()
 {
-    ui->statusBar->showMessage("Open Action Triggered",3000);
     ui->Tetra_Highlight->setCheckState(Qt::Unchecked);
     ui->Pyramid_Highlight->setCheckState(Qt::Unchecked);
     ui->Hexahedron_Highlight->setCheckState(Qt::Unchecked);
@@ -724,20 +701,12 @@ int MainWindow::on_actionOpen_triggered()
         renderer->ResetCamera();
         renderWindow->Render();
     }
-    else
-    {
-        QMessageBox msgBox;
-        msgBox.setText("No file was selected to open.");
-        msgBox.exec();
-        return (1);
-    }
-    return (0);
+
 }
 
 void MainWindow::on_actionSave_triggered()
 {
-    ui->statusBar->showMessage("Save Action Triggered, Function not Yet Made",3000);
-    // Function not Yet Made //
+  QMessageBox::critical(this, "Uncoded Error", "Save function has not been coded for");
 }
 
 void MainWindow::on_actionLoad_Lights_triggered()
@@ -1020,7 +989,6 @@ void MainWindow::on_actionSave_Lights_triggered()
 
 void MainWindow::on_Edit_Light_clicked()
 {
-    ui->statusBar->showMessage("Edit Light Button was clicked",3000);
     // This ensures a light has been created before t can be selected to be edited
 
     if(ui->Select_Light->currentIndex() > -1)
@@ -1030,8 +998,6 @@ void MainWindow::on_Edit_Light_clicked()
         Edit_LightDialog->show();
         Edit_LightDialog->Open_Dialog(ListOfLights.at(ui->Select_Light->currentIndex()),renderWindow );
     }
-    else
-        ui->statusBar->showMessage("Nothing selected to Edit ",3000);
 }
 
 void MainWindow::on_Delete_Light_released()
@@ -1051,7 +1017,7 @@ void MainWindow::on_Delete_Light_released()
     }
     else
     {
-        ui->statusBar->showMessage("Can Not Delete Camera Light Try Swithcing It OFF",3000);
+      QMessageBox::critical(this, "Runtime Error", "Cannot delete Camera Light instead turn it off");
     }
     renderWindow->Render();
 }
@@ -1089,112 +1055,8 @@ void MainWindow::SetLightData(double *Data, std::string currentLine)
     }
 }
 
-void MainWindow::on_actioncube_triggered()
-{
-
-    ui->statusBar->showMessage("Coordinate Axes were Applied", 3000);
-    orientationWidget->SetOutlineColor(0.9300, 0.5700, 0.1300);
-    orientationWidget->SetOrientationMarker(axes);
-    orientationWidget->SetInteractor(renderWindowInteractor);
-    orientationWidget->SetViewport(10, 10, 10, 10);
-    orientationWidget->SetEnabled(1);
-    orientationWidget->InteractiveOn();
-    renderer->ResetCamera();
-
-    transform->Translate(-3, -3, 0);
-    axes->SetUserTransform(transform);
-    renderer->AddActor(axes);
-    renderWindow->Render();
-}
-
-void MainWindow::on_actionhelicopter_triggered()
-{
-    ui->statusBar->showMessage("Coordinate Axes were Applied", 3000);
-    orientationWidget->SetOutlineColor(0.9300, 0.5700, 0.1300);
-    orientationWidget->SetOrientationMarker(axes);
-    orientationWidget->SetInteractor(renderWindowInteractor);
-    orientationWidget->SetViewport(10, 10, 10, 10);
-    orientationWidget->SetEnabled(1);
-    orientationWidget->InteractiveOn();
-    renderer->ResetCamera();
-
-    transform->Translate(-10, -10, 0);
-    axes->SetUserTransform(transform);
-    renderer->AddActor(axes);
-    renderWindow->Render();
-}
-
-void MainWindow::on_actionplane_triggered()
-{
-    ui->statusBar->showMessage("Coordinate Axes were Applied", 3000);
-    orientationWidget->SetOutlineColor(0.9300, 0.5700, 0.1300);
-    orientationWidget->SetOrientationMarker(axes);
-    orientationWidget->SetInteractor(renderWindowInteractor);
-    orientationWidget->SetViewport(10, 10, 10, 10);
-    orientationWidget->SetEnabled(1);
-    orientationWidget->InteractiveOn();
-    renderer->ResetCamera();
-
-    transform->Translate(-5, -6, 0);
-    axes->SetUserTransform(transform);
-    renderer->AddActor(axes);
-    renderWindow->Render();
-}
-
-void MainWindow::on_actionsphere_triggered()
-{
-    ui->statusBar->showMessage("Coordinate Axes were Applied", 3000);
-    orientationWidget->SetOutlineColor(0.9300, 0.5700, 0.1300);
-    orientationWidget->SetOrientationMarker(axes);
-    orientationWidget->SetInteractor(renderWindowInteractor);
-    orientationWidget->SetViewport(10, 10, 10, 10);
-    orientationWidget->SetEnabled(1);
-    orientationWidget->InteractiveOn();
-    renderer->ResetCamera();
-
-    transform->Translate(-3, -3, 0);
-    axes->SetUserTransform(transform);
-    renderer->AddActor(axes);
-    renderWindow->Render();
-}
-
-void MainWindow::on_actionairbus_triggered()
-{
-    ui->statusBar->showMessage("Coordinate Axes were Applied", 3000);
-    orientationWidget->SetOutlineColor(0.9300, 0.5700, 0.1300);
-    orientationWidget->SetOrientationMarker(axes);
-    orientationWidget->SetInteractor(renderWindowInteractor);
-    orientationWidget->SetViewport(10, 10, 10, 10);
-    orientationWidget->SetEnabled(1);
-    orientationWidget->InteractiveOn();
-    renderer->ResetCamera();
-    axes->SetTotalLength(50, 50, 50);
-    transform->Translate(50, -50, -40);
-    axes->SetUserTransform(transform);
-    renderer->AddActor(axes);
-    renderWindow->Render();
-}
-
-void MainWindow::on_actionThunderbolt_triggered()
-{
-    ui->statusBar->showMessage("Coordinate Axes were Applied", 3000);
-    orientationWidget->SetOutlineColor(0.9300, 0.5700, 0.1300);
-    orientationWidget->SetOrientationMarker(axes);
-    orientationWidget->SetInteractor(renderWindowInteractor);
-    orientationWidget->SetViewport(10, 10, 10, 10);
-    orientationWidget->SetEnabled(1);
-    orientationWidget->InteractiveOn();
-    renderer->ResetCamera();
-    axes->SetTotalLength(300, 300, 300);
-    transform->Translate(500, -50, -40);
-    axes->SetUserTransform(transform);
-    renderer->AddActor(axes);
-    renderWindow->Render();
-}
-
 void MainWindow::on_actionRuler_triggered()
 {
-    ui->statusBar->showMessage("Ruler was Applied", 3000);
     renderWindowInteractor->SetRenderWindow(renderWindow);
     distanceWidget->SetInteractor(renderWindowInteractor);
     distanceWidget->CreateDefaultRepresentation();
@@ -1207,7 +1069,6 @@ void MainWindow::on_actionRuler_triggered()
 
 void MainWindow::on_actionRemove_Ruler_triggered()
 {
-    ui->statusBar->showMessage("Ruler Removed", 3000);
     distanceWidget->Off();
     renderWindowInteractor->Initialize();
     renderWindowInteractor->Disable();
@@ -1239,26 +1100,28 @@ void MainWindow::on_Model_Statistics_released()
                             "Y: " +  QString::number(Overall_Dimensions.GetYVector()) + " " +
                             "Z: " +  QString::number(Overall_Dimensions.GetZVector()));
 
-         Statistics.setText( "Density: " + Density+ "\n" +
-                          "Weight: "  + Weight + "\n" +
-                          "Volume: "  + Volume + "\n" +
-                          "Centre Of Gravity: " + COG + "\n" +
-                          "Geometric Centre: " + Geo_Centre + "\n"
+         Statistics.setText( "Density: " + Density+ "\n\n" +
+                          "Weight: "  + Weight + "\n\n" +
+                          "Volume: "  + Volume + "\n\n" +
+                          "Centre Of Gravity: " + COG + "\n\n" +
+                          "Geometric Centre: " + Geo_Centre + "\n\n"
                           "Overall Dimensions: " + Overall);
          Statistics.exec();
     }
     else
     {
-        QMessageBox msgBox;
-        msgBox.setWindowTitle("Model Statistics");
-        msgBox.setText("Currently Statiscs are only available for .MOD and .TXT files");
-        msgBox.exec();
+      QMessageBox::critical(this, "Runtime Error", "Model statiscs are only available for models loaded from .mod or .txt files");
     }
 }
 
 void MainWindow::on_Tetra_Highlight_stateChanged(int state)
 {
-    ui->statusBar->showMessage("Tetra highltight toggled ",3000);
+    if (state == 2)
+    {
+        ListOfActors_tetra[(ui->List_Of_Tetras->currentIndex())]->GetProperty()->GetColor(Temp_Tetra_color_red, Temp_Tetra_color_green, Temp_Tetra_color_blue);
+        ListOfActors_tetra[(ui->List_Of_Tetras->currentIndex())]->GetProperty()->SetColor(Highlight_red, Highlight_green, Highlight_blue);
+        ui->List_Of_Tetras->setEnabled(false);
+    }
 
     if (LoadedFileType == false)
     {
@@ -1281,7 +1144,13 @@ void MainWindow::on_Tetra_Highlight_stateChanged(int state)
 
 void MainWindow::on_Pyramid_Highlight_stateChanged(int state)
 {
-    ui->statusBar->showMessage("Pyramid highltight toggled ",3000);
+
+    if (state == 2)
+    {
+        ListOfActors_pyramid[(ui->List_Of_Pyramids->currentIndex())]->GetProperty()->GetColor(Temp_Pyramid_color_red, Temp_Pyramid_color_green, Temp_Pyramid_color_blue);
+        ListOfActors_pyramid[(ui->List_Of_Pyramids->currentIndex())]->GetProperty()->SetColor(Highlight_red, Highlight_green, Highlight_blue);
+        ui->List_Of_Pyramids->setEnabled(false);
+    }
     if (LoadedFileType == false)
     {
         if (state == 2)
@@ -1303,7 +1172,13 @@ void MainWindow::on_Pyramid_Highlight_stateChanged(int state)
 
 void MainWindow::on_Hexahedron_Highlight_stateChanged(int state)
 {
-    ui->statusBar->showMessage("Hexahedron highltight toggled ",3000);
+    if (state == 2)
+    {
+        ListOfActors_hexahedron[(ui->List_Of_Hexahedrons->currentIndex())]->GetProperty()->GetColor(Temp_Hexahedron_color_red, Temp_Hexahedron_color_green, Temp_Hexahedron_color_blue);
+        ListOfActors_hexahedron[(ui->List_Of_Hexahedrons->currentIndex())]->GetProperty()->SetColor(Highlight_red, Highlight_green, Highlight_blue);
+        ui->List_Of_Hexahedrons->setEnabled(false);
+    }
+    else
     if (LoadedFileType == false)
     {
         if (state == 2)
@@ -1325,7 +1200,6 @@ void MainWindow::on_Hexahedron_Highlight_stateChanged(int state)
 
 void MainWindow::on_Highlight_released()
 {
-    ui->statusBar->showMessage("Highlight color change in progess ",3000);
     QColor Color = QColorDialog::getColor(Qt::white,this,"Choose Color");
     //checks to ensure that the selector color is valid
     if(Color.isValid())
@@ -1339,13 +1213,11 @@ void MainWindow::on_Highlight_released()
 
 void MainWindow::on_Cell_Statistics_released()
 {
-    ui->statusBar->showMessage("Cell Stats requested ",3000);
     if (LoadedFileType == false)
     {
        QMessageBox Statistics;
        if(ui->Tetra_Highlight->checkState() == 2)
        {
-           ui->statusBar->showMessage("Tetras Stats",3000);
            Statistics.setWindowTitle("Highlight Tetrahedron Statistics");
 
            int Tetra_count = 0; // Needs to be int to match type of currentIndex() return
@@ -1398,7 +1270,6 @@ void MainWindow::on_Cell_Statistics_released()
        //ListOfHexs
        if(ui->Pyramid_Highlight->checkState() == 2)
        {
-           ui->statusBar->showMessage("Pyramids Stats",3000);
            Statistics.setWindowTitle("Highlight Pyramid Statistics");
 
            int Pyramid_count = 0; // Needs to be int to match type of currentIndex() return
@@ -1450,7 +1321,6 @@ void MainWindow::on_Cell_Statistics_released()
 
        if(ui->Hexahedron_Highlight->checkState() == 2)
        {
-           ui->statusBar->showMessage("Hexahedrons Stats",3000);
            Statistics.setWindowTitle("Highlight Hexahedron Statistics");
 
            int Hexahedron_count = 0; // Needs to be int to match type of currentIndex() return
