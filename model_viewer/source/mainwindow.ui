@@ -53,9 +53,9 @@
      </widget>
     </item>
     <item row="0" column="1">
-     <layout class="QVBoxLayout" name="verticalLayout">
+     <layout class="QVBoxLayout" name="MainFunctionsVerticalLayout">
       <item>
-       <widget class="QGroupBox" name="groupBox_4">
+       <widget class="QGroupBox" name="LoadSaveGroupBox">
         <property name="title">
          <string>Load/Save</string>
         </property>
@@ -64,7 +64,7 @@
         </property>
         <layout class="QGridLayout" name="gridLayout_7">
          <item row="0" column="0">
-          <widget class="QPushButton" name="OpenModelButton">
+          <widget class="QPushButton" name="LoadModelButton">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -102,7 +102,7 @@
           </widget>
          </item>
          <item row="1" column="0">
-          <widget class="QPushButton" name="OpenModelButton_2">
+          <widget class="QPushButton" name="LoadLightsButton">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -121,7 +121,7 @@
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QPushButton" name="OpenModelButton_3">
+          <widget class="QPushButton" name="SaveLightsButton">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -143,7 +143,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QGroupBox" name="horizontalGroupBox">
+       <widget class="QGroupBox" name="CameraAndPositionGroupBox">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
           <horstretch>0</horstretch>
@@ -167,11 +167,11 @@
           <enum>QLayout::SetMaximumSize</enum>
          </property>
          <item row="3" column="0">
-          <layout class="QHBoxLayout" name="horizontalLayout_8">
+          <layout class="QHBoxLayout" name="XYZ_Dials">
            <item>
-            <layout class="QVBoxLayout" name="verticalLayout_5">
+            <layout class="QVBoxLayout" name="XDialVerticalLayout">
              <item>
-              <widget class="QLabel" name="label_3">
+              <widget class="QLabel" name="XDialLabel">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
                  <horstretch>0</horstretch>
@@ -254,9 +254,9 @@
             </layout>
            </item>
            <item>
-            <layout class="QVBoxLayout" name="verticalLayout_8">
+            <layout class="QVBoxLayout" name="YDialVerticalLayout">
              <item>
-              <widget class="QLabel" name="label_5">
+              <widget class="QLabel" name="YDialLabel">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
                  <horstretch>0</horstretch>
@@ -339,9 +339,9 @@
             </layout>
            </item>
            <item>
-            <layout class="QVBoxLayout" name="verticalLayout_9">
+            <layout class="QVBoxLayout" name="ZDialVerticalLayout">
              <item>
-              <widget class="QLabel" name="label_4">
+              <widget class="QLabel" name="ZDialLabel">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
                  <horstretch>0</horstretch>
@@ -442,9 +442,9 @@
           </spacer>
          </item>
          <item row="2" column="0">
-          <layout class="QHBoxLayout" name="horizontalLayout_5">
+          <layout class="QHBoxLayout" name="HorizontalAndVerticaShiftsHorizontalLayout">
            <item>
-            <widget class="QLabel" name="label">
+            <widget class="QLabel" name="VerticalShiftLabel">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -510,7 +510,7 @@
             </spacer>
            </item>
            <item>
-            <widget class="QLabel" name="label_2">
+            <widget class="QLabel" name="HorizontalShiftLabel">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -596,7 +596,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QGroupBox" name="horizontalGroupBox_4">
+       <widget class="QGroupBox" name="LightsGroupBox">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
           <horstretch>0</horstretch>
@@ -614,7 +614,7 @@
           <enum>QLayout::SetMaximumSize</enum>
          </property>
          <item row="1" column="0">
-          <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <layout class="QHBoxLayout" name="LightButtonsHorizontalLayout">
            <item>
             <widget class="QPushButton" name="Add_Light">
              <property name="sizePolicy">
@@ -721,7 +721,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QGroupBox" name="horizontalGroupBox_5">
+       <widget class="QGroupBox" name="ColourGroupBox">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
           <horstretch>0</horstretch>
@@ -789,7 +789,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QGroupBox" name="groupBox_2">
+       <widget class="QGroupBox" name="FiltersGroupBox">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
           <horstretch>0</horstretch>
@@ -832,7 +832,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QGroupBox" name="groupBox">
+       <widget class="QGroupBox" name="txtmodExclusivesGroupBox">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
           <horstretch>0</horstretch>
@@ -847,7 +847,7 @@
         </property>
         <layout class="QGridLayout" name="gridLayout">
          <item row="3" column="0">
-          <widget class="QGroupBox" name="groupBox_3">
+          <widget class="QGroupBox" name="IndividualCellHighlighterGroupBox">
            <property name="title">
             <string>Individual Cell Highlighter</string>
            </property>
@@ -856,9 +856,9 @@
            </property>
            <layout class="QGridLayout" name="gridLayout_6">
             <item row="2" column="0">
-             <layout class="QHBoxLayout" name="horizontalLayout">
+             <layout class="QHBoxLayout" name="TetrahedronHorizontalLayout">
               <item>
-               <widget class="QLabel" name="label_6">
+               <widget class="QLabel" name="TetrahedronLabel">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -957,9 +957,9 @@
              </widget>
             </item>
             <item row="4" column="0">
-             <layout class="QHBoxLayout" name="horizontalLayout_4">
+             <layout class="QHBoxLayout" name="HexahedronHorizontalLayout">
               <item>
-               <widget class="QLabel" name="label_8">
+               <widget class="QLabel" name="HexahedronLabel">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -1033,9 +1033,9 @@
              </layout>
             </item>
             <item row="3" column="0">
-             <layout class="QHBoxLayout" name="horizontalLayout_3">
+             <layout class="QHBoxLayout" name="PyramidHorizontalLayout">
               <item>
-               <widget class="QLabel" name="label_7">
+               <widget class="QLabel" name="PyramidLabel">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -1181,7 +1181,7 @@
      <x>0</x>
      <y>0</y>
      <width>1687</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
