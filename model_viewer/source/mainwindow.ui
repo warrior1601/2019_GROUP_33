@@ -1197,18 +1197,6 @@
     <property name="title">
      <string>Views</string>
     </property>
-    <widget class="QMenu" name="menuCube">
-     <property name="title">
-      <string>Coordinate axes</string>
-     </property>
-     <addaction name="actioncube"/>
-     <addaction name="actionhelicopter"/>
-     <addaction name="actionairbus"/>
-     <addaction name="actionplane"/>
-     <addaction name="actionsphere"/>
-     <addaction name="actionThunderbolt"/>
-    </widget>
-    <addaction name="menuCube"/>
     <addaction name="separator"/>
     <addaction name="actionRuler"/>
     <addaction name="actionRemove_Ruler"/>
@@ -1216,7 +1204,6 @@
    <addaction name="menuFile"/>
    <addaction name="menuViews"/>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
   <widget class="QToolBar" name="toolBar">
    <property name="windowTitle">
     <string>toolBar</string>
