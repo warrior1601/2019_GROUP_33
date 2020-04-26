@@ -179,11 +179,7 @@ private slots:
 
     void on_Highlight_released();
 
-    void Tetrahrdons_Statistics_released();
-
-    void Pyramids_Statistics_released();
-
-    void Hexahedron_Statistics_released();
+    void on_Cell_Statistics_released();
 
 private:
 //-------Private Functions--------//
