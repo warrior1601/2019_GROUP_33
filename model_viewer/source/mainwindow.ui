@@ -219,7 +219,7 @@
                 </size>
                </property>
                <property name="minimum">
-                <number>-360</number>
+                <number>0</number>
                </property>
                <property name="maximum">
                 <number>360</number>
@@ -304,7 +304,7 @@
                 </size>
                </property>
                <property name="minimum">
-                <number>-360</number>
+                <number>0</number>
                </property>
                <property name="maximum">
                 <number>360</number>
@@ -389,7 +389,7 @@
                 </size>
                </property>
                <property name="minimum">
-                <number>-360</number>
+                <number>0</number>
                </property>
                <property name="maximum">
                 <number>360</number>
@@ -1181,7 +1181,7 @@
      <x>0</x>
      <y>0</y>
      <width>1687</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

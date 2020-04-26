@@ -203,9 +203,9 @@ private:
     std::vector<vtkLight_WithName> ListOfLights; ///< This is a list of the vtkLights_withname
     std::vector<std::array<double, 3>> pointCoordinates; ///<This list stores the points used in a loaded model
 
-    std::vector<vtkSmartPointer<vtkActor>> ListOfActors_tetra; ///< This is a list of all the actors present on tetrahedrons
-    std::vector<vtkSmartPointer<vtkActor>> ListOfActors_pyramid; ///< This is a list of all the actors present on pyramids
-    std::vector<vtkSmartPointer<vtkActor>> ListOfActors_hexahedron; ///< This is a list of all the acotrs present on hexahedrons
+    std::vector< vtkSmartPointer<vtkActor> > ListOfActors_tetra; ///< This is a list of all the actors present on tetrahedrons
+    std::vector< vtkSmartPointer<vtkActor> > ListOfActors_pyramid; ///< This is a list of all the actors present on pyramids
+    std::vector< vtkSmartPointer<vtkActor> > ListOfActors_hexahedron; ///< This is a list of all the acotrs present on hexahedrons
 
     double Temp_Tetra_color_red; ///< This stores the orginal red value for a highlighted cell
     double Temp_Tetra_color_green; ///< This stores the orginal green value for a highlighted cell
@@ -248,15 +248,17 @@ private:
     vtkSmartPointer<vtkSTLWriter> stlWriter = vtkSmartPointer<vtkSTLWriter>::New();
 
 
-///----Check this put when you have time with below ----////
     vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor = vtkSmartPointer<vtkRenderWindowInteractor>::New();
-    vtkSmartPointer<vtkDistanceWidget> distanceWidget = vtkSmartPointer<vtkDistanceWidget>::New();
 
+    //this is used for axes
     vtkSmartPointer<vtkAxesActor> axes = vtkSmartPointer<vtkAxesActor>::New();
     vtkSmartPointer<vtkOrientationMarkerWidget> orientationWidget = vtkSmartPointer<vtkOrientationMarkerWidget>::New();
+
+
+
+///----Check this put when you have time with below ----////
+    vtkSmartPointer<vtkDistanceWidget> distanceWidget = vtkSmartPointer<vtkDistanceWidget>::New();
     vtkSmartPointer< vtkTransform> transform = vtkSmartPointer< vtkTransform>::New();
-////-----Why are there two of me-----/////
-    vtkSmartPointer<vtkRenderWindowInteractor> interactor = vtkSmartPointer<vtkRenderWindowInteractor>::New();
 };
 
 #endif // MAINWINDOW_H

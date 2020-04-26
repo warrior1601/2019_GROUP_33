@@ -8,7 +8,7 @@
 // Impleminting the function defined in MainWindow.h and connected
 // To the buttons on MainWindow.ui
 
-using namespace std;
+//using namespace std;
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -24,8 +24,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect( this, &MainWindow::statusUpdateMessage, ui->statusBar, &QStatusBar::showMessage );
     // First this the file does is loads a valid file
 
-    if (on_actionOpen_triggered() == 1)
-        exit (1);
+    // if (on_actionOpen_triggered() == 1)
+    //     exit (1);
 
     // Adding a camera light
 
@@ -185,7 +185,7 @@ void MainWindow::on_Apply_Filters_released()
 void MainWindow::on_X_Camera_Pos_valueChanged(int value)
 {
     ui->statusBar->showMessage("X Camera Position Value was Changed",3000);
-    static int Last_Value_Pitch = 0;
+    static int Last_Value_Pitch = 0.0;
     int Temp = value;
     value = value-Last_Value_Pitch;
     renderer->GetActiveCamera()->Azimuth(double (value));
@@ -287,7 +287,7 @@ int MainWindow::on_actionOpen_triggered()
         ListOfActors_tetra.clear();
         ListOfActors_pyramid.clear();
         ListOfActors_hexahedron.clear();
-        ListOfTriangles.clear(); 
+        ListOfTriangles.clear();
         ui->List_Of_Pyramids->clear();
         ui->List_Of_Tetras->clear();
         ui->List_Of_Hexahedrons->clear();
@@ -1297,9 +1297,3 @@ void MainWindow::on_Highlight_released()
         Highlight_blue = Color.blueF();
     }
 }
-
-
-
-
-
-
