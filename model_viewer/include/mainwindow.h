@@ -70,11 +70,6 @@ class MainWindow : public QMainWindow
 
 signals:
     // All other SIGNALS and SLOTS are created with the "QT helping tools" from the ui page
-    /** @brief This displays a message on the tool bar when the user interacts with the ui,
-     * letting them know that there interaction has been initiated
-     */
-    void statusUpdateMessage( const QString & message, int timeout );
-
 public:
     /** @brief Blank constructor (empty)
      */
@@ -142,24 +137,6 @@ private slots:
      * will be able to be recalled
      */
     void on_Delete_Light_released();
-    /** @brief This function aplies the orintation widget to the cube
-     */
-    void on_actioncube_triggered();
-    /** @brief This function aplies the orintation widget to the he11
-     */
-    void on_actionhelicopter_triggered();
-    /** @brief This function aplies the orintation widget to the bawa plane
-     */
-    void on_actionplane_triggered();
-    /** @brief This function aplies the orintation widget to the sphere
-     */
-    void on_actionsphere_triggered();
-    /** @brief This function aplies the orintation widget to the a-10 thunderbolt
-     */
-    void on_actionThunderbolt_triggered();
-    /** @brief This function aplies the orintation widget to the airbus
-     */
-    void on_actionairbus_triggered();
     /** @brief This function adds the measuring ruler tool to the window
      */
     void on_actionRuler_triggered();
@@ -249,16 +226,12 @@ private:
     vtkSmartPointer<vtkPolyData> polydata = vtkSmartPointer<vtkPolyData>::New();
     vtkSmartPointer<vtkSTLWriter> stlWriter = vtkSmartPointer<vtkSTLWriter>::New();
 
-
-///----Check this put when you have time with below ----////
     vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor = vtkSmartPointer<vtkRenderWindowInteractor>::New();
     vtkSmartPointer<vtkDistanceWidget> distanceWidget = vtkSmartPointer<vtkDistanceWidget>::New();
 
     vtkSmartPointer<vtkAxesActor> axes = vtkSmartPointer<vtkAxesActor>::New();
     vtkSmartPointer<vtkOrientationMarkerWidget> orientationWidget = vtkSmartPointer<vtkOrientationMarkerWidget>::New();
     vtkSmartPointer< vtkTransform> transform = vtkSmartPointer< vtkTransform>::New();
-////-----Why are there two of me-----/////
-    vtkSmartPointer<vtkRenderWindowInteractor> interactor = vtkSmartPointer<vtkRenderWindowInteractor>::New();
 };
 
 #endif // MAINWINDOW_H

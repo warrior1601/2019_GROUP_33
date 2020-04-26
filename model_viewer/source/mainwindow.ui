@@ -1134,7 +1134,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>Colour of Selectod Cell</string>
+                 <string>Colour of Selected Cell</string>
                 </property>
                </widget>
               </item>
@@ -1226,18 +1226,6 @@
     <property name="title">
      <string>Views</string>
     </property>
-    <widget class="QMenu" name="menuCube">
-     <property name="title">
-      <string>Coordinate axes</string>
-     </property>
-     <addaction name="actioncube"/>
-     <addaction name="actionhelicopter"/>
-     <addaction name="actionairbus"/>
-     <addaction name="actionplane"/>
-     <addaction name="actionsphere"/>
-     <addaction name="actionThunderbolt"/>
-    </widget>
-    <addaction name="menuCube"/>
     <addaction name="separator"/>
     <addaction name="actionRuler"/>
     <addaction name="actionRemove_Ruler"/>
@@ -1245,7 +1233,6 @@
    <addaction name="menuFile"/>
    <addaction name="menuViews"/>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
   <widget class="QToolBar" name="toolBar">
    <property name="windowTitle">
     <string>toolBar</string>
@@ -1299,36 +1286,6 @@
    </property>
    <property name="text">
     <string>Load Lights</string>
-   </property>
-  </action>
-  <action name="actioncube">
-   <property name="text">
-    <string>cube</string>
-   </property>
-  </action>
-  <action name="actionhelicopter">
-   <property name="text">
-    <string>helicopter</string>
-   </property>
-  </action>
-  <action name="actionairbus">
-   <property name="text">
-    <string>airbus</string>
-   </property>
-  </action>
-  <action name="actionplane">
-   <property name="text">
-    <string>bawa plane</string>
-   </property>
-  </action>
-  <action name="actionsphere">
-   <property name="text">
-    <string>sphere</string>
-   </property>
-  </action>
-  <action name="actionThunderbolt">
-   <property name="text">
-    <string>Thunderbolt</string>
    </property>
   </action>
   <action name="actionRuler">
