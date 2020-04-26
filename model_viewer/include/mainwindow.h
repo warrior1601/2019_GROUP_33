@@ -57,6 +57,19 @@
 #include "Vectors.h"
 #include "vtklight_withname.h"
 
+#include <vtkVersion.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkActor.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderer.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkPolyData.h>
+#include <vtkSphereSource.h>
+#include <vtkOrientationMarkerWidget.h>
+#include <vtkAxesActor.h>
+#include <vtkPropAssembly.h>
+#include <vtkSmartPointer.h>
+
 namespace Ui {
 class MainWindow;
 }

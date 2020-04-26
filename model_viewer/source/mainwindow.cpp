@@ -308,7 +308,18 @@ int MainWindow::on_actionOpen_triggered()
             actor->GetProperty()->EdgeVisibilityOff();
             actor->GetProperty()->SetColor( colors->GetColor3d("Green").GetData() );
             ui->Display_Window->GetRenderWindow()->AddRenderer( renderer );
+            renderWindowInteractor->SetRenderWindow(renderWindow);
             renderer->AddActor(actor);
+            orientationWidget->SetOrientationMarker( axes );
+            orientationWidget->SetInteractor( renderWindowInteractor );
+            orientationWidget->InteractiveOff();
+            orientationWidget->SetEnabled(1);
+
+            renderer->ResetCamera();
+            renderWindow->Render();
+
+            // Begin mouse interaction
+            renderWindowInteractor->Start();
         }
         else if ((FileType.compare("txt") == 0 ) || (FileType.compare("mod")) == 0)
         {
@@ -331,6 +342,7 @@ int MainWindow::on_actionOpen_triggered()
             vtkSmartPointer<vtkRenderer> Renderer = vtkSmartPointer<vtkRenderer>::New();
             ListOfRenderers.push_back(Renderer);
             ui->Display_Window->GetRenderWindow()->AddRenderer( ListOfRenderers[0] );
+            renderWindowInteractor->SetRenderWindow(renderWindow);
 
             std::string col;
             std::stringstream testing;
@@ -693,8 +705,18 @@ int MainWindow::on_actionOpen_triggered()
 
             std::cout << polydata->GetNumberOfPolys() << std::endl;
             */
+
+
+            orientationWidget->SetOrientationMarker( axes );
+            orientationWidget->SetInteractor( renderWindowInteractor );
+            orientationWidget->InteractiveOff();
+            orientationWidget->SetEnabled(1);
+
             renderer->ResetCamera();
             renderWindow->Render();
+
+            // Begin mouse interaction
+            renderWindowInteractor->Start();
         }
         renderer->SetBackground( colors->GetColor3d("Silver").GetData() );
         renderer->GetActiveCamera()->SetPosition(2.0 ,3.0, 5.0);
