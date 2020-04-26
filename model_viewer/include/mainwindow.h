@@ -167,6 +167,8 @@ private slots:
 
     void on_Highlight_released();
 
+    void on_Cell_Statistics_released();
+
 private:
 //-------Private Functions--------//
     /** @brief This function allows for the user to input text
