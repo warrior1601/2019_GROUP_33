@@ -17,17 +17,11 @@
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
-    ui->setupUi(this);
     // This Sets the RinderWindow to the *.ui files Widget named Display_Window
-
+    ui->setupUi(this);
     ui->Display_Window->SetRenderWindow( renderWindow );
-    // First this the file does is loads a valid file
-
-    // if (on_actionOpen_triggered() == 1)
-    //     exit (1);
 
     // Adding a camera light
-
     vtkLight_WithName light;
     light.SetName("Camera Light");
     ListOfLights.push_back(light);
@@ -284,19 +278,21 @@ void MainWindow::on_actionOpen_triggered()
             actor->SetMapper(mapper);
             actor->GetProperty()->EdgeVisibilityOff();
             actor->GetProperty()->SetColor( colors->GetColor3d("Green").GetData() );
+
             ui->Display_Window->GetRenderWindow()->AddRenderer( renderer );
-            renderWindowInteractor->SetRenderWindow(renderWindow);
+
             renderer->AddActor(actor);
+            renderer->SetBackground( colors->GetColor3d("Black").GetData() );
+            renderer->GetActiveCamera()->SetPosition(2.0 ,3.0, 5.0);
+            renderer->GetActiveCamera()->SetFocalPoint(0.0 ,0.0, 0.0);
+
             orientationWidget->SetOrientationMarker( axes );
-            orientationWidget->SetInteractor( renderWindowInteractor );
-            orientationWidget->InteractiveOff();
+            orientationWidget->SetInteractor(ui->Display_Window->GetRenderWindow()->GetInteractor());
             orientationWidget->SetEnabled(1);
+            orientationWidget->InteractiveOff();
 
             renderer->ResetCamera();
             renderWindow->Render();
-
-            // Begin mouse interaction
-            renderWindowInteractor->Start();
         }
         else if ((FileType.compare("txt") == 0 ) || (FileType.compare("mod")) == 0)
         {
@@ -319,7 +315,6 @@ void MainWindow::on_actionOpen_triggered()
             vtkSmartPointer<vtkRenderer> Renderer = vtkSmartPointer<vtkRenderer>::New();
             ListOfRenderers.push_back(Renderer);
             ui->Display_Window->GetRenderWindow()->AddRenderer( ListOfRenderers[0] );
-            renderWindowInteractor->SetRenderWindow(renderWindow);
 
             std::string col;
             std::stringstream testing;
@@ -664,9 +659,8 @@ void MainWindow::on_actionOpen_triggered()
 
                 }
             }
-            ListOfRenderers[0]->ResetCameraClippingRange();
 
-            ListOfRenderers[0]->SetBackground( colors->GetColor3d("Silver").GetData() );
+
            /*
             polydata->Initialize();
             polydata->SetPolys(cellArray);
@@ -682,24 +676,20 @@ void MainWindow::on_actionOpen_triggered()
 
             std::cout << polydata->GetNumberOfPolys() << std::endl;
             */
+            ListOfRenderers[0]->ResetCameraClippingRange();
 
+            ListOfRenderers[0]->SetBackground( colors->GetColor3d("Black").GetData() );
+            ListOfRenderers[0]->GetActiveCamera()->SetPosition(10.0 ,10.0, 10.0);
+            ListOfRenderers[0]->GetActiveCamera()->SetFocalPoint(0.0 ,0.0, 0.0);
 
-            orientationWidget->SetOrientationMarker( axes );
-            orientationWidget->SetInteractor( renderWindowInteractor );
-            orientationWidget->InteractiveOff();
-            orientationWidget->SetEnabled(1);
+            // orientationWidget->SetOrientationMarker( axes );
+            // orientationWidget->SetInteractor(ui->Display_Window->GetRenderWindow()->GetInteractor());
+            // orientationWidget->SetEnabled(1);
+            // orientationWidget->InteractiveOff();
 
             renderer->ResetCamera();
             renderWindow->Render();
-
-            // Begin mouse interaction
-            renderWindowInteractor->Start();
         }
-        renderer->SetBackground( colors->GetColor3d("Silver").GetData() );
-        renderer->GetActiveCamera()->SetPosition(2.0 ,3.0, 5.0);
-        renderer->GetActiveCamera()->SetFocalPoint(0.0 ,0.0, 0.0);
-        renderer->ResetCamera();
-        renderWindow->Render();
     }
 
 }
@@ -1057,22 +1047,22 @@ void MainWindow::SetLightData(double *Data, std::string currentLine)
 
 void MainWindow::on_actionRuler_triggered()
 {
-    renderWindowInteractor->SetRenderWindow(renderWindow);
-    distanceWidget->SetInteractor(renderWindowInteractor);
-    distanceWidget->CreateDefaultRepresentation();
-    static_cast<vtkDistanceRepresentation*>(distanceWidget->GetRepresentation())->SetLabelFormat("%-#6.3g mm");
-    renderWindowInteractor->Initialize();
-    renderWindow->Render();
-    distanceWidget->On();
-    renderWindowInteractor->Start();
+    // renderWindowInteractor->SetRenderWindow(renderWindow);
+    // distanceWidget->SetInteractor(renderWindowInteractor);
+    // distanceWidget->CreateDefaultRepresentation();
+    // static_cast<vtkDistanceRepresentation*>(distanceWidget->GetRepresentation())->SetLabelFormat("%-#6.3g mm");
+    // renderWindowInteractor->Initialize();
+    // renderWindow->Render();
+    // distanceWidget->On();
+    // renderWindowInteractor->Start();
 }
 
 void MainWindow::on_actionRemove_Ruler_triggered()
 {
-    distanceWidget->Off();
-    renderWindowInteractor->Initialize();
-    renderWindowInteractor->Disable();
-    renderWindow->Render();
+    // distanceWidget->Off();
+    // renderWindowInteractor->Initialize();
+    // renderWindowInteractor->Disable();
+    // renderWindow->Render();
 }
 
 void MainWindow::on_Model_Statistics_released()

@@ -2,6 +2,7 @@
 #include <QApplication>
 #include <QSurfaceFormat>
 #include <QVTKOpenGLWidget.h>
+#include "mainwindow.h"
 
 int main( int argc, char** argv )
 {
