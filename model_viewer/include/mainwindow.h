@@ -57,6 +57,19 @@
 #include "Vectors.h"
 #include "vtklight_withname.h"
 
+#include <vtkVersion.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkActor.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderer.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkPolyData.h>
+#include <vtkSphereSource.h>
+#include <vtkOrientationMarkerWidget.h>
+#include <vtkAxesActor.h>
+#include <vtkPropAssembly.h>
+#include <vtkSmartPointer.h>
+
 namespace Ui {
 class MainWindow;
 }
@@ -68,8 +81,11 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
+<<<<<<< HEAD
 signals:
     // All other SIGNALS and SLOTS are created with the "QT helping tools" from the ui page
+=======
+>>>>>>> 15e77d01c4a3993e89d3c33cdc36e805901f0fcb
 public:
     /** @brief Blank constructor (empty)
      */
@@ -118,7 +134,7 @@ private slots:
      *  When opening a file that is NOT an .STL file the program automatically saves it as a .STL file to comply with company policy of file conversion.
      *  @return The return status is used at start up. If no file is selected to open the program will terminate
      */
-    int on_actionOpen_triggered();
+    void on_actionOpen_triggered();
     /** @brief This function is not yet implemented
      */
     void on_actionSave_triggered();
@@ -182,9 +198,9 @@ private:
     std::vector<vtkLight_WithName> ListOfLights; ///< This is a list of the vtkLights_withname
     std::vector<std::array<double, 3>> pointCoordinates; ///<This list stores the points used in a loaded model
 
-    std::vector<vtkSmartPointer<vtkActor>> ListOfActors_tetra; ///< This is a list of all the actors present on tetrahedrons
-    std::vector<vtkSmartPointer<vtkActor>> ListOfActors_pyramid; ///< This is a list of all the actors present on pyramids
-    std::vector<vtkSmartPointer<vtkActor>> ListOfActors_hexahedron; ///< This is a list of all the acotrs present on hexahedrons
+    std::vector< vtkSmartPointer<vtkActor> > ListOfActors_tetra; ///< This is a list of all the actors present on tetrahedrons
+    std::vector< vtkSmartPointer<vtkActor> > ListOfActors_pyramid; ///< This is a list of all the actors present on pyramids
+    std::vector< vtkSmartPointer<vtkActor> > ListOfActors_hexahedron; ///< This is a list of all the acotrs present on hexahedrons
 
     double Temp_Tetra_color_red; ///< This stores the orginal red value for a highlighted cell
     double Temp_Tetra_color_green; ///< This stores the orginal green value for a highlighted cell
@@ -226,11 +242,20 @@ private:
     vtkSmartPointer<vtkPolyData> polydata = vtkSmartPointer<vtkPolyData>::New();
     vtkSmartPointer<vtkSTLWriter> stlWriter = vtkSmartPointer<vtkSTLWriter>::New();
 
-    vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor = vtkSmartPointer<vtkRenderWindowInteractor>::New();
-    vtkSmartPointer<vtkDistanceWidget> distanceWidget = vtkSmartPointer<vtkDistanceWidget>::New();
+<<<<<<< HEAD
+=======
 
+>>>>>>> 15e77d01c4a3993e89d3c33cdc36e805901f0fcb
+    vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor = vtkSmartPointer<vtkRenderWindowInteractor>::New();
+
+    //this is used for axes
     vtkSmartPointer<vtkAxesActor> axes = vtkSmartPointer<vtkAxesActor>::New();
     vtkSmartPointer<vtkOrientationMarkerWidget> orientationWidget = vtkSmartPointer<vtkOrientationMarkerWidget>::New();
+
+
+
+///----Check this put when you have time with below ----////
+    vtkSmartPointer<vtkDistanceWidget> distanceWidget = vtkSmartPointer<vtkDistanceWidget>::New();
     vtkSmartPointer< vtkTransform> transform = vtkSmartPointer< vtkTransform>::New();
 };
 

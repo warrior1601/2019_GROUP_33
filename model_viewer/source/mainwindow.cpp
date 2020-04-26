@@ -8,7 +8,7 @@
 // Impleminting the function defined in MainWindow.h and connected
 // To the buttons on MainWindow.ui
 
-using namespace std;
+//using namespace std;
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -21,11 +21,14 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     // This Sets the RinderWindow to the *.ui files Widget named Display_Window
 
     ui->Display_Window->SetRenderWindow( renderWindow );
+<<<<<<< HEAD
     renderWindowInteractor->SetRenderWindow(renderWindow);
+=======
+>>>>>>> 15e77d01c4a3993e89d3c33cdc36e805901f0fcb
     // First this the file does is loads a valid file
 
-    if (on_actionOpen_triggered() == 1)
-        exit (1);
+    // if (on_actionOpen_triggered() == 1)
+    //     exit (1);
 
     // Adding a camera light
 
@@ -168,7 +171,11 @@ void MainWindow::on_Apply_Filters_released()
 
 void MainWindow::on_X_Camera_Pos_valueChanged(int value)
 {
+<<<<<<< HEAD
     static int Last_Value_Pitch = 0;
+=======
+    static int Last_Value_Pitch = 0.0;
+>>>>>>> 15e77d01c4a3993e89d3c33cdc36e805901f0fcb
     int Temp = value;
     value = value-Last_Value_Pitch;
     renderer->GetActiveCamera()->Azimuth(double (value));
@@ -241,7 +248,7 @@ void MainWindow::on_Horizontal_Shift_valueChanged(int arg1)
     renderWindow->Render();
 }
 
-int MainWindow::on_actionOpen_triggered()
+void MainWindow::on_actionOpen_triggered()
 {
     ui->Tetra_Highlight->setCheckState(Qt::Unchecked);
     ui->Pyramid_Highlight->setCheckState(Qt::Unchecked);
@@ -265,7 +272,7 @@ int MainWindow::on_actionOpen_triggered()
         ListOfActors_tetra.clear();
         ListOfActors_pyramid.clear();
         ListOfActors_hexahedron.clear();
-        ListOfTriangles.clear(); 
+        ListOfTriangles.clear();
         ui->List_Of_Pyramids->clear();
         ui->List_Of_Tetras->clear();
         ui->List_Of_Hexahedrons->clear();
@@ -286,13 +293,18 @@ int MainWindow::on_actionOpen_triggered()
             actor->GetProperty()->EdgeVisibilityOff();
             actor->GetProperty()->SetColor( colors->GetColor3d("Green").GetData() );
             ui->Display_Window->GetRenderWindow()->AddRenderer( renderer );
-            renderer->AddActor(actor);
             renderWindowInteractor->SetRenderWindow(renderWindow);
+            renderer->AddActor(actor);
+<<<<<<< HEAD
+            renderWindowInteractor->SetRenderWindow(renderWindow);
+=======
+>>>>>>> 15e77d01c4a3993e89d3c33cdc36e805901f0fcb
             orientationWidget->SetOrientationMarker( axes );
             orientationWidget->SetInteractor( renderWindowInteractor );
             orientationWidget->InteractiveOff();
             orientationWidget->SetEnabled(1);
 
+<<<<<<< HEAD
 
 
 
@@ -300,6 +312,13 @@ int MainWindow::on_actionOpen_triggered()
             // Begin mouse interaction
             renderWindowInteractor->Start();
 
+=======
+            renderer->ResetCamera();
+            renderWindow->Render();
+
+            // Begin mouse interaction
+            renderWindowInteractor->Start();
+>>>>>>> 15e77d01c4a3993e89d3c33cdc36e805901f0fcb
         }
         else if ((FileType.compare("txt") == 0 ) || (FileType.compare("mod")) == 0)
         {
@@ -685,18 +704,30 @@ int MainWindow::on_actionOpen_triggered()
 
             std::cout << polydata->GetNumberOfPolys() << std::endl;
             */
+<<<<<<< HEAD
             //renderer->ResetCamera();
             //renderWindow->Render();
+=======
+
+>>>>>>> 15e77d01c4a3993e89d3c33cdc36e805901f0fcb
 
             orientationWidget->SetOrientationMarker( axes );
             orientationWidget->SetInteractor( renderWindowInteractor );
             orientationWidget->InteractiveOff();
             orientationWidget->SetEnabled(1);
 
+<<<<<<< HEAD
             // Begin mouse interaction
             renderWindowInteractor->Start();
 
 
+=======
+            renderer->ResetCamera();
+            renderWindow->Render();
+
+            // Begin mouse interaction
+            renderWindowInteractor->Start();
+>>>>>>> 15e77d01c4a3993e89d3c33cdc36e805901f0fcb
         }
         renderer->SetBackground( colors->GetColor3d("Silver").GetData() );
         renderer->GetActiveCamera()->SetPosition(2.0 ,3.0, 5.0);
@@ -704,11 +735,15 @@ int MainWindow::on_actionOpen_triggered()
         renderer->ResetCamera();
         renderWindow->Render();
     }
+<<<<<<< HEAD
     else
     {
         return (1);
     }
     return (0);
+=======
+
+>>>>>>> 15e77d01c4a3993e89d3c33cdc36e805901f0fcb
 }
 
 void MainWindow::on_actionSave_triggered()
@@ -996,14 +1031,23 @@ void MainWindow::on_actionSave_Lights_triggered()
 
 void MainWindow::on_Edit_Light_clicked()
 {
+<<<<<<< HEAD
     // This ensures a light has been created before it can be selected to be edited
+=======
+    // This ensures a light has been created before t can be selected to be edited
+
+>>>>>>> 15e77d01c4a3993e89d3c33cdc36e805901f0fcb
     if(ui->Select_Light->currentIndex() > -1)
     {
         Edit_LightDialog =new Edit_Light(this);
         Edit_LightDialog->setWindowTitle(ListOfLights.at(ui->Select_Light->currentIndex()).GetName());
         Edit_LightDialog->show();
         Edit_LightDialog->Open_Dialog(ListOfLights.at(ui->Select_Light->currentIndex()),renderWindow );
+<<<<<<< HEAD
     }     
+=======
+    }
+>>>>>>> 15e77d01c4a3993e89d3c33cdc36e805901f0fcb
 }
 
 void MainWindow::on_Delete_Light_released()
@@ -1106,25 +1150,32 @@ void MainWindow::on_Model_Statistics_released()
                             "Y: " +  QString::number(Overall_Dimensions.GetYVector()) + " " +
                             "Z: " +  QString::number(Overall_Dimensions.GetZVector()));
 
-         Statistics.setText( "Density: " + Density+ "\n" +
-                          "Weight: "  + Weight + "\n" +
-                          "Volume: "  + Volume + "\n" +
-                          "Centre Of Gravity: " + COG + "\n" +
-                          "Geometric Centre: " + Geo_Centre + "\n"
+         Statistics.setText( "Density: " + Density+ "\n\n" +
+                          "Weight: "  + Weight + "\n\n" +
+                          "Volume: "  + Volume + "\n\n" +
+                          "Centre Of Gravity: " + COG + "\n\n" +
+                          "Geometric Centre: " + Geo_Centre + "\n\n"
                           "Overall Dimensions: " + Overall);
          Statistics.exec();
     }
     else
     {
-        QMessageBox msgBox;
-        msgBox.setWindowTitle("Model Statistics");
-        msgBox.setText("Currently Statiscs are only available for .MOD and .TXT files");
-        msgBox.exec();
+      QMessageBox::critical(this, "Runtime Error", "Model statiscs are only available for models loaded from .mod or .txt files");
     }
 }
 
 void MainWindow::on_Tetra_Highlight_stateChanged(int state)
 {
+<<<<<<< HEAD
+=======
+    if (state == 2)
+    {
+        ListOfActors_tetra[(ui->List_Of_Tetras->currentIndex())]->GetProperty()->GetColor(Temp_Tetra_color_red, Temp_Tetra_color_green, Temp_Tetra_color_blue);
+        ListOfActors_tetra[(ui->List_Of_Tetras->currentIndex())]->GetProperty()->SetColor(Highlight_red, Highlight_green, Highlight_blue);
+        ui->List_Of_Tetras->setEnabled(false);
+    }
+
+>>>>>>> 15e77d01c4a3993e89d3c33cdc36e805901f0fcb
     if (LoadedFileType == false)
     {
         if (state == 2)
@@ -1146,6 +1197,16 @@ void MainWindow::on_Tetra_Highlight_stateChanged(int state)
 
 void MainWindow::on_Pyramid_Highlight_stateChanged(int state)
 {
+<<<<<<< HEAD
+=======
+
+    if (state == 2)
+    {
+        ListOfActors_pyramid[(ui->List_Of_Pyramids->currentIndex())]->GetProperty()->GetColor(Temp_Pyramid_color_red, Temp_Pyramid_color_green, Temp_Pyramid_color_blue);
+        ListOfActors_pyramid[(ui->List_Of_Pyramids->currentIndex())]->GetProperty()->SetColor(Highlight_red, Highlight_green, Highlight_blue);
+        ui->List_Of_Pyramids->setEnabled(false);
+    }
+>>>>>>> 15e77d01c4a3993e89d3c33cdc36e805901f0fcb
     if (LoadedFileType == false)
     {
         if (state == 2)
@@ -1167,6 +1228,16 @@ void MainWindow::on_Pyramid_Highlight_stateChanged(int state)
 
 void MainWindow::on_Hexahedron_Highlight_stateChanged(int state)
 {
+<<<<<<< HEAD
+=======
+    if (state == 2)
+    {
+        ListOfActors_hexahedron[(ui->List_Of_Hexahedrons->currentIndex())]->GetProperty()->GetColor(Temp_Hexahedron_color_red, Temp_Hexahedron_color_green, Temp_Hexahedron_color_blue);
+        ListOfActors_hexahedron[(ui->List_Of_Hexahedrons->currentIndex())]->GetProperty()->SetColor(Highlight_red, Highlight_green, Highlight_blue);
+        ui->List_Of_Hexahedrons->setEnabled(false);
+    }
+    else
+>>>>>>> 15e77d01c4a3993e89d3c33cdc36e805901f0fcb
     if (LoadedFileType == false)
     {
         if (state == 2)
