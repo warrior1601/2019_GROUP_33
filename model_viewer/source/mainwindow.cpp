@@ -145,7 +145,7 @@ void MainWindow::on_Reset_Camera_released()
     ui->X_Camera_Pos->setValue(0);
     ui->Y_Camera_Pos->setValue(0);
     ui->Z_Camera_Pos->setValue(0);
-    //create a dispaly to show where the camer is currently at and where the focal point of the camer is.
+    //create a dispaly to show where the camera is currently at and where the focal point of the camera is.
     renderWindow->Render();
 }
 
@@ -1287,6 +1287,7 @@ void MainWindow::on_Hexahedron_Highlight_stateChanged(int state)
 
 void MainWindow::on_Highlight_released()
 {
+    ui->statusBar->showMessage("Highlight color change in progess ",3000);
     QColor Color = QColorDialog::getColor(Qt::white,this,"Choose Color");
     //checks to ensure that the selector color is valid
     if(Color.isValid())
@@ -1297,9 +1298,3 @@ void MainWindow::on_Highlight_released()
         Highlight_blue = Color.blueF();
     }
 }
-
-
-
-
-
-

@@ -179,6 +179,12 @@ private slots:
 
     void on_Highlight_released();
 
+    void Tetrahrdons_Statistics_released();
+
+    void Pyramids_Statistics_released();
+
+    void Hexahedron_Statistics_released();
+
 private:
 //-------Private Functions--------//
     /** @brief This function allows for the user to input text

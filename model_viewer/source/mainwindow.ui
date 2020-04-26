@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>831</width>
-    <height>774</height>
+    <width>819</width>
+    <height>775</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -527,33 +527,31 @@
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
          <layout class="QGridLayout" name="gridLayout_2">
-          <item row="1" column="0">
-           <widget class="QGroupBox" name="Pyramids">
-            <property name="title">
-             <string>Pyramids</string>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_4">
-             <item>
-              <widget class="QComboBox" name="List_Of_Pyramids"/>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="Pyramid_Highlight">
-               <property name="text">
-                <string>Highlight Cell On/Off</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item row="3" column="0">
+          <item row="4" column="0">
            <widget class="QGroupBox" name="Hexahedron">
             <property name="title">
              <string>Hexahedron</string>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_7">
              <item>
-              <widget class="QComboBox" name="List_Of_Hexahedrons"/>
+              <layout class="QHBoxLayout" name="horizontalLayout_15">
+               <item>
+                <widget class="QComboBox" name="List_Of_Hexahedrons"/>
+               </item>
+               <item>
+                <widget class="QPushButton" name="Hexahedron_Statistics">
+                 <property name="maximumSize">
+                  <size>
+                   <width>116</width>
+                   <height>23</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string>Cell Statistics</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </item>
              <item>
               <widget class="QCheckBox" name="Hexahedron_Highlight">
@@ -565,17 +563,70 @@
             </layout>
            </widget>
           </item>
-          <item row="0" column="0">
-           <widget class="QGroupBox" name="Tetrahrdons">
+          <item row="1" column="0">
+           <widget class="QGroupBox" name="verticalGroupBox_3">
             <property name="title">
              <string>Tetrahrdons</string>
             </property>
-            <layout class="QVBoxLayout" name="verticalLayout_2">
+            <layout class="QVBoxLayout" name="verticalLayout_15">
              <item>
-              <widget class="QComboBox" name="List_Of_Tetras"/>
+              <layout class="QHBoxLayout" name="horizontalLayout_14">
+               <item>
+                <widget class="QComboBox" name="List_Of_Tetras"/>
+               </item>
+               <item>
+                <widget class="QPushButton" name="Tetrahrdons_Statistics">
+                 <property name="maximumSize">
+                  <size>
+                   <width>124</width>
+                   <height>23</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string>Cell Statistics</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </item>
              <item>
               <widget class="QCheckBox" name="Tetra_Highlight">
+               <property name="text">
+                <string>Highlight Cell On/Off</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QGroupBox" name="Pyramids">
+            <property name="title">
+             <string>Pyramids</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_4">
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_10">
+               <item>
+                <widget class="QComboBox" name="List_Of_Pyramids"/>
+               </item>
+               <item>
+                <widget class="QPushButton" name="Pyramids_Statistics">
+                 <property name="maximumSize">
+                  <size>
+                   <width>116</width>
+                   <height>23</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string>Cell Statistics</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="Pyramid_Highlight">
                <property name="text">
                 <string>Highlight Cell On/Off</string>
                </property>
@@ -597,7 +648,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>831</width>
+     <width>819</width>
      <height>21</height>
     </rect>
    </property>
