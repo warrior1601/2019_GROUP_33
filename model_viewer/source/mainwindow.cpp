@@ -21,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     // This Sets the RinderWindow to the *.ui files Widget named Display_Window
 
     ui->Display_Window->SetRenderWindow( renderWindow );
+
     // First this the file does is loads a valid file
 
     // if (on_actionOpen_triggered() == 1)
@@ -285,18 +286,18 @@ void MainWindow::on_actionOpen_triggered()
             actor->GetProperty()->EdgeVisibilityOff();
             actor->GetProperty()->SetColor( colors->GetColor3d("Green").GetData() );
             ui->Display_Window->GetRenderWindow()->AddRenderer( renderer );
-            renderWindowInteractor->SetRenderWindow(renderWindow);
+            //renderWindowInteractor->SetRenderWindow(renderWindow);
             renderer->AddActor(actor);
-            orientationWidget->SetOrientationMarker( axes );
-            orientationWidget->SetInteractor( renderWindowInteractor );
-            orientationWidget->InteractiveOff();
-            orientationWidget->SetEnabled(1);
+            //orientationWidget->SetOrientationMarker( axes );
+            // orientationWidget->SetInteractor( renderWindowInteractor );
+            // orientationWidget->InteractiveOff();
+            // orientationWidget->SetEnabled(1);
 
             renderer->ResetCamera();
             renderWindow->Render();
 
             // Begin mouse interaction
-            renderWindowInteractor->Start();
+            // renderWindowInteractor->Start();
         }
         else if ((FileType.compare("txt") == 0 ) || (FileType.compare("mod")) == 0)
         {
@@ -319,7 +320,7 @@ void MainWindow::on_actionOpen_triggered()
             vtkSmartPointer<vtkRenderer> Renderer = vtkSmartPointer<vtkRenderer>::New();
             ListOfRenderers.push_back(Renderer);
             ui->Display_Window->GetRenderWindow()->AddRenderer( ListOfRenderers[0] );
-            renderWindowInteractor->SetRenderWindow(renderWindow);
+            ///////        //renderWindowInteractor->SetRenderWindow(renderWindow);
 
             std::string col;
             std::stringstream testing;
@@ -648,7 +649,7 @@ void MainWindow::on_actionOpen_triggered()
 
                     hexahedron_actor_count++;
                     hexahedron_count++;
-/*
+                    /*
                     polydata->Initialize();
                     polydata->SetPolys(cellArray);
                     polydata->SetPolys(TriangleArray);
@@ -667,7 +668,7 @@ void MainWindow::on_actionOpen_triggered()
             ListOfRenderers[0]->ResetCameraClippingRange();
 
             ListOfRenderers[0]->SetBackground( colors->GetColor3d("Silver").GetData() );
-           /*
+            /*
             polydata->Initialize();
             polydata->SetPolys(cellArray);
             polydata->SetPolys(TriangleArray);
@@ -684,16 +685,16 @@ void MainWindow::on_actionOpen_triggered()
             */
 
 
-            orientationWidget->SetOrientationMarker( axes );
-            orientationWidget->SetInteractor( renderWindowInteractor );
-            orientationWidget->InteractiveOff();
-            orientationWidget->SetEnabled(1);
+            //      orientationWidget->SetOrientationMarker( axes );
+            //      orientationWidget->SetInteractor( renderWindowInteractor );
+            //      orientationWidget->InteractiveOff();
+            //     orientationWidget->SetEnabled(1);
 
             renderer->ResetCamera();
             renderWindow->Render();
 
             // Begin mouse interaction
-            renderWindowInteractor->Start();
+            ///     renderWindowInteractor->Start();
         }
         renderer->SetBackground( colors->GetColor3d("Silver").GetData() );
         renderer->GetActiveCamera()->SetPosition(2.0 ,3.0, 5.0);
@@ -706,7 +707,7 @@ void MainWindow::on_actionOpen_triggered()
 
 void MainWindow::on_actionSave_triggered()
 {
-  QMessageBox::critical(this, "Uncoded Error", "Save function has not been coded for");
+    QMessageBox::critical(this, "Uncoded Error", "Save function has not been coded for");
 }
 
 void MainWindow::on_actionLoad_Lights_triggered()
@@ -1017,7 +1018,7 @@ void MainWindow::on_Delete_Light_released()
     }
     else
     {
-      QMessageBox::critical(this, "Runtime Error", "Cannot delete Camera Light instead turn it off");
+        QMessageBox::critical(this, "Runtime Error", "Cannot delete Camera Light instead turn it off");
     }
     renderWindow->Render();
 }
@@ -1079,50 +1080,43 @@ void MainWindow::on_Model_Statistics_released()
 {
     if (LoadedFileType == false)
     {
-         QMessageBox Statistics;
-         Statistics.setWindowTitle("Model Statistics");
-         QString Density = QString::number(ModelOne.Get_Weight()/ModelOne.Get_Volume());
-         QString Volume =  QString::number(ModelOne.Get_Volume());
-         QString Weight =  QString::number(ModelOne.Get_Weight());
+        QMessageBox Statistics;
+        Statistics.setWindowTitle("Model Statistics");
+        QString Density = QString::number(ModelOne.Get_Weight()/ModelOne.Get_Volume());
+        QString Volume =  QString::number(ModelOne.Get_Volume());
+        QString Weight =  QString::number(ModelOne.Get_Weight());
 
-         Vectors Centre_Of_Gravity = ModelOne.Get_Centre_Of_Gravity();
-         QString COG = ("X: " +  QString::number(Centre_Of_Gravity.GetXVector()) + " " +
-                        "Y: " +  QString::number(Centre_Of_Gravity.GetYVector()) + " " +
-                        "Z: " +  QString::number(Centre_Of_Gravity.GetZVector()));
+        Vectors Centre_Of_Gravity = ModelOne.Get_Centre_Of_Gravity();
+        QString COG = ("X: " +  QString::number(Centre_Of_Gravity.GetXVector()) + " " +
+                       "Y: " +  QString::number(Centre_Of_Gravity.GetYVector()) + " " +
+                       "Z: " +  QString::number(Centre_Of_Gravity.GetZVector()));
 
-         Vectors Geometric_Centre = ModelOne.Get_Geometric_Centre();
-         QString Geo_Centre = ("X: " +  QString::number(Geometric_Centre.GetXVector()) + " " +
-                               "Y: " +  QString::number(Geometric_Centre.GetYVector()) + " " +
-                               "Z: " +  QString::number(Geometric_Centre.GetZVector()));
+        Vectors Geometric_Centre = ModelOne.Get_Geometric_Centre();
+        QString Geo_Centre = ("X: " +  QString::number(Geometric_Centre.GetXVector()) + " " +
+                              "Y: " +  QString::number(Geometric_Centre.GetYVector()) + " " +
+                              "Z: " +  QString::number(Geometric_Centre.GetZVector()));
 
-         Vectors Overall_Dimensions = ModelOne.Get_Overall_Dimensions();
-         QString Overall = ("X: " +  QString::number(Overall_Dimensions.GetXVector()) + " " +
-                            "Y: " +  QString::number(Overall_Dimensions.GetYVector()) + " " +
-                            "Z: " +  QString::number(Overall_Dimensions.GetZVector()));
+        Vectors Overall_Dimensions = ModelOne.Get_Overall_Dimensions();
+        QString Overall = ("X: " +  QString::number(Overall_Dimensions.GetXVector()) + " " +
+                           "Y: " +  QString::number(Overall_Dimensions.GetYVector()) + " " +
+                           "Z: " +  QString::number(Overall_Dimensions.GetZVector()));
 
-         Statistics.setText( "Density: " + Density+ "\n\n" +
-                          "Weight: "  + Weight + "\n\n" +
-                          "Volume: "  + Volume + "\n\n" +
-                          "Centre Of Gravity: " + COG + "\n\n" +
-                          "Geometric Centre: " + Geo_Centre + "\n\n"
-                          "Overall Dimensions: " + Overall);
-         Statistics.exec();
+        Statistics.setText( "Density: " + Density+ "\n\n" +
+                            "Weight: "  + Weight + "\n\n" +
+                            "Volume: "  + Volume + "\n\n" +
+                            "Centre Of Gravity: " + COG + "\n\n" +
+                            "Geometric Centre: " + Geo_Centre + "\n\n"
+                                                                "Overall Dimensions: " + Overall);
+        Statistics.exec();
     }
     else
     {
-      QMessageBox::critical(this, "Runtime Error", "Model statiscs are only available for models loaded from .mod or .txt files");
+        QMessageBox::critical(this, "Runtime Error", "Model statiscs are only available for models loaded from .mod or .txt files");
     }
 }
 
 void MainWindow::on_Tetra_Highlight_stateChanged(int state)
 {
-    if (state == 2)
-    {
-        ListOfActors_tetra[(ui->List_Of_Tetras->currentIndex())]->GetProperty()->GetColor(Temp_Tetra_color_red, Temp_Tetra_color_green, Temp_Tetra_color_blue);
-        ListOfActors_tetra[(ui->List_Of_Tetras->currentIndex())]->GetProperty()->SetColor(Highlight_red, Highlight_green, Highlight_blue);
-        ui->List_Of_Tetras->setEnabled(false);
-    }
-
     if (LoadedFileType == false)
     {
         if (state == 2)
@@ -1144,13 +1138,6 @@ void MainWindow::on_Tetra_Highlight_stateChanged(int state)
 
 void MainWindow::on_Pyramid_Highlight_stateChanged(int state)
 {
-
-    if (state == 2)
-    {
-        ListOfActors_pyramid[(ui->List_Of_Pyramids->currentIndex())]->GetProperty()->GetColor(Temp_Pyramid_color_red, Temp_Pyramid_color_green, Temp_Pyramid_color_blue);
-        ListOfActors_pyramid[(ui->List_Of_Pyramids->currentIndex())]->GetProperty()->SetColor(Highlight_red, Highlight_green, Highlight_blue);
-        ui->List_Of_Pyramids->setEnabled(false);
-    }
     if (LoadedFileType == false)
     {
         if (state == 2)
@@ -1172,13 +1159,6 @@ void MainWindow::on_Pyramid_Highlight_stateChanged(int state)
 
 void MainWindow::on_Hexahedron_Highlight_stateChanged(int state)
 {
-    if (state == 2)
-    {
-        ListOfActors_hexahedron[(ui->List_Of_Hexahedrons->currentIndex())]->GetProperty()->GetColor(Temp_Hexahedron_color_red, Temp_Hexahedron_color_green, Temp_Hexahedron_color_blue);
-        ListOfActors_hexahedron[(ui->List_Of_Hexahedrons->currentIndex())]->GetProperty()->SetColor(Highlight_red, Highlight_green, Highlight_blue);
-        ui->List_Of_Hexahedrons->setEnabled(false);
-    }
-    else
     if (LoadedFileType == false)
     {
         if (state == 2)
@@ -1208,6 +1188,7 @@ void MainWindow::on_Highlight_released()
         Highlight_red = Color.redF();
         Highlight_green = Color.greenF();
         Highlight_blue = Color.blueF();
+        renderWindow->Render();
     }
 }
 
@@ -1215,159 +1196,185 @@ void MainWindow::on_Cell_Statistics_released()
 {
     if (LoadedFileType == false)
     {
-       QMessageBox Statistics;
-       if(ui->Tetra_Highlight->checkState() == 2)
-       {
-           Statistics.setWindowTitle("Highlight Tetrahedron Statistics");
+        QMessageBox Statistics;
+        if(ui->Tetra_Highlight->checkState() == 2)
+        {
+            Statistics.setWindowTitle("Highlight Tetrahedron Statistics");
 
-           int Tetra_count = 0; // Needs to be int to match type of currentIndex() return
-           QString Material;
-           QString Density;
-           QString Weight;
-           QString Volume;
-           for (unsigned int i = 0; i < ModelOne.Get_Cell_Order().size(); i++)
-           {
-               Cell Test = *ModelOne.Get_Cells()[i];
-               if (ModelOne.Get_Cell_Order()[i] == 't')
-               {
-                   if (Tetra_count == ui->List_Of_Tetras->currentIndex() )
-                   {
-                       auto *coutbuf = std::cout.rdbuf();
-                       std::stringstream buffer;
-                       std::streambuf *old = std::cout.rdbuf(buffer.rdbuf());
+            int Tetra_count = 0; // Needs to be int to match type of currentIndex() return
 
-                       std::cout << Test.Get_Material() << std::endl;
-                       std::string redirect = buffer.str();
-                       std::cout.rdbuf(coutbuf);
+            for (unsigned int i = 0; i < ModelOne.Get_Cell_Order().size(); i++)
+            {
+                if (ModelOne.Get_Cell_Order()[i] == 't')
+                {
+                    if (Tetra_count == ui->List_Of_Tetras->currentIndex() )
+                    {
+                        auto *coutbuf = std::cout.rdbuf();
+                        std::stringstream buffer;
+                        std::streambuf *old = std::cout.rdbuf(buffer.rdbuf());
 
-                       Material = QString::fromStdString(redirect);
-                       Density  = QString::number((Test.Get_Weight()/Test.Get_Volume() ));
-                       Weight   = QString::number((Test.Get_Weight() ));
-                       Volume   = QString::number((Test.Get_Volume() ));
+                        Cell *Test = new Tetrahedron();
+                        Test = ModelOne.Get_Cells()[i];
 
-                   }
-                   Tetra_count++;
-               }
-           }
-/*
-           Vectors Centre_Of_Gravity = ListOfTetras[(ui->List_Of_Tetras->currentIndex())].Get_Centre_Of_Gravity();
-           QString COG = ("X: " +  QString::number(Centre_Of_Gravity.GetXVector()) + " " +
-                          "Y: " +  QString::number(Centre_Of_Gravity.GetYVector()) + " " +
-                          "Z: " +  QString::number(Centre_Of_Gravity.GetZVector()));
-*/
-         //  std::vector<Vectors> Vertices = ListOfTetras[(ui->List_Of_Tetras->currentIndex())].Get_Vertices();
-           // std::cout but redirect the out buffer
-           Statistics.setText( "Material: "+ Material+ "\n" +
-                               "Density: " + Density + "\n" +
-                               "Weight: "  + Weight  + "\n" +
-                               "Volume: "  + Volume);//  + "\n" +
-                               //"Centre Of Gravity: " + COG + "\n");// +
-                               //"Vectors: " + Points);*/
+                        std::cout << Test->Get_Material() << std::endl;
+                        std::string redirect = buffer.str();
+                        std::cout.rdbuf(coutbuf);
 
-           Statistics.exec();
-       }
-       //ListOfPyramids
-       //ListOfHexs
-       if(ui->Pyramid_Highlight->checkState() == 2)
-       {
-           Statistics.setWindowTitle("Highlight Pyramid Statistics");
+                        QString Material = QString::fromStdString(redirect);
+                        QString Density  = QString::number((Test->Get_Weight()/Test->Get_Volume() ));
+                        QString Weight   = QString::number((Test->Get_Weight() ));
+                        QString Volume   = QString::number((Test->Get_Volume() ));
 
-           int Pyramid_count = 0; // Needs to be int to match type of currentIndex() return
-           QString Material;
-           QString Density;
-           QString Weight;
-           QString Volume;
-           for (unsigned int i = 0; i < ModelOne.Get_Cell_Order().size(); i++)
-           {
-               Cell Test = *ModelOne.Get_Cells()[i];
-               if (ModelOne.Get_Cell_Order()[i] == 'h')
-               {
-                   if (Pyramid_count == ui->List_Of_Pyramids->currentIndex() )
-                   {
-                       auto *coutbuf = std::cout.rdbuf();
-                       std::stringstream buffer;
-                       std::streambuf *old = std::cout.rdbuf(buffer.rdbuf());
+                        Vectors Centre_Of_Gravity = Test->Get_Centre_Of_Gravity();
+                        QString COG = ("X: " +  QString::number(Centre_Of_Gravity.GetXVector()) + " " +
+                                       "Y: " +  QString::number(Centre_Of_Gravity.GetYVector()) + " " +
+                                       "Z: " +  QString::number(Centre_Of_Gravity.GetZVector()));
 
-                       std::cout << Test.Get_Material() << std::endl;
-                       std::string redirect = buffer.str();
-                       std::cout.rdbuf(coutbuf);
+                        std::vector<Vectors> Vertices = Test->Get_Vertices();
 
-                       Material = QString::fromStdString(redirect);
-                       Density  = QString::number((Test.Get_Weight()/Test.Get_Volume() ));
-                       Weight   = QString::number((Test.Get_Weight() ));
-                       Volume   = QString::number((Test.Get_Volume() ));
+                        std::stringstream buffer_2;
+                        std::streambuf *old_2 = std::cout.rdbuf(buffer_2.rdbuf());
 
-                   }
-                   Pyramid_count++;
-               }
-           }
-/*
-           Vectors Centre_Of_Gravity = ListOfTetras[(ui->List_Of_Tetras->currentIndex())].Get_Centre_Of_Gravity();
-           QString COG = ("X: " +  QString::number(Centre_Of_Gravity.GetXVector()) + " " +
-                          "Y: " +  QString::number(Centre_Of_Gravity.GetYVector()) + " " +
-                          "Z: " +  QString::number(Centre_Of_Gravity.GetZVector()));
-*/
-         //  std::vector<Vectors> Vertices = ListOfTetras[(ui->List_Of_Tetras->currentIndex())].Get_Vertices();
-           // std::cout but redirect the out buffer
-           Statistics.setText( "Material: "+ Material+ "\n" +
-                               "Density: " + Density + "\n" +
-                               "Weight: "  + Weight  + "\n" +
-                               "Volume: "  + Volume);//  + "\n" +
-                               //"Centre Of Gravity: " + COG + "\n");// +
-                               //"Vectors: " + Points);*/
+                        for (unsigned int i = 0 ; i < 4 ; i++)
+                        {
+                            std::cout << Vertices[i] << std::endl;
+                        }
 
-           Statistics.exec();
-       }
+                        std::string Tetra_Points = buffer_2.str();
+                        std::cout.rdbuf(coutbuf);
 
-       if(ui->Hexahedron_Highlight->checkState() == 2)
-       {
-           Statistics.setWindowTitle("Highlight Hexahedron Statistics");
+                        QString Points = QString::fromStdString(Tetra_Points);
 
-           int Hexahedron_count = 0; // Needs to be int to match type of currentIndex() return
-           QString Material;
-           QString Density;
-           QString Weight;
-           QString Volume;
-           for (unsigned int i = 0; i < ModelOne.Get_Cell_Order().size(); i++)
-           {
-               Cell Test = *ModelOne.Get_Cells()[i];
-               if (ModelOne.Get_Cell_Order()[i] == 'h')
-               {
-                   if (Hexahedron_count == ui->List_Of_Hexahedrons->currentIndex() )
-                   {
-                       auto *coutbuf = std::cout.rdbuf();
-                       std::stringstream buffer;
-                       std::streambuf *old = std::cout.rdbuf(buffer.rdbuf());
+                        Statistics.setText( "Material: "+ Material+ "\n" +
+                                            "Weight: "  + Weight  + "\n" +
+                                            "Volume: "  + Volume  + "\n" +
+                                            "Centre Of Gravity: " + COG  + "\n" +
+                                            "Vectors:\n" + Points);
+                        Statistics.exec();
+                    }
+                    Tetra_count++;
+                }
+            }
+        }
 
-                       std::cout << Test.Get_Material() << std::endl;
-                       std::string redirect = buffer.str();
-                       std::cout.rdbuf(coutbuf);
+        if(ui->Pyramid_Highlight->checkState() == 2)
+        {
+            Statistics.setWindowTitle("Highlight Pyramid Statistics");
 
-                       Material = QString::fromStdString(redirect);
-                       Density  = QString::number((Test.Get_Weight()/Test.Get_Volume() ));
-                       Weight   = QString::number((Test.Get_Weight() ));
-                       Volume   = QString::number((Test.Get_Volume() ));
+            int Pyramid_count = 0; // Needs to be int to match type of currentIndex() return
 
-                   }
-                   Hexahedron_count++;
-               }
-           }
-/*
-           Vectors Centre_Of_Gravity = ListOfTetras[(ui->List_Of_Tetras->currentIndex())].Get_Centre_Of_Gravity();
-           QString COG = ("X: " +  QString::number(Centre_Of_Gravity.GetXVector()) + " " +
-                          "Y: " +  QString::number(Centre_Of_Gravity.GetYVector()) + " " +
-                          "Z: " +  QString::number(Centre_Of_Gravity.GetZVector()));
-*/
-         //  std::vector<Vectors> Vertices = ListOfTetras[(ui->List_Of_Tetras->currentIndex())].Get_Vertices();
-           // std::cout but redirect the out buffer
-           Statistics.setText( "Material: "+ Material+ "\n" +
-                               "Density: " + Density + "\n" +
-                               "Weight: "  + Weight  + "\n" +
-                               "Volume: "  + Volume);//  + "\n" +
-                               //"Centre Of Gravity: " + COG + "\n");// +
-                               //"Vectors: " + Points);*/
+            for (unsigned int i = 0; i < ModelOne.Get_Cell_Order().size(); i++)
+            {
+                if (ModelOne.Get_Cell_Order()[i] == 'p')
+                {
+                    if (Pyramid_count == ui->List_Of_Pyramids->currentIndex() )
+                    {
+                        auto *coutbuf = std::cout.rdbuf();
+                        std::stringstream buffer;
+                        std::streambuf *old = std::cout.rdbuf(buffer.rdbuf());
 
-           Statistics.exec();
-       }
+                        Cell *Test = new Pyramid();
+                        Test = ModelOne.Get_Cells()[i];
+
+                        std::cout << Test->Get_Material() << std::endl;
+                        std::string redirect = buffer.str();
+                        std::cout.rdbuf(coutbuf);
+
+                        QString Material = QString::fromStdString(redirect);
+                        QString Density  = QString::number((Test->Get_Weight()/Test->Get_Volume() ));
+                        QString Weight   = QString::number((Test->Get_Weight() ));
+                        QString Volume   = QString::number((Test->Get_Volume() ));
+
+                        Vectors Centre_Of_Gravity = Test->Get_Centre_Of_Gravity();
+                        QString COG = ("X: " +  QString::number(Centre_Of_Gravity.GetXVector()) + " " +
+                                       "Y: " +  QString::number(Centre_Of_Gravity.GetYVector()) + " " +
+                                       "Z: " +  QString::number(Centre_Of_Gravity.GetZVector()));
+
+                        std::vector<Vectors> Vertices = Test->Get_Vertices();
+
+                        std::stringstream buffer_2;
+                        std::streambuf *old_2 = std::cout.rdbuf(buffer_2.rdbuf());
+
+                        for (unsigned int i = 0 ; i < 5 ; i++)
+                        {
+                            std::cout << Vertices[i] << std::endl;
+                        }
+
+                        std::string Pyramid_Points = buffer_2.str();
+                        std::cout.rdbuf(coutbuf);
+
+                        QString Points = QString::fromStdString(Pyramid_Points);
+
+                        Statistics.setText( "Material: "+ Material+ "\n" +
+                                            "Weight: "  + Weight  + "\n" +
+                                            "Volume: "  + Volume  + "\n" +
+                                            "Centre Of Gravity: " + COG  + "\n" +
+                                            "Vectors:\n" + Points);
+                        Statistics.exec();
+                    }
+                    Pyramid_count++;
+                }
+            }
+        }
+
+        if(ui->Hexahedron_Highlight->checkState() == 2)
+        {
+            Statistics.setWindowTitle("Highlight Hexahedron Statistics");
+
+            int Hexahedron_count = 0; // Needs to be int to match type of currentIndex() return
+
+            for (unsigned int i = 0; i < ModelOne.Get_Cell_Order().size(); i++)
+            {
+                if (ModelOne.Get_Cell_Order()[i] == 'h')
+                {
+                    if (Hexahedron_count == ui->List_Of_Hexahedrons->currentIndex() )
+                    {
+                        auto *coutbuf = std::cout.rdbuf();
+                        std::stringstream buffer;
+                        std::streambuf *old = std::cout.rdbuf(buffer.rdbuf());
+
+                        Cell *Test = new Hexahedron();
+                        Test = ModelOne.Get_Cells()[i];
+
+                        std::cout << Test->Get_Material() << std::endl;
+                        std::string redirect = buffer.str();
+                        std::cout.rdbuf(coutbuf);
+
+                        QString Material = QString::fromStdString(redirect);
+                        QString Density  = QString::number((Test->Get_Weight()/Test->Get_Volume() ));
+                        QString Weight   = QString::number((Test->Get_Weight() ));
+                        QString Volume   = QString::number((Test->Get_Volume() ));
+
+                        Vectors Centre_Of_Gravity = Test->Get_Centre_Of_Gravity();
+                        QString COG = ("X: " +  QString::number(Centre_Of_Gravity.GetXVector()) + " " +
+                                       "Y: " +  QString::number(Centre_Of_Gravity.GetYVector()) + " " +
+                                       "Z: " +  QString::number(Centre_Of_Gravity.GetZVector()));
+
+                        std::vector<Vectors> Vertices = Test->Get_Vertices();
+
+                        std::stringstream buffer_2;
+                        std::streambuf *old_2 = std::cout.rdbuf(buffer_2.rdbuf());
+
+                        for (unsigned int i = 0 ; i < 8 ; i++)
+                        {
+                            std::cout << Vertices[i] << std::endl;
+                        }
+
+                        std::string Hexahedron_Points = buffer_2.str();
+                        std::cout.rdbuf(coutbuf);
+
+                        QString Points = QString::fromStdString(Hexahedron_Points);
+
+                        Statistics.setText( "Material: "+ Material+ "\n" +
+                                            "Weight: "  + Weight  + "\n" +
+                                            "Volume: "  + Volume  + "\n" +
+                                            "Centre Of Gravity: " + COG  + "\n" +
+                                            "Vectors:\n" + Points);
+                        Statistics.exec();
+                    }
+                    Hexahedron_count++;
+                }
+            }
+        }
     }
 }
