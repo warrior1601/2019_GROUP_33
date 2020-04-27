@@ -46,7 +46,7 @@ qt5_wrap_ui( UI_Srcs ${UIS} )
 
 if (WIN32)
   # Define the executable output and its sources
-  add_executable(Observer #WIN32
+  add_executable(Observer WIN32
                 source/main.cpp
                 include/mainwindow.h          source/mainwindow.cpp           source/mainwindow.ui
                 include/filters.h             source/filters.cpp              source/filters.ui
