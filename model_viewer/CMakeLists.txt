@@ -31,27 +31,40 @@ include( ${VTK_USE_FILE} )
 include_directories( include )
 include_directories( ../model/include )
 
-add_library( Observer_Model_Library	../model/source/Material.cpp;  			../model/include/Material.h;
-                    			../model/source/Vectors.cpp;   			../model/include/Vectors.h;
-                    			../model/source/Matrix.cpp;    			../model/include/Matrix.hpp;
-                    			../model/source/Cell.cpp;      			../model/include/Cell.hpp;
-                    			../model/source/Model.cpp;     			../model/include/Model.hpp;
-					../model/source/double_equality_function.cpp;	../model/include/double_equality_function.h;
-	                              							../model/include/Testing_File_Functions.h;
+add_library(Observer_Model_Library
+            ../model/include/Material.h;                  ../model/source/Material.cpp;
+            ../model/include/Vectors.h;                   ../model/source/Vectors.cpp;
+            ../model/include/Matrix.hpp;                  ../model/source/Matrix.cpp;
+            ../model/include/Cell.hpp;                    ../model/source/Cell.cpp;
+            ../model/include/Model.hpp;                   ../model/source/Model.cpp;
+					  ../model/include/double_equality_function.h;  ../model/source/double_equality_function.cpp;
+	          ../model/include/Testing_File_Functions.h;
 )
 
 set( UIS mainwindow.ui )
 qt5_wrap_ui( UI_Srcs ${UIS} )
 
-# Define the executable output and its sources
-add_executable( Observer MACOSX_BUNDLE
-		source/main.cpp
-		source/mainwindow.cpp		include/mainwindow.h		source/mainwindow.ui
-		source/edit_light.cpp 		include/edit_light.h 		source/edit_light.ui
-		source/filters.cpp 		include/filters.h 		source/filters.ui
-		source/vtklight_withname.cpp 	include/vtklight_withname.h
-		images/Images.qrc
+if (WIN32)
+  # Define the executable output and its sources
+  add_executable(Observer WIN32
+                source/main.cpp
+                include/mainwindow.h          source/mainwindow.cpp           source/mainwindow.ui
+                include/filters.h             source/filters.cpp              source/filters.ui
+                include/edit_light.h          source/edit_light.cpp           source/edit_light.ui
+                include/vtklight_withname.h   source/vtklight_withname.cpp
+  )
+
+else()
+  # Define the executable output and its sources
+  add_executable(Observer MACOSX_BUNDLE
+                source/main.cpp
+                include/mainwindow.h          source/mainwindow.cpp           source/mainwindow.ui
+                include/filters.h             source/filters.cpp              source/filters.ui
+                include/edit_light.h          source/edit_light.cpp           source/edit_light.ui
+                include/vtklight_withname.h   source/vtklight_withname.cpp
+                images/Images.qrc
 )
+endif()
 
 # Tell CMake that the executable depends on library built in SEMESTER 1
 target_link_libraries( Observer Observer_Model_Library )
@@ -61,9 +74,3 @@ target_link_libraries( Observer Qt5::Widgets )
 
 # Tell CMake that the executable depends on the VTK libraries
 target_link_libraries( Observer ${VTK_LIBRARIES} )
-
-# Copying image files, used by Observer, to build directory
-ADD_CUSTOM_COMMAND( TARGET Observer POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory
-                    ${CMAKE_CURRENT_SOURCE_DIR}/images
-                    ${CMAKE_CURRENT_SOURCE_DIR}/../build/model_viewer/images
-)

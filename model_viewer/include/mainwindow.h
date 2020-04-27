@@ -129,16 +129,16 @@ private slots:
      *  When opening a file that is NOT an .STL file the program automatically saves it as a .STL file to comply with company policy of file conversion.
      *  @return The return status is used at start up. If no file is selected to open the program will terminate
      */
-    void on_actionOpen_triggered();
+    void on_LoadModelButton_released();
     /** @brief This function is not yet implemented
      */
-    void on_actionSave_triggered();
+    void on_SaveModelButton_released();
     /** @brief Using the QT QFileDialog this function saves the list of lights that are in the combo box and all of their settings in a text file
      */
-    void on_actionSave_Lights_triggered();
+    void on_SaveLightsButton_released();
     /** @brief Using the QT QFileDialog this function loads a text file and applies the lights to the scene
      */
-    void on_actionLoad_Lights_triggered();
+    void on_LoadLightsButton_released();
     /**
      * @brief This function opens a dialog box that allows the user to edit the lights properties. The light that will be edited will be the light
      * that is currently in the combo box. The name of the light can be edited directly from the combo box
@@ -150,10 +150,10 @@ private slots:
     void on_Delete_Light_released();
     /** @brief This function adds the measuring ruler tool to the window
      */
-    void on_actionRuler_triggered();
+    void on_AddRulerPushButton_released();
     /** @brief This function removes the measuring ruler tool from the window. Needs to be fix becuase it does not return the window to mouse interaction properly
      */
-    void on_actionRemove_Ruler_triggered();
+    void on_RemoveRulerPushButton_released();
     /** @brief This functions displays the Weight, Volume, Center of Gavity, Overal Dimensions, and Density of the model.
      * Currently this only applies to .MOD/.TXT files
      */
@@ -236,9 +236,6 @@ private:
 
     vtkSmartPointer<vtkPolyData> polydata = vtkSmartPointer<vtkPolyData>::New();
     vtkSmartPointer<vtkSTLWriter> stlWriter = vtkSmartPointer<vtkSTLWriter>::New();
-
-
-    vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor = vtkSmartPointer<vtkRenderWindowInteractor>::New();
 
     //this is used for axes
     vtkSmartPointer<vtkAxesActor> axes = vtkSmartPointer<vtkAxesActor>::New();

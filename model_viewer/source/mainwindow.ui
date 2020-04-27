@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1059</width>
-    <height>897</height>
+    <width>1406</width>
+    <height>957</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -26,7 +26,7 @@
      <verstretch>0</verstretch>
     </sizepolicy>
    </property>
-   <layout class="QGridLayout" name="gridLayout_8">
+   <layout class="QGridLayout" name="gridLayout_9">
     <item row="0" column="0">
      <widget class="QVTKOpenGLWidget" name="Display_Window">
       <property name="sizePolicy">
@@ -71,6 +71,12 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>26</height>
+            </size>
+           </property>
            <property name="maximumSize">
             <size>
              <width>16777215</width>
@@ -79,6 +85,9 @@
            </property>
            <property name="text">
             <string>Load Model</string>
+           </property>
+           <property name="shortcut">
+            <string>Ctrl+O</string>
            </property>
           </widget>
          </item>
@@ -90,6 +99,12 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>26</height>
+            </size>
+           </property>
            <property name="maximumSize">
             <size>
              <width>16777215</width>
@@ -98,6 +113,9 @@
            </property>
            <property name="text">
             <string>Save Model</string>
+           </property>
+           <property name="shortcut">
+            <string>Ctrl+S</string>
            </property>
           </widget>
          </item>
@@ -109,6 +127,12 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>26</height>
+            </size>
+           </property>
            <property name="maximumSize">
             <size>
              <width>16777215</width>
@@ -117,6 +141,9 @@
            </property>
            <property name="text">
             <string>Load Lights</string>
+           </property>
+           <property name="shortcut">
+            <string>Ctrl+Shift+O</string>
            </property>
           </widget>
          </item>
@@ -128,6 +155,12 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>26</height>
+            </size>
+           </property>
            <property name="maximumSize">
             <size>
              <width>16777215</width>
@@ -136,6 +169,9 @@
            </property>
            <property name="text">
             <string>Save Lights</string>
+           </property>
+           <property name="shortcut">
+            <string>Ctrl+Shift+S</string>
            </property>
           </widget>
          </item>
@@ -181,13 +217,13 @@
                <property name="minimumSize">
                 <size>
                  <width>0</width>
-                 <height>0</height>
+                 <height>26</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
                  <width>16777215</width>
-                 <height>21</height>
+                 <height>26</height>
                 </size>
                </property>
                <property name="text">
@@ -208,14 +244,14 @@
                </property>
                <property name="minimumSize">
                 <size>
-                 <width>75</width>
+                 <width>0</width>
                  <height>100</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>75</width>
-                 <height>100</height>
+                 <width>16777215</width>
+                 <height>16777215</height>
                 </size>
                </property>
                <property name="minimum">
@@ -240,13 +276,13 @@
                <property name="minimumSize">
                 <size>
                  <width>0</width>
-                 <height>0</height>
+                 <height>26</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>75</width>
-                 <height>23</height>
+                 <width>16777215</width>
+                 <height>26</height>
                 </size>
                </property>
               </widget>
@@ -266,13 +302,13 @@
                <property name="minimumSize">
                 <size>
                  <width>0</width>
-                 <height>0</height>
+                 <height>26</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
                  <width>16777215</width>
-                 <height>21</height>
+                 <height>26</height>
                 </size>
                </property>
                <property name="text">
@@ -299,8 +335,8 @@
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>75</width>
-                 <height>100</height>
+                 <width>16777215</width>
+                 <height>16777215</height>
                 </size>
                </property>
                <property name="minimum">
@@ -325,13 +361,13 @@
                <property name="minimumSize">
                 <size>
                  <width>0</width>
-                 <height>0</height>
+                 <height>26</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>75</width>
-                 <height>23</height>
+                 <width>16777215</width>
+                 <height>26</height>
                 </size>
                </property>
               </widget>
@@ -351,13 +387,13 @@
                <property name="minimumSize">
                 <size>
                  <width>0</width>
-                 <height>0</height>
+                 <height>26</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
                  <width>16777215</width>
-                 <height>21</height>
+                 <height>26</height>
                 </size>
                </property>
                <property name="text">
@@ -384,8 +420,8 @@
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>75</width>
-                 <height>100</height>
+                 <width>16777215</width>
+                 <height>16777215</height>
                 </size>
                </property>
                <property name="minimum">
@@ -410,13 +446,13 @@
                <property name="minimumSize">
                 <size>
                  <width>0</width>
-                 <height>0</height>
+                 <height>26</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>75</width>
-                 <height>23</height>
+                 <width>16777215</width>
+                 <height>26</height>
                 </size>
                </property>
               </widget>
@@ -454,13 +490,13 @@
              <property name="minimumSize">
               <size>
                <width>0</width>
-               <height>0</height>
+               <height>26</height>
               </size>
              </property>
              <property name="maximumSize">
               <size>
                <width>16777215</width>
-               <height>21</height>
+               <height>26</height>
               </size>
              </property>
              <property name="text">
@@ -479,13 +515,13 @@
              <property name="minimumSize">
               <size>
                <width>0</width>
-               <height>0</height>
+               <height>26</height>
               </size>
              </property>
              <property name="maximumSize">
               <size>
                <width>16777215</width>
-               <height>21</height>
+               <height>26</height>
               </size>
              </property>
              <property name="minimum">
@@ -520,13 +556,13 @@
              <property name="minimumSize">
               <size>
                <width>0</width>
-               <height>0</height>
+               <height>26</height>
               </size>
              </property>
              <property name="maximumSize">
               <size>
                <width>16777215</width>
-               <height>21</height>
+               <height>26</height>
               </size>
              </property>
              <property name="text">
@@ -545,13 +581,13 @@
              <property name="minimumSize">
               <size>
                <width>0</width>
-               <height>0</height>
+               <height>26</height>
               </size>
              </property>
              <property name="maximumSize">
               <size>
                <width>16777215</width>
-               <height>21</height>
+               <height>26</height>
               </size>
              </property>
              <property name="minimum">
@@ -584,11 +620,14 @@
            <property name="maximumSize">
             <size>
              <width>16777215</width>
-             <height>21</height>
+             <height>26</height>
             </size>
            </property>
            <property name="text">
             <string>Camera Reset</string>
+           </property>
+           <property name="shortcut">
+            <string>Ctrl+R</string>
            </property>
           </widget>
          </item>
@@ -618,7 +657,7 @@
            <item>
             <widget class="QPushButton" name="Add_Light">
              <property name="sizePolicy">
-              <sizepolicy hsizetype="Ignored" vsizetype="Maximum">
+              <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
@@ -631,19 +670,22 @@
              </property>
              <property name="maximumSize">
               <size>
-               <width>400</width>
-               <height>21</height>
+               <width>16777215</width>
+               <height>26</height>
               </size>
              </property>
              <property name="text">
               <string>Add Light</string>
+             </property>
+             <property name="shortcut">
+              <string>Ctrl+L</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QPushButton" name="Edit_Light">
              <property name="sizePolicy">
-              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
@@ -656,19 +698,22 @@
              </property>
              <property name="maximumSize">
               <size>
-               <width>400</width>
-               <height>21</height>
+               <width>16777215</width>
+               <height>26</height>
               </size>
              </property>
              <property name="text">
               <string>Edit Light</string>
+             </property>
+             <property name="shortcut">
+              <string>Ctrl+E</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QPushButton" name="Delete_Light">
              <property name="sizePolicy">
-              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
@@ -681,12 +726,15 @@
              </property>
              <property name="maximumSize">
               <size>
-               <width>400</width>
-               <height>21</height>
+               <width>16777215</width>
+               <height>26</height>
               </size>
              </property>
              <property name="text">
               <string>Delete Light</string>
+             </property>
+             <property name="shortcut">
+              <string>Ctrl+Shift+L</string>
              </property>
             </widget>
            </item>
@@ -730,8 +778,8 @@
         </property>
         <property name="maximumSize">
          <size>
-          <width>265</width>
-          <height>59</height>
+          <width>16777215</width>
+          <height>16777215</height>
          </size>
         </property>
         <property name="title">
@@ -758,11 +806,14 @@
            <property name="maximumSize">
             <size>
              <width>16777215</width>
-             <height>21</height>
+             <height>26</height>
             </size>
            </property>
            <property name="text">
             <string>Background Colour</string>
+           </property>
+           <property name="shortcut">
+            <string>Ctrl+B</string>
            </property>
           </widget>
          </item>
@@ -783,11 +834,14 @@
            <property name="maximumSize">
             <size>
              <width>16777215</width>
-             <height>21</height>
+             <height>26</height>
             </size>
            </property>
            <property name="text">
             <string>Model Colour</string>
+           </property>
+           <property name="shortcut">
+            <string>Ctrl+M</string>
            </property>
           </widget>
          </item>
@@ -804,8 +858,8 @@
         </property>
         <property name="maximumSize">
          <size>
-          <width>265</width>
-          <height>59</height>
+          <width>16777215</width>
+          <height>16777215</height>
          </size>
         </property>
         <property name="title">
@@ -832,11 +886,82 @@
            <property name="maximumSize">
             <size>
              <width>16777215</width>
-             <height>21</height>
+             <height>26</height>
             </size>
            </property>
            <property name="text">
             <string>Filters</string>
+           </property>
+           <property name="shortcut">
+            <string>Ctrl+F</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="MeasurementsGroupBox">
+        <property name="title">
+         <string>Measurements</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_8">
+         <item row="0" column="0">
+          <widget class="QPushButton" name="AddRulerPushButton">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>26</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>26</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Add Ruler</string>
+           </property>
+           <property name="shortcut">
+            <string>Shift+R</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QPushButton" name="RemoveRulerPushButton">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>26</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>26</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Remover Ruler</string>
+           </property>
+           <property name="shortcut">
+            <string>Ctrl+D</string>
            </property>
           </widget>
          </item>
@@ -1116,35 +1241,47 @@
               <item>
                <widget class="QPushButton" name="Highlight">
                 <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
                 <property name="minimumSize">
                  <size>
-                  <width>127</width>
-                  <height>23</height>
+                  <width>0</width>
+                  <height>26</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>127</width>
-                  <height>23</height>
+                  <width>16777215</width>
+                  <height>26</height>
                  </size>
                 </property>
                 <property name="text">
-                 <string>Colour of Selectod Cell</string>
+                 <string>Colour of Selected Cell</string>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QPushButton" name="Cell_Statistics">
                 <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                 <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>26</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>26</height>
+                 </size>
                 </property>
                 <property name="text">
                  <string> Cell Statistics</string>
@@ -1173,11 +1310,14 @@
            <property name="maximumSize">
             <size>
              <width>16777215</width>
-             <height>21</height>
+             <height>26</height>
             </size>
            </property>
            <property name="text">
             <string>Model Statistics</string>
+           </property>
+           <property name="shortcut">
+            <string>Ctrl+Space</string>
            </property>
           </widget>
          </item>
@@ -1204,130 +1344,6 @@
     </item>
    </layout>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>1687</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="menuFile">
-    <property name="title">
-     <string>File</string>
-    </property>
-    <addaction name="actionOpen"/>
-    <addaction name="actionSave"/>
-    <addaction name="actionLoad_Lights"/>
-    <addaction name="actionSave_Lights"/>
-   </widget>
-   <widget class="QMenu" name="menuViews">
-    <property name="title">
-     <string>Views</string>
-    </property>
-    <addaction name="separator"/>
-    <addaction name="actionRuler"/>
-    <addaction name="actionRemove_Ruler"/>
-   </widget>
-   <addaction name="menuFile"/>
-   <addaction name="menuViews"/>
-  </widget>
-  <widget class="QToolBar" name="toolBar">
-   <property name="windowTitle">
-    <string>toolBar</string>
-   </property>
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
-   <addaction name="actionOpen"/>
-   <addaction name="actionSave"/>
-   <addaction name="actionLoad_Lights"/>
-   <addaction name="actionSave_Lights"/>
-  </widget>
-  <action name="actionOpen">
-   <property name="icon">
-    <iconset>
-     <normaloff>../resources/images/Open.png</normaloff>
-     <normalon>../images/Open.png</normalon>../resources/images/Open.png</iconset>
-   </property>
-   <property name="text">
-    <string>Open Model</string>
-   </property>
-  </action>
-  <action name="actionSave">
-   <property name="icon">
-    <iconset>
-     <normaloff>../resources/images/Save_Icon.png</normaloff>
-     <normalon>../images/Save_Icon.png</normalon>../resources/images/Save_Icon.png</iconset>
-   </property>
-   <property name="text">
-    <string>Save Model</string>
-   </property>
-  </action>
-  <action name="actionSave_Lights">
-   <property name="icon">
-    <iconset>
-     <normalon>../images/spotlight.png</normalon>
-    </iconset>
-   </property>
-   <property name="text">
-    <string>Save Lights</string>
-   </property>
-  </action>
-  <action name="actionLoad_Lights">
-   <property name="icon">
-    <iconset>
-     <normalon>../images/business-and-finance.png</normalon>
-    </iconset>
-   </property>
-   <property name="text">
-    <string>Load Lights</string>
-   </property>
-  </action>
-  <action name="actioncube">
-   <property name="text">
-    <string>cube</string>
-   </property>
-  </action>
-  <action name="actionhelicopter">
-   <property name="text">
-    <string>helicopter</string>
-   </property>
-  </action>
-  <action name="actionairbus">
-   <property name="text">
-    <string>airbus</string>
-   </property>
-  </action>
-  <action name="actionplane">
-   <property name="text">
-    <string>bawa plane</string>
-   </property>
-  </action>
-  <action name="actionsphere">
-   <property name="text">
-    <string>sphere</string>
-   </property>
-  </action>
-  <action name="actionThunderbolt">
-   <property name="text">
-    <string>Thunderbolt</string>
-   </property>
-  </action>
-  <action name="actionRuler">
-   <property name="text">
-    <string>Ruler</string>
-   </property>
-  </action>
-  <action name="actionRemove_Ruler">
-   <property name="text">
-    <string>Remove Ruler</string>
-   </property>
-  </action>
  </widget>
  <customwidgets>
   <customwidget>
