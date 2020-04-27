@@ -159,11 +159,11 @@ private slots:
      */
     void on_Model_Statistics_released();
 
-    void on_Tetra_Highlight_stateChanged(int state);
+    void on_Tetra_Highlight_clicked();
 
-    void on_Pyramid_Highlight_stateChanged(int state);
+    void on_Pyramid_Highlight_clicked();
 
-    void on_Hexahedron_Highlight_stateChanged(int state);
+    void on_Hexahedron_Highlight_clicked();
 
     void on_Highlight_released();
 
@@ -240,9 +240,8 @@ private:
     vtkSmartPointer<vtkAxesActor> axes = vtkSmartPointer<vtkAxesActor>::New();
     vtkSmartPointer<vtkOrientationMarkerWidget> orientationWidget = vtkSmartPointer<vtkOrientationMarkerWidget>::New();
 
-///----Check this put when you have time with below ----////
+    ///----Check this put when you have time with below ----////
     vtkSmartPointer<vtkDistanceWidget> distanceWidget = vtkSmartPointer<vtkDistanceWidget>::New();
-    vtkSmartPointer< vtkTransform> transform = vtkSmartPointer< vtkTransform>::New();
 };
 
 #endif // MAINWINDOW_H

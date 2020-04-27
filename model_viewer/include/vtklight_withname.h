@@ -60,12 +60,11 @@ public:
      * @brief This allows for a light to be copied. This is currently not implimited but future releases of the program will allow the user to make copies of lights they have created
      */
     vtkLight_WithName operator=(const vtkLight_WithName& Copy);
-    
-    
+
     // The vtkLight is pubic because it has its own accessor functions
     // Found in vtkLight.h
     vtkSmartPointer<vtkLight> light; ///< All information about vtkLight can be found at https://vtk.org/doc/nightly/html/classvtkLight.html
-    
+
 private:
     QString Name; ///< This is the name of the light. This allows the user to recognize their lights by their own implementation
 };
