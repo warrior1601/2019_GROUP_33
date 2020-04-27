@@ -57,19 +57,6 @@
 #include "Vectors.h"
 #include "vtklight_withname.h"
 
-#include <vtkVersion.h>
-#include <vtkPolyDataMapper.h>
-#include <vtkActor.h>
-#include <vtkRenderWindow.h>
-#include <vtkRenderer.h>
-#include <vtkRenderWindowInteractor.h>
-#include <vtkPolyData.h>
-#include <vtkSphereSource.h>
-#include <vtkOrientationMarkerWidget.h>
-#include <vtkAxesActor.h>
-#include <vtkPropAssembly.h>
-#include <vtkSmartPointer.h>
-
 namespace Ui {
 class MainWindow;
 }
@@ -218,7 +205,6 @@ private:
 
     vtkSmartPointer<vtkSTLReader> reader = vtkSmartPointer<vtkSTLReader>::New();
     vtkSmartPointer<vtkRenderer> renderer = vtkSmartPointer<vtkRenderer>::New();
-    std::vector<vtkSmartPointer<vtkRenderer>> ListOfRenderers; ///< This is a list of the Renderers
     vtkSmartPointer<vtkGenericOpenGLRenderWindow> renderWindow = vtkSmartPointer<vtkGenericOpenGLRenderWindow>::New();
 
     vtkSmartPointer<vtkPoints> points = vtkSmartPointer<vtkPoints>::New();

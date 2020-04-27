@@ -21,7 +21,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->setupUi(this);
     ui->Display_Window->SetRenderWindow( renderWindow );
 
-
     // Adding a camera light
     vtkLight_WithName light;
     light.SetName("Camera Light");
@@ -118,15 +117,7 @@ void MainWindow::on_Change_Back_Ground_Color_released()
         double red = Color.redF();
         double green = Color.greenF();
         double blue = Color.blueF();
-        if (LoadedFileType == true)
-            renderer->SetBackground( red,green,blue );
-        else
-        {
-            if (ListOfRenderers.size() > 0 )
-            {
-                ListOfRenderers[0]->SetBackground( red,green,blue );
-            }
-        }
+        renderer->SetBackground( red,green,blue );
     }
     //rerenders the window after the color change
     renderWindow->Render();
@@ -138,12 +129,12 @@ void MainWindow::on_Reset_Camera_released()
     renderer->ResetCamera();
     double* CameraLocation = renderer->GetActiveCamera()->GetPosition();
     std::cout << "Camera Location: " << CameraLocation[0] << " " << CameraLocation[1] << " " << CameraLocation[2] << std::endl;
+    //create a dispaly to show where the camera is currently at and where the focal point of the camera is.
     ui->Horizontal_Shift->setValue(0);
     ui->Vertical_Shift->setValue(0);
     ui->X_Camera_Pos->setValue(0);
     ui->Y_Camera_Pos->setValue(0);
     ui->Z_Camera_Pos->setValue(0);
-    //create a dispaly to show where the camera is currently at and where the focal point of the camera is.
     renderWindow->Render();
 }
 
@@ -164,7 +155,12 @@ void MainWindow::on_Apply_Filters_released()
     }
     else
     {
-        QMessageBox::critical(this, "Runtime Error", "Filters are only available for models loaded from .stl files");
+        FilterWindowOpenStatus = true;
+        filters =new Filters(this);
+        filters->setWindowTitle("Apply Filters");
+        filters->show();
+        filters->Open_Dialog(polydata, ListOfMappers, renderWindow, FilterWindowOpenStatus);
+       // QMessageBox::critical(this, "Runtime Error", "Filters are only available for models loaded from .stl files");
     }
 }
 
@@ -173,16 +169,7 @@ void MainWindow::on_X_Camera_Pos_valueChanged(int value)
     static int Last_Value_Azimuth = 0.0;
     int Temp = value;
     value = value-Last_Value_Azimuth;
-
-    if (LoadedFileType == true)
-        renderer->GetActiveCamera()->Azimuth(double (value));
-    else
-    {
-        if (ListOfRenderers.size() > 0 )
-        {
-            ListOfRenderers[0]->GetActiveCamera()->Azimuth(double (value));
-        }
-    }
+    renderer->GetActiveCamera()->Azimuth(double (value));
     Last_Value_Azimuth = Temp;
     renderWindow->Render();
 }
@@ -192,16 +179,7 @@ void MainWindow::on_Y_Camera_Pos_valueChanged(int value)
     static double Last_Value_Roll = 0.0;
     int Temp = value;
     value = value-Last_Value_Roll;
-
-    if (LoadedFileType == true)
-        renderer->GetActiveCamera()->Roll(double (value));
-    else
-    {
-        if (ListOfRenderers.size() > 0 )
-        {
-            ListOfRenderers[0]->GetActiveCamera()->Roll(double (value));
-        }
-    }
+    renderer->GetActiveCamera()->Roll(double (value));
     Last_Value_Roll = Temp;
     renderWindow->Render();
 }
@@ -211,16 +189,7 @@ void MainWindow::on_Z_Camera_Pos_valueChanged(int value)
     static double Last_Value_Elevation= 0.0;
     int Temp = value;
     value = value-Last_Value_Elevation;
-
-    if (LoadedFileType == true)
-        renderer->GetActiveCamera()->Elevation(double (value));
-    else
-    {
-        if (ListOfRenderers.size() > 0 )
-        {
-            ListOfRenderers[0]->GetActiveCamera()->Elevation(double (value));
-        }
-    }
+    renderer->GetActiveCamera()->Elevation(double (value));
     Last_Value_Elevation = Temp;
     renderWindow->Render();
 }
@@ -229,43 +198,19 @@ void MainWindow::on_Vertical_Shift_valueChanged(int arg1)
 {
     static double Last_Value_Pitch = 0.0;
     int Temp = arg1;
-
-    if (LoadedFileType == true)
+    if (( arg1 == 0 )&&( abs(Last_Value_Pitch) == 1.0 ))
     {
-        if (( arg1 == 0 )&&( abs(Last_Value_Pitch) == 1.0 ))
-        {
-            renderer->GetActiveCamera()->Pitch(double (Last_Value_Pitch));
-        }
-        else if ((arg1 == 0)&&(Last_Value_Pitch =! 0.0))
-        {
-            renderer->GetActiveCamera()->Pitch(double (arg1));
-        }
-
-        else
-        {
-            arg1 = arg1-Last_Value_Pitch;
-            renderer->GetActiveCamera()->Pitch(double (-arg1));
-        }
+        renderer->GetActiveCamera()->Pitch(double (Last_Value_Pitch));
     }
+    else if ((arg1 == 0)&&(Last_Value_Pitch =! 0.0))
+    {
+        renderer->GetActiveCamera()->Pitch(double (arg1));
+    }
+
     else
     {
-        if (ListOfRenderers.size() > 0 )
-        {
-            if (( arg1 == 0 )&&( abs(Last_Value_Pitch) == 1.0 ))
-            {
-                ListOfRenderers[0]->GetActiveCamera()->Pitch(double (Last_Value_Pitch));
-            }
-            else if ((arg1 == 0)&&(Last_Value_Pitch =! 0.0))
-            {
-                ListOfRenderers[0]->GetActiveCamera()->Pitch(double (arg1));
-            }
-
-            else
-            {
-                arg1 = arg1-Last_Value_Pitch;
-                ListOfRenderers[0]->GetActiveCamera()->Pitch(double (-arg1));
-            }
-        }
+        arg1 = arg1-Last_Value_Pitch;
+        renderer->GetActiveCamera()->Pitch(double (-arg1));
     }
     Last_Value_Pitch = Temp;
     renderWindow->Render();
@@ -275,41 +220,18 @@ void MainWindow::on_Horizontal_Shift_valueChanged(int arg1)
 {
     static double Last_Value_Yaw = 0.0;
     int Temp = arg1;
-
-    if (LoadedFileType == true)
+    if (( arg1 == 0 )&&( abs(Last_Value_Yaw) == 1.0 ))
     {
-        if (( arg1 == 0 )&&( abs(Last_Value_Yaw) == 1.0 ))
-        {
-            renderer->GetActiveCamera()->Yaw(double (-Last_Value_Yaw));
-        }
-        else if ((arg1 == 0 )&&( Last_Value_Yaw =! 0.0 ))
-        {
-            renderer->GetActiveCamera()->Yaw(double (-arg1));
-        }
-        else
-        {
-            arg1 = arg1-Last_Value_Yaw;
-            renderer->GetActiveCamera()->Yaw(double (arg1));
-        }
+        renderer->GetActiveCamera()->Yaw(double (-Last_Value_Yaw));
+    }
+    else if ((arg1 == 0 )&&( Last_Value_Yaw =! 0.0 ))
+    {
+        renderer->GetActiveCamera()->Yaw(double (-arg1));
     }
     else
     {
-        if (ListOfRenderers.size() > 0 )
-        {
-            if (( arg1 == 0 )&&( abs(Last_Value_Yaw) == 1.0 ))
-            {
-                ListOfRenderers[0]->GetActiveCamera()->Yaw(double (-Last_Value_Yaw));
-            }
-            else if ((arg1 == 0 )&&( Last_Value_Yaw =! 0.0 ))
-            {
-                ListOfRenderers[0]->GetActiveCamera()->Yaw(double (-arg1));
-            }
-            else
-            {
-                arg1 = arg1-Last_Value_Yaw;
-                ListOfRenderers[0]->GetActiveCamera()->Yaw(double (arg1));
-            }
-        }
+        arg1 = arg1-Last_Value_Yaw;
+        renderer->GetActiveCamera()->Yaw(double (arg1));
     }
     Last_Value_Yaw = Temp;
     renderWindow->Render();
@@ -328,15 +250,11 @@ void MainWindow::on_LoadModelButton_released()
 
     if (myFile.is_open()) //Check if file has been opened sucessfully, if so returns true
     {
-        // deletes the .mod or .txt file information that was loaded
-        if (ListOfRenderers.size() > 0 )
-        {
-            ui->Display_Window->GetRenderWindow()->RemoveRenderer(ListOfRenderers[0]);
-        }
-
+        ui->Display_Window->GetRenderWindow()->RemoveRenderer( renderer );
         //Initializes the orientationWidget so it can be used on different file types
         orientationWidget = vtkSmartPointer<vtkOrientationMarkerWidget>::New();
-        ListOfRenderers.clear();
+        renderer = vtkSmartPointer<vtkRenderer>::New();
+
         ListOfMappers.clear();
         ListOfUgs.clear();
         ListOfActors_tetra.clear();
@@ -397,9 +315,7 @@ void MainWindow::on_LoadModelButton_released()
             Model Empty;
             ModelOne = Empty;
             ModelOne.Load_Model(FilePath);
-            vtkSmartPointer<vtkRenderer> Renderer = vtkSmartPointer<vtkRenderer>::New();
-            ListOfRenderers.push_back(Renderer);
-            ui->Display_Window->GetRenderWindow()->AddRenderer( ListOfRenderers[0] );
+            ui->Display_Window->GetRenderWindow()->AddRenderer( renderer );
 
             std::string col;
             std::stringstream testing;
@@ -412,11 +328,10 @@ void MainWindow::on_LoadModelButton_released()
                                   ModelOne.Get_Vectors()[i].GetZVector()};
                 points->InsertNextPoint(Data);
             }
+            cellArray->Initialize();
+            TriangleArray->Initialize();
             for (unsigned int i = 0; i < ModelOne.Get_Cell_Order().size(); i++)
             {
-                cellArray->Initialize();
-                TriangleArray->Initialize();
-
                 vtkSmartPointer<vtkDataSetMapper> mapper = vtkSmartPointer<vtkDataSetMapper>::New();
                 ListOfMappers.push_back(mapper);
 
@@ -493,7 +408,7 @@ void MainWindow::on_LoadModelButton_released()
                     double Blue_remapped = (0.0 + (1.0 - 0.0) * ((Blue - 0.0) / (255 - 0.0)));
 
                     ListOfActors_tetra[tetra_actor_count]->GetProperty()->SetColor(Red_remapped,Green_remapped,Blue_remapped);
-                    ListOfRenderers[0]->AddActor(ListOfActors_tetra[tetra_actor_count]);
+                    renderer->AddActor(ListOfActors_tetra[tetra_actor_count]);
 
                     ui->List_Of_Tetras->addItem("Tetrahedron "  + (QString::number(tetra_count + 1)) );
 
@@ -583,7 +498,7 @@ void MainWindow::on_LoadModelButton_released()
                     double Blue_remapped = (0.0 + (1.0 - 0.0) * ((Blue - 0.0) / (255 - 0.0)));
 
                     ListOfActors_pyramid[pryamid_actor_count]->GetProperty()->SetColor(Red_remapped,Green_remapped,Blue_remapped);
-                    ListOfRenderers[0]->AddActor(ListOfActors_pyramid[pryamid_actor_count]);
+                    renderer->AddActor(ListOfActors_pyramid[pryamid_actor_count]);
 
                     ui->List_Of_Pyramids->addItem("Pyramid " + (QString::number(pyramid_count + 1)) );
 
@@ -722,7 +637,7 @@ void MainWindow::on_LoadModelButton_released()
                     double Blue_remapped = (0.0 + (1.0 - 0.0) * ((Blue - 0.0) / (255 - 0.0)));
 
                     ListOfActors_hexahedron[hexahedron_actor_count]->GetProperty()->SetColor(Red_remapped,Green_remapped,Blue_remapped);
-                    ListOfRenderers[0]->AddActor(ListOfActors_hexahedron[hexahedron_actor_count]);
+                    renderer->AddActor(ListOfActors_hexahedron[hexahedron_actor_count]);
 
                     ui->List_Of_Hexahedrons->addItem("Hexahedron " + (QString::number(hexahedron_count + 1)) );
 
@@ -744,9 +659,11 @@ void MainWindow::on_LoadModelButton_released()
 
                 }
             }
-            /*
+
+
+
             polydata->Initialize();
-            polydata->SetPolys(cellArray);
+            //polydata->SetPolys(cellArray);
             polydata->SetPolys(TriangleArray);
             polydata->SetPoints(points);
 
@@ -758,11 +675,11 @@ void MainWindow::on_LoadModelButton_released()
             stlWriter->Write();
 
             std::cout << polydata->GetNumberOfPolys() << std::endl;
-            */
-            ListOfRenderers[0]->ResetCameraClippingRange();
-            ListOfRenderers[0]->SetBackground( colors->GetColor3d("Black").GetData() );
-            ListOfRenderers[0]->GetActiveCamera()->SetPosition(50.0 ,50.0, 50.0);
-            ListOfRenderers[0]->GetActiveCamera()->SetFocalPoint(0.0 ,0.0, 0.0);
+
+            renderer->ResetCameraClippingRange();
+            renderer->SetBackground( colors->GetColor3d("Black").GetData() );
+            renderer->GetActiveCamera()->SetPosition(50.0 ,50.0, 50.0);
+            renderer->GetActiveCamera()->SetFocalPoint(0.0 ,0.0, 0.0);
 
             orientationWidget->SetOrientationMarker( axes );
             orientationWidget->SetInteractor(ui->Display_Window->GetRenderWindow()->GetInteractor());

@@ -26,6 +26,8 @@
 #include <vtkSmartPointer.h>
 
 
+#include <vtkRenderer.h>
+
 namespace Ui {
 class Filters;
 }
@@ -52,6 +54,11 @@ public:
      */
     void Open_Dialog(vtkSmartPointer<vtkSTLReader> &aReader,
                      vtkSmartPointer<vtkDataSetMapper> &aMapper,
+                     vtkSmartPointer<vtkGenericOpenGLRenderWindow> &aWindow,
+                     bool &PassedFilterWindowOpenStatus);
+
+    void Open_Dialog(vtkSmartPointer<vtkPolyData> &apolydata,
+                     std::vector<vtkSmartPointer<vtkDataSetMapper>> &aListOfMappers,
                      vtkSmartPointer<vtkGenericOpenGLRenderWindow> &aWindow,
                      bool &PassedFilterWindowOpenStatus);
 
@@ -108,6 +115,7 @@ private slots:
 private:
     Ui::Filters *ui;          ////< @brief This it is the user interface.
     bool *FilterWindowOpenStatus;          ////< @brief This tracks the window is open or not.
+    bool FileTypeSTL = true;
 
     // The smart pointers are created and only initilized when the open function is called
     // The smart pointers are denoted by *_Local
@@ -116,6 +124,14 @@ private:
     vtkSmartPointer<vtkGenericOpenGLRenderWindow> renderWindow_Local = vtkSmartPointer<vtkGenericOpenGLRenderWindow>::New(); ////< This is a locally created renderwindow that is overwriting by the renderwindow from the mainwindow
     vtkSmartPointer<vtkSTLReader> reader_Local = vtkSmartPointer<vtkSTLReader>::New(); ///< @brief This is a locally created reader that is overwriting by the renderwindow from the mainwindow
     vtkSmartPointer<vtkDataSetMapper> mapper_Local = vtkSmartPointer<vtkDataSetMapper>::New(); ///< @brief This is a locally created mapper that is overwriting by the renderwindow from the mainwindow
+    vtkSmartPointer<vtkRenderer> renderer_Local = vtkSmartPointer<vtkRenderer>::New();
+
+    std::vector<vtkSmartPointer<vtkDataSetMapper>> ListOfMappers_Local;
+    std::vector<vtkSmartPointer<vtkShrinkFilter>> ListOfShrink_Filters;
+
+    vtkSmartPointer<vtkPolyData> polydata_Local = vtkSmartPointer<vtkPolyData>::New();
+
+
 
     vtkSmartPointer<vtkClipDataSet> Clipper_Filter = vtkSmartPointer<vtkClipDataSet>::New(); ///< @brief Required vtkSmartpointer for appling the Clipper Filter
     vtkSmartPointer<vtkShrinkFilter> Shrink_Filter = vtkSmartPointer<vtkShrinkFilter>::New(); ///< @brief Required vtkSmartpointer for appling the Shrink Filter
