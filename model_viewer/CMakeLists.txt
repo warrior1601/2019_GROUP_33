@@ -52,7 +52,6 @@ if (WIN32)
                 include/filters.h             source/filters.cpp              source/filters.ui
                 include/edit_light.h          source/edit_light.cpp           source/edit_light.ui
                 include/vtklight_withname.h   source/vtklight_withname.cpp
-                images/Images.qrc
   )
 
 else()
@@ -75,9 +74,3 @@ target_link_libraries( Observer Qt5::Widgets )
 
 # Tell CMake that the executable depends on the VTK libraries
 target_link_libraries( Observer ${VTK_LIBRARIES} )
-
-# Copying image files, used by Observer, to build directory
-ADD_CUSTOM_COMMAND( TARGET Observer POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory
-                    ${CMAKE_CURRENT_SOURCE_DIR}/images
-                    ${CMAKE_CURRENT_SOURCE_DIR}/../build/model_viewer/images
-)
