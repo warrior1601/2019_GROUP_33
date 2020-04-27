@@ -118,7 +118,15 @@ void MainWindow::on_Change_Back_Ground_Color_released()
         double red = Color.redF();
         double green = Color.greenF();
         double blue = Color.blueF();
-        renderer->SetBackground( red,green,blue );
+        if (LoadedFileType == true)
+            renderer->SetBackground( red,green,blue );
+        else
+        {
+            if (ListOfRenderers.size() > 0 )
+            {
+                ListOfRenderers[0]->SetBackground( red,green,blue );
+            }
+        }
     }
     //rerenders the window after the color change
     renderWindow->Render();
@@ -162,11 +170,20 @@ void MainWindow::on_Apply_Filters_released()
 
 void MainWindow::on_X_Camera_Pos_valueChanged(int value)
 {
-    static int Last_Value_Pitch = 0.0;
+    static int Last_Value_Azimuth = 0.0;
     int Temp = value;
-    value = value-Last_Value_Pitch;
-    renderer->GetActiveCamera()->Azimuth(double (value));
-    Last_Value_Pitch = Temp;
+    value = value-Last_Value_Azimuth;
+
+    if (LoadedFileType == true)
+        renderer->GetActiveCamera()->Azimuth(double (value));
+    else
+    {
+        if (ListOfRenderers.size() > 0 )
+        {
+            ListOfRenderers[0]->GetActiveCamera()->Azimuth(double (value));
+        }
+    }
+    Last_Value_Azimuth = Temp;
     renderWindow->Render();
 }
 
@@ -175,63 +192,126 @@ void MainWindow::on_Y_Camera_Pos_valueChanged(int value)
     static double Last_Value_Roll = 0.0;
     int Temp = value;
     value = value-Last_Value_Roll;
-    renderer->GetActiveCamera()->Roll(double (value));
+
+    if (LoadedFileType == true)
+        renderer->GetActiveCamera()->Roll(double (value));
+    else
+    {
+        if (ListOfRenderers.size() > 0 )
+        {
+            ListOfRenderers[0]->GetActiveCamera()->Roll(double (value));
+        }
+    }
     Last_Value_Roll = Temp;
     renderWindow->Render();
 }
 
 void MainWindow::on_Z_Camera_Pos_valueChanged(int value)
 {
-    static double Last_Value_Yaw= 0.0;
+    static double Last_Value_Elevation= 0.0;
     int Temp = value;
-    value = value-Last_Value_Yaw;
-    renderer->GetActiveCamera()->Elevation(double (value));
-    Last_Value_Yaw = Temp;
-    renderWindow->Render();
-}
+    value = value-Last_Value_Elevation;
 
-void MainWindow::on_Vertical_Shift_valueChanged(int arg1)
-{
-    static double Last_Value_Elevation = 0.0;
-    int Temp = arg1;
-
-    if (( arg1 == 0 )&&( abs(Last_Value_Elevation) == 1.0 ))
-    {
-        renderer->GetActiveCamera()->Pitch(double (Last_Value_Elevation));
-    }
-    else if ((arg1 == 0)&&(Last_Value_Elevation =! 0.0))
-    {
-        renderer->GetActiveCamera()->Pitch(double (arg1));
-    }
-
+    if (LoadedFileType == true)
+        renderer->GetActiveCamera()->Elevation(double (value));
     else
     {
-        arg1 = arg1-Last_Value_Elevation;
-        renderer->GetActiveCamera()->Pitch(double (-arg1));
+        if (ListOfRenderers.size() > 0 )
+        {
+            ListOfRenderers[0]->GetActiveCamera()->Elevation(double (value));
+        }
     }
     Last_Value_Elevation = Temp;
     renderWindow->Render();
 }
 
-void MainWindow::on_Horizontal_Shift_valueChanged(int arg1)
+void MainWindow::on_Vertical_Shift_valueChanged(int arg1)
 {
-    static double Last_Value_Azimuth = 0.0;
+    static double Last_Value_Pitch = 0.0;
     int Temp = arg1;
 
-    if (( arg1 == 0 )&&( abs(Last_Value_Azimuth) == 1.0 ))
+    if (LoadedFileType == true)
     {
-        renderer->GetActiveCamera()->Yaw(double (-Last_Value_Azimuth));
-    }
-    else if ((arg1 == 0 )&&( Last_Value_Azimuth =! 0.0 ))
-    {
-        renderer->GetActiveCamera()->Yaw(double (-arg1));
+        if (( arg1 == 0 )&&( abs(Last_Value_Pitch) == 1.0 ))
+        {
+            renderer->GetActiveCamera()->Pitch(double (Last_Value_Pitch));
+        }
+        else if ((arg1 == 0)&&(Last_Value_Pitch =! 0.0))
+        {
+            renderer->GetActiveCamera()->Pitch(double (arg1));
+        }
+
+        else
+        {
+            arg1 = arg1-Last_Value_Pitch;
+            renderer->GetActiveCamera()->Pitch(double (-arg1));
+        }
     }
     else
     {
-        arg1 = arg1-Last_Value_Azimuth;
-        renderer->GetActiveCamera()->Yaw(double (arg1));
+        if (ListOfRenderers.size() > 0 )
+        {
+            if (( arg1 == 0 )&&( abs(Last_Value_Pitch) == 1.0 ))
+            {
+                ListOfRenderers[0]->GetActiveCamera()->Pitch(double (Last_Value_Pitch));
+            }
+            else if ((arg1 == 0)&&(Last_Value_Pitch =! 0.0))
+            {
+                ListOfRenderers[0]->GetActiveCamera()->Pitch(double (arg1));
+            }
+
+            else
+            {
+                arg1 = arg1-Last_Value_Pitch;
+                ListOfRenderers[0]->GetActiveCamera()->Pitch(double (-arg1));
+            }
+        }
     }
-    Last_Value_Azimuth = Temp;
+    Last_Value_Pitch = Temp;
+    renderWindow->Render();
+}
+
+void MainWindow::on_Horizontal_Shift_valueChanged(int arg1)
+{
+    static double Last_Value_Yaw = 0.0;
+    int Temp = arg1;
+
+    if (LoadedFileType == true)
+    {
+        if (( arg1 == 0 )&&( abs(Last_Value_Yaw) == 1.0 ))
+        {
+            renderer->GetActiveCamera()->Yaw(double (-Last_Value_Yaw));
+        }
+        else if ((arg1 == 0 )&&( Last_Value_Yaw =! 0.0 ))
+        {
+            renderer->GetActiveCamera()->Yaw(double (-arg1));
+        }
+        else
+        {
+            arg1 = arg1-Last_Value_Yaw;
+            renderer->GetActiveCamera()->Yaw(double (arg1));
+        }
+    }
+    else
+    {
+        if (ListOfRenderers.size() > 0 )
+        {
+            if (( arg1 == 0 )&&( abs(Last_Value_Yaw) == 1.0 ))
+            {
+                ListOfRenderers[0]->GetActiveCamera()->Yaw(double (-Last_Value_Yaw));
+            }
+            else if ((arg1 == 0 )&&( Last_Value_Yaw =! 0.0 ))
+            {
+                ListOfRenderers[0]->GetActiveCamera()->Yaw(double (-arg1));
+            }
+            else
+            {
+                arg1 = arg1-Last_Value_Yaw;
+                ListOfRenderers[0]->GetActiveCamera()->Yaw(double (arg1));
+            }
+        }
+    }
+    Last_Value_Yaw = Temp;
     renderWindow->Render();
 }
 
@@ -253,6 +333,9 @@ void MainWindow::on_LoadModelButton_released()
         {
             ui->Display_Window->GetRenderWindow()->RemoveRenderer(ListOfRenderers[0]);
         }
+
+        //Initializes the orientationWidget so it can be used on different file types
+        orientationWidget = vtkSmartPointer<vtkOrientationMarkerWidget>::New();
         ListOfRenderers.clear();
         ListOfMappers.clear();
         ListOfUgs.clear();
@@ -661,9 +744,7 @@ void MainWindow::on_LoadModelButton_released()
 
                 }
             }
-
-            ListOfRenderers[0]->SetBackground( colors->GetColor3d("Silver").GetData() );
- 
+            /*
             polydata->Initialize();
             polydata->SetPolys(cellArray);
             polydata->SetPolys(TriangleArray);
@@ -679,22 +760,19 @@ void MainWindow::on_LoadModelButton_released()
             std::cout << polydata->GetNumberOfPolys() << std::endl;
             */
             ListOfRenderers[0]->ResetCameraClippingRange();
-
             ListOfRenderers[0]->SetBackground( colors->GetColor3d("Black").GetData() );
             ListOfRenderers[0]->GetActiveCamera()->SetPosition(50.0 ,50.0, 50.0);
             ListOfRenderers[0]->GetActiveCamera()->SetFocalPoint(0.0 ,0.0, 0.0);
 
-
-            // orientationWidget->SetOrientationMarker( axes );
-            // orientationWidget->SetInteractor(ui->Display_Window->GetRenderWindow()->GetInteractor());
-            // orientationWidget->SetEnabled(1);
-            // orientationWidget->InteractiveOff();
+            orientationWidget->SetOrientationMarker( axes );
+            orientationWidget->SetInteractor(ui->Display_Window->GetRenderWindow()->GetInteractor());
+            orientationWidget->SetEnabled(1);
+            orientationWidget->InteractiveOff();
 
             renderer->ResetCamera();
             renderWindow->Render();
         }
     }
-
 }
 
 void MainWindow::on_SaveModelButton_released()
