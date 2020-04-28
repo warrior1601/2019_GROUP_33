@@ -20,7 +20,17 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     // This Sets the RinderWindow to the *.ui files Widget named Display_Window
     ui->setupUi(this);
     ui->Display_Window->SetRenderWindow( renderWindow );
+}
+//--------------Destructor-------------//
 
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+//-------Special Member Functions------//
+
+void  MainWindow::Init_CameraLight()
+{
     // Adding a camera light
     vtkLight_WithName light;
     light.SetName("Camera Light");
@@ -39,13 +49,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     renderer->AddLight( light.light );
     ui->Display_Window->GetRenderWindow()->Render();
 }
-//--------------Destructor-------------//
-
-MainWindow::~MainWindow()
-{
-    delete ui;
-}
-//-------Special Member Functions------//
 
 void MainWindow::on_Change_Object_Color_released()
 {
@@ -159,7 +162,7 @@ void MainWindow::on_Apply_Filters_released()
         filters =new Filters(this);
         filters->setWindowTitle("Apply Filters");
         filters->show();
-        filters->Open_Dialog(polydata, ListOfMappers, renderWindow, FilterWindowOpenStatus);
+        filters->Open_Dialog(ListOfPolydata, ListOfMappers, renderWindow, FilterWindowOpenStatus);
        // QMessageBox::critical(this, "Runtime Error", "Filters are only available for models loaded from .stl files");
     }
 }
@@ -254,6 +257,8 @@ void MainWindow::on_LoadModelButton_released()
         //Initializes the orientationWidget so it can be used on different file types
         orientationWidget = vtkSmartPointer<vtkOrientationMarkerWidget>::New();
         renderer = vtkSmartPointer<vtkRenderer>::New();
+
+        Init_CameraLight();
 
         ListOfMappers.clear();
         ListOfUgs.clear();
@@ -513,6 +518,9 @@ void MainWindow::on_LoadModelButton_released()
                     ListOfUgs[i]->SetPoints(points);
                     vtkSmartPointer<vtkHexahedron> hex = vtkSmartPointer<vtkHexahedron>::New();
                     ListOfHexs.push_back(hex);
+                    vtkSmartPointer<vtkPolyData> HexPoly = vtkSmartPointer<vtkPolyData>::New();
+                    vtkSmartPointer<vtkCellArray> HexCell = vtkSmartPointer<vtkCellArray>::New();
+
                     for ( vtkIdType vtkId = 0; vtkId < 8; vtkId++)
                     {
                         ListOfHexs[hexahedron_count]->GetPointIds()->SetId(vtkId, vtkIdType (Test.Get_Vertices_Order()[vtkId]) );
@@ -614,6 +622,7 @@ void MainWindow::on_LoadModelButton_released()
                     TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
                     triangle_count++;
 
+                    HexCell->InsertNextCell(ListOfHexs[hexahedron_count]);
                     cellArray->InsertNextCell(ListOfHexs[hexahedron_count]);
                     ListOfUgs[i]->InsertNextCell(VTK_HEXAHEDRON, ListOfHexs[hexahedron_count]->GetPointIds() );
                     ListOfMappers[i]->SetInputData(ListOfUgs[i]);
@@ -641,6 +650,9 @@ void MainWindow::on_LoadModelButton_released()
 
                     ui->List_Of_Hexahedrons->addItem("Hexahedron " + (QString::number(hexahedron_count + 1)) );
 
+                    HexPoly->SetPolys(HexCell);
+                    ListOfPolydata.push_back(HexPoly);
+
                     hexahedron_actor_count++;
                     hexahedron_count++;
                     /*
@@ -648,7 +660,6 @@ void MainWindow::on_LoadModelButton_released()
                     polydata->SetPolys(cellArray);
                     polydata->SetPolys(TriangleArray);
                     polydata->SetPoints(points);
-
                     QString NewSTLFilePath = QFileDialog::getSaveFileName(this, tr("Save File: "),
                                                                           "../../example_models/New stl file",tr("Stl (*.stl)"));
                     std::string STLFilePath = NewSTLFilePath.toUtf8().constData();
@@ -659,8 +670,6 @@ void MainWindow::on_LoadModelButton_released()
 
                 }
             }
-
-
 
             polydata->Initialize();
             //polydata->SetPolys(cellArray);

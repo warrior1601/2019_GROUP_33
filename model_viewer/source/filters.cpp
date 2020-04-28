@@ -1,7 +1,7 @@
 //-----filters.cpp--------------//
 
 // filters.cpp
-// Worksheet 6 Computing Project
+// Computing Project
 // Edited By Jedidiah Paterson on 02/22/2020
 // Copyright @ 2020 Jedidiah Paterson. All rights reserved.
 // This file contains the defined functions that are found in filters.h
@@ -38,14 +38,18 @@ void Filters::Open_Dialog(vtkSmartPointer<vtkSTLReader> &aReader,
     FileTypeSTL = true;
 }
 
-void Filters::Open_Dialog(vtkSmartPointer<vtkPolyData> &apolydata,
+void Filters::Open_Dialog(std::vector<vtkSmartPointer<vtkPolyData>> &aListOfPolyData,
                           std::vector<vtkSmartPointer<vtkDataSetMapper>> &aListOfMappers,
                           vtkSmartPointer<vtkGenericOpenGLRenderWindow> &aWindow,
                           bool &PassedFilterWindowOpenStatus)
 {
     // Sets the Local smart pointer used to render the image on th MainWindow
     // now the *->Render() can be called.
-    polydata_Local = apolydata;
+    for (unsigned int i = 0; i < aListOfPolyData.size(); i++)
+    {
+     ListOfPolydata_Local.push_back(aListOfPolyData[i]);
+    }
+
     FilterWindowOpenStatus = &PassedFilterWindowOpenStatus;
     renderWindow_Local = aWindow;
 
@@ -94,14 +98,16 @@ void Filters::on_Shrink_Filter_toggled(bool Shrink_Filter_Status)
         // When this function is called it ensures that all other fillters are
         // No longer being applied
         checked_Box_Status_Updater(1);
+        ListOfShrink_Filters.clear();
         for (unsigned int i = 0; i < ListOfMappers_Local.size(); i++)
         {
             vtkSmartPointer<vtkShrinkFilter> Shrink_Filters = vtkSmartPointer<vtkShrinkFilter>::New();
             ListOfShrink_Filters.push_back(Shrink_Filters);
 
-            ListOfShrink_Filters[i]->SetInputData(polydata_Local);
+            ListOfShrink_Filters[i]->SetInputData( ListOfMappers_Local[i]->GetInput() );
             ListOfShrink_Filters[i]->SetShrinkFactor(double(ui->Scale->value())/100.00);
             ListOfShrink_Filters[i]->Update();
+            //ListOfMappers_Local[i]->GetPolyDataMapper()->Update();
             ListOfMappers_Local[i]->SetInputConnection( ListOfShrink_Filters[i]->GetOutputPort() );
         }
     }
@@ -109,9 +115,10 @@ void Filters::on_Shrink_Filter_toggled(bool Shrink_Filter_Status)
     {
         for (unsigned int i = 0; i < ListOfMappers_Local.size(); i++)
         {
-            ListOfMappers_Local[i]->SetInputData( polydata_Local );
+            ListOfShrink_Filters[i]->SetShrinkFactor(double(1.0));
+            ListOfShrink_Filters[i]->Update();
+            ListOfMappers_Local[i]->SetInputData( ListOfMappers_Local[i]->GetInput() );
         }
-
     }
     renderWindow_Local->Render();
 }
@@ -137,28 +144,33 @@ void Filters::on_Clipper_Filter_toggled(bool Clipper_Filter_Status)
     if((Clipper_Filter_Status == true )&& (FileTypeSTL == false))
     {
         checked_Box_Status_Updater(2);
-        Clipper_Filter->SetInputData( polydata_Local ) ;
-        Clipper_Filter->SetClipFunction( planeLeft.Get() );
-        mapper_Local->SetInputConnection( Clipper_Filter->GetOutputPort() );
+        ListOfClipper_Filters.clear();
         for (unsigned int i = 0; i < ListOfMappers_Local.size(); i++)
         {
-        ListOfMappers_Local[i]->SetInputConnection( Clipper_Filter->GetOutputPort() );
+        vtkSmartPointer<vtkClipDataSet> Clipper_Filters = vtkSmartPointer<vtkClipDataSet>::New();
+        ListOfClipper_Filters.push_back(Clipper_Filters);
+        ListOfClipper_Filters[i]->SetInputData( ListOfMappers_Local[i]->GetInput() ) ;
+        ListOfClipper_Filters[i]->SetClipFunction( planeLeft.Get() );
+        ListOfMappers_Local[i]->SetInputConnection( ListOfClipper_Filters[i]->GetOutputPort() );
         }
-
     }
     else if ((Clipper_Filter_Status == false )&& (FileTypeSTL == false))
     {
+        //This is not the correct wat to return the data to is proper format
+        // But it is unlikely that an image will be this close to the edge of a double range/capacity
+        planeLeft->SetOrigin(double(1e250), double(1e250), double(1e250));
+        planeLeft->SetNormal(double(-1e250), double(-1e250), double(-1e250));
+
+        for (unsigned int i = 0; i < ListOfClipper_Filters.size(); i++)
+        {
+        ListOfClipper_Filters[i]->SetClipFunction( planeLeft.Get()  );
+        ListOfClipper_Filters[i]->Update();
+        }
         for (unsigned int i = 0; i < ListOfMappers_Local.size(); i++)
         {
-        ListOfMappers_Local[i]->SetInputData( polydata_Local );
+        ListOfMappers_Local[i]->SetInputData( ListOfMappers_Local[i]->GetInput() );
         }
     }
-
-
-
-
-
-
     renderWindow_Local->Render();
 }
 
@@ -205,7 +217,6 @@ void Filters::on_Z_Origin_valueChanged(int value)
 void Filters::on_X_Normal_valueChanged(int value)
 {
     // This sets the Clipping Filter's X-Domain loaction
-
     double* Filter_Scroll = planeLeft->GetNormal();
     planeLeft->SetNormal(double (value)/10.00, Filter_Scroll[1], Filter_Scroll[2]);
     renderWindow_Local->Render();

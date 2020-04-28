@@ -1,6 +1,6 @@
-//filters.h
-//Computing Project
-//Created by Jedidiah Paterson on 02/22/2020.
+// filters.h
+// Computing Project
+// Created by Jedidiah Paterson on 02/22/2020.
 // Copyright @ 2020 Jedidiah Paterson. All rights reserved.
 
 /** @file This file contains a list of functions and variable that are connected
@@ -16,17 +16,16 @@
 #include <QDialog>
 // Header files from vtk
 #include <vtkClipDataSet.h>
+#include <vtkDataSet.h>
 #include <vtkDataSetMapper.h>
 #include <vtkGenericOpenGLRenderWindow.h>
 #include <vtkNew.h>
 #include <vtkPlane.h>
 #include <vtkPolyData.h>
+#include <vtkPolyDataMapper.h>
 #include <vtkShrinkFilter.h>
 #include <vtkSTLReader.h>
 #include <vtkSmartPointer.h>
-
-
-#include <vtkRenderer.h>
 
 namespace Ui {
 class Filters;
@@ -57,7 +56,7 @@ public:
                      vtkSmartPointer<vtkGenericOpenGLRenderWindow> &aWindow,
                      bool &PassedFilterWindowOpenStatus);
 
-    void Open_Dialog(vtkSmartPointer<vtkPolyData> &apolydata,
+    void Open_Dialog(std::vector<vtkSmartPointer<vtkPolyData>> &aListOfPolyData,
                      std::vector<vtkSmartPointer<vtkDataSetMapper>> &aListOfMappers,
                      vtkSmartPointer<vtkGenericOpenGLRenderWindow> &aWindow,
                      bool &PassedFilterWindowOpenStatus);
@@ -128,10 +127,10 @@ private:
 
     std::vector<vtkSmartPointer<vtkDataSetMapper>> ListOfMappers_Local;
     std::vector<vtkSmartPointer<vtkShrinkFilter>> ListOfShrink_Filters;
+    std::vector<vtkSmartPointer<vtkClipDataSet>> ListOfClipper_Filters;
 
     vtkSmartPointer<vtkPolyData> polydata_Local = vtkSmartPointer<vtkPolyData>::New();
-
-
+    std::vector<vtkSmartPointer<vtkPolyData>> ListOfPolydata_Local;
 
     vtkSmartPointer<vtkClipDataSet> Clipper_Filter = vtkSmartPointer<vtkClipDataSet>::New(); ///< @brief Required vtkSmartpointer for appling the Clipper Filter
     vtkSmartPointer<vtkShrinkFilter> Shrink_Filter = vtkSmartPointer<vtkShrinkFilter>::New(); ///< @brief Required vtkSmartpointer for appling the Shrink Filter

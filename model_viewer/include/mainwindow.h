@@ -164,6 +164,7 @@ private:
     /** @brief The function is used by on_actionLoad_Lights_triggered() to set the light data
      */
     void SetLightData(double *Data, std::string currentLine);
+    void Init_CameraLight();
 //-------Private Members---------//
     Ui::MainWindow *ui; ///< This is the User Interface
     bool LoadedFileType = true; ///< This is used to track what type of file is loaded either .STL = true or .MOD/.TXT = false
@@ -221,6 +222,10 @@ private:
     vtkSmartPointer<vtkCellArray> TriangleArray = vtkSmartPointer<vtkCellArray>::New();
 
     vtkSmartPointer<vtkPolyData> polydata = vtkSmartPointer<vtkPolyData>::New();
+    std::vector<vtkSmartPointer<vtkPolyData>> ListOfPolydata;
+
+
+
     vtkSmartPointer<vtkSTLWriter> stlWriter = vtkSmartPointer<vtkSTLWriter>::New();
 
     vtkSmartPointer<vtkAxesActor> axes = vtkSmartPointer<vtkAxesActor>::New();
