@@ -146,13 +146,13 @@ private slots:
     void on_Model_Statistics_released();
     /** @brief This function will highlight a selected cell disabling another cell from being selected
      */
-    void on_Tetra_Highlight_clicked();
+    void on_Tetra_Highlight_stateChanged(int state);
     /** @brief This function will highlight a selected cell disabling another cell from being selected
      */
-    void on_Pyramid_Highlight_clicked();
+    void on_Pyramid_Highlight_stateChanged(int state);
     /** @brief This function will highlight a selected cell disabling another cell from being selected
      */
-    void on_Hexahedron_Highlight_clicked();
+    void on_Hexahedron_Highlight_stateChanged(int state);
     /** @brief This function allows the user to selected the colour for a cell to highlight, default setting is Black
      */
     void on_Highlight_released();

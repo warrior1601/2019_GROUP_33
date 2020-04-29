@@ -1071,22 +1071,19 @@ void MainWindow::on_Model_Statistics_released()
     }
 }
 
-void MainWindow::on_Tetra_Highlight_clicked()
-{
-  //This function only works on MOD/STL files. It highlights a selected file. Only one Cell of all types can be highlighted at a time
+void MainWindow::on_Tetra_Highlight_stateChanged(int state)
+{   //This function only works on MOD/STL files. It highlights a selected file. Only one Cell of all types can be highlighted at a time
     if (LoadedFileType == false)
     {
-        if (ui->Tetra_Highlight->isChecked())
-        {
+        if (state == 2)
+        {   //This stores the current value so that it can be set back to its original colour
             ListOfActors_tetra[(ui->List_Of_Tetras->currentIndex())]->GetProperty()->GetColor(Temp_Tetra_color_red, Temp_Tetra_color_green, Temp_Tetra_color_blue);
             ListOfActors_tetra[(ui->List_Of_Tetras->currentIndex())]->GetProperty()->SetColor(Highlight_red, Highlight_green, Highlight_blue);
             //This prevents the user from changing Cells while a checkbox is checked.
             ui->List_Of_Tetras->setEnabled(false);
-
-            ui->List_Of_Pyramids->setEnabled(true);
-            ui->List_Of_Hexahedrons->setEnabled(true);
-            ui->Pyramid_Highlight->setChecked(false);
-            ui->Hexahedron_Highlight->setChecked(false);
+            // This ensures that the other checkboxes are unchecked. This prevents an error for ocurring
+            ui->Pyramid_Highlight->setCheckState(Qt::Unchecked);
+            ui->Hexahedron_Highlight->setCheckState(Qt::Unchecked);
         }
         else
         {   //Returns the cell to its original colour
@@ -1095,25 +1092,19 @@ void MainWindow::on_Tetra_Highlight_clicked()
         }
         renderWindow->Render();
     }
-
-    else
-      ui->Tetra_Highlight->setChecked(false);
 }
 
-void MainWindow::on_Pyramid_Highlight_clicked()
+void MainWindow::on_Pyramid_Highlight_stateChanged(int state)
 {
     if (LoadedFileType == false)
     {
-        if (ui->Pyramid_Highlight->isChecked())
+        if (state == 2)
         {
             ListOfActors_pyramid[(ui->List_Of_Pyramids->currentIndex())]->GetProperty()->GetColor(Temp_Pyramid_color_red, Temp_Pyramid_color_green, Temp_Pyramid_color_blue);
             ListOfActors_pyramid[(ui->List_Of_Pyramids->currentIndex())]->GetProperty()->SetColor(Highlight_red, Highlight_green, Highlight_blue);
             ui->List_Of_Pyramids->setEnabled(false);
-
-            ui->List_Of_Tetras->setEnabled(true);
-            ui->List_Of_Hexahedrons->setEnabled(true);
-            ui->Tetra_Highlight->setChecked(false);
-            ui->Hexahedron_Highlight->setChecked(false);
+            ui->Tetra_Highlight->setCheckState(Qt::Unchecked);
+            ui->Hexahedron_Highlight->setCheckState(Qt::Unchecked);
         }
         else
         {
@@ -1122,25 +1113,19 @@ void MainWindow::on_Pyramid_Highlight_clicked()
         }
         renderWindow->Render();
     }
-
-    else
-      ui->Pyramid_Highlight->setChecked(false);
 }
 
-void MainWindow::on_Hexahedron_Highlight_clicked()
+void MainWindow::on_Hexahedron_Highlight_stateChanged(int state)
 {
     if (LoadedFileType == false)
     {
-        if (ui->Hexahedron_Highlight->isChecked())
+        if (state == 2)
         {
             ListOfActors_hexahedron[(ui->List_Of_Hexahedrons->currentIndex())]->GetProperty()->GetColor(Temp_Hexahedron_color_red, Temp_Hexahedron_color_green, Temp_Hexahedron_color_blue);
             ListOfActors_hexahedron[(ui->List_Of_Hexahedrons->currentIndex())]->GetProperty()->SetColor(Highlight_red, Highlight_green, Highlight_blue);
             ui->List_Of_Hexahedrons->setEnabled(false);
-
-            ui->List_Of_Tetras->setEnabled(true);
-            ui->List_Of_Pyramids->setEnabled(true);
-            ui->Tetra_Highlight->setChecked(false);
-            ui->Pyramid_Highlight->setChecked(false);
+            ui->Tetra_Highlight->setCheckState(Qt::Unchecked);
+            ui->Pyramid_Highlight->setCheckState(Qt::Unchecked);
         }
         else
         {
@@ -1149,9 +1134,6 @@ void MainWindow::on_Hexahedron_Highlight_clicked()
         }
         renderWindow->Render();
     }
-
-    else
-      ui->Hexahedron_Highlight->setChecked(false);
 }
 
 void MainWindow::on_Highlight_released()
