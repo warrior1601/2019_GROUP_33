@@ -18,6 +18,23 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     // This Sets the RinderWindow to the *.ui files Widget named Display_Window
     ui->setupUi(this);
     ui->Display_Window->SetRenderWindow( renderWindow );
+
+    QString fileName = "../../../model_viewer/images/Observer.stl";
+    std::string FilePath = fileName.toUtf8().constData();
+    std::ifstream myFile(FilePath);
+
+    reader->SetFileName(FilePath.data());
+    mapper->SetInputConnection( reader->GetOutputPort() );
+    reader->Update();
+    actor->SetMapper(mapper);
+    actor->GetProperty()->EdgeVisibilityOff();  //Turning this on would allow the user to see the triangels that make up the faces of an object
+    actor->GetProperty()->SetColor( colors->GetColor3d("Red").GetData() ); //Using ColorSetNames header file you can set folors this way
+    renderer->AddActor(actor);
+    ui->Display_Window->GetRenderWindow()->AddRenderer( renderer );
+    renderWindow->Render();
+
+
+
 }
 //--------------Destructor-------------//
 
