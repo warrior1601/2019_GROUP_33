@@ -1,8 +1,6 @@
 //-----vtklight_withname.cpp--------------//
-
-
 // vtklight_withname.cpp
-// Worksheet 6 Computing Project
+// Computing Project
 // Edited By Jedidiah Paterson on 02/22/2020
 // Copyright @ 2020 Jedidiah Paterson. All rights reserved.
 // This file contains the defined functions that are found in vtklight_withname.h

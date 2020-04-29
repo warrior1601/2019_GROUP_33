@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>554</width>
-    <height>452</height>
+    <width>433</width>
+    <height>398</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -312,6 +312,9 @@
               </item>
               <item>
                <widget class="QSpinBox" name="Scale">
+                <property name="maximum">
+                 <number>100</number>
+                </property>
                 <property name="value">
                  <number>90</number>
                 </property>

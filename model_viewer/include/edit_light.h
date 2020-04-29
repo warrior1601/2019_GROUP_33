@@ -1,7 +1,7 @@
 //--------------------edit_light.h--------------------//
 //Computing Project
 //Created by Jedidiah Paterson on 02/22/2020.
-// Copyright @ 2020 Jedidiah Paterson. All rights reserved.
+//Copyright @ 2020 Jedidiah Paterson. All rights reserved.
 
 /** @file This file contains a list of functions and variable that are connected
  * to the buttons on the edit_light.ui window. These function on the object
@@ -85,9 +85,9 @@ private slots:
 
 
 private:
-    Ui::Edit_Light *ui; ///< This is the User Interface
-    vtkSmartPointer<vtkGenericOpenGLRenderWindow> renderWindow =vtkSmartPointer<vtkGenericOpenGLRenderWindow>::New(); ///< This allows the MainWindow to be rendered from the Edit Light Dialog box
-    vtkLight_WithName *light_Local; ///< This allow the editing of the light to take place, only for the selected liht that is in the title of the Edit Light dialog box
+    Ui::Edit_Light *ui; ///< @brief This is the User Interface
+    vtkSmartPointer<vtkGenericOpenGLRenderWindow> renderWindow =vtkSmartPointer<vtkGenericOpenGLRenderWindow>::New(); ///< @brief This allows the MainWindow to be rendered from the Edit Light Dialog box
+    vtkLight_WithName *light_Local; ///< @brief This allow the editing of the light to take place, only for the selected liht that is in the title of the Edit Light dialog box
 };
 
 #endif // EDIT_LIGHT_H

@@ -1,6 +1,6 @@
-//filters.h
-//Computing Project
-//Created by Jedidiah Paterson on 02/22/2020.
+// filters.h
+// Computing Project
+// Created by Jedidiah Paterson on 02/22/2020.
 // Copyright @ 2020 Jedidiah Paterson. All rights reserved.
 
 /** @file This file contains a list of functions and variable that are connected
@@ -16,15 +16,17 @@
 #include <QDialog>
 // Header files from vtk
 #include <vtkClipDataSet.h>
+#include <vtkDataSet.h>
 #include <vtkDataSetMapper.h>
 #include <vtkGenericOpenGLRenderWindow.h>
 #include <vtkNew.h>
 #include <vtkPlane.h>
 #include <vtkPolyData.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkRenderer.h>
 #include <vtkShrinkFilter.h>
 #include <vtkSTLReader.h>
 #include <vtkSmartPointer.h>
-
 
 namespace Ui {
 class Filters;
@@ -46,12 +48,17 @@ public:
     /** @brief Blank destructor (empty)
      */
     ~Filters();
-    /**
-     * @brief This function is called from the parent window, this function is overloaded in other files.
-     * @param PassedFilterWindowOpenStatus this ensures that only one window can be opened at a time.
+    /** @brief This function is called from the parent window, this function is overloaded in other files.
+     *  @param PassedFilterWindowOpenStatus this ensures that only one window can be opened at a time.
      */
     void Open_Dialog(vtkSmartPointer<vtkSTLReader> &aReader,
                      vtkSmartPointer<vtkDataSetMapper> &aMapper,
+                     vtkSmartPointer<vtkGenericOpenGLRenderWindow> &aWindow,
+                     bool &PassedFilterWindowOpenStatus);
+
+    /** @brief This function is call from the parent window, it allows for filtering where a reader is not available
+     */
+    void Open_Dialog(std::vector<vtkSmartPointer<vtkDataSetMapper>> &aListOfMappers,
                      vtkSmartPointer<vtkGenericOpenGLRenderWindow> &aWindow,
                      bool &PassedFilterWindowOpenStatus);
 
@@ -106,16 +113,21 @@ private slots:
     void closeEvent(QCloseEvent *event);
 
 private:
-    Ui::Filters *ui;          ////< @brief This it is the user interface.
-    bool *FilterWindowOpenStatus;          ////< @brief This tracks the window is open or not.
+    Ui::Filters *ui; ////< @brief This it is the user interface.
+    bool *FilterWindowOpenStatus; ////< @brief This tracks the window is open or not.
+    bool FileTypeSTL = true; ///< @brief This Bool tracks the file type loaded for Filtering
 
     // The smart pointers are created and only initilized when the open function is called
     // The smart pointers are denoted by *_Local
     // *_Local smart pointers are overwritten by the  passed smart pointers
-
-    vtkSmartPointer<vtkGenericOpenGLRenderWindow> renderWindow_Local = vtkSmartPointer<vtkGenericOpenGLRenderWindow>::New(); ////< This is a locally created renderwindow that is overwriting by the renderwindow from the mainwindow
+    vtkSmartPointer<vtkGenericOpenGLRenderWindow> renderWindow_Local = vtkSmartPointer<vtkGenericOpenGLRenderWindow>::New(); ////<@brief This is a locally created renderwindow that is overwriting by the renderwindow from the mainwindow
     vtkSmartPointer<vtkSTLReader> reader_Local = vtkSmartPointer<vtkSTLReader>::New(); ///< @brief This is a locally created reader that is overwriting by the renderwindow from the mainwindow
     vtkSmartPointer<vtkDataSetMapper> mapper_Local = vtkSmartPointer<vtkDataSetMapper>::New(); ///< @brief This is a locally created mapper that is overwriting by the renderwindow from the mainwindow
+    vtkSmartPointer<vtkRenderer> renderer_Local = vtkSmartPointer<vtkRenderer>::New();
+
+    std::vector<vtkSmartPointer<vtkDataSetMapper>> ListOfMappers_Local; ///< @brief This is a list of all the Mappers, Each mapper hold one cell and has one actor acting in it.
+    std::vector<vtkSmartPointer<vtkShrinkFilter>> ListOfShrink_Filters; ///< @brief This list of Shrink Filters each takes one input and has one output. Data from the Mapper and back into the Mapper. There is one Filter for each Mapper.
+    std::vector<vtkSmartPointer<vtkClipDataSet>> ListOfClipper_Filters; ///< @brief This list of Cliper Filters each takes one input and has one output. Data from the Mapper and back into the Mapper. There is one Filter for each Mapper.
 
     vtkSmartPointer<vtkClipDataSet> Clipper_Filter = vtkSmartPointer<vtkClipDataSet>::New(); ///< @brief Required vtkSmartpointer for appling the Clipper Filter
     vtkSmartPointer<vtkShrinkFilter> Shrink_Filter = vtkSmartPointer<vtkShrinkFilter>::New(); ///< @brief Required vtkSmartpointer for appling the Shrink Filter

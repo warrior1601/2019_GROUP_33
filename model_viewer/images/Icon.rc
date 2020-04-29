@@ -1,0 +1,4 @@
+IDR_MAINFRAME           ICON
+  "ObserverLogo.ico"
+
+IDI_ICON1               ICON    "ObserverLogo.ico"

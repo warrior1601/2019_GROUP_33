@@ -51,8 +51,8 @@ if (WIN32)
                 include/mainwindow.h          source/mainwindow.cpp           source/mainwindow.ui
                 include/filters.h             source/filters.cpp              source/filters.ui
                 include/edit_light.h          source/edit_light.cpp           source/edit_light.ui
-                include/vtklight_withname.h   source/vtklight_withname.cpp
-  )
+                include/vtklight_withname.h   source/vtklight_withname.cpp    images/Icon.rc
+)
 
 else()
   # Define the executable output and its sources

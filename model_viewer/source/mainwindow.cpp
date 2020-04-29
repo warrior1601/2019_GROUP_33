@@ -8,8 +8,6 @@
 // Impleminting the function defined in MainWindow.h and connected
 // To the buttons on MainWindow.ui
 
-//using namespace std;
-
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -21,8 +19,34 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->setupUi(this);
     ui->Display_Window->SetRenderWindow( renderWindow );
 
+    QString fileName = "../../../model_viewer/images/Observer.stl";
+    std::string FilePath = fileName.toUtf8().constData();
+    std::ifstream myFile(FilePath);
 
-    // Adding a camera light
+    reader->SetFileName(FilePath.data());
+    mapper->SetInputConnection( reader->GetOutputPort() );
+    reader->Update();
+    actor->SetMapper(mapper);
+    actor->GetProperty()->EdgeVisibilityOff();  //Turning this on would allow the user to see the triangels that make up the faces of an object
+    actor->GetProperty()->SetColor( colors->GetColor3d("Red").GetData() ); //Using ColorSetNames header file you can set folors this way
+    renderer->AddActor(actor);
+    ui->Display_Window->GetRenderWindow()->AddRenderer( renderer );
+    renderWindow->Render();
+
+
+
+}
+//--------------Destructor-------------//
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+//-------Special Member Functions------//
+
+void  MainWindow::Init_CameraLight()
+{
+    //Adds a camera light
     vtkLight_WithName light;
     light.SetName("Camera Light");
     ListOfLights.push_back(light);
@@ -40,13 +64,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     renderer->AddLight( light.light );
     ui->Display_Window->GetRenderWindow()->Render();
 }
-//--------------Destructor-------------//
-
-MainWindow::~MainWindow()
-{
-    delete ui;
-}
-//-------Special Member Functions------//
 
 void MainWindow::on_Change_Object_Color_released()
 {
@@ -71,11 +88,10 @@ void MainWindow::on_Add_Light_released()
     light.SetName(InputQString());
     ListOfLights.push_back(light);
     // This checks to ensure a name has been given to the light
-    // With out this check clicking the canle button would cause the program to crash
-
+    // With out this check clicking the cancel button would cause the program to crash
     if(light.GetName().isEmpty() == false)
     {
-        // This establishes default settingd for an added light
+        // This establishes default settings for an added light
         ui->Select_Light->addItem(light.GetName());
         light.light->SetLightTypeToSceneLight();
         light.light->SetPosition( 5, 5, 15 );
@@ -92,7 +108,7 @@ void MainWindow::on_Add_Light_released()
 }
 
 void MainWindow::on_Select_Light_editTextChanged(const QString &text)
-{
+{   //This will change the name of the light as the user edits the text in the Combo Box
     ListOfLights.at(ui->Select_Light->currentIndex()).SetName(text);
     ui->Select_Light->setItemText(ui->Select_Light->currentIndex(),ListOfLights.at(ui->Select_Light->currentIndex()).GetName());
 }
@@ -118,15 +134,7 @@ void MainWindow::on_Change_Back_Ground_Color_released()
         double red = Color.redF();
         double green = Color.greenF();
         double blue = Color.blueF();
-        if (LoadedFileType == true)
-            renderer->SetBackground( red,green,blue );
-        else
-        {
-            if (ListOfRenderers.size() > 0 )
-            {
-                ListOfRenderers[0]->SetBackground( red,green,blue );
-            }
-        }
+        renderer->SetBackground( red,green,blue );
     }
     //rerenders the window after the color change
     renderWindow->Render();
@@ -135,30 +143,25 @@ void MainWindow::on_Change_Back_Ground_Color_released()
 //One comment to look at in this function
 void MainWindow::on_Reset_Camera_released()
 {
-  if(LoadedFileType)
-    renderer->ResetCamera();
-
-  else
-    ListOfRenderers[0]->ResetCamera();
-
     double* CameraLocation = renderer->GetActiveCamera()->GetPosition();
     std::cout << "Camera Location: " << CameraLocation[0] << " " << CameraLocation[1] << " " << CameraLocation[2] << std::endl;
+    renderer->ResetCamera();
+    //attach camera loaction to the scroll bars need to get pitch, roll, athmith yaw, elevation from teh camera
     ui->Horizontal_Shift->setValue(0);
     ui->Vertical_Shift->setValue(0);
     ui->X_Camera_Pos->setValue(0);
     ui->Y_Camera_Pos->setValue(0);
     ui->Z_Camera_Pos->setValue(0);
-    //create a dispaly to show where the camera is currently at and where the focal point of the camera is.
     renderWindow->Render();
 }
 
 void MainWindow::on_Apply_Filters_released()
 {
-    // This open a Modaless window which allows
-    // User interaction with the mainwindow while open
+    //This open a Modaless window which allows user interaction with the mainwindow while open but only allowing
+    //One window open at a time
     if (LoadedFileType == true)
     {
-        if (FilterWindowOpenStatus == false)
+        if (FilterWindowOpenStatus == false) //This is for stl files since filtering is different for each file type
         {
             FilterWindowOpenStatus = true;
             filters =new Filters(this);
@@ -167,9 +170,13 @@ void MainWindow::on_Apply_Filters_released()
             filters->Open_Dialog(reader, mapper, renderWindow, FilterWindowOpenStatus);
         }
     }
-    else
+    else // This is for MOD/TXT files.
     {
-        QMessageBox::critical(this, "Runtime Error", "Filters are only available for models loaded from .stl files");
+        FilterWindowOpenStatus = true;
+        filters =new Filters(this);
+        filters->setWindowTitle("Apply Filters");
+        filters->show();
+        filters->Open_Dialog(ListOfMappers, renderWindow, FilterWindowOpenStatus);
     }
 }
 
@@ -178,16 +185,7 @@ void MainWindow::on_X_Camera_Pos_valueChanged(int value)
     static int Last_Value_Azimuth = 0.0;
     int Temp = value;
     value = value-Last_Value_Azimuth;
-
-    if (LoadedFileType == true)
-        renderer->GetActiveCamera()->Azimuth(double (value));
-    else
-    {
-        if (ListOfRenderers.size() > 0 )
-        {
-            ListOfRenderers[0]->GetActiveCamera()->Azimuth(double (value));
-        }
-    }
+    renderer->GetActiveCamera()->Azimuth(double (value));
     Last_Value_Azimuth = Temp;
     renderWindow->Render();
 }
@@ -197,16 +195,7 @@ void MainWindow::on_Y_Camera_Pos_valueChanged(int value)
     static double Last_Value_Roll = 0.0;
     int Temp = value;
     value = value-Last_Value_Roll;
-
-    if (LoadedFileType == true)
-        renderer->GetActiveCamera()->Roll(double (value));
-    else
-    {
-        if (ListOfRenderers.size() > 0 )
-        {
-            ListOfRenderers[0]->GetActiveCamera()->Roll(double (value));
-        }
-    }
+    renderer->GetActiveCamera()->Roll(double (value));
     Last_Value_Roll = Temp;
     renderWindow->Render();
 }
@@ -216,16 +205,7 @@ void MainWindow::on_Z_Camera_Pos_valueChanged(int value)
     static double Last_Value_Elevation= 0.0;
     int Temp = value;
     value = value-Last_Value_Elevation;
-
-    if (LoadedFileType == true)
-        renderer->GetActiveCamera()->Elevation(double (value));
-    else
-    {
-        if (ListOfRenderers.size() > 0 )
-        {
-            ListOfRenderers[0]->GetActiveCamera()->Elevation(double (value));
-        }
-    }
+    renderer->GetActiveCamera()->Elevation(double (value));
     Last_Value_Elevation = Temp;
     renderWindow->Render();
 }
@@ -234,43 +214,19 @@ void MainWindow::on_Vertical_Shift_valueChanged(int arg1)
 {
     static double Last_Value_Pitch = 0.0;
     int Temp = arg1;
-
-    if (LoadedFileType == true)
+    if (( arg1 == 0 )&&( abs(Last_Value_Pitch) == 1.0 ))
     {
-        if (( arg1 == 0 )&&( abs(Last_Value_Pitch) == 1.0 ))
-        {
-            renderer->GetActiveCamera()->Pitch(double (Last_Value_Pitch));
-        }
-        else if ((arg1 == 0)&&(Last_Value_Pitch =! 0.0))
-        {
-            renderer->GetActiveCamera()->Pitch(double (arg1));
-        }
-
-        else
-        {
-            arg1 = arg1-Last_Value_Pitch;
-            renderer->GetActiveCamera()->Pitch(double (-arg1));
-        }
+        renderer->GetActiveCamera()->Pitch(double (Last_Value_Pitch));
     }
+    else if ((arg1 == 0)&&(Last_Value_Pitch =! 0.0))
+    {
+        renderer->GetActiveCamera()->Pitch(double (arg1));
+    }
+
     else
     {
-        if (ListOfRenderers.size() > 0 )
-        {
-            if (( arg1 == 0 )&&( abs(Last_Value_Pitch) == 1.0 ))
-            {
-                ListOfRenderers[0]->GetActiveCamera()->Pitch(double (Last_Value_Pitch));
-            }
-            else if ((arg1 == 0)&&(Last_Value_Pitch =! 0.0))
-            {
-                ListOfRenderers[0]->GetActiveCamera()->Pitch(double (arg1));
-            }
-
-            else
-            {
-                arg1 = arg1-Last_Value_Pitch;
-                ListOfRenderers[0]->GetActiveCamera()->Pitch(double (-arg1));
-            }
-        }
+        arg1 = arg1-Last_Value_Pitch;
+        renderer->GetActiveCamera()->Pitch(double (-arg1));
     }
     Last_Value_Pitch = Temp;
     renderWindow->Render();
@@ -280,41 +236,18 @@ void MainWindow::on_Horizontal_Shift_valueChanged(int arg1)
 {
     static double Last_Value_Yaw = 0.0;
     int Temp = arg1;
-
-    if (LoadedFileType == true)
+    if (( arg1 == 0 )&&( abs(Last_Value_Yaw) == 1.0 ))
     {
-        if (( arg1 == 0 )&&( abs(Last_Value_Yaw) == 1.0 ))
-        {
-            renderer->GetActiveCamera()->Yaw(double (-Last_Value_Yaw));
-        }
-        else if ((arg1 == 0 )&&( Last_Value_Yaw =! 0.0 ))
-        {
-            renderer->GetActiveCamera()->Yaw(double (-arg1));
-        }
-        else
-        {
-            arg1 = arg1-Last_Value_Yaw;
-            renderer->GetActiveCamera()->Yaw(double (arg1));
-        }
+        renderer->GetActiveCamera()->Yaw(double (-Last_Value_Yaw));
+    }
+    else if ((arg1 == 0 )&&( Last_Value_Yaw =! 0.0 ))
+    {
+        renderer->GetActiveCamera()->Yaw(double (-arg1));
     }
     else
     {
-        if (ListOfRenderers.size() > 0 )
-        {
-            if (( arg1 == 0 )&&( abs(Last_Value_Yaw) == 1.0 ))
-            {
-                ListOfRenderers[0]->GetActiveCamera()->Yaw(double (-Last_Value_Yaw));
-            }
-            else if ((arg1 == 0 )&&( Last_Value_Yaw =! 0.0 ))
-            {
-                ListOfRenderers[0]->GetActiveCamera()->Yaw(double (-arg1));
-            }
-            else
-            {
-                arg1 = arg1-Last_Value_Yaw;
-                ListOfRenderers[0]->GetActiveCamera()->Yaw(double (arg1));
-            }
-        }
+        arg1 = arg1-Last_Value_Yaw;
+        renderer->GetActiveCamera()->Yaw(double (arg1));
     }
     Last_Value_Yaw = Temp;
     renderWindow->Render();
@@ -333,15 +266,14 @@ void MainWindow::on_LoadModelButton_released()
 
     if (myFile.is_open()) //Check if file has been opened sucessfully, if so returns true
     {
-        // deletes the .mod or .txt file information that was loaded
-        if (ListOfRenderers.size() > 0 )
-        {
-            ui->Display_Window->GetRenderWindow()->RemoveRenderer(ListOfRenderers[0]);
-        }
-
+        ui->Display_Window->GetRenderWindow()->RemoveRenderer( renderer );
         //Initializes the orientationWidget so it can be used on different file types
         orientationWidget = vtkSmartPointer<vtkOrientationMarkerWidget>::New();
-        ListOfRenderers.clear();
+        //Initializes the renderer so it can be used on different file types
+        renderer = vtkSmartPointer<vtkRenderer>::New();
+
+        Init_CameraLight();
+        //clearing all previous data ensures there is no overlap of images from one loaded file to the next
         ListOfMappers.clear();
         ListOfUgs.clear();
         ListOfActors_tetra.clear();
@@ -351,7 +283,7 @@ void MainWindow::on_LoadModelButton_released()
         ui->List_Of_Pyramids->clear();
         ui->List_Of_Tetras->clear();
         ui->List_Of_Hexahedrons->clear();
-
+        //finds the file extension
         std::size_t found = FilePath.find_last_of(".");
         std::cout << "File type is: " << FilePath.substr(found+1) << std::endl;
         std::string FileType = FilePath.substr(found+1);
@@ -359,30 +291,15 @@ void MainWindow::on_LoadModelButton_released()
         if(FileType.compare("stl") == 0 )
         {
             LoadedFileType = true;
+            //Established the pipeline for rendering an image
             reader->SetFileName(FilePath.data());
             mapper->SetInputConnection( reader->GetOutputPort() );
-            renderer->ResetCameraClippingRange();
             reader->Update();
-
             actor->SetMapper(mapper);
-            actor->GetProperty()->EdgeVisibilityOff();
-            actor->GetProperty()->SetColor( colors->GetColor3d("Green").GetData() );
-
-            ui->Display_Window->GetRenderWindow()->AddRenderer( renderer );
-
+            actor->GetProperty()->EdgeVisibilityOff();  //Turning this on would allow the user to see the triangels that make up the faces of an object
+            actor->GetProperty()->SetColor( colors->GetColor3d("Green").GetData() ); //Using ColorSetNames header file you can set folors this way
             renderer->AddActor(actor);
-            renderer->SetBackground( colors->GetColor3d("Black").GetData() );
-            renderer->GetActiveCamera()->SetPosition(2.0 ,3.0, 5.0);
-            renderer->GetActiveCamera()->SetFocalPoint(0.0 ,0.0, 0.0);
-
-            orientationWidget->SetOrientationMarker( axes );
-            orientationWidget->SetInteractor(ui->Display_Window->GetRenderWindow()->GetInteractor());
-            orientationWidget->SetEnabled(1);
-            orientationWidget->InteractiveOff();
-
-            renderer->ResetCamera();
-            renderWindow->Render();
-
+            ui->Display_Window->GetRenderWindow()->AddRenderer( renderer );
         }
         else if ((FileType.compare("txt") == 0 ) || (FileType.compare("mod")) == 0)
         {
@@ -393,18 +310,13 @@ void MainWindow::on_LoadModelButton_released()
             unsigned int pyramid_count = 0;
             unsigned int hexahedron_count = 0;
             unsigned int triangle_count = 0;
-
-            unsigned int tetra_actor_count = 0;
-            unsigned int pryamid_actor_count = 0;
-            unsigned int hexahedron_actor_count = 0;
-
+            //Initialiing data sets insures no data from previouly loaded files is present
             points->Initialize();
+            TriangleArray->Initialize();
             Model Empty;
             ModelOne = Empty;
             ModelOne.Load_Model(FilePath);
-            vtkSmartPointer<vtkRenderer> Renderer = vtkSmartPointer<vtkRenderer>::New();
-            ListOfRenderers.push_back(Renderer);
-            ui->Display_Window->GetRenderWindow()->AddRenderer( ListOfRenderers[0] );
+            ui->Display_Window->GetRenderWindow()->AddRenderer( renderer );
 
             std::string col;
             std::stringstream testing;
@@ -417,27 +329,27 @@ void MainWindow::on_LoadModelButton_released()
                                   ModelOne.Get_Vectors()[i].GetZVector()};
                 points->InsertNextPoint(Data);
             }
-            for (unsigned int i = 0; i < ModelOne.Get_Cell_Order().size(); i++)
-            {
-                cellArray->Initialize();
-                TriangleArray->Initialize();
 
+            for (unsigned int i = 0; i < ModelOne.Get_Cell_Order().size(); i++)
+            {   //This creates a Mapper for each cell. This is required so eaxh cell can have a different actor color is the most used property of the actor in this project
                 vtkSmartPointer<vtkDataSetMapper> mapper = vtkSmartPointer<vtkDataSetMapper>::New();
                 ListOfMappers.push_back(mapper);
-
-                vtkSmartPointer<vtkActor> actor = vtkSmartPointer<vtkActor>::New();
 
                 vtkSmartPointer<vtkUnstructuredGrid> ug = vtkSmartPointer<vtkUnstructuredGrid>::New();
                 ListOfUgs.push_back(ug);
 
-                // This is baics shape reader needs changing for loading more complex shapes
+                vtkSmartPointer<vtkActor> actor = vtkSmartPointer<vtkActor>::New();
+
                 Cell Test = *ModelOne.Get_Cells()[i];
+                //After loading the cell we need to sort them by type. Then we can load the Vector points in the same order
+                //As denoted by Cell.hpp
                 if (ModelOne.Get_Cell_Order()[i] == 't')
                 {
                     ListOfActors_tetra.push_back(actor);
                     ListOfUgs[i]->SetPoints(points);
                     vtkSmartPointer<vtkTetra> tetra = vtkSmartPointer<vtkTetra>::New();
                     ListOfTetras.push_back(tetra);
+                    //Sets point ID for each point being loaded in the tetra
                     for (vtkIdType vtkId = 0; vtkId < 4; vtkId++)
                     {
                         ListOfTetras[tetra_count]->GetPointIds()->SetId(vtkId, vtkIdType (Test.Get_Vertices_Order()[vtkId]) );
@@ -475,11 +387,12 @@ void MainWindow::on_LoadModelButton_released()
                     TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
                     triangle_count++;
 
-                    cellArray->InsertNextCell(ListOfTetras[tetra_count]);
+                    //After the Triangels are loaded the pipeline for rendering needs to be established
                     ListOfUgs[i]->InsertNextCell(tetra->GetCellType(), ListOfTetras[tetra_count]->GetPointIds());
                     ListOfMappers[i]->SetInputData(ListOfUgs[i]);
-                    ListOfActors_tetra[tetra_actor_count]->SetMapper(ListOfMappers[i]);
+                    ListOfActors_tetra[tetra_count]->SetMapper(ListOfMappers[i]);
 
+                    //This sets the colour from the material after it is remmapped it is applied to the actor
                     col =  Test.Get_Material().GetColour();
                     std::string RGB_Red = col.substr(0,2);
                     std::string RGB_Green = col.substr(2,2);
@@ -497,12 +410,11 @@ void MainWindow::on_LoadModelButton_released()
                     std::istringstream(RGB_Blue) >> std::hex >> Blue;
                     double Blue_remapped = (0.0 + (1.0 - 0.0) * ((Blue - 0.0) / (255 - 0.0)));
 
-                    ListOfActors_tetra[tetra_actor_count]->GetProperty()->SetColor(Red_remapped,Green_remapped,Blue_remapped);
-                    ListOfRenderers[0]->AddActor(ListOfActors_tetra[tetra_actor_count]);
-
+                    ListOfActors_tetra[tetra_count]->GetProperty()->SetColor(Red_remapped,Green_remapped,Blue_remapped);
+                    renderer->AddActor(ListOfActors_tetra[tetra_count]);
+                    //This addes the cell to a Combo Box so that it can be selected for stats from a different button
                     ui->List_Of_Tetras->addItem("Tetrahedron "  + (QString::number(tetra_count + 1)) );
 
-                    tetra_actor_count++;
                     tetra_count++;
                 }
 
@@ -512,11 +424,12 @@ void MainWindow::on_LoadModelButton_released()
                     ListOfUgs[i]->SetPoints(points);
                     vtkSmartPointer<vtkPyramid> pyramid = vtkSmartPointer<vtkPyramid>::New();
                     ListOfPyramids.push_back(pyramid);
+
                     for (vtkIdType vtkId = 0; vtkId < 5; vtkId++)
                     {
                         ListOfPyramids[pyramid_count]->GetPointIds()->SetId(vtkId, vtkIdType (Test.Get_Vertices_Order()[vtkId]) );
                     }
-                    //Loading triangles
+
                     vtkSmartPointer<vtkTriangle> triangle_Pyramid_0 = vtkSmartPointer<vtkTriangle>::New();
                     ListOfTriangles.push_back(triangle_Pyramid_0);
                     ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[0]) );
@@ -565,10 +478,10 @@ void MainWindow::on_LoadModelButton_released()
                     TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
                     triangle_count++;
 
-                    cellArray->InsertNextCell (ListOfPyramids[pyramid_count]);
                     ListOfUgs[i]->InsertNextCell(pyramid->GetCellType(), ListOfPyramids[pyramid_count]->GetPointIds());
                     ListOfMappers[i]->SetInputData(ListOfUgs[i]);
-                    ListOfActors_pyramid[pryamid_actor_count]->SetMapper(ListOfMappers[i]);
+                    ListOfActors_pyramid[pyramid_count]->SetMapper(ListOfMappers[i]);
+
                     col =  Test.Get_Material().GetColour();
                     std::string RGB_Red = col.substr(0,2);
                     std::string RGB_Green = col.substr(2,2);
@@ -587,12 +500,11 @@ void MainWindow::on_LoadModelButton_released()
                     std::istringstream(RGB_Blue) >> std::hex >> Blue;
                     double Blue_remapped = (0.0 + (1.0 - 0.0) * ((Blue - 0.0) / (255 - 0.0)));
 
-                    ListOfActors_pyramid[pryamid_actor_count]->GetProperty()->SetColor(Red_remapped,Green_remapped,Blue_remapped);
-                    ListOfRenderers[0]->AddActor(ListOfActors_pyramid[pryamid_actor_count]);
+                    ListOfActors_pyramid[pyramid_count]->GetProperty()->SetColor(Red_remapped,Green_remapped,Blue_remapped);
+                    renderer->AddActor(ListOfActors_pyramid[pyramid_count]);
 
                     ui->List_Of_Pyramids->addItem("Pyramid " + (QString::number(pyramid_count + 1)) );
 
-                    pryamid_actor_count++;
                     pyramid_count++;
                 }
 
@@ -603,6 +515,7 @@ void MainWindow::on_LoadModelButton_released()
                     ListOfUgs[i]->SetPoints(points);
                     vtkSmartPointer<vtkHexahedron> hex = vtkSmartPointer<vtkHexahedron>::New();
                     ListOfHexs.push_back(hex);
+
                     for ( vtkIdType vtkId = 0; vtkId < 8; vtkId++)
                     {
                         ListOfHexs[hexahedron_count]->GetPointIds()->SetId(vtkId, vtkIdType (Test.Get_Vertices_Order()[vtkId]) );
@@ -704,10 +617,9 @@ void MainWindow::on_LoadModelButton_released()
                     TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
                     triangle_count++;
 
-                    cellArray->InsertNextCell(ListOfHexs[hexahedron_count]);
                     ListOfUgs[i]->InsertNextCell(VTK_HEXAHEDRON, ListOfHexs[hexahedron_count]->GetPointIds() );
                     ListOfMappers[i]->SetInputData(ListOfUgs[i]);
-                    ListOfActors_hexahedron[hexahedron_actor_count]->SetMapper(ListOfMappers[i]);
+                    ListOfActors_hexahedron[hexahedron_count]->SetMapper(ListOfMappers[i]);
 
                     col =  Test.Get_Material().GetColour();
                     std::string RGB_Red = col.substr(0,2);
@@ -726,32 +638,18 @@ void MainWindow::on_LoadModelButton_released()
                     std::istringstream(RGB_Blue) >> std::hex >> Blue;
                     double Blue_remapped = (0.0 + (1.0 - 0.0) * ((Blue - 0.0) / (255 - 0.0)));
 
-                    ListOfActors_hexahedron[hexahedron_actor_count]->GetProperty()->SetColor(Red_remapped,Green_remapped,Blue_remapped);
-                    ListOfRenderers[0]->AddActor(ListOfActors_hexahedron[hexahedron_actor_count]);
+                    ListOfActors_hexahedron[hexahedron_count]->GetProperty()->SetColor(Red_remapped,Green_remapped,Blue_remapped);
+                    renderer->AddActor(ListOfActors_hexahedron[hexahedron_count]);
 
                     ui->List_Of_Hexahedrons->addItem("Hexahedron " + (QString::number(hexahedron_count + 1)) );
 
-                    hexahedron_actor_count++;
                     hexahedron_count++;
-                    /*
-                    polydata->Initialize();
-                    polydata->SetPolys(cellArray);
-                    polydata->SetPolys(TriangleArray);
-                    polydata->SetPoints(points);
-
-                    QString NewSTLFilePath = QFileDialog::getSaveFileName(this, tr("Save File: "),
-                                                                          "../../example_models/New stl file",tr("Stl (*.stl)"));
-                    std::string STLFilePath = NewSTLFilePath.toUtf8().constData();
-                    stlWriter->SetFileName(STLFilePath.c_str());
-                    stlWriter->SetInputData(polydata);
-                    stlWriter->Write();
-*/
-
                 }
             }
-            /*
+            //This saving process is automatic after a MOD/TXT is load. The company (Brief Sheet) said an object was to eventualy
+            //Move the company to using only STL files for recent projects
+            //This get the polydata ready to be written by yhr STLwriter
             polydata->Initialize();
-            polydata->SetPolys(cellArray);
             polydata->SetPolys(TriangleArray);
             polydata->SetPoints(points);
 
@@ -759,24 +657,24 @@ void MainWindow::on_LoadModelButton_released()
                                                                   "../../example_models/New stl file",tr("Stl (*.stl)"));
             std::string STLFilePath = NewSTLFilePath.toUtf8().constData();
             stlWriter->SetFileName(STLFilePath.c_str());
+            //Established data input for the writer
             stlWriter->SetInputData(polydata);
             stlWriter->Write();
-
-            std::cout << polydata->GetNumberOfPolys() << std::endl;
-            */
-            ListOfRenderers[0]->ResetCameraClippingRange();
-            ListOfRenderers[0]->SetBackground( colors->GetColor3d("Black").GetData() );
-            ListOfRenderers[0]->GetActiveCamera()->SetPosition(10.0 ,15.0, 10.0);
-            ListOfRenderers[0]->GetActiveCamera()->SetFocalPoint(0.0 ,0.0, 0.0);
-
-            orientationWidget->SetOrientationMarker( axes );
-            orientationWidget->SetInteractor(ui->Display_Window->GetRenderWindow()->GetInteractor());
-            orientationWidget->SetEnabled(1);
-            orientationWidget->InteractiveOff();
-
-            ListOfRenderers[0]->ResetCamera();
-            renderWindow->Render();
         }
+
+        //This process is the same for both STL and MOD/TXT files
+        renderer->ResetCameraClippingRange();
+        renderer->SetBackground( colors->GetColor3d("Black").GetData() );
+        renderer->GetActiveCamera()->SetPosition(50.0 ,50.0, 50.0);
+        renderer->GetActiveCamera()->SetFocalPoint(0.0 ,0.0, 0.0);
+        //This adds the X-Y-Z axis markers and moves them as the view point changes
+        orientationWidget->SetOrientationMarker( axes );
+        orientationWidget->SetInteractor(ui->Display_Window->GetRenderWindow()->GetInteractor());
+        orientationWidget->SetEnabled(1);
+        orientationWidget->InteractiveOff();
+
+        renderer->ResetCamera();
+        renderWindow->Render();
     }
 }
 
@@ -792,7 +690,7 @@ void MainWindow::on_LoadLightsButton_released()
 
     std::ifstream myFile(FilePath);
 
-    if (myFile.is_open()) //Check if file has been opened sucessfully, if so returns true
+    if (myFile.is_open())
     {
         std::string currentLine;
         std::string compare ("Camera Light");
@@ -965,7 +863,6 @@ void MainWindow::on_LoadLightsButton_released()
                             }
                         }
                         ListOfLights.back().light->SetConeAngle( std::stod (temp) );
-                        //std::cout << ListOfLights.at(ListofLightsPosition).light->GetConeAngle() << std::endl;
                     }
                     if ((currentLine.compare(5,6, "Switch")) == 0 )
                     {
@@ -1009,7 +906,6 @@ void MainWindow::on_LoadLightsButton_released()
                                     temp.push_back(currentLine[currentPosition]);
                             }
                         }
-
                         if (temp.compare(0, 3, "Off") == 0)
                         {
                             ListOfLights.back().light->PositionalOff();
@@ -1031,11 +927,10 @@ void MainWindow::on_LoadLightsButton_released()
 
 void MainWindow::on_SaveLightsButton_released()
 {
-    // This opens a Dialog box that sets the PATH and file name of the file to be saved
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save Light File"),
                                                     "ListOfLights",tr("Doc (*.txt)"));
     QFile file(fileName);
-
+    //This redirects the ostream so that the print self function can be diected to a file for saving
     std::streambuf *psbuf;
     auto *coutbuf = std::cout.rdbuf();
     std::ofstream filestr;
@@ -1054,14 +949,13 @@ void MainWindow::on_SaveLightsButton_released()
         }
         filestr.flush();
         filestr.close();
-        std::cout.rdbuf(coutbuf);
+        std::cout.rdbuf(coutbuf); // IMPORTANT // Redirecting the buffer back to the ostream
     }
 }
 
 void MainWindow::on_Edit_Light_clicked()
 {
     // This ensures a light has been created before t can be selected to be edited
-
     if(ui->Select_Light->currentIndex() > -1)
     {
         Edit_LightDialog =new Edit_Light(this);
@@ -1075,14 +969,13 @@ void MainWindow::on_Delete_Light_released()
 {
     // There will be a recall of Deleted light function to recover
     // Accidentally deleted lights during the users current session
-    // Also, A save&load list of loghts function will be added
-
+    // Also, A save&load list of lights function will be added
     int LightToDelete = ui->Select_Light->currentIndex();
     if(ui->Select_Light->currentIndex() > 0)
     {
         ui->Select_Light->removeItem(ui->Select_Light->currentIndex());
         renderer->RemoveLight(ListOfLights.at(LightToDelete).light);
-        // ListOfLights.at(LightToDelete).light->SwitchOff();
+        // ListOfLights.at(LightToDelete).light->SwitchOff();  // Code for future upgrade
         // add a light recall function and save the list of lights to be loaded later
         ListOfLights.erase(ListOfLights.begin()+LightToDelete);
     }
@@ -1128,21 +1021,23 @@ void MainWindow::SetLightData(double *Data, std::string currentLine)
 
 void MainWindow::on_AddRulerPushButton_released()
 {
+    //adds a distance widget (Ruler)
     distanceWidget = vtkSmartPointer<vtkDistanceWidget>::New();
     distanceWidget->SetInteractor(ui->Display_Window->GetRenderWindow()->GetInteractor());
     distanceWidget->CreateDefaultRepresentation();
-    renderWindow->Render();
     distanceWidget->On();
+    renderWindow->Render();
 }
 
 void MainWindow::on_RemoveRulerPushButton_released()
 {
+    //Turns off the Ruler
     distanceWidget->Off();
     renderWindow->Render();
 }
 
 void MainWindow::on_Model_Statistics_released()
-{
+{   //This function only works on MOD/TXT files using Semester 1's Library's
     if (LoadedFileType == false)
     {
         QMessageBox Statistics;
@@ -1178,12 +1073,14 @@ void MainWindow::on_Model_Statistics_released()
 
 void MainWindow::on_Tetra_Highlight_clicked()
 {
+  //This function only works on MOD/STL files. It highlights a selected file. Only one Cell of all types can be highlighted at a time
     if (LoadedFileType == false)
     {
         if (ui->Tetra_Highlight->isChecked())
         {
             ListOfActors_tetra[(ui->List_Of_Tetras->currentIndex())]->GetProperty()->GetColor(Temp_Tetra_color_red, Temp_Tetra_color_green, Temp_Tetra_color_blue);
             ListOfActors_tetra[(ui->List_Of_Tetras->currentIndex())]->GetProperty()->SetColor(Highlight_red, Highlight_green, Highlight_blue);
+            //This prevents the user from changing Cells while a checkbox is checked.
             ui->List_Of_Tetras->setEnabled(false);
 
             ui->List_Of_Pyramids->setEnabled(true);
@@ -1192,7 +1089,7 @@ void MainWindow::on_Tetra_Highlight_clicked()
             ui->Hexahedron_Highlight->setChecked(false);
         }
         else
-        {
+        {   //Returns the cell to its original colour
             ListOfActors_tetra[(ui->List_Of_Tetras->currentIndex())]->GetProperty()->SetColor(Temp_Tetra_color_red, Temp_Tetra_color_green, Temp_Tetra_color_blue);
             ui->List_Of_Tetras->setEnabled(true);
         }
@@ -1262,10 +1159,8 @@ void MainWindow::on_Highlight_released()
   if (LoadedFileType == false)
   {
     QColor Color = QColorDialog::getColor(Qt::white,this,"Choose Color");
-    //checks to ensure that the selector color is valid
     if(Color.isValid())
     {
-        //converts the QColor to RGB values ranging from 0.0 through 1.0 to be used by SetColor function
         Highlight_red = Color.redF();
         Highlight_green = Color.greenF();
         Highlight_blue = Color.blueF();
@@ -1275,15 +1170,14 @@ void MainWindow::on_Highlight_released()
 }
 
 void MainWindow::on_Cell_Statistics_released()
-{
+{   //This function only works on MOD/TXT files
     if (LoadedFileType == false)
     {
         QMessageBox Statistics;
         if(ui->Tetra_Highlight->checkState() == 2)
         {
             Statistics.setWindowTitle("Highlight Tetrahedron Statistics");
-
-            int Tetra_count = 0; // Needs to be int to match type of currentIndex() return
+            int Tetra_count = 0; // Needs to be int to match type of currentIndex() return value
 
             for (unsigned int i = 0; i < ModelOne.Get_Cell_Order().size(); i++)
             {
@@ -1291,16 +1185,18 @@ void MainWindow::on_Cell_Statistics_released()
                 {
                     if (Tetra_count == ui->List_Of_Tetras->currentIndex() )
                     {
+                        //Redirecting the ostream works well in this case because custom std::cout functions where
+                        //written for each class Cell, Vectors, and Material
                         auto *coutbuf = std::cout.rdbuf();
                         std::stringstream buffer;
                         std::streambuf *old = std::cout.rdbuf(buffer.rdbuf());
 
-                        Cell *Test = new Tetrahedron();
+                        Cell *Test = new Tetrahedron(); // Creating a cell of a type is needed here in order to use it overloaded functions
                         Test = ModelOne.Get_Cells()[i];
 
                         std::cout << Test->Get_Material() << std::endl;
                         std::string redirect = buffer.str();
-                        std::cout.rdbuf(coutbuf);
+                        std::cout.rdbuf(coutbuf);  //IMPORTANT // Redirecting the buffer back to the ostream
 
                         QString Material = QString::fromStdString(redirect);
                         QString Density  = QString::number((Test->Get_Weight()/Test->Get_Volume() ));
@@ -1313,7 +1209,8 @@ void MainWindow::on_Cell_Statistics_released()
                                        "Z: " +  QString::number(Centre_Of_Gravity.GetZVector()));
 
                         std::vector<Vectors> Vertices = Test->Get_Vertices();
-
+                        //Strickly two stream buffers might not be needed but if the buffer is flushed after each use
+                        //Doing it this way helps keep it clear what belongs to each buffer
                         std::stringstream buffer_2;
                         std::streambuf *old_2 = std::cout.rdbuf(buffer_2.rdbuf());
 
@@ -1323,7 +1220,7 @@ void MainWindow::on_Cell_Statistics_released()
                         }
 
                         std::string Tetra_Points = buffer_2.str();
-                        std::cout.rdbuf(coutbuf);
+                        std::cout.rdbuf(coutbuf);  //IMPORTANT // Redirecting the buffer back to the ostream
 
                         QString Points = QString::fromStdString(Tetra_Points);
 
@@ -1332,7 +1229,7 @@ void MainWindow::on_Cell_Statistics_released()
                                             "Volume: "  + Volume  + "\n" +
                                             "Centre Of Gravity: " + COG  + "\n" +
                                             "Vectors:\n" + Points);
-                        Statistics.exec();
+                        Statistics.exec(); //This window must be closed before the user can interact withthe rest of the program
                     }
                     Tetra_count++;
                 }
@@ -1340,10 +1237,10 @@ void MainWindow::on_Cell_Statistics_released()
         }
 
         if(ui->Pyramid_Highlight->checkState() == 2)
-        {
+        {   //Same as Tetra but with Tetra cell functions
             Statistics.setWindowTitle("Highlight Pyramid Statistics");
 
-            int Pyramid_count = 0; // Needs to be int to match type of currentIndex() return
+            int Pyramid_count = 0;
 
             for (unsigned int i = 0; i < ModelOne.Get_Cell_Order().size(); i++)
             {
@@ -1377,7 +1274,7 @@ void MainWindow::on_Cell_Statistics_released()
                         std::stringstream buffer_2;
                         std::streambuf *old_2 = std::cout.rdbuf(buffer_2.rdbuf());
 
-                        for (unsigned int i = 0 ; i < 5 ; i++)
+                        for (unsigned int i = 0 ; i < Vertices.size() ; i++)
                         {
                             std::cout << Vertices[i] << std::endl;
                         }
@@ -1400,10 +1297,10 @@ void MainWindow::on_Cell_Statistics_released()
         }
 
         if(ui->Hexahedron_Highlight->checkState() == 2)
-        {
+        {   //Same as Tetra but with Tetra cell functions
             Statistics.setWindowTitle("Highlight Hexahedron Statistics");
 
-            int Hexahedron_count = 0; // Needs to be int to match type of currentIndex() return
+            int Hexahedron_count = 0;
 
             for (unsigned int i = 0; i < ModelOne.Get_Cell_Order().size(); i++)
             {
@@ -1437,7 +1334,7 @@ void MainWindow::on_Cell_Statistics_released()
                         std::stringstream buffer_2;
                         std::streambuf *old_2 = std::cout.rdbuf(buffer_2.rdbuf());
 
-                        for (unsigned int i = 0 ; i < 8 ; i++)
+                        for (unsigned int i = 0 ; i < Vertices.size() ; i++)
                         {
                             std::cout << Vertices[i] << std::endl;
                         }

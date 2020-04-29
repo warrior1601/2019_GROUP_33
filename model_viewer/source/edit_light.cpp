@@ -1,6 +1,4 @@
 //--------------------edit_light.cpp--------------------//
-
-
 // edit_light.cpp
 // WorkSheet 6 Computing Project
 // Edited By Jedidiah Paterson on 02/22/2020.
@@ -102,7 +100,6 @@ void Edit_Light::on_Diffuse_Colour_released()
         double blue = Color.blueF();
         light_Local->light->SetDiffuseColor( red, green, blue );
     }
-    //rerenders the window after the color change
     renderWindow->Render();
 }
 
