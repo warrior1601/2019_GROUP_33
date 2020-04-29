@@ -27,6 +27,8 @@
 #include <vtkSTLReader.h>
 #include <vtkSmartPointer.h>
 
+#include <vtkRenderer.h>
+
 namespace Ui {
 class Filters;
 }

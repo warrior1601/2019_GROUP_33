@@ -312,10 +312,6 @@ void MainWindow::on_LoadModelButton_released()
             unsigned int hexahedron_count = 0;
             unsigned int triangle_count = 0;
 
-            unsigned int tetra_actor_count = 0;
-            unsigned int pryamid_actor_count = 0;
-            unsigned int hexahedron_actor_count = 0;
-
             points->Initialize();
             Model Empty;
             ModelOne = Empty;
@@ -353,6 +349,10 @@ void MainWindow::on_LoadModelButton_released()
                     ListOfUgs[i]->SetPoints(points);
                     vtkSmartPointer<vtkTetra> tetra = vtkSmartPointer<vtkTetra>::New();
                     ListOfTetras.push_back(tetra);
+
+                    vtkSmartPointer<vtkPolyData> TetraPoly = vtkSmartPointer<vtkPolyData>::New();
+                    vtkSmartPointer<vtkCellArray> TetraCell = vtkSmartPointer<vtkCellArray>::New();
+
                     for (vtkIdType vtkId = 0; vtkId < 4; vtkId++)
                     {
                         ListOfTetras[tetra_count]->GetPointIds()->SetId(vtkId, vtkIdType (Test.Get_Vertices_Order()[vtkId]) );
@@ -390,10 +390,11 @@ void MainWindow::on_LoadModelButton_released()
                     TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
                     triangle_count++;
 
+                    TetraCell->InsertNextCell(ListOfTetras[tetra_count]);
                     cellArray->InsertNextCell(ListOfTetras[tetra_count]);
                     ListOfUgs[i]->InsertNextCell(tetra->GetCellType(), ListOfTetras[tetra_count]->GetPointIds());
                     ListOfMappers[i]->SetInputData(ListOfUgs[i]);
-                    ListOfActors_tetra[tetra_actor_count]->SetMapper(ListOfMappers[i]);
+                    ListOfActors_tetra[tetra_count]->SetMapper(ListOfMappers[i]);
 
                     col =  Test.Get_Material().GetColour();
                     std::string RGB_Red = col.substr(0,2);
@@ -412,12 +413,14 @@ void MainWindow::on_LoadModelButton_released()
                     std::istringstream(RGB_Blue) >> std::hex >> Blue;
                     double Blue_remapped = (0.0 + (1.0 - 0.0) * ((Blue - 0.0) / (255 - 0.0)));
 
-                    ListOfActors_tetra[tetra_actor_count]->GetProperty()->SetColor(Red_remapped,Green_remapped,Blue_remapped);
-                    renderer->AddActor(ListOfActors_tetra[tetra_actor_count]);
+                    ListOfActors_tetra[tetra_count]->GetProperty()->SetColor(Red_remapped,Green_remapped,Blue_remapped);
+                    renderer->AddActor(ListOfActors_tetra[tetra_count]);
 
                     ui->List_Of_Tetras->addItem("Tetrahedron "  + (QString::number(tetra_count + 1)) );
 
-                    tetra_actor_count++;
+                    TetraPoly->SetPolys(TetraCell);
+                    ListOfPolydata.push_back(TetraPoly);
+
                     tetra_count++;
                 }
 
@@ -427,6 +430,10 @@ void MainWindow::on_LoadModelButton_released()
                     ListOfUgs[i]->SetPoints(points);
                     vtkSmartPointer<vtkPyramid> pyramid = vtkSmartPointer<vtkPyramid>::New();
                     ListOfPyramids.push_back(pyramid);
+
+                    vtkSmartPointer<vtkPolyData> PyramidPoly = vtkSmartPointer<vtkPolyData>::New();
+                    vtkSmartPointer<vtkCellArray> PyramidCell = vtkSmartPointer<vtkCellArray>::New();
+
                     for (vtkIdType vtkId = 0; vtkId < 5; vtkId++)
                     {
                         ListOfPyramids[pyramid_count]->GetPointIds()->SetId(vtkId, vtkIdType (Test.Get_Vertices_Order()[vtkId]) );
@@ -480,10 +487,12 @@ void MainWindow::on_LoadModelButton_released()
                     TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
                     triangle_count++;
 
-                    cellArray->InsertNextCell (ListOfPyramids[pyramid_count]);
+                    PyramidCell->InsertNextCell(ListOfPyramids[pyramid_count]);
+                    cellArray->InsertNextCell(ListOfPyramids[pyramid_count]);
                     ListOfUgs[i]->InsertNextCell(pyramid->GetCellType(), ListOfPyramids[pyramid_count]->GetPointIds());
                     ListOfMappers[i]->SetInputData(ListOfUgs[i]);
-                    ListOfActors_pyramid[pryamid_actor_count]->SetMapper(ListOfMappers[i]);
+                    ListOfActors_pyramid[pyramid_count]->SetMapper(ListOfMappers[i]);
+
                     col =  Test.Get_Material().GetColour();
                     std::string RGB_Red = col.substr(0,2);
                     std::string RGB_Green = col.substr(2,2);
@@ -502,12 +511,13 @@ void MainWindow::on_LoadModelButton_released()
                     std::istringstream(RGB_Blue) >> std::hex >> Blue;
                     double Blue_remapped = (0.0 + (1.0 - 0.0) * ((Blue - 0.0) / (255 - 0.0)));
 
-                    ListOfActors_pyramid[pryamid_actor_count]->GetProperty()->SetColor(Red_remapped,Green_remapped,Blue_remapped);
-                    renderer->AddActor(ListOfActors_pyramid[pryamid_actor_count]);
+                    ListOfActors_pyramid[pyramid_count]->GetProperty()->SetColor(Red_remapped,Green_remapped,Blue_remapped);
+                    renderer->AddActor(ListOfActors_pyramid[pyramid_count]);
 
                     ui->List_Of_Pyramids->addItem("Pyramid " + (QString::number(pyramid_count + 1)) );
 
-                    pryamid_actor_count++;
+                    PyramidPoly->SetPolys(PyramidCell);
+                    ListOfPolydata.push_back(PyramidPoly);
                     pyramid_count++;
                 }
 
@@ -626,7 +636,7 @@ void MainWindow::on_LoadModelButton_released()
                     cellArray->InsertNextCell(ListOfHexs[hexahedron_count]);
                     ListOfUgs[i]->InsertNextCell(VTK_HEXAHEDRON, ListOfHexs[hexahedron_count]->GetPointIds() );
                     ListOfMappers[i]->SetInputData(ListOfUgs[i]);
-                    ListOfActors_hexahedron[hexahedron_actor_count]->SetMapper(ListOfMappers[i]);
+                    ListOfActors_hexahedron[hexahedron_count]->SetMapper(ListOfMappers[i]);
 
                     col =  Test.Get_Material().GetColour();
                     std::string RGB_Red = col.substr(0,2);
@@ -645,15 +655,14 @@ void MainWindow::on_LoadModelButton_released()
                     std::istringstream(RGB_Blue) >> std::hex >> Blue;
                     double Blue_remapped = (0.0 + (1.0 - 0.0) * ((Blue - 0.0) / (255 - 0.0)));
 
-                    ListOfActors_hexahedron[hexahedron_actor_count]->GetProperty()->SetColor(Red_remapped,Green_remapped,Blue_remapped);
-                    renderer->AddActor(ListOfActors_hexahedron[hexahedron_actor_count]);
+                    ListOfActors_hexahedron[hexahedron_count]->GetProperty()->SetColor(Red_remapped,Green_remapped,Blue_remapped);
+                    renderer->AddActor(ListOfActors_hexahedron[hexahedron_count]);
 
                     ui->List_Of_Hexahedrons->addItem("Hexahedron " + (QString::number(hexahedron_count + 1)) );
 
                     HexPoly->SetPolys(HexCell);
                     ListOfPolydata.push_back(HexPoly);
 
-                    hexahedron_actor_count++;
                     hexahedron_count++;
                     /*
                     polydata->Initialize();

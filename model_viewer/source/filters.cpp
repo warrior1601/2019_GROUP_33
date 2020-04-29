@@ -156,7 +156,7 @@ void Filters::on_Clipper_Filter_toggled(bool Clipper_Filter_Status)
     }
     else if ((Clipper_Filter_Status == false )&& (FileTypeSTL == false))
     {
-        //This is not the correct wat to return the data to is proper format
+        // This is not the correct wat to return the data to is proper format
         // But it is unlikely that an image will be this close to the edge of a double range/capacity
         planeLeft->SetOrigin(double(1e250), double(1e250), double(1e250));
         planeLeft->SetNormal(double(-1e250), double(-1e250), double(-1e250));
