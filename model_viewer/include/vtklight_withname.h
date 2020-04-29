@@ -40,34 +40,27 @@ public:
     // Access to the name of the light
 
     //--------------Special Member Functions--------------//
-    /**
-     * @brief This function allows the private member name to be set
+    /** @brief This function allows the private member name to be set
      */
     void SetName(const QString & name );
     // This function allows the name to be accessed
-    /**
-     * @brief Gets the string that allows the name to be used and displayed in a list
+    /** @brief Gets the string that allows the name to be used and displayed in a list
      */
     QString GetName();
     // This checks if the light is swithced ON or OFF
-    /**
-     * @brief This function allows the access to the On/Off state of the light so it can be turned on or off from the ui
+    /** @brief This function allows the access to the On/Off state of the light so it can be turned on or off from the ui
      */
     Qt::CheckState Check_State();
-
     // Overloaded function
-    /**
-     * @brief This allows for a light to be copied. This is currently not implimited but future releases of the program will allow the user to make copies of lights they have created
+    /** @brief This allows for a light to be copied. This is currently not implimited but future releases of the program will allow the user to make copies of lights they have created
      */
     vtkLight_WithName operator=(const vtkLight_WithName& Copy);
-    
-    
     // The vtkLight is pubic because it has its own accessor functions
     // Found in vtkLight.h
-    vtkSmartPointer<vtkLight> light; ///< All information about vtkLight can be found at https://vtk.org/doc/nightly/html/classvtkLight.html
+    vtkSmartPointer<vtkLight> light; ///< @brief All information about vtkLight can be found at https://vtk.org/doc/nightly/html/classvtkLight.html
     
 private:
-    QString Name; ///< This is the name of the light. This allows the user to recognize their lights by their own implementation
+    QString Name; ///< @brief This is the name of the light. This allows the user to recognize their lights by their own implementation
 };
 
 #endif // VTKLIGHT_WITHNAME_H
