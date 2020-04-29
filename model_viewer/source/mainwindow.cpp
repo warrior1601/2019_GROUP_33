@@ -143,7 +143,6 @@ void MainWindow::on_Change_Back_Ground_Color_released()
 //One comment to look at in this function
 void MainWindow::on_Reset_Camera_released()
 {
-
     double* CameraLocation = renderer->GetActiveCamera()->GetPosition();
     std::cout << "Camera Location: " << CameraLocation[0] << " " << CameraLocation[1] << " " << CameraLocation[2] << std::endl;
     renderer->ResetCamera();
@@ -260,8 +259,8 @@ void MainWindow::on_LoadModelButton_released()
     ui->Pyramid_Highlight->setCheckState(Qt::Unchecked);
     ui->Hexahedron_Highlight->setCheckState(Qt::Unchecked);
 
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), "../../../example_models",
-                                                    tr("STL Files(*.stl);;Text files (*.txt);;MOD Files(*.mod)"));
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open Model File"), "../../../example_models",
+                                                    tr("Model Files(*.stl *.txt *.mod)"));
     std::string FilePath = fileName.toUtf8().constData();
     std::ifstream myFile(FilePath);
 
@@ -686,7 +685,7 @@ void MainWindow::on_SaveModelButton_released()
 
 void MainWindow::on_LoadLightsButton_released()
 {
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Open STL File"), " ", tr("Doc(*.txt)"));
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open Light File"), "", tr("Doc(*.txt)"));
     std::string FilePath= fileName.toUtf8().constData();
 
     std::ifstream myFile(FilePath);
@@ -929,7 +928,7 @@ void MainWindow::on_LoadLightsButton_released()
 void MainWindow::on_SaveLightsButton_released()
 {
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save Light File"),
-                                                    "Light List",tr("Doc (*.txt)"));
+                                                    "ListOfLights",tr("Doc (*.txt)"));
     QFile file(fileName);
     //This redirects the ostream so that the print self function can be diected to a file for saving
     std::streambuf *psbuf;
@@ -1023,6 +1022,7 @@ void MainWindow::SetLightData(double *Data, std::string currentLine)
 void MainWindow::on_AddRulerPushButton_released()
 {
     //adds a distance widget (Ruler)
+    distanceWidget = vtkSmartPointer<vtkDistanceWidget>::New();
     distanceWidget->SetInteractor(ui->Display_Window->GetRenderWindow()->GetInteractor());
     distanceWidget->CreateDefaultRepresentation();
     distanceWidget->On();
@@ -1069,25 +1069,24 @@ void MainWindow::on_Model_Statistics_released()
                                                                 "Overall Dimensions: " + Overall);
         Statistics.exec();
     }
-    else
-    {
-        QMessageBox::critical(this, "Runtime Error", "Model statiscs are only available for models loaded from .mod or .txt files");
-    }
 }
 
-void MainWindow::on_Tetra_Highlight_stateChanged(int state)
-{   //This function only works on MOD/STL files. It highlights a selected file. Only one Cell of all types can be highlighted at a time
+void MainWindow::on_Tetra_Highlight_clicked()
+{
+  //This function only works on MOD/STL files. It highlights a selected file. Only one Cell of all types can be highlighted at a time
     if (LoadedFileType == false)
     {
-        if (state == 2)
-        {   //This stores the current value so that it can be set back to its original colour
+        if (ui->Tetra_Highlight->isChecked())
+        {
             ListOfActors_tetra[(ui->List_Of_Tetras->currentIndex())]->GetProperty()->GetColor(Temp_Tetra_color_red, Temp_Tetra_color_green, Temp_Tetra_color_blue);
             ListOfActors_tetra[(ui->List_Of_Tetras->currentIndex())]->GetProperty()->SetColor(Highlight_red, Highlight_green, Highlight_blue);
             //This prevents the user from changing Cells while a checkbox is checked.
             ui->List_Of_Tetras->setEnabled(false);
-            // This ensures that the other checkboxes are unchecked. This prevents an error for ocurring
-            ui->Pyramid_Highlight->setCheckState(Qt::Unchecked);
-            ui->Hexahedron_Highlight->setCheckState(Qt::Unchecked);
+
+            ui->List_Of_Pyramids->setEnabled(true);
+            ui->List_Of_Hexahedrons->setEnabled(true);
+            ui->Pyramid_Highlight->setChecked(false);
+            ui->Hexahedron_Highlight->setChecked(false);
         }
         else
         {   //Returns the cell to its original colour
@@ -1096,19 +1095,25 @@ void MainWindow::on_Tetra_Highlight_stateChanged(int state)
         }
         renderWindow->Render();
     }
+
+    else
+      ui->Tetra_Highlight->setChecked(false);
 }
 
-void MainWindow::on_Pyramid_Highlight_stateChanged(int state)
+void MainWindow::on_Pyramid_Highlight_clicked()
 {
     if (LoadedFileType == false)
     {
-        if (state == 2)
+        if (ui->Pyramid_Highlight->isChecked())
         {
             ListOfActors_pyramid[(ui->List_Of_Pyramids->currentIndex())]->GetProperty()->GetColor(Temp_Pyramid_color_red, Temp_Pyramid_color_green, Temp_Pyramid_color_blue);
             ListOfActors_pyramid[(ui->List_Of_Pyramids->currentIndex())]->GetProperty()->SetColor(Highlight_red, Highlight_green, Highlight_blue);
             ui->List_Of_Pyramids->setEnabled(false);
-            ui->Tetra_Highlight->setCheckState(Qt::Unchecked);
-            ui->Hexahedron_Highlight->setCheckState(Qt::Unchecked);
+
+            ui->List_Of_Tetras->setEnabled(true);
+            ui->List_Of_Hexahedrons->setEnabled(true);
+            ui->Tetra_Highlight->setChecked(false);
+            ui->Hexahedron_Highlight->setChecked(false);
         }
         else
         {
@@ -1117,19 +1122,25 @@ void MainWindow::on_Pyramid_Highlight_stateChanged(int state)
         }
         renderWindow->Render();
     }
+
+    else
+      ui->Pyramid_Highlight->setChecked(false);
 }
 
-void MainWindow::on_Hexahedron_Highlight_stateChanged(int state)
+void MainWindow::on_Hexahedron_Highlight_clicked()
 {
     if (LoadedFileType == false)
     {
-        if (state == 2)
+        if (ui->Hexahedron_Highlight->isChecked())
         {
             ListOfActors_hexahedron[(ui->List_Of_Hexahedrons->currentIndex())]->GetProperty()->GetColor(Temp_Hexahedron_color_red, Temp_Hexahedron_color_green, Temp_Hexahedron_color_blue);
             ListOfActors_hexahedron[(ui->List_Of_Hexahedrons->currentIndex())]->GetProperty()->SetColor(Highlight_red, Highlight_green, Highlight_blue);
             ui->List_Of_Hexahedrons->setEnabled(false);
-            ui->Tetra_Highlight->setCheckState(Qt::Unchecked);
-            ui->Pyramid_Highlight->setCheckState(Qt::Unchecked);
+
+            ui->List_Of_Tetras->setEnabled(true);
+            ui->List_Of_Pyramids->setEnabled(true);
+            ui->Tetra_Highlight->setChecked(false);
+            ui->Pyramid_Highlight->setChecked(false);
         }
         else
         {
@@ -1138,10 +1149,15 @@ void MainWindow::on_Hexahedron_Highlight_stateChanged(int state)
         }
         renderWindow->Render();
     }
+
+    else
+      ui->Hexahedron_Highlight->setChecked(false);
 }
 
 void MainWindow::on_Highlight_released()
 {
+  if (LoadedFileType == false)
+  {
     QColor Color = QColorDialog::getColor(Qt::white,this,"Choose Color");
     if(Color.isValid())
     {
@@ -1150,6 +1166,7 @@ void MainWindow::on_Highlight_released()
         Highlight_blue = Color.blueF();
         renderWindow->Render();
     }
+  }
 }
 
 void MainWindow::on_Cell_Statistics_released()

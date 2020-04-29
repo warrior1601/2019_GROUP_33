@@ -146,13 +146,13 @@ private slots:
     void on_Model_Statistics_released();
     /** @brief This function will highlight a selected cell disabling another cell from being selected
      */
-    void on_Tetra_Highlight_stateChanged(int state);
+    void on_Tetra_Highlight_clicked();
     /** @brief This function will highlight a selected cell disabling another cell from being selected
      */
-    void on_Pyramid_Highlight_stateChanged(int state);
+    void on_Pyramid_Highlight_clicked();
     /** @brief This function will highlight a selected cell disabling another cell from being selected
      */
-    void on_Hexahedron_Highlight_stateChanged(int state);
+    void on_Hexahedron_Highlight_clicked();
     /** @brief This function allows the user to selected the colour for a cell to highlight, default setting is Black
      */
     void on_Highlight_released();
@@ -232,7 +232,6 @@ private:
     vtkSmartPointer<vtkOrientationMarkerWidget> orientationWidget = vtkSmartPointer<vtkOrientationMarkerWidget>::New(); ///< @brief For more information on vtk Classes visit https://vtk.org/doc/nightly/html/annotated.html
 
     vtkSmartPointer<vtkDistanceWidget> distanceWidget = vtkSmartPointer<vtkDistanceWidget>::New(); ///< @brief For more information on vtk Classes visit https://vtk.org/doc/nightly/html/annotated.html
-    vtkSmartPointer< vtkTransform> transform = vtkSmartPointer< vtkTransform>::New(); ///< @brief For more information on vtk Classes visit https://vtk.org/doc/nightly/html/annotated.html
 };
 
 #endif // MAINWINDOW_H
