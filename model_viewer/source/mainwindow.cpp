@@ -639,18 +639,7 @@ void MainWindow::on_LoadModelButton_released()
                     hexahedron_count++;
                 }
             }
-
-            polydata->Initialize();
-            polydata->SetPolys(TriangleArray);
-            polydata->SetPoints(points);
-
-            QString NewSTLFilePath = QFileDialog::getSaveFileName(this, tr("Save File"),
-                                                                  "../../example_models/New stl file",tr("Stl (*.stl)"));
-            std::string STLFilePath = NewSTLFilePath.toUtf8().constData();
-            stlWriter->SetFileName(STLFilePath.c_str());
-            stlWriter->SetInputData(polydata);
-            stlWriter->Write();
-
+            
             renderer->ResetCameraClippingRange();
             renderer->SetBackground( colors->GetColor3d("Black").GetData() );
             renderer->GetActiveCamera()->SetPosition(50.0 ,50.0, 50.0);
@@ -669,7 +658,54 @@ void MainWindow::on_LoadModelButton_released()
 
 void MainWindow::on_SaveModelButton_released()
 {
-    QMessageBox::critical(this, "Uncoded Error", "Save function has not been coded for");
+   ui->statusBar->showMessage("Save Action Triggered",3000);
+    // Function  Made here //
+    QString savefile;
+    savefile = QFileDialog::getSaveFileName(this,tr("Save File"),
+                                            "/../../example_models",tr("STL Files(*.stl)"));
+    std::string s=savefile.toStdString();
+    const char* filename=s.c_str();
+    std::cout << savefile.toStdString().c_str() << std::endl;
+
+    if(savefile.isNull())
+    {
+        QMessageBox savemsg;
+        savemsg.setText("No file was selected to save.");
+        savemsg.exec();
+    }
+    else
+    {
+        //save mod to stl file
+        if(triangle_count!=0)
+        {
+            polydata->Initialize();
+            polydata->SetPolys(TriangleArray);
+            polydata->SetPoints(points);
+
+            vtkSmartPointer<vtkSTLWriter> stlWriter = vtkSmartPointer<vtkSTLWriter>::New();
+
+            stlWriter->SetFileName(filename);
+            stlWriter->SetInputData(polydata);
+            stlWriter->Update();
+            stlWriter->Write();
+
+            std::cout << "mod save as stl file" << std::endl;
+        }
+        //save stl as stl file
+        else
+        {
+            vtkSmartPointer<vtkTriangleFilter> tri = vtkSmartPointer<vtkTriangleFilter>::New();
+            vtkSmartPointer<vtkSTLWriter> Writer = vtkSmartPointer<vtkSTLWriter>::New();
+            tri->SetInputData(reader->GetOutput());
+
+            Writer->SetFileName(filename);
+            Writer->SetInputConnection(tri->GetOutputPort());
+            Writer->Update();
+            Writer->Write();
+            std::cout <<"stl save as stl file" << std::endl;
+        }
+        
+    }
 }
 
 void MainWindow::on_LoadLightsButton_released()
