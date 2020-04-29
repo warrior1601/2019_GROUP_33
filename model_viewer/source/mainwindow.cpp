@@ -143,7 +143,6 @@ void MainWindow::on_Change_Back_Ground_Color_released()
 //One comment to look at in this function
 void MainWindow::on_Reset_Camera_released()
 {
-
     double* CameraLocation = renderer->GetActiveCamera()->GetPosition();
     std::cout << "Camera Location: " << CameraLocation[0] << " " << CameraLocation[1] << " " << CameraLocation[2] << std::endl;
     renderer->ResetCamera();
@@ -260,8 +259,8 @@ void MainWindow::on_LoadModelButton_released()
     ui->Pyramid_Highlight->setCheckState(Qt::Unchecked);
     ui->Hexahedron_Highlight->setCheckState(Qt::Unchecked);
 
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), "../../../example_models",
-                                                    tr("STL Files(*.stl);;Text files (*.txt);;MOD Files(*.mod)"));
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open Model File"), "../../../example_models",
+                                                    tr("Model Files(*.stl *.txt *.mod)"));
     std::string FilePath = fileName.toUtf8().constData();
     std::ifstream myFile(FilePath);
 
@@ -686,7 +685,7 @@ void MainWindow::on_SaveModelButton_released()
 
 void MainWindow::on_LoadLightsButton_released()
 {
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Open STL File"), " ", tr("Doc(*.txt)"));
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open Light File"), "", tr("Doc(*.txt)"));
     std::string FilePath= fileName.toUtf8().constData();
 
     std::ifstream myFile(FilePath);
@@ -929,7 +928,7 @@ void MainWindow::on_LoadLightsButton_released()
 void MainWindow::on_SaveLightsButton_released()
 {
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save Light File"),
-                                                    "Light List",tr("Doc (*.txt)"));
+                                                    "ListOfLights",tr("Doc (*.txt)"));
     QFile file(fileName);
     //This redirects the ostream so that the print self function can be diected to a file for saving
     std::streambuf *psbuf;
@@ -1023,6 +1022,7 @@ void MainWindow::SetLightData(double *Data, std::string currentLine)
 void MainWindow::on_AddRulerPushButton_released()
 {
     //adds a distance widget (Ruler)
+    distanceWidget = vtkSmartPointer<vtkDistanceWidget>::New();
     distanceWidget->SetInteractor(ui->Display_Window->GetRenderWindow()->GetInteractor());
     distanceWidget->CreateDefaultRepresentation();
     distanceWidget->On();
@@ -1068,10 +1068,6 @@ void MainWindow::on_Model_Statistics_released()
                             "Geometric Centre: " + Geo_Centre + "\n\n"
                                                                 "Overall Dimensions: " + Overall);
         Statistics.exec();
-    }
-    else
-    {
-        QMessageBox::critical(this, "Runtime Error", "Model statiscs are only available for models loaded from .mod or .txt files");
     }
 }
 
@@ -1142,6 +1138,8 @@ void MainWindow::on_Hexahedron_Highlight_stateChanged(int state)
 
 void MainWindow::on_Highlight_released()
 {
+  if (LoadedFileType == false)
+  {
     QColor Color = QColorDialog::getColor(Qt::white,this,"Choose Color");
     if(Color.isValid())
     {
@@ -1150,6 +1148,7 @@ void MainWindow::on_Highlight_released()
         Highlight_blue = Color.blueF();
         renderWindow->Render();
     }
+  }
 }
 
 void MainWindow::on_Cell_Statistics_released()
