@@ -5,6 +5,7 @@
 
 /** @file file contains the function that allow a model to be loaded and manipulated.
  * Currently suppoorting .MOD/.TXT/.STL files only.
+ * @author Jedidiah Paterson
  */
 
 #ifndef MAINWINDOW_H
@@ -114,7 +115,6 @@ private slots:
     void on_Horizontal_Shift_valueChanged(int arg1);
     /** @brief Using the QT QFileDialog this opens a window to select a file to open. Currently only supporting .MOD/.TXT/.STL files
      *  When opening a file that is NOT an .STL file the program automatically saves it as a .STL file to comply with company policy of file conversion.
-     *  @return The return status is used at start up. If no file is selected to open the program will terminate
      */
     void on_LoadModelButton_released();
     /** @brief This function is not yet implemented
@@ -126,8 +126,7 @@ private slots:
     /** @brief Using the QT QFileDialog this function loads a text file and applies the lights to the scene
      */
     void on_LoadLightsButton_released();
-    /**
-     * @brief This function opens a dialog box that allows the user to edit the lights properties. The light that will be edited will be the light
+    /** @brief This function opens a dialog box that allows the user to edit the lights properties. The light that will be edited will be the light
      * that is currently in the combo box. The name of the light can be edited directly from the combo box
      */
     void on_Edit_Light_clicked();
@@ -145,15 +144,20 @@ private slots:
      * Currently this only applies to .MOD/.TXT files
      */
     void on_Model_Statistics_released();
-
+    /** @brief This function will highlight a selected cell disabling another cell from being selected
+     */
     void on_Tetra_Highlight_stateChanged(int state);
-
+    /** @brief This function will highlight a selected cell disabling another cell from being selected
+     */
     void on_Pyramid_Highlight_stateChanged(int state);
-
+    /** @brief This function will highlight a selected cell disabling another cell from being selected
+     */
     void on_Hexahedron_Highlight_stateChanged(int state);
-
+    /** @brief This function allows the user to selected the colour for a cell to highlight, default setting is Black
+     */
     void on_Highlight_released();
-
+    /** @brief This funcion will display the highlights cells Statistics. Volume, weight, density, loacion, and colour
+     */
     void on_Cell_Statistics_released();
 
 private:
@@ -164,76 +168,71 @@ private:
     /** @brief The function is used by on_actionLoad_Lights_triggered() to set the light data
      */
     void SetLightData(double *Data, std::string currentLine);
+    /** @brief Initializes the Camera light
+     */
     void Init_CameraLight();
 //-------Private Members---------//
-    Ui::MainWindow *ui; ///< This is the User Interface
-    bool LoadedFileType = true; ///< This is used to track what type of file is loaded either .STL = true or .MOD/.TXT = false
-    bool FilterWindowOpenStatus = false; ///< This tracks if the filter window is open or closed. If true a window is open and the user can not open another window
-    Edit_Light *Edit_LightDialog; ///< This is a pointer to the Edit light dialog box
-    Filters *filters; ///< This is a pointer to the filters dialog box
+    Ui::MainWindow *ui; ///< @brief This is the User Interface
+    bool LoadedFileType = true; ///< @brief This is used to track what type of file is loaded either .STL = true or .MOD/.TXT = false
+    bool FilterWindowOpenStatus = false; ///< @brief This tracks if the filter window is open or closed. If true a window is open and the user can not open another window
+    Edit_Light *Edit_LightDialog; ///< @brief This is a pointer to the Edit light dialog box
+    Filters *filters; ///< @brief This is a pointer to the filters dialog box
 
-    double Highlight_red = 0; ///< This stores the red value that user has selected for highlighting cells
-    double Highlight_green = 0; ///< This stores the green value that user has selected for highlighting cells
-    double Highlight_blue = 0; ///< This stores the blue value that user has selected for highlighting cells
+    double Highlight_red = 0; ///< @brief This stores the red value that user has selected for highlighting cells
+    double Highlight_green = 0; ///< @brief This stores the green value that user has selected for highlighting cells
+    double Highlight_blue = 0; ///< @brief This stores the blue value that user has selected for highlighting cells
 
-    Model ModelOne;
+    Model ModelOne; ///< @brief This sotres a model when it is loaded
 
-    std::vector<vtkLight_WithName> ListOfLights; ///< This is a list of the vtkLights_withname
-    std::vector<std::array<double, 3>> pointCoordinates; ///<This list stores the points used in a loaded model
+    std::vector<vtkLight_WithName> ListOfLights; ///< @brief This is a list of the vtkLights_withname
+    std::vector<std::array<double, 3>> pointCoordinates; ///< @brief This list stores the points used in a loaded model
+    //Having a list of actors separately allows for ensuring the correct actor is modified when highlighting a cell type
+    std::vector< vtkSmartPointer<vtkActor> > ListOfActors_tetra; ///< @brief This is a list of all the actors present on tetrahedrons
+    std::vector< vtkSmartPointer<vtkActor> > ListOfActors_pyramid; ///< @brief This is a list of all the actors present on pyramids
+    std::vector< vtkSmartPointer<vtkActor> > ListOfActors_hexahedron; ///< @brief This is a list of all the acotrs present on hexahedrons
 
-    std::vector< vtkSmartPointer<vtkActor> > ListOfActors_tetra; ///< This is a list of all the actors present on tetrahedrons
-    std::vector< vtkSmartPointer<vtkActor> > ListOfActors_pyramid; ///< This is a list of all the actors present on pyramids
-    std::vector< vtkSmartPointer<vtkActor> > ListOfActors_hexahedron; ///< This is a list of all the acotrs present on hexahedrons
+    double Temp_Tetra_color_red; ///< @brief This stores the orginal red value for a highlighted cell
+    double Temp_Tetra_color_green; ///< @brief This stores the orginal green value for a highlighted cell
+    double Temp_Tetra_color_blue; ///< @brief This stores the orginal blue value for a highlighted cell
 
-    double Temp_Tetra_color_red; ///< This stores the orginal red value for a highlighted cell
-    double Temp_Tetra_color_green; ///< This stores the orginal green value for a highlighted cell
-    double Temp_Tetra_color_blue; ///< This stores the orginal blue value for a highlighted cell
+    double Temp_Pyramid_color_red; ///< @brief This stores the orginal red value for a highlighted cell
+    double Temp_Pyramid_color_green; ///< @brief This stores the orginal green value for a highlighted cell
+    double Temp_Pyramid_color_blue; ///< @brief This stores the orginal blue value for a highlighted cell
 
-    double Temp_Pyramid_color_red; ///< This stores the orginal red value for a highlighted cell
-    double Temp_Pyramid_color_green; ///< This stores the orginal green value for a highlighted cell
-    double Temp_Pyramid_color_blue; ///< This stores the orginal blue value for a highlighted cell
+    double Temp_Hexahedron_color_red; ///< @brief This stores the orginal red value for a highlighted cell
+    double Temp_Hexahedron_color_green; ///< @brief This stores the orginal green value for a highlighted cell
+    double Temp_Hexahedron_color_blue; ///< @brief This stores the orginal blue value for a highlighted cell
 
-    double Temp_Hexahedron_color_red; ///< This stores the orginal red value for a highlighted cell
-    double Temp_Hexahedron_color_green; ///< This stores the orginal green value for a highlighted cell
-    double Temp_Hexahedron_color_blue; ///< This stores the orginal blue value for a highlighted cell
+    vtkSmartPointer<vtkActor> actor = vtkSmartPointer<vtkActor>::New(); ///< @brief For more information on vtk Classes visit https://vtk.org/doc/nightly/html/annotated.html
+    vtkSmartPointer<vtkNamedColors> colors = vtkSmartPointer<vtkNamedColors>::New(); ///< @brief For more information on vtk Classes visit https://vtk.org/doc/nightly/html/annotated.html
 
+    std::vector<vtkSmartPointer<vtkDataSetMapper>> ListOfMappers; ///< @brief This is a list of all the mappers in the rendering window
+    vtkSmartPointer<vtkDataSetMapper> mapper = vtkSmartPointer<vtkDataSetMapper>::New(); ///< @brief For more information on vtk Classes visit https://vtk.org/doc/nightly/html/annotated.html
 
-    vtkSmartPointer<vtkActor> actor = vtkSmartPointer<vtkActor>::New();
-    vtkSmartPointer<vtkNamedColors> colors = vtkSmartPointer<vtkNamedColors>::New();
+    vtkSmartPointer<vtkSTLReader> reader = vtkSmartPointer<vtkSTLReader>::New(); ///< @brief For more information on vtk Classes visit https://vtk.org/doc/nightly/html/annotated.html
+    vtkSmartPointer<vtkRenderer> renderer = vtkSmartPointer<vtkRenderer>::New(); ///< @brief For more information on vtk Classes visit https://vtk.org/doc/nightly/html/annotated.html
+    vtkSmartPointer<vtkGenericOpenGLRenderWindow> renderWindow = vtkSmartPointer<vtkGenericOpenGLRenderWindow>::New(); ///< @brief For more information on vtk Classes visit https://vtk.org/doc/nightly/html/annotated.html
 
-    std::vector<vtkSmartPointer<vtkDataSetMapper>> ListOfMappers; ///< This is a list of all the mappers in the rendering window
-    vtkSmartPointer<vtkDataSetMapper> mapper = vtkSmartPointer<vtkDataSetMapper>::New();
+    std::vector<vtkSmartPointer<vtkUnstructuredGrid>> ListOfUgs; ///< @brief This is a list of all the UnstructoredGrids
+    vtkSmartPointer<vtkUnstructuredGrid> ug = vtkSmartPointer<vtkUnstructuredGrid>::New(); ///< @brief For more information on vtk Classes visit https://vtk.org/doc/nightly/html/annotated.html
 
-    vtkSmartPointer<vtkSTLReader> reader = vtkSmartPointer<vtkSTLReader>::New();
-    vtkSmartPointer<vtkRenderer> renderer = vtkSmartPointer<vtkRenderer>::New();
-    vtkSmartPointer<vtkGenericOpenGLRenderWindow> renderWindow = vtkSmartPointer<vtkGenericOpenGLRenderWindow>::New();
+    std::vector<vtkSmartPointer<vtkTetra>> ListOfTetras; ///< @brief This is a list of all the Tetras loaded in a model
+    std::vector<vtkSmartPointer<vtkPyramid>> ListOfPyramids; ///< @brief This is a list of all the Pyramids loaded in a model
+    std::vector<vtkSmartPointer<vtkHexahedron>> ListOfHexs; ///< @brief This is a list of all the Hexahedrons loaded in a model
 
-    vtkSmartPointer<vtkPoints> points = vtkSmartPointer<vtkPoints>::New();
+    std::vector<vtkSmartPointer<vtkTriangle>> ListOfTriangles; ///< @brief This is a list of all the vtkTriangles. This is important to have for the conversion process from .MOD/.TXT to .STL file type
+    vtkSmartPointer<vtkCellArray> TriangleArray = vtkSmartPointer<vtkCellArray>::New(); ///< @brief For more information on vtk Classes visit https://vtk.org/doc/nightly/html/annotated.html
 
-    std::vector<vtkSmartPointer<vtkUnstructuredGrid>> ListOfUgs; ///< This is a list of all the UnstructoredGrids
-    vtkSmartPointer<vtkUnstructuredGrid> ug = vtkSmartPointer<vtkUnstructuredGrid>::New();
+    vtkSmartPointer<vtkPoints> points = vtkSmartPointer<vtkPoints>::New(); ///< @brief For more information on vtk Classes visit https://vtk.org/doc/nightly/html/annotated.html
+    vtkSmartPointer<vtkPolyData> polydata = vtkSmartPointer<vtkPolyData>::New(); ///< @brief This smart point stores the data so it can be saved. For more information on vtk Classes visit https://vtk.org/doc/nightly/html/annotated.html
 
-    std::vector<vtkSmartPointer<vtkTetra>> ListOfTetras; ///< This is a list of all the Tetras loaded in a model
-    std::vector<vtkSmartPointer<vtkPyramid>> ListOfPyramids; ///< This is a list of all the Pyramids loaded in a model
-    std::vector<vtkSmartPointer<vtkHexahedron>> ListOfHexs; ///< This is a list of all the Hexahedrons loaded in a model
+    vtkSmartPointer<vtkSTLWriter> stlWriter = vtkSmartPointer<vtkSTLWriter>::New(); ///< @brief Allows for saving a STL file. For more information on vtk Classes visit https://vtk.org/doc/nightly/html/annotated.html
 
-    vtkSmartPointer<vtkCellArray> cellArray = vtkSmartPointer<vtkCellArray>::New();
-    std::vector<vtkSmartPointer<vtkTriangle>> ListOfTriangles; ///< This is a list of all the vtkTriangles. This is important to have for the conversion process from .MOD/.TXT to .STL file type
-    vtkSmartPointer<vtkCellArray> TriangleArray = vtkSmartPointer<vtkCellArray>::New();
+    vtkSmartPointer<vtkAxesActor> axes = vtkSmartPointer<vtkAxesActor>::New(); ///< @brief For more information on vtk Classes visit https://vtk.org/doc/nightly/html/annotated.html
+    vtkSmartPointer<vtkOrientationMarkerWidget> orientationWidget = vtkSmartPointer<vtkOrientationMarkerWidget>::New(); ///< @brief For more information on vtk Classes visit https://vtk.org/doc/nightly/html/annotated.html
 
-    vtkSmartPointer<vtkPolyData> polydata = vtkSmartPointer<vtkPolyData>::New();
-    std::vector<vtkSmartPointer<vtkPolyData>> ListOfPolydata;
-
-
-
-    vtkSmartPointer<vtkSTLWriter> stlWriter = vtkSmartPointer<vtkSTLWriter>::New();
-
-    vtkSmartPointer<vtkAxesActor> axes = vtkSmartPointer<vtkAxesActor>::New();
-    vtkSmartPointer<vtkOrientationMarkerWidget> orientationWidget = vtkSmartPointer<vtkOrientationMarkerWidget>::New();
-
-///----Check this put when you have time with below ----////
-    vtkSmartPointer<vtkDistanceWidget> distanceWidget = vtkSmartPointer<vtkDistanceWidget>::New();
-    vtkSmartPointer< vtkTransform> transform = vtkSmartPointer< vtkTransform>::New();
+    vtkSmartPointer<vtkDistanceWidget> distanceWidget = vtkSmartPointer<vtkDistanceWidget>::New(); ///< @brief For more information on vtk Classes visit https://vtk.org/doc/nightly/html/annotated.html
+    vtkSmartPointer< vtkTransform> transform = vtkSmartPointer< vtkTransform>::New(); ///< @brief For more information on vtk Classes visit https://vtk.org/doc/nightly/html/annotated.html
 };
 
 #endif // MAINWINDOW_H
