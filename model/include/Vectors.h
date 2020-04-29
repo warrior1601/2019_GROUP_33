@@ -114,7 +114,8 @@ public:
     Vectors operator*(const double& Multiply);
 
     /** @brief Returns the vector/cross product of the vector calling the function, A(x,y,z), with Multiply, B(x,y,z),
-     *  to give the result C(x,y,z). The formula used is: \n
+     *  to give the result C(x,y,z).
+     *  @details The formula used is: \n
      *  C(x) = A(y)*B(z) -  A(z)*B(y) \n
      *  C(y) = A(z)*B(x) - A(x)*B(z) \n
      *  C(z) = A(x)*B(y) - A(y)*B(x) \n
@@ -130,8 +131,9 @@ public:
 
 //-------Special Member Functions------//
     /** @brief Returns scalar/dot product of the vector calling the function, A(x,y,z), with Multiply, B(x,y,z),
-     *  to give the result Result (a scalar). The formula used is: \n
-     * Result = A(x)*B(x) + A(y)*B(y) + A(z)*B(z)
+     *  to give the result Result (a scalar).
+     *  @details The formula used is: \n
+     *  Result = A(x)*B(x) + A(y)*B(y) + A(z)*B(z)
      */
     double Scalar_Product(const Vectors& aVectors);
 
@@ -141,9 +143,9 @@ public:
     double Get_Magnitude(void);
 
     /** @brief Returns the distance between aVectors and the vectors calling the function
-     *  by creating a difference vectors whose member variables is the difference the member
+     *  @deyails This is done by creating a difference vectors whose member variables is the difference in the member
      *  variables of aVectors and the vectors calling the function. Then the magnitude of the
-     *  difference vector is returned to give the distance.
+     *  difference vector is returned as the distance.
      */
     double Get_Distance_To(const Vectors& aVectors);
 

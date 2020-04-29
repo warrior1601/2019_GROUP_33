@@ -2,8 +2,7 @@
 //  Computing Project
 //  Created by Junaid Afzal on 24/11/2019.
 
-/**
- *  @file This header file contains the class Matrix3x3. The Matrix3x3 class has a
+/** @file This header file contains the class Matrix3x3. The Matrix3x3 class has a
  *  single floating-point 2D array and represents a 3x3 matrix. It is a required
  *  variable for the rotation members functions of Cell and Model classes.
  *  @author Junaid Afzal
@@ -38,7 +37,7 @@ public:
     */
     Matrix3x3(const Matrix3x3& aMatrix3x3);
 
-    /** @brief Blank constructor that adds the appropriate number of columns and rows and assigns the values to 0
+    /** @brief Blank constructor that adds the appropriate number of columns and rows and assigns all values to 0
     */
     Matrix3x3(void);
 
@@ -226,8 +225,8 @@ public:
 
     //Matrix3x3 specific functions
     /** @brief A rotation matrix translates a vectors such that it would appear to have
-     *  rotated along Axis_Of_Rotation by an amount equal to Rotation_In_Degrees. Note that the
-     *  centre of rotation is the origin and that positive Rotation_In_Degrees will result in
+     *  rotated along Axis_Of_Rotation by an amount equal to Rotation_In_Degrees.
+     *  @details Note that the centre of rotation is the origin and that positive Rotation_In_Degrees will result in
      *  clockwise rotation and a negative Rotation_In_Degrees counter-clockwise rotation.
      *  See https://en.wikipedia.org/wiki/Rotation_matrix for more info
      *  @param Rotation_In_Degrees This is how much rotation is required
@@ -246,8 +245,8 @@ public:
      */
     double Get_Determinant(void);
 
-    /** Finds the inverse of matrix3x3 and overwrites the matrix3x3 calling the function with the result.
-     *  Note that if there is no inverse, then an error message will be displayed to the console.
+    /** @brief Finds the inverse of matrix3x3 and overwrites the matrix3x3 calling the function with the result.
+     *  @detials Note that if there is no inverse, then an error message will be displayed to the console.
      *  The method is as follows: replace each element in matrix3x3 by it's co-factor;
      *  trasnpose the matirx; and divide matrix data by its determinant.
      */

@@ -1,88 +1,137 @@
-//--------------------filters.h --------------------//
+// filters.h
+// Computing Project
+// Created by Jedidiah Paterson on 02/22/2020.
+// Copyright @ 2020 Jedidiah Paterson. All rights reserved.
+
+/** @file This file contains a list of functions and variable that are connected
+ * To the buttons on the filters.ui window. These functions apply filters to the
+ * model that is present on the MainWindow. This file is
+ * Desgined to allow for future updates and addtions to filtering functions
+ * @author Jedidiah Paterson
+ */
+
 #ifndef FILTERS_H
 #define FILTERS_H
-
-
-// filters.h
-// Worksheet 6 Computing Project
-// Edited By Jedidiah Paterson on 02/22/2020.
-// Copyright @ 2020 Jedidiah Paterson. All rights reserved.
-// This file contains a list of functions and variable that are connected
-// To the buttons on the filters.ui window. These function all the object
-// That is presentedon MainWindow.ui to be manipluated. This file is
-// Desgined to allow for future updates and addtions to filtering functions
-
+// Header files from QT
 #include <QDialog>
-
+// Header files from vtk
 #include <vtkClipDataSet.h>
+#include <vtkDataSet.h>
 #include <vtkDataSetMapper.h>
 #include <vtkGenericOpenGLRenderWindow.h>
 #include <vtkNew.h>
 #include <vtkPlane.h>
 #include <vtkPolyData.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkRenderer.h>
 #include <vtkShrinkFilter.h>
 #include <vtkSTLReader.h>
 #include <vtkSmartPointer.h>
-
 
 namespace Ui {
 class Filters;
 }
 
+/** @class Filters filters.h "fitlers.h"
+ *  @brief The Filters class enables the model to be manipulated. Revertering all changes when the window is closed
+ */
 class Filters : public QDialog
 {
     Q_OBJECT
 
 public:
-// Constructor
-
+    //Constructor
+    /** @brief Blank constuctor (empty)
+     */
     explicit Filters(QWidget *parent = nullptr);
-// Destructor
-
+    //Destructor
+    /** @brief Blank destructor (empty)
+     */
     ~Filters();
-// Overloaded function found in other files. Without this function
-// MainWindow will not be able to be updated from the filters page.
-// The Open function is called from the MainWindow.cpp file
+    /** @brief This function is called from the parent window, this function is overloaded in other files.
+     *  @param PassedFilterWindowOpenStatus this ensures that only one window can be opened at a time.
+     */
+    void Open_Dialog(vtkSmartPointer<vtkSTLReader> &aReader,
+                     vtkSmartPointer<vtkDataSetMapper> &aMapper,
+                     vtkSmartPointer<vtkGenericOpenGLRenderWindow> &aWindow,
+                     bool &PassedFilterWindowOpenStatus);
 
-    void Open_Dialog(vtkSmartPointer<vtkSTLReader> &Passedreader,
-              vtkSmartPointer<vtkDataSetMapper> &Passmapper,
-              vtkSmartPointer<vtkGenericOpenGLRenderWindow> &PassedWindow);
-
-    void open( std::vector<vtkSmartPointer<vtkDataSetMapper>> &ListOfMappers,
-               vtkSmartPointer<vtkGenericOpenGLRenderWindow> &PassedWindow);
+    /** @brief This function is call from the parent window, it allows for filtering where a reader is not available
+     */
+    void Open_Dialog(std::vector<vtkSmartPointer<vtkDataSetMapper>> &aListOfMappers,
+                     vtkSmartPointer<vtkGenericOpenGLRenderWindow> &aWindow,
+                     bool &PassedFilterWindowOpenStatus);
 
 private slots:
-
-// This function ensures that only one checkBox can be checked at a time.
-
+    /**
+     * @brief This function turns regular checkboxes into grouped radio buttons.
+     * @param CheckBox_Number this number is required for the for the filter to know which case of the switch statement to enter.
+     */
     void checked_Box_Status_Updater(int CheckBox_Number);
-
-// This functionsare connected to SIGNALS and SLOTS that are triggered on the filters.ui
-// Interface
-
+    /**
+     * @brief Turns on and off the Shrink filter
+     */
     void on_Shrink_Filter_toggled(bool Shrink_Filter_Status);
+    /**
+     * @brief Turns on and off the Clipper Filter
+     */
     void on_Clipper_Filter_toggled(bool Clipper_Filter_Status);
-    void on_X_valueChanged(int value);
-    void on_Y_valueChanged(int value);
-    void on_Z_valueChanged(int value);
+    /**
+     * @brief This creates an X-Coordinate in 3D space that initializes a plane where the clipping begins.
+     */
+    void on_X_Origin_valueChanged(int value);
+    /**
+     * @brief This creates an Y-Coordinate in 3D space that initializes a plane where the clipping begins.
+     */
+    void on_Y_Origin_valueChanged(int value);
+    /**
+     * @brief This creates an Z-Coordinate in 3D space that initializes a plane where the clipping begins.
+     */
+    void on_Z_Origin_valueChanged(int value);
+    /**
+     * @brief Changes the direction of the clipping in the X-Axis direction.
+     */
+    void on_X_Normal_valueChanged(int value);
+    /**
+     * @brief Changes the direction of the clipping in the Y-Axis direction.
+     */
+    void on_Y_Normal_valueChanged(int value);
+    /**
+     * @brief Changes the direction of the clipping in the Z-Axis direction.
+     */
+    void on_Z_Normal_valueChanged(int value);
+    /**
+     * @brief Changes how much shrinking is applied to the model.
+     */
+    void on_Scale_valueChanged(int value);
+    /**
+     * @brief Runs the close procedures for the Filters window. Reverting the model and resetting the Filter Window Open Status.
+     */
+    void on_Close_clicked();
+    /** @brief This is a standard close even for a window. inside of this close even calls the function on_close_clicked()
+     */
+    void closeEvent(QCloseEvent *event);
 
 private:
-    Ui::Filters *ui;
-// This is set to true if opened with and *.stl file otherwise set to false
-    bool OpenMethod = true;
+    Ui::Filters *ui; ////< @brief This it is the user interface.
+    bool *FilterWindowOpenStatus; ////< @brief This tracks the window is open or not.
+    bool FileTypeSTL = true; ///< @brief This Bool tracks the file type loaded for Filtering
 
-// The smart pointers are created and only initilized when the open function is called
-// The smaprt pointer that are over written are denoted by *_Local
+    // The smart pointers are created and only initilized when the open function is called
+    // The smart pointers are denoted by *_Local
+    // *_Local smart pointers are overwritten by the  passed smart pointers
+    vtkSmartPointer<vtkGenericOpenGLRenderWindow> renderWindow_Local = vtkSmartPointer<vtkGenericOpenGLRenderWindow>::New(); ////<@brief This is a locally created renderwindow that is overwriting by the renderwindow from the mainwindow
+    vtkSmartPointer<vtkSTLReader> reader_Local = vtkSmartPointer<vtkSTLReader>::New(); ///< @brief This is a locally created reader that is overwriting by the renderwindow from the mainwindow
+    vtkSmartPointer<vtkDataSetMapper> mapper_Local = vtkSmartPointer<vtkDataSetMapper>::New(); ///< @brief This is a locally created mapper that is overwriting by the renderwindow from the mainwindow
+    vtkSmartPointer<vtkRenderer> renderer_Local = vtkSmartPointer<vtkRenderer>::New();
 
-    vtkSmartPointer<vtkGenericOpenGLRenderWindow> renderWindow_Local = vtkSmartPointer<vtkGenericOpenGLRenderWindow>::New();
-    vtkSmartPointer<vtkSTLReader> reader_Local = vtkSmartPointer<vtkSTLReader>::New();
-    vtkSmartPointer<vtkDataSetMapper> mapper_Local = vtkSmartPointer<vtkDataSetMapper>::New();
-    std::vector<vtkSmartPointer<vtkDataSetMapper>> ListOfMappers_Local;
-// These are filter specific smart pointers
+    std::vector<vtkSmartPointer<vtkDataSetMapper>> ListOfMappers_Local; ///< @brief This is a list of all the Mappers, Each mapper hold one cell and has one actor acting in it.
+    std::vector<vtkSmartPointer<vtkShrinkFilter>> ListOfShrink_Filters; ///< @brief This list of Shrink Filters each takes one input and has one output. Data from the Mapper and back into the Mapper. There is one Filter for each Mapper.
+    std::vector<vtkSmartPointer<vtkClipDataSet>> ListOfClipper_Filters; ///< @brief This list of Cliper Filters each takes one input and has one output. Data from the Mapper and back into the Mapper. There is one Filter for each Mapper.
 
-    vtkSmartPointer<vtkClipDataSet> Clipper_Filter = vtkSmartPointer<vtkClipDataSet>::New();
-    vtkSmartPointer<vtkShrinkFilter> Shrink_Filter = vtkSmartPointer<vtkShrinkFilter>::New();
-    vtkSmartPointer<vtkPlane> planeLeft = vtkSmartPointer<vtkPlane>::New();
+    vtkSmartPointer<vtkClipDataSet> Clipper_Filter = vtkSmartPointer<vtkClipDataSet>::New(); ///< @brief Required vtkSmartpointer for appling the Clipper Filter
+    vtkSmartPointer<vtkShrinkFilter> Shrink_Filter = vtkSmartPointer<vtkShrinkFilter>::New(); ///< @brief Required vtkSmartpointer for appling the Shrink Filter
+    vtkSmartPointer<vtkPlane> planeLeft = vtkSmartPointer<vtkPlane>::New(); ///< @brief Required vtkSmartpointer for creating a plane that is used in the Clipper Filter
 };
 
 #endif // FILTERS_H
