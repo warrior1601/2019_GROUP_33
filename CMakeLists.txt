@@ -61,6 +61,9 @@ if( ${BUILD_INSTALLERS} )
 		set (CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
 		set (CPACK_PACKAGE_INSTALL_DIRECTORY "Observer")
 		set (CPACK_CREATE_DESKTOP_LINKS ON)
+		set (CPACK_PACKAGE_EXECUTABLES "Observer" "Observer")
+		set (CPACK_CREATE_DESKTOP_LINKS "Observer")
+		set (CPACK_NSIS_MODIFY_PATH "ON")
 		set (CPACK_RESOURCE_FILE_LICENSE ${CMAKE_CURRENT_SOURCE_DIR}/LICENSE.txt)
 
 		# Define components and their display names
@@ -92,6 +95,9 @@ if( ${BUILD_INSTALLERS} )
 		set(CPACK_COMPONENT_APPLICATIONS_INSTALL_TYPES Full)
 		set(CPACK_COMPONENT_LIBRARIES_INSTALL_TYPES Developer Full)
 		set(CPACK_COMPONENT_HEADERS_INSTALL_TYPES Developer Full)
+
+
+
 
 	# Must be after the last CPACK macros
 	include(CPack)
