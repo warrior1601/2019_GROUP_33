@@ -44,8 +44,59 @@ if( ${BUILD_INSTALLERS} )
 				COMPONENT libraries
 		)
 
-		install(FILES ${VTK_DIR}/bin/Debug/QVTKWidgetPlugin.dll
-		DESTINATION lib
+		install(FILES	C:/Qt/5.14.1/msvc2017_64/bin/Qt5Cored.dll
+									C:/Qt/5.14.1/msvc2017_64/bin/Qt5Guid.dll
+									C:/Qt/5.14.1/msvc2017_64/bin/Qt5Widgetsd.dll
+									${VTK_DIR}/bin/Debug/vtkRenderingGL2PSOpenGL2-8.2.dll
+									${VTK_DIR}/bin/Debug/QVTKWidgetPlugin.dll
+									${VTK_DIR}/bin/Debug/vtkCommonColor-8.2.dll
+									${VTK_DIR}/bin/Debug/vtkCommonComputationalGeometry-8.2.dll
+									${VTK_DIR}/bin/Debug/vtkCommonCore-8.2.dll
+									${VTK_DIR}/bin/Debug/vtkCommonDataModel-8.2.dll
+									${VTK_DIR}/bin/Debug/vtkCommonExecutionModel-8.2.dll
+									${VTK_DIR}/bin/Debug/vtkCommonMath-8.2.dll
+									${VTK_DIR}/bin/Debug/vtkCommonMisc-8.2.dll
+									${VTK_DIR}/bin/Debug/vtkCommonSystem-8.2.dll
+									${VTK_DIR}/bin/Debug/vtkCommonTransforms-8.2.dll
+									${VTK_DIR}/bin/Debug/vtkDICOMParser-8.2.dll
+									${VTK_DIR}/bin/Debug/vtkdoubleconversion-8.2.dll
+									${VTK_DIR}/bin/Debug/vtkFiltersCore-8.2.dll
+									${VTK_DIR}/bin/Debug/vtkFiltersExtraction-8.2.dll
+									${VTK_DIR}/bin/Debug/vtkFiltersGeneral-8.2.dll
+									${VTK_DIR}/bin/Debug/vtkFiltersGeometry-8.2.dll
+									${VTK_DIR}/bin/Debug/vtkFiltersHybrid-8.2.dll
+									${VTK_DIR}/bin/Debug/vtkFiltersModeling-8.2.dll
+									${VTK_DIR}/bin/Debug/vtkFiltersSources-8.2.dll
+									${VTK_DIR}/bin/Debug/vtkFiltersStatistics-8.2.dll
+									${VTK_DIR}/bin/Debug/vtkfreetype-8.2.dll
+									${VTK_DIR}/bin/Debug/vtkgl2ps-8.2.dll
+									${VTK_DIR}/bin/Debug/vtkglew-8.2.dll
+									${VTK_DIR}/bin/Debug/vtkGUISupportQt-8.2.dll
+									${VTK_DIR}/bin/Debug/vtkImagingColor-8.2.dll
+									${VTK_DIR}/bin/Debug/vtkImagingCore-8.2.dll
+									${VTK_DIR}/bin/Debug/vtkImagingFourier-8.2.dll
+									${VTK_DIR}/bin/Debug/vtkImagingGeneral-8.2.dll
+									${VTK_DIR}/bin/Debug/vtkImagingHybrid-8.2.dll
+									${VTK_DIR}/bin/Debug/vtkImagingSources-8.2.dll
+									${VTK_DIR}/bin/Debug/vtkInteractionStyle-8.2.dll
+									${VTK_DIR}/bin/Debug/vtkInteractionWidgets-8.2.dll
+									${VTK_DIR}/bin/Debug/vtkIOCore-8.2.dll
+									${VTK_DIR}/bin/Debug/vtkIOGeometry-8.2.dll
+									${VTK_DIR}/bin/Debug/vtkIOImage-8.2.dll
+									${VTK_DIR}/bin/Debug/vtkjpeg-8.2.dll
+									${VTK_DIR}/bin/Debug/vtklz4-8.2.dll
+									${VTK_DIR}/bin/Debug/vtklzma-8.2.dll
+									${VTK_DIR}/bin/Debug/vtkmetaio-8.2.dll
+									${VTK_DIR}/bin/Debug/vtkpng-8.2.dll
+									${VTK_DIR}/bin/Debug/vtkRenderingAnnotation-8.2.dll
+									${VTK_DIR}/bin/Debug/vtkRenderingCore-8.2.dll
+									${VTK_DIR}/bin/Debug/vtkRenderingFreeType-8.2.dll
+									${VTK_DIR}/bin/Debug/vtkRenderingGL2PSOpenGL2-8.2.dll
+									${VTK_DIR}/bin/Debug/vtkRenderingOpenGL2-8.2.dll
+									${VTK_DIR}/bin/Debug/vtksys-8.2.dll
+									${VTK_DIR}/bin/Debug/vtktiff-8.2.dll
+									${VTK_DIR}/bin/Debug/vtkzlib-8.2.dll
+		DESTINATION bin
 		COMPONENT libraries
 		)
 
