@@ -1400,7 +1400,6 @@ void MainWindow::on_showAxes_released()
 
     renderer->AddActor(AxesActor);
     renderWindow->Render();
-
 }
 
 void MainWindow::on_deleteshowAxes_released()
@@ -1408,10 +1407,6 @@ void MainWindow::on_deleteshowAxes_released()
     renderer->RemoveActor(AxesActor);
     renderWindow->Render();
 }
-
-
-
-
 
 void MainWindow::on_Cell_Colour_released()
 {  //This wil change the highlighted cell to it highlighted colour
