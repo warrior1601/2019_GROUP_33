@@ -243,8 +243,9 @@ void MainWindow::on_LoadModelButton_released()
     ui->Pyramid_Highlight->setCheckState(Qt::Unchecked);
     ui->Hexahedron_Highlight->setCheckState(Qt::Unchecked);
 
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), "../../../example_models",
-                                                    tr("STL Files(*.stl);;Text files (*.txt);;MOD Files(*.mod)"));
+
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open Model File"), "../../../example_models",
+                                                    tr("Model Files(*.stl *.txt *.mod)"));
     std::string FilePath = fileName.toUtf8().constData();
     std::ifstream myFile(FilePath);
 
@@ -256,7 +257,6 @@ void MainWindow::on_LoadModelButton_released()
         //Initializes the renderer so it can be used on different file types
         renderer = vtkSmartPointer<vtkRenderer>::New();
 
-        Init_CameraLight();
         //clearing all previous data ensures there is no overlap of images from one loaded file to the next
         ListOfMappers.clear();
         ListOfUgs.clear();
@@ -264,9 +264,14 @@ void MainWindow::on_LoadModelButton_released()
         ListOfActors_pyramid.clear();
         ListOfActors_hexahedron.clear();
         ListOfTriangles.clear();
+        ui->List_Of_Pyramids->update();
         ui->List_Of_Pyramids->clear();
+        ui->List_Of_Tetras->update();
         ui->List_Of_Tetras->clear();
+        ui->List_Of_Hexahedrons->update();
         ui->List_Of_Hexahedrons->clear();
+        Init_CameraLight();
+
         //finds the file extension
         std::size_t found = FilePath.find_last_of(".");
         std::cout << "File type is: " << FilePath.substr(found+1) << std::endl;
@@ -283,20 +288,7 @@ void MainWindow::on_LoadModelButton_released()
             actor->GetProperty()->EdgeVisibilityOff();  //Turning this on would allow the user to see the triangels that make up the faces of an object
             actor->GetProperty()->SetColor( colors->GetColor3d("Green").GetData() ); //Using ColorSetNames header file you can set folors this way
             renderer->AddActor(actor);
-            renderer->SetBackground( colors->GetColor3d("Black").GetData() );
-            renderer->GetActiveCamera()->SetPosition(2.0 ,3.0, 5.0);
-            renderer->GetActiveCamera()->SetFocalPoint(0.0 ,0.0, 0.0);
-            renderer->ResetCameraClippingRange();
             ui->Display_Window->GetRenderWindow()->AddRenderer( renderer );
-            //
-            orientationWidget->SetOrientationMarker( axes );
-            orientationWidget->SetInteractor(ui->Display_Window->GetRenderWindow()->GetInteractor());
-            orientationWidget->SetEnabled(1);
-            orientationWidget->InteractiveOff();
-
-            renderer->ResetCamera();
-            renderWindow->Render();
-
         }
         else if ((FileType.compare("txt") == 0 ) || (FileType.compare("mod")) == 0)
         {
@@ -307,8 +299,9 @@ void MainWindow::on_LoadModelButton_released()
             unsigned int pyramid_count = 0;
             unsigned int hexahedron_count = 0;
             unsigned int triangle_count = 0;
-
+            //Initialiing data sets insures no data from previouly loaded files is present
             points->Initialize();
+            TriangleArray->Initialize();
             Model Empty;
             ModelOne = Empty;
             ModelOne.Load_Model(FilePath);
@@ -325,26 +318,27 @@ void MainWindow::on_LoadModelButton_released()
                                   ModelOne.Get_Vectors()[i].GetZVector()};
                 points->InsertNextPoint(Data);
             }
-            TriangleArray->Initialize();
+
             for (unsigned int i = 0; i < ModelOne.Get_Cell_Order().size(); i++)
-            {
+            {   //This creates a Mapper for each cell. This is required so eaxh cell can have a different actor color is the most used property of the actor in this project
                 vtkSmartPointer<vtkDataSetMapper> mapper = vtkSmartPointer<vtkDataSetMapper>::New();
                 ListOfMappers.push_back(mapper);
-
-                vtkSmartPointer<vtkActor> actor = vtkSmartPointer<vtkActor>::New();
 
                 vtkSmartPointer<vtkUnstructuredGrid> ug = vtkSmartPointer<vtkUnstructuredGrid>::New();
                 ListOfUgs.push_back(ug);
 
-                // This is baics shape reader needs changing for loading more complex shapes
+                vtkSmartPointer<vtkActor> actor = vtkSmartPointer<vtkActor>::New();
+
                 Cell Test = *ModelOne.Get_Cells()[i];
+                //After loading the cell we need to sort them by type. Then we can load the Vector points in the same order
+                //As denoted by Cell.hpp
                 if (ModelOne.Get_Cell_Order()[i] == 't')
                 {
                     ListOfActors_tetra.push_back(actor);
                     ListOfUgs[i]->SetPoints(points);
                     vtkSmartPointer<vtkTetra> tetra = vtkSmartPointer<vtkTetra>::New();
                     ListOfTetras.push_back(tetra);
-
+                    //Sets point ID for each point being loaded in the tetra
                     for (vtkIdType vtkId = 0; vtkId < 4; vtkId++)
                     {
                         ListOfTetras[tetra_count]->GetPointIds()->SetId(vtkId, vtkIdType (Test.Get_Vertices_Order()[vtkId]) );
@@ -382,10 +376,12 @@ void MainWindow::on_LoadModelButton_released()
                     TriangleArray->InsertNextCell(ListOfTriangles[triangle_count]);
                     triangle_count++;
 
+                    //After the Triangels are loaded the pipeline for rendering needs to be established
                     ListOfUgs[i]->InsertNextCell(tetra->GetCellType(), ListOfTetras[tetra_count]->GetPointIds());
                     ListOfMappers[i]->SetInputData(ListOfUgs[i]);
                     ListOfActors_tetra[tetra_count]->SetMapper(ListOfMappers[i]);
 
+                    //This sets the colour from the material after it is remmapped it is applied to the actor
                     col =  Test.Get_Material().GetColour();
                     std::string RGB_Red = col.substr(0,2);
                     std::string RGB_Green = col.substr(2,2);
@@ -405,7 +401,7 @@ void MainWindow::on_LoadModelButton_released()
 
                     ListOfActors_tetra[tetra_count]->GetProperty()->SetColor(Red_remapped,Green_remapped,Blue_remapped);
                     renderer->AddActor(ListOfActors_tetra[tetra_count]);
-
+                    //This addes the cell to a Combo Box so that it can be selected for stats from a different button
                     ui->List_Of_Tetras->addItem("Tetrahedron "  + (QString::number(tetra_count + 1)) );
 
                     tetra_count++;
@@ -422,7 +418,7 @@ void MainWindow::on_LoadModelButton_released()
                     {
                         ListOfPyramids[pyramid_count]->GetPointIds()->SetId(vtkId, vtkIdType (Test.Get_Vertices_Order()[vtkId]) );
                     }
-                    //Loading triangles
+
                     vtkSmartPointer<vtkTriangle> triangle_Pyramid_0 = vtkSmartPointer<vtkTriangle>::New();
                     ListOfTriangles.push_back(triangle_Pyramid_0);
                     ListOfTriangles[triangle_count]->GetPointIds()->SetId ( 0, vtkIdType (Test.Get_Vertices_Order()[0]) );
@@ -638,73 +634,44 @@ void MainWindow::on_LoadModelButton_released()
 
                     hexahedron_count++;
                 }
+
+                polydata->Initialize();
+                polydata->SetPolys(TriangleArray);
+                polydata->SetPoints(points);
             }
-            
-            renderer->ResetCameraClippingRange();
-            renderer->SetBackground( colors->GetColor3d("Black").GetData() );
-            renderer->GetActiveCamera()->SetPosition(50.0 ,50.0, 50.0);
-            renderer->GetActiveCamera()->SetFocalPoint(0.0 ,0.0, 0.0);
-
-            orientationWidget->SetOrientationMarker( axes );
-            orientationWidget->SetInteractor(ui->Display_Window->GetRenderWindow()->GetInteractor());
-            orientationWidget->SetEnabled(1);
-            orientationWidget->InteractiveOff();
-
-            renderer->ResetCamera();
-            renderWindow->Render();
         }
+
+        //This process is the same for both STL and MOD/TXT files
+        renderer->ResetCameraClippingRange();
+        renderer->SetBackground( colors->GetColor3d("Black").GetData() );
+        renderer->GetActiveCamera()->SetPosition(50.0 ,50.0, 50.0);
+        renderer->GetActiveCamera()->SetFocalPoint(0.0 ,0.0, 0.0);
+        //This adds the X-Y-Z axis markers and moves them as the view point changes
+        orientationWidget->SetOrientationMarker( axes );
+        orientationWidget->SetInteractor(ui->Display_Window->GetRenderWindow()->GetInteractor());
+        orientationWidget->SetEnabled(1);
+        orientationWidget->InteractiveOff();
+
+        renderer->ResetCamera();
+        renderWindow->Render();
     }
 }
 
 void MainWindow::on_SaveModelButton_released()
 {
-   ui->statusBar->showMessage("Save Action Triggered",3000);
-    // Function  Made here //
-    QString savefile;
-    savefile = QFileDialog::getSaveFileName(this,tr("Save File"),
-                                            "/../../example_models",tr("STL Files(*.stl)"));
-    std::string s=savefile.toStdString();
-    const char* filename=s.c_str();
-    std::cout << savefile.toStdString().c_str() << std::endl;
-
-    if(savefile.isNull())
-    {
-        QMessageBox savemsg;
-        savemsg.setText("No file was selected to save.");
-        savemsg.exec();
+    if (LoadedFileType == true)
+    {   //Saveing an STL file is not needed at this point because there is no manipulation of STL data
+        QMessageBox::critical(this, "Uncoded Error", "Save function only works on loaded MOD/TXT files");
     }
     else
     {
-        //save mod to stl file
-        if(triangle_count!=0)
-        {
-            polydata->Initialize();
-            polydata->SetPolys(TriangleArray);
-            polydata->SetPoints(points);
-
-            vtkSmartPointer<vtkSTLWriter> stlWriter = vtkSmartPointer<vtkSTLWriter>::New();
-
-            stlWriter->SetFileName(filename);
-            stlWriter->SetInputData(polydata);
-            stlWriter->Update();
-            stlWriter->Write();
-
-            std::cout << "mod save as stl file" << std::endl;
-        }
-        //save stl as stl file
-        else
-        {
-            vtkSmartPointer<vtkTriangleFilter> tri = vtkSmartPointer<vtkTriangleFilter>::New();
-            vtkSmartPointer<vtkSTLWriter> Writer = vtkSmartPointer<vtkSTLWriter>::New();
-            tri->SetInputData(reader->GetOutput());
-
-            Writer->SetFileName(filename);
-            Writer->SetInputConnection(tri->GetOutputPort());
-            Writer->Update();
-            Writer->Write();
-            std::cout <<"stl save as stl file" << std::endl;
-        }
-        
+        QString NewSTLFilePath = QFileDialog::getSaveFileName(this, tr("Save File"),
+                                                              "../../example_models/New stl file",tr("Stl (*.stl)"));
+        std::string STLFilePath = NewSTLFilePath.toUtf8().constData();
+        stlWriter->SetFileName(STLFilePath.c_str());
+        //Established data input for the writer
+        stlWriter->SetInputData(polydata);
+        stlWriter->Write();
     }
 }
 
@@ -1365,3 +1332,40 @@ void MainWindow::on_Cell_Statistics_released()
         }
     }
 }
+
+
+void MainWindow::on_showAxes_released()
+{
+    //get bounds from actor
+    AxesActor->SetBounds(actor->GetBounds());
+    AxesActor->SetCamera(renderer->GetActiveCamera());
+
+    //show the line grid
+    AxesActor->DrawXGridlinesOn();
+    AxesActor->DrawYGridlinesOn();
+    AxesActor->DrawZGridlinesOn();
+
+    //set the axes color as white
+    AxesActor->GetXAxesGridlinesProperty()->SetColor(0.5,0.5,0.5);
+    AxesActor->GetYAxesGridlinesProperty()->SetColor(0.5,0.5,0.5);
+    AxesActor->GetZAxesGridlinesProperty()->SetColor(0.5,0.5,0.5);
+
+    AxesActor->XAxisMinorTickVisibilityOff();
+    AxesActor->YAxisMinorTickVisibilityOff();
+    AxesActor->ZAxisMinorTickVisibilityOff();
+
+    //Set grid line location
+    AxesActor->SetGridLineLocation(2);
+    
+    renderer->AddActor(AxesActor);
+    renderWindow->Render();
+
+}
+
+void MainWindow::on_deleteshowAxes_released()
+{
+    renderer->RemoveActor(AxesActor);
+    renderWindow->Render();
+}
+
+

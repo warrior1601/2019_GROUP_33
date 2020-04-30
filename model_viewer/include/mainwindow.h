@@ -19,6 +19,7 @@
 #include <QMessageBox>
 // Header files from vtk
 #include <vtkAxesActor.h>
+#include <vtkCubeAxesActor.h>
 #include <vtkCamera.h>
 #include <vtkCellArray.h>
 #include <vtkCellType.h>
@@ -159,6 +160,12 @@ private slots:
     /** @brief This funcion will display the highlights cells Statistics. Volume, weight, density, loacion, and colour
      */
     void on_Cell_Statistics_released();
+    /** @brief This funcion will display the length,width and hight of the object
+     */
+    void on_showAxes_released();
+    /** @brief This funcion will remove the length,width and hight of the object
+     */
+    void on_deleteshowAxes_released();
 
 private:
 //-------Private Functions--------//
@@ -233,6 +240,8 @@ private:
 
     vtkSmartPointer<vtkDistanceWidget> distanceWidget = vtkSmartPointer<vtkDistanceWidget>::New(); ///< @brief For more information on vtk Classes visit https://vtk.org/doc/nightly/html/annotated.html
     vtkSmartPointer< vtkTransform> transform = vtkSmartPointer< vtkTransform>::New(); ///< @brief For more information on vtk Classes visit https://vtk.org/doc/nightly/html/annotated.html
+
+    vtkSmartPointer<vtkCubeAxesActor> AxesActor = vtkSmartPointer<vtkCubeAxesActor>::New(); ////< @brief For more information on vtk Classes visit https://vtk.org/doc/nightly/html/annotated.html
 };
 
 #endif // MAINWINDOW_H
