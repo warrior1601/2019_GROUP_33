@@ -2,7 +2,7 @@
 m 0 8960 b87373 copper
 m 1 0030 ff0000 glass
 m 2 5600 00ff00 porcilin
-m 3 4848 0000ff the end
+m 3 4848 0000ff egg
 
 
 

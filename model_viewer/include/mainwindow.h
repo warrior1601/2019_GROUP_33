@@ -19,7 +19,11 @@
 #include <QMessageBox>
 // Header files from vtk
 #include <vtkAxesActor.h>
+<<<<<<< HEAD
 #include <vtkCubeAxesActor.h>
+=======
+#include <vtkActorCollection.h>
+>>>>>>> upstream/master
 #include <vtkCamera.h>
 #include <vtkCellArray.h>
 #include <vtkCellType.h>
@@ -88,7 +92,7 @@ private slots:
     void on_Add_Light_released();
     /** @brief This enable the user to edit the name of the light
      */
-    void on_Select_Light_editTextChanged(const QString &text);
+    void on_Light_ComboBox_editTextChanged(const QString &text);
     /** @brief Using the QT QColorDialog this function sets the color of the background
      */
     void on_Change_Back_Ground_Color_released();
@@ -160,12 +164,18 @@ private slots:
     /** @brief This funcion will display the highlights cells Statistics. Volume, weight, density, loacion, and colour
      */
     void on_Cell_Statistics_released();
+<<<<<<< HEAD
     /** @brief This funcion will display the length,width and hight of the object
      */
     void on_showAxes_released();
     /** @brief This funcion will remove the length,width and hight of the object
      */
     void on_deleteshowAxes_released();
+=======
+    /** @brief This will change the color of the selected cell to the Highlighted color
+     */
+    void on_Cell_Colour_released();
+>>>>>>> upstream/master
 
 private:
 //-------Private Functions--------//
@@ -239,9 +249,12 @@ private:
     vtkSmartPointer<vtkOrientationMarkerWidget> orientationWidget = vtkSmartPointer<vtkOrientationMarkerWidget>::New(); ///< @brief For more information on vtk Classes visit https://vtk.org/doc/nightly/html/annotated.html
 
     vtkSmartPointer<vtkDistanceWidget> distanceWidget = vtkSmartPointer<vtkDistanceWidget>::New(); ///< @brief For more information on vtk Classes visit https://vtk.org/doc/nightly/html/annotated.html
+<<<<<<< HEAD
     vtkSmartPointer< vtkTransform> transform = vtkSmartPointer< vtkTransform>::New(); ///< @brief For more information on vtk Classes visit https://vtk.org/doc/nightly/html/annotated.html
 
     vtkSmartPointer<vtkCubeAxesActor> AxesActor = vtkSmartPointer<vtkCubeAxesActor>::New(); ////< @brief For more information on vtk Classes visit https://vtk.org/doc/nightly/html/annotated.html
+=======
+>>>>>>> upstream/master
 };
 
 #endif // MAINWINDOW_H

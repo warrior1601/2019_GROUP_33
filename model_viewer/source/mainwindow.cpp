@@ -1369,3 +1369,6 @@ void MainWindow::on_deleteshowAxes_released()
 }
 
 
+
+
+
