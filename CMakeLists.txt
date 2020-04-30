@@ -25,7 +25,6 @@ endif()
 if( ${BUILD_INSTALLERS} )
 	if( WIN32 )
 		set( CPACK_GENERATOR NSIS )
-<<<<<<< HEAD
 	else()
 		set(CPACK_GENERATOR ZIP)
 	endif()
@@ -90,7 +89,6 @@ if( ${BUILD_INSTALLERS} )
 	set(CPACK_COMPONENT_APPLICATIONS_INSTALL_TYPES Full)
 	set(CPACK_COMPONENT_LIBRARIES_INSTALL_TYPES Developer Full)
 	set(CPACK_COMPONENT_HEADERS_INSTALL_TYPES Developer Full)
-=======
 		else()
 		 	set(CPACK_GENERATOR ZIP)
 		endif()
@@ -149,7 +147,6 @@ if( ${BUILD_INSTALLERS} )
 		set(CPACK_COMPONENT_APPLICATIONS_INSTALL_TYPES Full)
 		set(CPACK_COMPONENT_LIBRARIES_INSTALL_TYPES Developer Full)
 		set(CPACK_COMPONENT_HEADERS_INSTALL_TYPES Developer Full)
->>>>>>> upstream/master
 
 	# Must be after the last CPACK macros
 	include(CPack)
