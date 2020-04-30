@@ -83,6 +83,9 @@
              <height>26</height>
             </size>
            </property>
+           <property name="toolTip">
+            <string>Ctrl+O</string>
+           </property>
            <property name="text">
             <string>Load Model</string>
            </property>
@@ -110,6 +113,9 @@
              <width>16777215</width>
              <height>26</height>
             </size>
+           </property>
+           <property name="toolTip">
+            <string>Ctrl+S</string>
            </property>
            <property name="text">
             <string>Save Model</string>
@@ -139,6 +145,9 @@
              <height>26</height>
             </size>
            </property>
+           <property name="toolTip">
+            <string>Ctrl+Shift+O</string>
+           </property>
            <property name="text">
             <string>Load Lights</string>
            </property>
@@ -166,6 +175,9 @@
              <width>16777215</width>
              <height>26</height>
             </size>
+           </property>
+           <property name="toolTip">
+            <string>Ctrl+Shift+S</string>
            </property>
            <property name="text">
             <string>Save Lights</string>
@@ -623,6 +635,9 @@
              <height>26</height>
             </size>
            </property>
+           <property name="toolTip">
+            <string>Ctrl+R</string>
+           </property>
            <property name="text">
             <string>Camera Reset</string>
            </property>
@@ -652,6 +667,19 @@
          <property name="sizeConstraint">
           <enum>QLayout::SetMaximumSize</enum>
          </property>
+         <item row="2" column="0">
+          <widget class="QComboBox" name="Light_ComboBox">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+           <property name="editable">
+            <bool>false</bool>
+           </property>
+           <property name="insertPolicy">
+            <enum>QComboBox::InsertAtTop</enum>
+           </property>
+          </widget>
+         </item>
          <item row="1" column="0">
           <layout class="QHBoxLayout" name="LightButtonsHorizontalLayout">
            <item>
@@ -673,6 +701,9 @@
                <width>16777215</width>
                <height>26</height>
               </size>
+             </property>
+             <property name="toolTip">
+              <string>Ctrl+L</string>
              </property>
              <property name="text">
               <string>Add Light</string>
@@ -702,6 +733,9 @@
                <height>26</height>
               </size>
              </property>
+             <property name="toolTip">
+              <string>Ctrl+E</string>
+             </property>
              <property name="text">
               <string>Edit Light</string>
              </property>
@@ -730,6 +764,9 @@
                <height>26</height>
               </size>
              </property>
+             <property name="toolTip">
+              <string>Ctrl+Shift+L</string>
+             </property>
              <property name="text">
               <string>Delete Light</string>
              </property>
@@ -739,31 +776,6 @@
             </widget>
            </item>
           </layout>
-         </item>
-         <item row="2" column="0">
-          <widget class="QComboBox" name="Select_Light">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>21</height>
-            </size>
-           </property>
-           <property name="editable">
-            <bool>true</bool>
-           </property>
-          </widget>
          </item>
         </layout>
        </widget>
@@ -809,6 +821,9 @@
              <height>26</height>
             </size>
            </property>
+           <property name="toolTip">
+            <string>Ctrl+B</string>
+           </property>
            <property name="text">
             <string>Background Colour</string>
            </property>
@@ -836,6 +851,9 @@
              <width>16777215</width>
              <height>26</height>
             </size>
+           </property>
+           <property name="toolTip">
+            <string>Ctrl+M</string>
            </property>
            <property name="text">
             <string>Model Colour</string>
@@ -889,6 +907,9 @@
              <height>26</height>
             </size>
            </property>
+           <property name="toolTip">
+            <string>Ctrl+F</string>
+           </property>
            <property name="text">
             <string>Filters</string>
            </property>
@@ -929,6 +950,9 @@
              <height>26</height>
             </size>
            </property>
+           <property name="toolTip">
+            <string>Shift+R</string>
+           </property>
            <property name="text">
             <string>Add Ruler</string>
            </property>
@@ -956,6 +980,9 @@
              <width>16777215</width>
              <height>26</height>
             </size>
+           </property>
+           <property name="toolTip">
+            <string>Ctrl+D</string>
            </property>
            <property name="text">
             <string>Remover Ruler</string>
@@ -1312,6 +1339,9 @@
              <width>16777215</width>
              <height>26</height>
             </size>
+           </property>
+           <property name="toolTip">
+            <string>Ctrl+Space</string>
            </property>
            <property name="text">
             <string>Model Statistics</string>

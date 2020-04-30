@@ -87,7 +87,7 @@ private slots:
     void on_Add_Light_released();
     /** @brief This enable the user to edit the name of the light
      */
-    void on_Select_Light_editTextChanged(const QString &text);
+    void on_Light_ComboBox_editTextChanged(const QString &text);
     /** @brief Using the QT QColorDialog this function sets the color of the background
      */
     void on_Change_Back_Ground_Color_released();
