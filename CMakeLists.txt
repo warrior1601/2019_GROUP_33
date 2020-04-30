@@ -8,7 +8,7 @@ project( Observer VERSION 1.2.1)
 
 # Boolean to adjust want you want to build
 set( BUILD_MODEL_TEST_CODE 	FALSE )
-set( BUILD_OBSERVER 		FALSE )
+set( BUILD_OBSERVER 		TRUE )
 set( BUILD_INSTALLERS		TRUE )
 
 # All booleans require the model library
@@ -99,7 +99,7 @@ if( ${BUILD_INSTALLERS} )
 		DESTINATION bin
 		COMPONENT libraries
 		)
-    
+
 		install(FILES model/include/Model.hpp;
 									model/include/Cell.hpp;
 									model/include/Matrix.hpp;
@@ -112,6 +112,23 @@ if( ${BUILD_INSTALLERS} )
 		 		DESTINATION include
 		 		COMPONENT headers
 		)
+
+		install(FILES model_viewer/images/Observer.stl
+									model_viewer/images/ObserverLogo.stl
+									example_models/a-10-thunderbolt-mk2.stl
+									example_models/airbus_a400m.stl
+									example_models/bawar_plane.stl
+									example_models/cube.stl
+									example_models/he111.stl
+									example_models/sphere.stl
+									example_models/ExampleModel1.mod
+									example_models/ExampleModel2.mod
+								  example_models/ExampleModel3.mod
+									example_models/Model_One.txt
+									example_models/Model_Two.txt
+				DESTINATION example_models
+				COMPONENT applications
+			)
 
 		# CPACK macros below here
 		set (CPACK_PACKAGE_NAME "Observer")

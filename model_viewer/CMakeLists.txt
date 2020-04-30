@@ -74,3 +74,69 @@ target_link_libraries( Observer Qt5::Widgets )
 
 # Tell CMake that the executable depends on the VTK libraries
 target_link_libraries( Observer ${VTK_LIBRARIES} )
+
+# Copy the model files for the Observer application
+ADD_CUSTOM_COMMAND(TARGET Observer POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy
+		   ${CMAKE_CURRENT_SOURCE_DIR}/../model_viewer/images/Observer.stl
+       ${CMAKE_CURRENT_SOURCE_DIR}/../build/model_viewer/example_models/Observer.stl
+)
+
+ADD_CUSTOM_COMMAND(TARGET Observer POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy
+		   ${CMAKE_CURRENT_SOURCE_DIR}/../model_viewer/images/ObserverLogo.stl
+       ${CMAKE_CURRENT_SOURCE_DIR}/../build/model_viewer/example_models/ObserverLogo.stl
+)
+
+ADD_CUSTOM_COMMAND(TARGET Observer POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy
+		   ${CMAKE_CURRENT_SOURCE_DIR}/../example_models/a-10-thunderbolt-mk2.stl
+       ${CMAKE_CURRENT_SOURCE_DIR}/../build/model_viewer/example_models/a-10-thunderbolt-mk2.stl
+)
+
+ADD_CUSTOM_COMMAND(TARGET Observer POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy
+		   ${CMAKE_CURRENT_SOURCE_DIR}/../example_models/airbus_a400m.stl
+       ${CMAKE_CURRENT_SOURCE_DIR}/../build/model_viewer/example_models/airbus_a400m.stl
+)
+
+ADD_CUSTOM_COMMAND(TARGET Observer POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy
+		   ${CMAKE_CURRENT_SOURCE_DIR}/../example_models/bawar_plane.stl
+       ${CMAKE_CURRENT_SOURCE_DIR}/../build/model_viewer/example_models/bawar_plane.stl
+)
+
+ADD_CUSTOM_COMMAND(TARGET Observer POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy
+		   ${CMAKE_CURRENT_SOURCE_DIR}/../example_models/cube.stl
+       ${CMAKE_CURRENT_SOURCE_DIR}/../build/model_viewer/example_models/cube.stl
+)
+
+ADD_CUSTOM_COMMAND(TARGET Observer POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy
+		   ${CMAKE_CURRENT_SOURCE_DIR}/../example_models/he111.stl
+       ${CMAKE_CURRENT_SOURCE_DIR}/../build/model_viewer/example_models/he111.stl
+)
+
+ADD_CUSTOM_COMMAND(TARGET Observer POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy
+		   ${CMAKE_CURRENT_SOURCE_DIR}/../example_models/sphere.stl
+       ${CMAKE_CURRENT_SOURCE_DIR}/../build/model_viewer/example_models/sphere.stl
+)
+
+ADD_CUSTOM_COMMAND(TARGET Observer POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy
+		   ${CMAKE_CURRENT_SOURCE_DIR}/../example_models/ExampleModel1.mod
+       ${CMAKE_CURRENT_SOURCE_DIR}/../build/model_viewer/example_models/ExampleModel1.mod
+)
+
+ADD_CUSTOM_COMMAND(TARGET Observer POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy
+		   ${CMAKE_CURRENT_SOURCE_DIR}/../example_models/ExampleModel2.mod
+       ${CMAKE_CURRENT_SOURCE_DIR}/../build/model_viewer/example_models/ExampleModel2.mod
+)
+
+ADD_CUSTOM_COMMAND(TARGET Observer POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy
+		   ${CMAKE_CURRENT_SOURCE_DIR}/../example_models/ExampleModel3.mod
+       ${CMAKE_CURRENT_SOURCE_DIR}/../build/model_viewer/example_models/ExampleModel3.mod
+)
+
+ADD_CUSTOM_COMMAND(TARGET Observer POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy
+		   ${CMAKE_CURRENT_SOURCE_DIR}/../example_models/Model_One.txt
+       ${CMAKE_CURRENT_SOURCE_DIR}/../build/model_viewer/example_models/Model_One.txt
+)
+
+ADD_CUSTOM_COMMAND(TARGET Observer POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy
+		   ${CMAKE_CURRENT_SOURCE_DIR}/../example_models/Model_Two.txt
+       ${CMAKE_CURRENT_SOURCE_DIR}/../build/model_viewer/example_models/Model_Two.txt
+)

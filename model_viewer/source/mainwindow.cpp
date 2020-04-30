@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->setupUi(this);
     ui->Display_Window->SetRenderWindow( renderWindow );
 
-    QString fileName = "../../../model_viewer/images/Observer.stl";
+    QString fileName = "../example_models/Observer.stl";
     std::string FilePath = fileName.toUtf8().constData();
     std::ifstream myFile(FilePath);
 
@@ -269,7 +269,7 @@ void MainWindow::on_LoadModelButton_released()
     ui->Hexahedron_Highlight->setCheckState(Qt::Unchecked);
 
 
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Open Model File"), "../../../example_models",
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open Model File"), "../example_models",
                                                     tr("Model Files(*.stl *.txt *.mod)"));
     std::string FilePath = fileName.toUtf8().constData();
     std::ifstream myFile(FilePath);
@@ -691,7 +691,7 @@ void MainWindow::on_SaveModelButton_released()
     else
     {
         QString NewSTLFilePath = QFileDialog::getSaveFileName(this, tr("Save File"),
-                                                              "../../example_models/New stl file",tr("Stl (*.stl)"));
+                                                              "",tr("Stl (*.stl)"));
         std::string STLFilePath = NewSTLFilePath.toUtf8().constData();
         stlWriter->SetFileName(STLFilePath.c_str());
         //Established data input for the writer
@@ -952,7 +952,7 @@ void MainWindow::on_LoadLightsButton_released()
 void MainWindow::on_SaveLightsButton_released()
 {
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save Light File"),
-                                                    "ListOfLights",tr("Doc (*.txt)"));
+                                                    "",tr("Doc (*.txt)"));
     QFile file(fileName);
     //This redirects the ostream so that the print self function can be diected to a file for saving
     std::streambuf *psbuf;

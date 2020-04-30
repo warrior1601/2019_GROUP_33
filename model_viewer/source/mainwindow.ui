@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1406</width>
-    <height>957</height>
+    <height>979</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -63,6 +63,37 @@
          <set>Qt::AlignCenter</set>
         </property>
         <layout class="QGridLayout" name="gridLayout_7">
+         <item row="1" column="1">
+          <widget class="QPushButton" name="SaveLightsButton">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>26</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>26</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>Ctrl+Shift+S</string>
+           </property>
+           <property name="text">
+            <string>Save Lights</string>
+           </property>
+           <property name="shortcut">
+            <string>Ctrl+Shift+S</string>
+           </property>
+          </widget>
+         </item>
          <item row="0" column="0">
           <widget class="QPushButton" name="LoadModelButton">
            <property name="sizePolicy">
@@ -156,37 +187,6 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="1">
-          <widget class="QPushButton" name="SaveLightsButton">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>26</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>26</height>
-            </size>
-           </property>
-           <property name="toolTip">
-            <string>Ctrl+Shift+S</string>
-           </property>
-           <property name="text">
-            <string>Save Lights</string>
-           </property>
-           <property name="shortcut">
-            <string>Ctrl+Shift+S</string>
-           </property>
-          </widget>
-         </item>
         </layout>
        </widget>
       </item>
@@ -214,34 +214,6 @@
          <property name="sizeConstraint">
           <enum>QLayout::SetMaximumSize</enum>
          </property>
-         <item row="0" column="0">
-          <widget class="QPushButton" name="Reset_Camera">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>26</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>26</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Camera Reset</string>
-           </property>
-           <property name="shortcut">
-            <string>Ctrl+R</string>
-           </property>
-          </widget>
-         </item>
          <item row="3" column="0">
           <layout class="QHBoxLayout" name="XYZ_Dials">
            <item>
@@ -501,21 +473,33 @@
            </item>
           </layout>
          </item>
-         <item row="1" column="0">
-          <spacer name="verticalSpacer_3">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
+         <item row="0" column="0">
+          <widget class="QPushButton" name="Reset_Camera">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
            </property>
-           <property name="sizeType">
-            <enum>QSizePolicy::Fixed</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
+           <property name="minimumSize">
             <size>
-             <width>20</width>
-             <height>5</height>
+             <width>0</width>
+             <height>26</height>
             </size>
            </property>
-          </spacer>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>26</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Camera Reset</string>
+           </property>
+           <property name="shortcut">
+            <string>Ctrl+R</string>
+           </property>
+          </widget>
          </item>
          <item row="2" column="0">
           <layout class="QHBoxLayout" name="HorizontalAndVerticaShiftsHorizontalLayout">
@@ -643,36 +627,21 @@
            </item>
           </layout>
          </item>
-         <item row="0" column="0">
-          <widget class="QPushButton" name="Reset_Camera">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
+         <item row="1" column="0">
+          <spacer name="verticalSpacer_3">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
            </property>
-           <property name="minimumSize">
+           <property name="sizeType">
+            <enum>QSizePolicy::Fixed</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
             <size>
-             <width>0</width>
-             <height>26</height>
+             <width>20</width>
+             <height>5</height>
             </size>
            </property>
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>26</height>
-            </size>
-           </property>
-           <property name="toolTip">
-            <string>Ctrl+R</string>
-           </property>
-           <property name="text">
-            <string>Camera Reset</string>
-           </property>
-           <property name="shortcut">
-            <string>Ctrl+R</string>
-           </property>
-          </widget>
+          </spacer>
          </item>
         </layout>
        </widget>
@@ -1023,14 +992,14 @@
          <item row="0" column="0">
           <widget class="QPushButton" name="showAxes">
            <property name="text">
-            <string>Size</string>
+            <string>Show Size Axes</string>
            </property>
           </widget>
          </item>
          <item row="0" column="1">
           <widget class="QPushButton" name="deleteshowAxes">
            <property name="text">
-            <string>Remove Size</string>
+            <string>Remove Size Axes</string>
            </property>
           </widget>
          </item>
