@@ -1367,6 +1367,52 @@ void MainWindow::on_Cell_Statistics_released()
     }
 }
 
+void MainWindow::on_showAxes_released()
+{
+    //get bounds from actor
+    if (LoadedFileType == true)
+    {   //Finds the bounds for a STL file
+        AxesActor->SetBounds(actor->GetBounds());
+    }
+    else
+    {   //Finds the bounds for the polydata loaded from teh MOD/TXT file
+        AxesActor->SetBounds(polydata->GetBounds());
+    }
+
+    AxesActor->SetCamera(renderer->GetActiveCamera());
+
+    //show the line grid
+    AxesActor->DrawXGridlinesOn();
+    AxesActor->DrawYGridlinesOn();
+    AxesActor->DrawZGridlinesOn();
+
+    //set the axes color as white
+    AxesActor->GetXAxesGridlinesProperty()->SetColor(0.5,0.5,0.5);
+    AxesActor->GetYAxesGridlinesProperty()->SetColor(0.5,0.5,0.5);
+    AxesActor->GetZAxesGridlinesProperty()->SetColor(0.5,0.5,0.5);
+
+    AxesActor->XAxisMinorTickVisibilityOff();
+    AxesActor->YAxisMinorTickVisibilityOff();
+    AxesActor->ZAxisMinorTickVisibilityOff();
+
+    //Set grid line location
+    AxesActor->SetGridLineLocation(2);
+
+    renderer->AddActor(AxesActor);
+    renderWindow->Render();
+
+}
+
+void MainWindow::on_deleteshowAxes_released()
+{
+    renderer->RemoveActor(AxesActor);
+    renderWindow->Render();
+}
+
+
+
+
+
 void MainWindow::on_Cell_Colour_released()
 {  //This wil change the highlighted cell to it highlighted colour
     if (Qt::Checked == ui->Tetra_Highlight->checkState() )
