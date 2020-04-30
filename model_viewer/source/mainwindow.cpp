@@ -32,9 +32,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     renderer->AddActor(actor);
     ui->Display_Window->GetRenderWindow()->AddRenderer( renderer );
     renderWindow->Render();
-
-
-
 }
 //--------------Destructor-------------//
 
@@ -45,12 +42,17 @@ MainWindow::~MainWindow()
 //-------Special Member Functions------//
 
 void  MainWindow::Init_CameraLight()
-{
+{   //Clears all the lights when new model is loaded
+    ListOfLights.clear();
+    renderer->RemoveAllLights();
+    //If you do not call update() on a combobox before calling clear() it could result in an error that crashes the program
+    ui->Light_ComboBox->update();
+    ui->Light_ComboBox->clear();
     //Adds a camera light
     vtkLight_WithName light;
     light.SetName("Camera Light");
     ListOfLights.push_back(light);
-    ui->Select_Light->addItem(light.GetName());
+    ui->Light_ComboBox->addItem(light.GetName());
     light.light->SetLightTypeToHeadlight();
     light.light->SetPosition( 5.0, 5.0, 15.0 );
     light.light->SetPositional( true );
@@ -66,17 +68,24 @@ void  MainWindow::Init_CameraLight()
 }
 
 void MainWindow::on_Change_Object_Color_released()
-{
-    //Opens Dialog Box to allow the use to chose a color
+{   //Opens Dialog Box to allow the use to chose a color
     QColor Color = QColorDialog::getColor(Qt::white,this,"Choose Color");
     //checks to ensure that the selector color is valid
     if(Color.isValid())
-    {
-        //converts the QColor to RGB values ranging from 0.0 through 1.0 to be used by SetColor function
+    {   //converts the QColor to RGB values ranging from 0.0 through 1.0 to be used by SetColor function
         double red = Color.redF();
         double green = Color.greenF();
         double blue = Color.blueF();
-        actor->GetProperty()->SetColor( red,green,blue );
+        if (LoadedFileType == true)
+        {
+            actor->GetProperty()->SetColor( red,green,blue );
+        }
+        else
+        {
+            vtkSmartPointer<vtkProperty> ModelColor = vtkSmartPointer<vtkProperty>::New();
+            ModelColor->SetColor( red,green,blue );
+            renderer->GetActors()->ApplyProperties(ModelColor);
+        }
     }
     //rerenders the window after the color change
     renderWindow->Render();
@@ -92,7 +101,7 @@ void MainWindow::on_Add_Light_released()
     if(light.GetName().isEmpty() == false)
     {
         // This establishes default settings for an added light
-        ui->Select_Light->addItem(light.GetName());
+        ui->Light_ComboBox->addItem(light.GetName());
         light.light->SetLightTypeToSceneLight();
         light.light->SetPosition( 5, 5, 15 );
         light.light->SetPositional( true );
@@ -107,10 +116,10 @@ void MainWindow::on_Add_Light_released()
     }
 }
 
-void MainWindow::on_Select_Light_editTextChanged(const QString &text)
+void MainWindow::on_Light_ComboBox_editTextChanged(const QString &text)
 {   //This will change the name of the light as the user edits the text in the Combo Box
-    ListOfLights.at(ui->Select_Light->currentIndex()).SetName(text);
-    ui->Select_Light->setItemText(ui->Select_Light->currentIndex(),ListOfLights.at(ui->Select_Light->currentIndex()).GetName());
+    ListOfLights.at(ui->Light_ComboBox->currentIndex()).SetName(text);
+    ui->Light_ComboBox->setItemText(ui->Light_ComboBox->currentIndex(),ListOfLights.at(ui->Light_ComboBox->currentIndex()).GetName());
 }
 
 QString MainWindow::InputQString()
@@ -259,6 +268,7 @@ void MainWindow::on_LoadModelButton_released()
     ui->Pyramid_Highlight->setCheckState(Qt::Unchecked);
     ui->Hexahedron_Highlight->setCheckState(Qt::Unchecked);
 
+
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open Model File"), "../../../example_models",
                                                     tr("Model Files(*.stl *.txt *.mod)"));
     std::string FilePath = fileName.toUtf8().constData();
@@ -272,7 +282,6 @@ void MainWindow::on_LoadModelButton_released()
         //Initializes the renderer so it can be used on different file types
         renderer = vtkSmartPointer<vtkRenderer>::New();
 
-        Init_CameraLight();
         //clearing all previous data ensures there is no overlap of images from one loaded file to the next
         ListOfMappers.clear();
         ListOfUgs.clear();
@@ -280,9 +289,14 @@ void MainWindow::on_LoadModelButton_released()
         ListOfActors_pyramid.clear();
         ListOfActors_hexahedron.clear();
         ListOfTriangles.clear();
+        ui->List_Of_Pyramids->update();
         ui->List_Of_Pyramids->clear();
+        ui->List_Of_Tetras->update();
         ui->List_Of_Tetras->clear();
+        ui->List_Of_Hexahedrons->update();
         ui->List_Of_Hexahedrons->clear();
+        Init_CameraLight();
+
         //finds the file extension
         std::size_t found = FilePath.find_last_of(".");
         std::cout << "File type is: " << FilePath.substr(found+1) << std::endl;
@@ -645,21 +659,11 @@ void MainWindow::on_LoadModelButton_released()
 
                     hexahedron_count++;
                 }
-            }
-            //This saving process is automatic after a MOD/TXT is load. The company (Brief Sheet) said an object was to eventualy
-            //Move the company to using only STL files for recent projects
-            //This get the polydata ready to be written by yhr STLwriter
-            polydata->Initialize();
-            polydata->SetPolys(TriangleArray);
-            polydata->SetPoints(points);
 
-            QString NewSTLFilePath = QFileDialog::getSaveFileName(this, tr("Save File"),
-                                                                  "../../example_models/New stl file",tr("Stl (*.stl)"));
-            std::string STLFilePath = NewSTLFilePath.toUtf8().constData();
-            stlWriter->SetFileName(STLFilePath.c_str());
-            //Established data input for the writer
-            stlWriter->SetInputData(polydata);
-            stlWriter->Write();
+                polydata->Initialize();
+                polydata->SetPolys(TriangleArray);
+                polydata->SetPoints(points);
+            }
         }
 
         //This process is the same for both STL and MOD/TXT files
@@ -680,19 +684,39 @@ void MainWindow::on_LoadModelButton_released()
 
 void MainWindow::on_SaveModelButton_released()
 {
-    QMessageBox::critical(this, "Uncoded Error", "Save function has not been coded for");
+    if (LoadedFileType == true)
+    {   //Saveing an STL file is not needed at this point because there is no manipulation of STL data
+        QMessageBox::critical(this, "Uncoded Error", "Save function only works on loaded MOD/TXT files");
+    }
+    else
+    {
+        QString NewSTLFilePath = QFileDialog::getSaveFileName(this, tr("Save File"),
+                                                              "../../example_models/New stl file",tr("Stl (*.stl)"));
+        std::string STLFilePath = NewSTLFilePath.toUtf8().constData();
+        stlWriter->SetFileName(STLFilePath.c_str());
+        //Established data input for the writer
+        stlWriter->SetInputData(polydata);
+        stlWriter->Write();
+    }
 }
 
 void MainWindow::on_LoadLightsButton_released()
 {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open Light File"), "", tr("Doc(*.txt)"));
     std::string FilePath= fileName.toUtf8().constData();
-
     std::ifstream myFile(FilePath);
 
     if (myFile.is_open())
     {
         std::string currentLine;
+        std::string OpenFileCheck("List Of Lights");
+        getline (myFile,currentLine);
+        if(currentLine.compare(OpenFileCheck) != 0)
+        {
+            QMessageBox::critical(this, "Loading Error", "File is not formatted correctly for loading");
+            return;
+        }
+
         std::string compare ("Camera Light");
         double Data[] = {0.0, 0.0, 0.0};
         int ListofLightsPosition = 1;
@@ -798,7 +822,7 @@ void MainWindow::on_LoadLightsButton_released()
                 vtkLight_WithName light;
                 light.SetName((light.GetName().fromStdString(currentLine)));
                 ListOfLights.push_back(light);
-                ui->Select_Light->addItem(light.GetName());
+                ui->Light_ComboBox->addItem(light.GetName());
                 ListOfLights.back().light->SetLightTypeToSceneLight();
                 for(unsigned int i=0; i<18; i++ )
                 {
@@ -937,13 +961,15 @@ void MainWindow::on_SaveLightsButton_released()
     filestr.open ((fileName.toStdString()));
 
     if (filestr.is_open())
-    {
+    {   //This line will be the first line written in the file. Upon opening there will be a check for this line
+        //If not then the file will be ignored
+        psbuf = filestr.rdbuf();        // get file's streambuf
+        std::cout.rdbuf(psbuf);         // assign streambuf to cout
+        std::cout << "List Of Lights" << std::endl;
         for(int i = 0; i <ListOfLights.size(); i++)
         {
             vtkLight_WithName light = ListOfLights.at(i);
             QString Name = light.GetName();
-            psbuf = filestr.rdbuf();        // get file's streambuf
-            std::cout.rdbuf(psbuf);         // assign streambuf to cout
             std::cout<< Name.toStdString() << std::endl;
             light.light->PrintSelf( std::cout , vtkIndent(5));
         }
@@ -956,12 +982,12 @@ void MainWindow::on_SaveLightsButton_released()
 void MainWindow::on_Edit_Light_clicked()
 {
     // This ensures a light has been created before t can be selected to be edited
-    if(ui->Select_Light->currentIndex() > -1)
+    if(ui->Light_ComboBox->currentIndex() > -1)
     {
         Edit_LightDialog =new Edit_Light(this);
-        Edit_LightDialog->setWindowTitle(ListOfLights.at(ui->Select_Light->currentIndex()).GetName());
+        Edit_LightDialog->setWindowTitle(ListOfLights.at(ui->Light_ComboBox->currentIndex()).GetName());
         Edit_LightDialog->show();
-        Edit_LightDialog->Open_Dialog(ListOfLights.at(ui->Select_Light->currentIndex()),renderWindow );
+        Edit_LightDialog->Open_Dialog(ListOfLights.at(ui->Light_ComboBox->currentIndex()),renderWindow );
     }
 }
 
@@ -970,10 +996,11 @@ void MainWindow::on_Delete_Light_released()
     // There will be a recall of Deleted light function to recover
     // Accidentally deleted lights during the users current session
     // Also, A save&load list of lights function will be added
-    int LightToDelete = ui->Select_Light->currentIndex();
-    if(ui->Select_Light->currentIndex() > 0)
+    int LightToDelete = ui->Light_ComboBox->currentIndex();
+    if(ui->Light_ComboBox->currentIndex() > 0)
     {
-        ui->Select_Light->removeItem(ui->Select_Light->currentIndex());
+        ui->Light_ComboBox->removeItem(ui->Light_ComboBox->currentIndex());
+        ui->Light_ComboBox->update();
         renderer->RemoveLight(ListOfLights.at(LightToDelete).light);
         // ListOfLights.at(LightToDelete).light->SwitchOff();  // Code for future upgrade
         // add a light recall function and save the list of lights to be loaded later
@@ -1138,17 +1165,17 @@ void MainWindow::on_Hexahedron_Highlight_stateChanged(int state)
 
 void MainWindow::on_Highlight_released()
 {
-  if (LoadedFileType == false)
-  {
-    QColor Color = QColorDialog::getColor(Qt::white,this,"Choose Color");
-    if(Color.isValid())
+    if (LoadedFileType == false)
     {
-        Highlight_red = Color.redF();
-        Highlight_green = Color.greenF();
-        Highlight_blue = Color.blueF();
-        renderWindow->Render();
+        QColor Color = QColorDialog::getColor(Qt::white,this,"Choose Color");
+        if(Color.isValid())
+        {
+            Highlight_red = Color.redF();
+            Highlight_green = Color.greenF();
+            Highlight_blue = Color.blueF();
+            renderWindow->Render();
+        }
     }
-  }
 }
 
 void MainWindow::on_Cell_Statistics_released()
@@ -1337,5 +1364,73 @@ void MainWindow::on_Cell_Statistics_released()
                 }
             }
         }
+    }
+}
+
+void MainWindow::on_showAxes_released()
+{
+    //get bounds from actor
+    if (LoadedFileType == true)
+    {   //Finds the bounds for a STL file
+        AxesActor->SetBounds(actor->GetBounds());
+    }
+    else
+    {   //Finds the bounds for the polydata loaded from teh MOD/TXT file
+        AxesActor->SetBounds(polydata->GetBounds());
+    }
+
+    AxesActor->SetCamera(renderer->GetActiveCamera());
+
+    //show the line grid
+    AxesActor->DrawXGridlinesOn();
+    AxesActor->DrawYGridlinesOn();
+    AxesActor->DrawZGridlinesOn();
+
+    //set the axes color as white
+    AxesActor->GetXAxesGridlinesProperty()->SetColor(0.5,0.5,0.5);
+    AxesActor->GetYAxesGridlinesProperty()->SetColor(0.5,0.5,0.5);
+    AxesActor->GetZAxesGridlinesProperty()->SetColor(0.5,0.5,0.5);
+
+    AxesActor->XAxisMinorTickVisibilityOff();
+    AxesActor->YAxisMinorTickVisibilityOff();
+    AxesActor->ZAxisMinorTickVisibilityOff();
+
+    //Set grid line location
+    AxesActor->SetGridLineLocation(2);
+
+    renderer->AddActor(AxesActor);
+    renderWindow->Render();
+
+}
+
+void MainWindow::on_deleteshowAxes_released()
+{
+    renderer->RemoveActor(AxesActor);
+    renderWindow->Render();
+}
+
+
+
+
+
+void MainWindow::on_Cell_Colour_released()
+{  //This wil change the highlighted cell to it highlighted colour
+    if (Qt::Checked == ui->Tetra_Highlight->checkState() )
+    {
+        Temp_Tetra_color_red = Highlight_red;
+        Temp_Tetra_color_green = Highlight_green;
+        Temp_Tetra_color_blue = Highlight_blue;
+    }
+    if (Qt::Checked == ui->Pyramid_Highlight->checkState() )
+    {
+        Temp_Pyramid_color_red = Highlight_red;
+        Temp_Pyramid_color_green = Highlight_green;
+        Temp_Pyramid_color_blue = Highlight_blue;
+    }
+    if (Qt::Checked == ui->Hexahedron_Highlight->checkState() )
+    {
+        Temp_Hexahedron_color_red = Highlight_red;
+        Temp_Hexahedron_color_green = Highlight_green;
+        Temp_Hexahedron_color_blue = Highlight_blue;
     }
 }
