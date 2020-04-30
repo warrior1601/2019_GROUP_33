@@ -9,7 +9,7 @@ project( Observer VERSION 1.2.1)
 # Boolean to adjust want you want to build
 set( BUILD_MODEL_TEST_CODE 	TRUE )
 set( BUILD_OBSERVER 		TRUE )
-set( BUILD_INSTALLERS		FALSE )
+set( BUILD_INSTALLERS		TRUE )
 
 # All booleans require the model library
 if ( ${BUILD_MODEL_TEST_CODE} )
@@ -36,18 +36,18 @@ if( ${BUILD_INSTALLERS} )
 			 COMPONENT applications
 		)
 
-		# install( FILES  model/include/Model.hpp;
-		# 		model/include/Cell.hpp;
-		# 		model/include/Matrix.hpp;
-		# 		model/include/Vectors.h;
-		# 		model/include/Material.h;
-		# 		model_viewer/include/mainwindow.h;
-		# 		model_viewer/include/edit_light.h;
-		# 		model_viewer/include/filters.h;
-		# 		model_viewer/include/vtklight_withname.h
-		# 	 DESTINATION include
-		# 	 COMPONENT headers
-		# )
+		 install( FILES  model/include/Model.hpp;
+		 		model/include/Cell.hpp;
+		 		model/include/Matrix.hpp;
+		 		model/include/Vectors.h;
+		 		model/include/Material.h;
+		 		model_viewer/include/mainwindow.h;
+		 		model_viewer/include/edit_light.h;
+				model_viewer/include/filters.h;
+		 		model_viewer/include/vtklight_withname.h
+		 	 DESTINATION include
+		 	 COMPONENT headers
+		 )
 
 		# CPACK macros below here
 		set (CPACK_PACKAGE_NAME "Observer")
