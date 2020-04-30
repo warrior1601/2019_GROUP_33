@@ -63,22 +63,29 @@ void  MainWindow::Init_CameraLight()
     light.light->SetSpecularColor( 1, 1, 1 );
     light.light->SetIntensity( 0.5 );
     light.light->SwitchOff();
-    renderer->AddLight( light.light ); 
+    renderer->AddLight( light.light );
     ui->Display_Window->GetRenderWindow()->Render();
 }
 
 void MainWindow::on_Change_Object_Color_released()
-{
-    //Opens Dialog Box to allow the use to chose a color
+{   //Opens Dialog Box to allow the use to chose a color
     QColor Color = QColorDialog::getColor(Qt::white,this,"Choose Color");
     //checks to ensure that the selector color is valid
     if(Color.isValid())
-    {
-        //converts the QColor to RGB values ranging from 0.0 through 1.0 to be used by SetColor function
+    {   //converts the QColor to RGB values ranging from 0.0 through 1.0 to be used by SetColor function
         double red = Color.redF();
         double green = Color.greenF();
         double blue = Color.blueF();
+        if (LoadedFileType == true)
+        {
         actor->GetProperty()->SetColor( red,green,blue );
+        }
+        else
+        {
+        vtkSmartPointer<vtkProperty> ModelColor = vtkSmartPointer<vtkProperty>::New();
+        ModelColor->SetColor( red,green,blue );
+        renderer->GetActors()->ApplyProperties(ModelColor);
+        }
     }
     //rerenders the window after the color change
     renderWindow->Render();
@@ -652,21 +659,11 @@ void MainWindow::on_LoadModelButton_released()
 
                     hexahedron_count++;
                 }
-            }
-            //This saving process is automatic after a MOD/TXT is load. The company (Brief Sheet) said an object was to eventualy
-            //Move the company to using only STL files for recent projects
-            //This get the polydata ready to be written by yhr STLwriter
-            polydata->Initialize();
-            polydata->SetPolys(TriangleArray);
-            polydata->SetPoints(points);
 
-            QString NewSTLFilePath = QFileDialog::getSaveFileName(this, tr("Save File"),
-                                                                  "../../example_models/New stl file",tr("Stl (*.stl)"));
-            std::string STLFilePath = NewSTLFilePath.toUtf8().constData();
-            stlWriter->SetFileName(STLFilePath.c_str());
-            //Established data input for the writer
-            stlWriter->SetInputData(polydata);
-            stlWriter->Write();
+                polydata->Initialize();
+                polydata->SetPolys(TriangleArray);
+                polydata->SetPoints(points);
+            }
         }
 
         //This process is the same for both STL and MOD/TXT files
@@ -687,7 +684,20 @@ void MainWindow::on_LoadModelButton_released()
 
 void MainWindow::on_SaveModelButton_released()
 {
-    QMessageBox::critical(this, "Uncoded Error", "Save function has not been coded for");
+    if (LoadedFileType == true)
+    {   //Saveing an STL file is not needed at this point because there is no manipulation of STL data
+        QMessageBox::critical(this, "Uncoded Error", "Save function only works on loaded MOD/TXT files");
+    }
+    else
+    {
+        QString NewSTLFilePath = QFileDialog::getSaveFileName(this, tr("Save File"),
+                                                              "../../example_models/New stl file",tr("Stl (*.stl)"));
+        std::string STLFilePath = NewSTLFilePath.toUtf8().constData();
+        stlWriter->SetFileName(STLFilePath.c_str());
+        //Established data input for the writer
+        stlWriter->SetInputData(polydata);
+        stlWriter->Write();
+    }
 }
 
 void MainWindow::on_LoadLightsButton_released()
@@ -989,7 +999,7 @@ void MainWindow::on_Delete_Light_released()
     }
     else
     {
-       QMessageBox::critical(this, "Runtime Error", "Cannot delete Camera Light instead turn it off");
+        QMessageBox::critical(this, "Runtime Error", "Cannot delete Camera Light instead turn it off");
     }
     renderWindow->Render();
 }
@@ -1146,17 +1156,17 @@ void MainWindow::on_Hexahedron_Highlight_stateChanged(int state)
 
 void MainWindow::on_Highlight_released()
 {
-  if (LoadedFileType == false)
-  {
-    QColor Color = QColorDialog::getColor(Qt::white,this,"Choose Color");
-    if(Color.isValid())
+    if (LoadedFileType == false)
     {
-        Highlight_red = Color.redF();
-        Highlight_green = Color.greenF();
-        Highlight_blue = Color.blueF();
-        renderWindow->Render();
+        QColor Color = QColorDialog::getColor(Qt::white,this,"Choose Color");
+        if(Color.isValid())
+        {
+            Highlight_red = Color.redF();
+            Highlight_green = Color.greenF();
+            Highlight_blue = Color.blueF();
+            renderWindow->Render();
+        }
     }
-  }
 }
 
 void MainWindow::on_Cell_Statistics_released()

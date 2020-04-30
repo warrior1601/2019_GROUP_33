@@ -19,6 +19,7 @@
 #include <QMessageBox>
 // Header files from vtk
 #include <vtkAxesActor.h>
+#include <vtkActorCollection.h>
 #include <vtkCamera.h>
 #include <vtkCellArray.h>
 #include <vtkCellType.h>
