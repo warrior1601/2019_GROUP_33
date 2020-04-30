@@ -78,13 +78,13 @@ void MainWindow::on_Change_Object_Color_released()
         double blue = Color.blueF();
         if (LoadedFileType == true)
         {
-        actor->GetProperty()->SetColor( red,green,blue );
+            actor->GetProperty()->SetColor( red,green,blue );
         }
         else
         {
-        vtkSmartPointer<vtkProperty> ModelColor = vtkSmartPointer<vtkProperty>::New();
-        ModelColor->SetColor( red,green,blue );
-        renderer->GetActors()->ApplyProperties(ModelColor);
+            vtkSmartPointer<vtkProperty> ModelColor = vtkSmartPointer<vtkProperty>::New();
+            ModelColor->SetColor( red,green,blue );
+            renderer->GetActors()->ApplyProperties(ModelColor);
         }
     }
     //rerenders the window after the color change
@@ -710,6 +710,14 @@ void MainWindow::on_LoadLightsButton_released()
     if (myFile.is_open())
     {
         std::string currentLine;
+        std::string OpenFileCheck("List Of Lights");
+        getline (myFile,currentLine);
+        if(currentLine.compare(OpenFileCheck) != 0)
+        {
+            QMessageBox::critical(this, "Loading Error", "File is not formatted correctly for loading");
+            return;
+        }
+
         std::string compare ("Camera Light");
         double Data[] = {0.0, 0.0, 0.0};
         int ListofLightsPosition = 1;
@@ -954,13 +962,15 @@ void MainWindow::on_SaveLightsButton_released()
     filestr.open ((fileName.toStdString()));
 
     if (filestr.is_open())
-    {
+    {   //This line will be the first line written in the file. Upon opening there will be a check for this line
+        //If not then the file will be ignored
+        psbuf = filestr.rdbuf();        // get file's streambuf
+        std::cout.rdbuf(psbuf);         // assign streambuf to cout
+        std::cout << "List Of Lights" << std::endl;
         for(int i = 0; i <ListOfLights.size(); i++)
         {
             vtkLight_WithName light = ListOfLights.at(i);
             QString Name = light.GetName();
-            psbuf = filestr.rdbuf();        // get file's streambuf
-            std::cout.rdbuf(psbuf);         // assign streambuf to cout
             std::cout<< Name.toStdString() << std::endl;
             light.light->PrintSelf( std::cout , vtkIndent(5));
         }
