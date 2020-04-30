@@ -99,7 +99,7 @@ if( ${BUILD_INSTALLERS} )
 		DESTINATION bin
 		COMPONENT libraries
 		)
-
+    
 		install(FILES model/include/Model.hpp;
 									model/include/Cell.hpp;
 									model/include/Matrix.hpp;
