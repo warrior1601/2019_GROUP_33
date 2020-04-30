@@ -160,6 +160,9 @@ private slots:
     /** @brief This funcion will display the highlights cells Statistics. Volume, weight, density, loacion, and colour
      */
     void on_Cell_Statistics_released();
+    /** @brief This will change the color of the selected cell to the Highlighted color
+     */
+    void on_Cell_Colour_released();
 
 private:
 //-------Private Functions--------//

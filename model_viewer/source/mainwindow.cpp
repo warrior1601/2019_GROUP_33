@@ -704,7 +704,6 @@ void MainWindow::on_LoadLightsButton_released()
 {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open Light File"), "", tr("Doc(*.txt)"));
     std::string FilePath= fileName.toUtf8().constData();
-
     std::ifstream myFile(FilePath);
 
     if (myFile.is_open())
@@ -1365,5 +1364,27 @@ void MainWindow::on_Cell_Statistics_released()
                 }
             }
         }
+    }
+}
+
+void MainWindow::on_Cell_Colour_released()
+{  //This wil change the highlighted cell to it highlighted colour
+    if (Qt::Checked == ui->Tetra_Highlight->checkState() )
+    {
+        Temp_Tetra_color_red = Highlight_red;
+        Temp_Tetra_color_green = Highlight_green;
+        Temp_Tetra_color_blue = Highlight_blue;
+    }
+    if (Qt::Checked == ui->Pyramid_Highlight->checkState() )
+    {
+        Temp_Pyramid_color_red = Highlight_red;
+        Temp_Pyramid_color_green = Highlight_green;
+        Temp_Pyramid_color_blue = Highlight_blue;
+    }
+    if (Qt::Checked == ui->Hexahedron_Highlight->checkState() )
+    {
+        Temp_Hexahedron_color_red = Highlight_red;
+        Temp_Hexahedron_color_green = Highlight_green;
+        Temp_Hexahedron_color_blue = Highlight_blue;
     }
 }

@@ -1134,7 +1134,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>Colour of Selected Cell</string>
+                 <string>Highlighter Colour</string>
                 </property>
                </widget>
               </item>
@@ -1316,6 +1316,13 @@
                </widget>
               </item>
              </layout>
+            </item>
+            <item row="2" column="0">
+             <widget class="QPushButton" name="Cell_Colour">
+              <property name="text">
+               <string>Change Cell Colour to Highlighter Colour</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
