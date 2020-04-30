@@ -77,7 +77,7 @@ if( ${BUILD_INSTALLERS} )
 		set(CPACK_COMPONENT_LIBRARIES_GROUP "Runtime")
 		set(CPACK_COMPONENT_HEADERS_GROUP "Development")
 
-		#set(CPACK_COMPONENT_GROUP_DEVELOPMENT_DESCRIPTION "All of the tools you'll ever need to develop software")
+		set(CPACK_COMPONENT_GROUP_DEVELOPMENT_DESCRIPTION "All of the tools you'll ever need to develop software")
 
 		# Define NSIS installation types
 		set(CPACK_ALL_INSTALL_TYPES Full Developer)
