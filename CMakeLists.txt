@@ -44,10 +44,7 @@ if( ${BUILD_INSTALLERS} )
 				COMPONENT libraries
 		)
 
-		install(FILES
-
-
-
+		install(FILES ${VTK_DIR}/bin/Debug/QVTKWidgetPlugin.dll
 		DESTINATION lib
 		COMPONENT libraries
 		)
