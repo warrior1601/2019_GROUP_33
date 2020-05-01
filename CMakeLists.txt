@@ -30,7 +30,7 @@ if( ${BUILD_INSTALLERS} )
 		 	set(CPACK_GENERATOR ZIP)
 		endif()
 
-		#set(CPACK_INSTALL_SCRIPT ${CMAKE_SOURCE_DIR}/build/CPackSourceConfig.cmake)
+		include (InstallRequiredSystemLibraries)
 
 		install( TARGETS Observer
 			 RUNTIME
@@ -40,78 +40,93 @@ if( ${BUILD_INSTALLERS} )
 
 		install(TARGETS Observer_Model_Library
 				ARCHIVE
-				DESTINATION lib
+				DESTINATION lib/static
 				COMPONENT libraries
-		)
+				)
 
-		install(FILES	C:/Qt/5.14.1/msvc2017_64/bin/Qt5Cored.dll
-									C:/Qt/5.14.1/msvc2017_64/bin/Qt5Guid.dll
-									C:/Qt/5.14.1/msvc2017_64/bin/Qt5Widgetsd.dll
-									${VTK_DIR}/bin/Debug/vtkRenderingGL2PSOpenGL2-8.2.dll
-									${VTK_DIR}/bin/Debug/QVTKWidgetPlugin.dll
-									${VTK_DIR}/bin/Debug/vtkCommonColor-8.2.dll
-									${VTK_DIR}/bin/Debug/vtkCommonComputationalGeometry-8.2.dll
-									${VTK_DIR}/bin/Debug/vtkCommonCore-8.2.dll
-									${VTK_DIR}/bin/Debug/vtkCommonDataModel-8.2.dll
-									${VTK_DIR}/bin/Debug/vtkCommonExecutionModel-8.2.dll
-									${VTK_DIR}/bin/Debug/vtkCommonMath-8.2.dll
-									${VTK_DIR}/bin/Debug/vtkCommonMisc-8.2.dll
-									${VTK_DIR}/bin/Debug/vtkCommonSystem-8.2.dll
-									${VTK_DIR}/bin/Debug/vtkCommonTransforms-8.2.dll
-									${VTK_DIR}/bin/Debug/vtkDICOMParser-8.2.dll
-									${VTK_DIR}/bin/Debug/vtkdoubleconversion-8.2.dll
-									${VTK_DIR}/bin/Debug/vtkFiltersCore-8.2.dll
-									${VTK_DIR}/bin/Debug/vtkFiltersExtraction-8.2.dll
-									${VTK_DIR}/bin/Debug/vtkFiltersGeneral-8.2.dll
-									${VTK_DIR}/bin/Debug/vtkFiltersGeometry-8.2.dll
-									${VTK_DIR}/bin/Debug/vtkFiltersHybrid-8.2.dll
-									${VTK_DIR}/bin/Debug/vtkFiltersModeling-8.2.dll
-									${VTK_DIR}/bin/Debug/vtkFiltersSources-8.2.dll
-									${VTK_DIR}/bin/Debug/vtkFiltersStatistics-8.2.dll
-									${VTK_DIR}/bin/Debug/vtkfreetype-8.2.dll
-									${VTK_DIR}/bin/Debug/vtkgl2ps-8.2.dll
-									${VTK_DIR}/bin/Debug/vtkglew-8.2.dll
-									${VTK_DIR}/bin/Debug/vtkGUISupportQt-8.2.dll
-									${VTK_DIR}/bin/Debug/vtkImagingColor-8.2.dll
-									${VTK_DIR}/bin/Debug/vtkImagingCore-8.2.dll
-									${VTK_DIR}/bin/Debug/vtkImagingFourier-8.2.dll
-									${VTK_DIR}/bin/Debug/vtkImagingGeneral-8.2.dll
-									${VTK_DIR}/bin/Debug/vtkImagingHybrid-8.2.dll
-									${VTK_DIR}/bin/Debug/vtkImagingSources-8.2.dll
-									${VTK_DIR}/bin/Debug/vtkInteractionStyle-8.2.dll
-									${VTK_DIR}/bin/Debug/vtkInteractionWidgets-8.2.dll
-									${VTK_DIR}/bin/Debug/vtkIOCore-8.2.dll
-									${VTK_DIR}/bin/Debug/vtkIOGeometry-8.2.dll
-									${VTK_DIR}/bin/Debug/vtkIOImage-8.2.dll
-									${VTK_DIR}/bin/Debug/vtkjpeg-8.2.dll
-									${VTK_DIR}/bin/Debug/vtklz4-8.2.dll
-									${VTK_DIR}/bin/Debug/vtklzma-8.2.dll
-									${VTK_DIR}/bin/Debug/vtkmetaio-8.2.dll
-									${VTK_DIR}/bin/Debug/vtkpng-8.2.dll
-									${VTK_DIR}/bin/Debug/vtkRenderingAnnotation-8.2.dll
-									${VTK_DIR}/bin/Debug/vtkRenderingCore-8.2.dll
-									${VTK_DIR}/bin/Debug/vtkRenderingFreeType-8.2.dll
-									${VTK_DIR}/bin/Debug/vtkRenderingGL2PSOpenGL2-8.2.dll
-									${VTK_DIR}/bin/Debug/vtkRenderingOpenGL2-8.2.dll
-									${VTK_DIR}/bin/Debug/vtksys-8.2.dll
-									${VTK_DIR}/bin/Debug/vtktiff-8.2.dll
-									${VTK_DIR}/bin/Debug/vtkzlib-8.2.dll
-		DESTINATION bin
-		COMPONENT libraries
-		)
+		install(FILES  C:/Users/Jedidiah/2019_GROUP_33/model_viewer/images/Observer.stl
+				DESTINATION bin
+				COMPONENT libraries
+				)
+
+		install(FILES  C:/Users/Jedidiah/2019_GROUP_33/example_models/Model_One.txt
+			       C:/Users/Jedidiah/2019_GROUP_33/example_models/Model_One.txt
+			       C:/Users/Jedidiah/2019_GROUP_33/example_models/a-10-thunderbolt-mk2.stl
+                               C:/Users/Jedidiah/2019_GROUP_33/example_models/airbus_a400m.stl
+                               C:/Users/Jedidiah/2019_GROUP_33/example_models/bawar_plane.stl
+                               C:/Users/Jedidiah/2019_GROUP_33/example_models/cube.stl
+                               C:/Users/Jedidiah/2019_GROUP_33/example_models/sphere.stl
+			       DESTINATION example_models
+			       )
+
+		install(FILES	C:/Qt/5.12.5/msvc2017_64/bin/Qt5Cored.dll
+				C:/Qt/5.12.5/msvc2017_64/bin/Qt5Guid.dll
+				C:/Qt/5.12.5/msvc2017_64/bin/Qt5Widgetsd.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkRenderingGL2PSOpenGL2-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/QVTKWidgetPlugin.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkCommonColor-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkCommonComputationalGeometry-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkCommonCore-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkCommonDataModel-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkCommonExecutionModel-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkCommonMath-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkCommonMisc-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkCommonSystem-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkCommonTransforms-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkDICOMParser-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkdoubleconversion-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkFiltersCore-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkFiltersExtraction-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkFiltersGeneral-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkFiltersGeometry-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkFiltersHybrid-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkFiltersModeling-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkFiltersSources-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkFiltersStatistics-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkfreetype-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkgl2ps-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkglew-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkGUISupportQt-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkImagingColor-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkImagingCore-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkImagingFourier-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkImagingGeneral-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkImagingHybrid-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkImagingSources-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkInteractionStyle-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkInteractionWidgets-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkIOCore-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkIOGeometry-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkIOImage-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkjpeg-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtklz4-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtklzma-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkmetaio-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkpng-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkRenderingAnnotation-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkRenderingCore-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkRenderingFreeType-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkRenderingGL2PSOpenGL2-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkRenderingOpenGL2-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtksys-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtktiff-8.2.dll
+				C:/VTK-8.2.0/build/bin/Debug/vtkzlib-8.2.dll
+				DESTINATION bin
+				COMPONENT libraries
+				)
     
-		install(FILES model/include/Model.hpp;
-									model/include/Cell.hpp;
-									model/include/Matrix.hpp;
-									model/include/Vectors.h;
-									model/include/Material.h;
-									model_viewer/include/mainwindow.h;
-									model_viewer/include/edit_light.h;
-									model_viewer/include/filters.h;
-									model_viewer/include/vtklight_withname.h
+		install(FILES   model/include/Model.hpp;
+				model/include/Cell.hpp;
+				model/include/Matrix.hpp;
+				model/include/Vectors.h;
+				model/include/Material.h;
+				model_viewer/include/mainwindow.h;
+				model_viewer/include/edit_light.h;
+				model_viewer/include/filters.h;
+				model_viewer/include/vtklight_withname.h
 		 		DESTINATION include
 		 		COMPONENT headers
-		)
+				)
 
 		# CPACK macros below here
 		set (CPACK_PACKAGE_NAME "Observer")
@@ -124,7 +139,7 @@ if( ${BUILD_INSTALLERS} )
 		set (CPACK_PACKAGE_INSTALL_DIRECTORY "Observer")
 		set (CPACK_CREATE_DESKTOP_LINKS ON)
 		set (CPACK_PACKAGE_EXECUTABLES "Observer" "Observer")
-		set (CPACK_CREATE_DESKTOP_LINKS "Observer")
+		set (CPACK_CREATE_DESKTOP_LINKS "Observer" "Observer")
 		set (CPACK_RESOURCE_FILE_LICENSE ${CMAKE_CURRENT_SOURCE_DIR}/LICENSE.txt)
 
 		# Define components and their display names
