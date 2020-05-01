@@ -21,7 +21,7 @@
     <!--+==========================+
         |    Package References    |
         +==========================+-->
-    <pkg-ref id="com.TheSpaceExplorers.pkg.Observer" version="1.0" installKBytes="1506">file:./Contents/Packages/Observer.pkg</pkg-ref>
+    <pkg-ref id="com.TheSpaceExplorers.pkg.Observer" version="1.0" installKBytes="1505">file:./Contents/Packages/Observer.pkg</pkg-ref>
     <!--+==========================+
         |    JavaScript Scripts    |
         +==========================+-->
