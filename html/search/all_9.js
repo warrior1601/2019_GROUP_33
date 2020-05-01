@@ -14,5 +14,6 @@ var searchData=
   ['matrixdata',['MatrixData',['../class_matrix3x3.html#ab7e11a8b978798edc9ea79942500316f',1,'Matrix3x3']]],
   ['max',['Max',['../double__equality__function_8h.html#a106e589d87e30bab19df8447fdea8758',1,'double_equality_function.h']]],
   ['model',['Model',['../class_model.html',1,'Model'],['../class_model.html#ac3050803a926bacf82b2c95219e89df5',1,'Model::Model(const Model &amp;aModel)'],['../class_model.html#aa26cb9f39a3e0356152a57a2d2ecfaef',1,'Model::Model(void)']]],
-  ['model_2ehpp',['Model.hpp',['../_model_8hpp.html',1,'']]]
+  ['model_2ehpp',['Model.hpp',['../_model_8hpp.html',1,'']]],
+  ['modelone',['ModelOne',['../class_main_window.html#a842d6ab2dd8bf6898fbfed5c4ab40daf',1,'MainWindow']]]
 ];

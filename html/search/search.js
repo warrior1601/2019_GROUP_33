@@ -12,7 +12,7 @@ var indexSectionsWithContent =
   2: "u",
   3: "cdefmtv",
   4: "cefghilmoprstv~",
-  5: "acdefilmnoprstuvxyz",
+  5: "acdefhilmnoprstuvxyz",
   6: "mo"
 };
 

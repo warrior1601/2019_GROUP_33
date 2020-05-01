@@ -129,7 +129,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a27d71e7379a03de0c37f0ab8b0d8c412"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the weight of pyramid by multiplying volume of pyramid by density of theMaterial.  <a href="#a27d71e7379a03de0c37f0ab8b0d8c412">More...</a><br/></td></tr>
 <tr class="separator:a27d71e7379a03de0c37f0ab8b0d8c412"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a03a917e49ceaa384f2261e74b7a69969"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_vectors.html">Vectors</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_pyramid.html#a03a917e49ceaa384f2261e74b7a69969">Get_Centre_Of_Gravity</a> (void)</td></tr>
-<tr class="memdesc:a03a917e49ceaa384f2261e74b7a69969"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the centre of gravity of pyramid by splitting it in half diagonally along V0 - V2 "line" to create two tetrahedrons and finding centre of gravity of each. Since the two tetrahedrons have equal volume and density, they will have equal weight and therefore the centre of gravity of pyramid will be the average/midpoint of the two tetrahedrons centres of gravities. See <a href="http://mathcentral.uregina.ca/QQ/database/QQ.09.06/siva1.html">http://mathcentral.uregina.ca/QQ/database/QQ.09.06/siva1.html</a> for more info.  <a href="#a03a917e49ceaa384f2261e74b7a69969">More...</a><br/></td></tr>
+<tr class="memdesc:a03a917e49ceaa384f2261e74b7a69969"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the centre of gravity of pyramid by splitting it in half diagonally along V0 - V2 "line" to create two tetrahedrons and finding centre of gravity of each.  <a href="#a03a917e49ceaa384f2261e74b7a69969">More...</a><br/></td></tr>
 <tr class="separator:a03a917e49ceaa384f2261e74b7a69969"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_cell"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_cell')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_cell.html">Cell</a></td></tr>
 <tr class="memitem:aab24f3f223f86c03968096edbd40a9f0 inherit pub_methods_class_cell"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cell.html#aab24f3f223f86c03968096edbd40a9f0">Cell</a> (void)</td></tr>
@@ -170,7 +170,7 @@ Public Member Functions</h2></td></tr>
 <div class="textblock"><p>A sub-class of cell with all its private members being inherited from the cell class. </p>
 <p>This class can calculate its volume, weight and centre of Gravity as well as all the abilities of cell </p>
 <div class="image">
-<img src="Pyramid.png" alt="Pyramid.png"/>
+<img src="pyramid.png" alt="pyramid.png"/>
 <div class="caption">
 Pyramid Vertices Number Ordering</div></div>
  <dl class="section warning"><dt>Warning</dt><dd>No error checking for negative densities </dd></dl>
@@ -334,7 +334,8 @@ Pyramid Vertices Number Ordering</div></div>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the centre of gravity of pyramid by splitting it in half diagonally along V0 - V2 "line" to create two tetrahedrons and finding centre of gravity of each. Since the two tetrahedrons have equal volume and density, they will have equal weight and therefore the centre of gravity of pyramid will be the average/midpoint of the two tetrahedrons centres of gravities. See <a href="http://mathcentral.uregina.ca/QQ/database/QQ.09.06/siva1.html">http://mathcentral.uregina.ca/QQ/database/QQ.09.06/siva1.html</a> for more info. </p>
+<p>Returns the centre of gravity of pyramid by splitting it in half diagonally along V0 - V2 "line" to create two tetrahedrons and finding centre of gravity of each. </p>
+<p>Since the two tetrahedrons have equal volume and density, they will have equal weight and therefore the centre of gravity of pyramid will be the average/midpoint of the two tetrahedrons centres of gravities. See <a href="http://mathcentral.uregina.ca/QQ/database/QQ.09.06/siva1.html">http://mathcentral.uregina.ca/QQ/database/QQ.09.06/siva1.html</a> for more info </p>
 
 <p>Reimplemented from <a class="el" href="class_cell.html#acb6b4c48bb1199dfc94ddfefdc87351b">Cell</a>.</p>
 

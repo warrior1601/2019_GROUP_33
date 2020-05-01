@@ -30,6 +30,5 @@ var searchData=
   ['sety_5fvector',['SetY_Vector',['../class_vectors.html#a3af5ab411892becf592a1681e8020d57',1,'Vectors']]],
   ['setz_5fvector',['SetZ_Vector',['../class_vectors.html#a87114b549e2db9e74edf1d9f926dff99',1,'Vectors']]],
   ['shrink_5ffilter',['Shrink_Filter',['../class_filters.html#afa64c0646c767552e42d3a3ee6d67636',1,'Filters']]],
-  ['statusupdatemessage',['statusUpdateMessage',['../class_main_window.html#a86443ea744fda3e9bad328c2fd1c3d6b',1,'MainWindow']]],
   ['stlwriter',['stlWriter',['../class_main_window.html#aa99bd16efe2473e4bb27c19904409e42',1,'MainWindow']]]
 ];

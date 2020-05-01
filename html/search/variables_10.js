@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['x_5fcoord',['X_Coord',['../class_vectors.html#a4247bda1b9d7365d732d600003cd4afe',1,'Vectors']]]
+  ['vertices',['Vertices',['../class_cell.html#aa692cf845eba03c79998a6a161fb132f',1,'Cell']]],
+  ['verticesorder',['VerticesOrder',['../class_cell.html#a5604bbf9be9ec492981fd78652345a1d',1,'Cell']]]
 ];

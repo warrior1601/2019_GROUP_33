@@ -99,7 +99,10 @@ $(document).ready(function(){initNavTree('class_filters.html','');});
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="filters_8h_source.html">filters.h</a>&gt;</code></p>
+<p>The <a class="el" href="class_filters.html" title="The Filters class enables the model to be manipulated. Revertering all changes when the window is clo...">Filters</a> class enables the model to be manipulated. Revertering all changes when the window is closed.  
+ <a href="class_filters.html#details">More...</a></p>
+
+<p><code>#include &quot;<a class="el" href="filters_8h_source.html">fitlers.h</a>&quot;</code></p>
 <div class="dynheader">
 Inheritance diagram for Filters:</div>
 <div class="dyncontent">
@@ -112,53 +115,102 @@ Inheritance diagram for Filters:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ad937dc3d79a2620b6f58f46503bb372f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_filters.html#ad937dc3d79a2620b6f58f46503bb372f">Filters</a> (QWidget *parent=nullptr)</td></tr>
+<tr class="memdesc:ad937dc3d79a2620b6f58f46503bb372f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Blank constuctor (empty)  <a href="#ad937dc3d79a2620b6f58f46503bb372f">More...</a><br/></td></tr>
 <tr class="separator:ad937dc3d79a2620b6f58f46503bb372f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a717800f33242186f26b85bdb59bb1ed7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_filters.html#a717800f33242186f26b85bdb59bb1ed7">~Filters</a> ()</td></tr>
+<tr class="memdesc:a717800f33242186f26b85bdb59bb1ed7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Blank destructor (empty)  <a href="#a717800f33242186f26b85bdb59bb1ed7">More...</a><br/></td></tr>
 <tr class="separator:a717800f33242186f26b85bdb59bb1ed7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a859187f1da4b2eef236b13891fe541ff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_filters.html#a859187f1da4b2eef236b13891fe541ff">Open_Dialog</a> (vtkSmartPointer&lt; vtkSTLReader &gt; &amp;Passedreader, vtkSmartPointer&lt; vtkDataSetMapper &gt; &amp;Passmapper, vtkSmartPointer&lt; vtkGenericOpenGLRenderWindow &gt; &amp;PassedWindow)</td></tr>
-<tr class="separator:a859187f1da4b2eef236b13891fe541ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afbefaeddb0f7c93b76f37563f9c6c668"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_filters.html#afbefaeddb0f7c93b76f37563f9c6c668">open</a> (std::vector&lt; vtkSmartPointer&lt; vtkDataSetMapper &gt;&gt; &amp;ListOfMappers, vtkSmartPointer&lt; vtkGenericOpenGLRenderWindow &gt; &amp;PassedWindow)</td></tr>
-<tr class="separator:afbefaeddb0f7c93b76f37563f9c6c668"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e1792e96fdaba2ebb1a385753bbedf7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_filters.html#a2e1792e96fdaba2ebb1a385753bbedf7">Open_Dialog</a> (vtkSmartPointer&lt; vtkSTLReader &gt; &amp;aReader, vtkSmartPointer&lt; vtkDataSetMapper &gt; &amp;aMapper, vtkSmartPointer&lt; vtkGenericOpenGLRenderWindow &gt; &amp;aWindow, bool &amp;PassedFilterWindowOpenStatus)</td></tr>
+<tr class="memdesc:a2e1792e96fdaba2ebb1a385753bbedf7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called from the parent window, this function is overloaded in other files.  <a href="#a2e1792e96fdaba2ebb1a385753bbedf7">More...</a><br/></td></tr>
+<tr class="separator:a2e1792e96fdaba2ebb1a385753bbedf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97576777762595f56905ee5237e12ef2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_filters.html#a97576777762595f56905ee5237e12ef2">Open_Dialog</a> (std::vector&lt; vtkSmartPointer&lt; vtkDataSetMapper &gt;&gt; &amp;aListOfMappers, vtkSmartPointer&lt; vtkGenericOpenGLRenderWindow &gt; &amp;aWindow, bool &amp;PassedFilterWindowOpenStatus)</td></tr>
+<tr class="memdesc:a97576777762595f56905ee5237e12ef2"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is call from the parent window, it allows for filtering where a reader is not available.  <a href="#a97576777762595f56905ee5237e12ef2">More...</a><br/></td></tr>
+<tr class="separator:a97576777762595f56905ee5237e12ef2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-slots"></a>
 Private Slots</h2></td></tr>
 <tr class="memitem:a8148cda57b374a5aaca0e4dda858cca1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_filters.html#a8148cda57b374a5aaca0e4dda858cca1">checked_Box_Status_Updater</a> (int CheckBox_Number)</td></tr>
+<tr class="memdesc:a8148cda57b374a5aaca0e4dda858cca1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function turns regular checkboxes into grouped radio buttons.  <a href="#a8148cda57b374a5aaca0e4dda858cca1">More...</a><br/></td></tr>
 <tr class="separator:a8148cda57b374a5aaca0e4dda858cca1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9db80153f4899b9a34faa9e3715ecda1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_filters.html#a9db80153f4899b9a34faa9e3715ecda1">on_Shrink_Filter_toggled</a> (bool Shrink_Filter_Status)</td></tr>
+<tr class="memdesc:a9db80153f4899b9a34faa9e3715ecda1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Turns on and off the Shrink filter.  <a href="#a9db80153f4899b9a34faa9e3715ecda1">More...</a><br/></td></tr>
 <tr class="separator:a9db80153f4899b9a34faa9e3715ecda1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3c8c8d53f2e93cbc16507299390f3ba8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_filters.html#a3c8c8d53f2e93cbc16507299390f3ba8">on_Clipper_Filter_toggled</a> (bool Clipper_Filter_Status)</td></tr>
+<tr class="memdesc:a3c8c8d53f2e93cbc16507299390f3ba8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Turns on and off the Clipper Filter.  <a href="#a3c8c8d53f2e93cbc16507299390f3ba8">More...</a><br/></td></tr>
 <tr class="separator:a3c8c8d53f2e93cbc16507299390f3ba8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c2553642bf4563474d5fb44b14d19fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_filters.html#a9c2553642bf4563474d5fb44b14d19fc">on_X_valueChanged</a> (int value)</td></tr>
-<tr class="separator:a9c2553642bf4563474d5fb44b14d19fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1189e8d2f788871cb2a48745d5c35f60"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_filters.html#a1189e8d2f788871cb2a48745d5c35f60">on_Y_valueChanged</a> (int value)</td></tr>
-<tr class="separator:a1189e8d2f788871cb2a48745d5c35f60"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a456066594954159e45433b7829c8bd54"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_filters.html#a456066594954159e45433b7829c8bd54">on_Z_valueChanged</a> (int value)</td></tr>
-<tr class="separator:a456066594954159e45433b7829c8bd54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae364754a1bb42363eb28f260bc050de8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_filters.html#ae364754a1bb42363eb28f260bc050de8">on_X_Origin_valueChanged</a> (int value)</td></tr>
+<tr class="memdesc:ae364754a1bb42363eb28f260bc050de8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This creates an X-Coordinate in 3D space that initializes a plane where the clipping begins.  <a href="#ae364754a1bb42363eb28f260bc050de8">More...</a><br/></td></tr>
+<tr class="separator:ae364754a1bb42363eb28f260bc050de8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03cde7cfefe3aeb5e02171e4ad685a2c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_filters.html#a03cde7cfefe3aeb5e02171e4ad685a2c">on_Y_Origin_valueChanged</a> (int value)</td></tr>
+<tr class="memdesc:a03cde7cfefe3aeb5e02171e4ad685a2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This creates an Y-Coordinate in 3D space that initializes a plane where the clipping begins.  <a href="#a03cde7cfefe3aeb5e02171e4ad685a2c">More...</a><br/></td></tr>
+<tr class="separator:a03cde7cfefe3aeb5e02171e4ad685a2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17376e1206ae395ad0de7d98a900c485"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_filters.html#a17376e1206ae395ad0de7d98a900c485">on_Z_Origin_valueChanged</a> (int value)</td></tr>
+<tr class="memdesc:a17376e1206ae395ad0de7d98a900c485"><td class="mdescLeft">&#160;</td><td class="mdescRight">This creates an Z-Coordinate in 3D space that initializes a plane where the clipping begins.  <a href="#a17376e1206ae395ad0de7d98a900c485">More...</a><br/></td></tr>
+<tr class="separator:a17376e1206ae395ad0de7d98a900c485"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1cad506e5036a63c8788d0b3ba315d45"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_filters.html#a1cad506e5036a63c8788d0b3ba315d45">on_X_Normal_valueChanged</a> (int value)</td></tr>
+<tr class="memdesc:a1cad506e5036a63c8788d0b3ba315d45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the direction of the clipping in the X-Axis direction.  <a href="#a1cad506e5036a63c8788d0b3ba315d45">More...</a><br/></td></tr>
+<tr class="separator:a1cad506e5036a63c8788d0b3ba315d45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8889d8579e5e9f363a5368312c28944"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_filters.html#ae8889d8579e5e9f363a5368312c28944">on_Y_Normal_valueChanged</a> (int value)</td></tr>
+<tr class="memdesc:ae8889d8579e5e9f363a5368312c28944"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the direction of the clipping in the Y-Axis direction.  <a href="#ae8889d8579e5e9f363a5368312c28944">More...</a><br/></td></tr>
+<tr class="separator:ae8889d8579e5e9f363a5368312c28944"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3919c02a71b9e04b081a05c928a45b42"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_filters.html#a3919c02a71b9e04b081a05c928a45b42">on_Z_Normal_valueChanged</a> (int value)</td></tr>
+<tr class="memdesc:a3919c02a71b9e04b081a05c928a45b42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the direction of the clipping in the Z-Axis direction.  <a href="#a3919c02a71b9e04b081a05c928a45b42">More...</a><br/></td></tr>
+<tr class="separator:a3919c02a71b9e04b081a05c928a45b42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6d6d9a6c4a86c859826bf88d2da104c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_filters.html#ae6d6d9a6c4a86c859826bf88d2da104c">on_Scale_valueChanged</a> (int value)</td></tr>
+<tr class="memdesc:ae6d6d9a6c4a86c859826bf88d2da104c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes how much shrinking is applied to the model.  <a href="#ae6d6d9a6c4a86c859826bf88d2da104c">More...</a><br/></td></tr>
+<tr class="separator:ae6d6d9a6c4a86c859826bf88d2da104c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08f973e7c386f503957d54c0fc860493"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_filters.html#a08f973e7c386f503957d54c0fc860493">on_Close_clicked</a> ()</td></tr>
+<tr class="memdesc:a08f973e7c386f503957d54c0fc860493"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the close procedures for the <a class="el" href="class_filters.html" title="The Filters class enables the model to be manipulated. Revertering all changes when the window is clo...">Filters</a> window. Reverting the model and resetting the Filter Window Open Status.  <a href="#a08f973e7c386f503957d54c0fc860493">More...</a><br/></td></tr>
+<tr class="separator:a08f973e7c386f503957d54c0fc860493"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c9e3bf796b201b5f926844ab3b947f4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_filters.html#a9c9e3bf796b201b5f926844ab3b947f4">closeEvent</a> (QCloseEvent *event)</td></tr>
+<tr class="memdesc:a9c9e3bf796b201b5f926844ab3b947f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is a standard close even for a window. inside of this close even calls the function on_close_clicked()  <a href="#a9c9e3bf796b201b5f926844ab3b947f4">More...</a><br/></td></tr>
+<tr class="separator:a9c9e3bf796b201b5f926844ab3b947f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:a2e72d2addc397b62c509e28ae3f997a3"><td class="memItemLeft" align="right" valign="top">Ui::Filters *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_filters.html#a2e72d2addc397b62c509e28ae3f997a3">ui</a></td></tr>
 <tr class="separator:a2e72d2addc397b62c509e28ae3f997a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a62e3ef88294dcaac4f0580812c99b067"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_filters.html#a62e3ef88294dcaac4f0580812c99b067">OpenMethod</a> = true</td></tr>
-<tr class="separator:a62e3ef88294dcaac4f0580812c99b067"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac51f1f02a2eec171d17ff34aadf71da6"><td class="memItemLeft" align="right" valign="top">bool *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_filters.html#ac51f1f02a2eec171d17ff34aadf71da6">FilterWindowOpenStatus</a></td></tr>
+<tr class="separator:ac51f1f02a2eec171d17ff34aadf71da6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac033a7fe980b873f45428b6864d6fa2a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_filters.html#ac033a7fe980b873f45428b6864d6fa2a">FileTypeSTL</a> = true</td></tr>
+<tr class="memdesc:ac033a7fe980b873f45428b6864d6fa2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This Bool tracks the file type loaded for Filtering.  <a href="#ac033a7fe980b873f45428b6864d6fa2a">More...</a><br/></td></tr>
+<tr class="separator:ac033a7fe980b873f45428b6864d6fa2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a17c3507892137823a0261802fbee0a2a"><td class="memItemLeft" align="right" valign="top">vtkSmartPointer<br class="typebreak"/>
 &lt; vtkGenericOpenGLRenderWindow &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_filters.html#a17c3507892137823a0261802fbee0a2a">renderWindow_Local</a> = vtkSmartPointer&lt;vtkGenericOpenGLRenderWindow&gt;::New()</td></tr>
 <tr class="separator:a17c3507892137823a0261802fbee0a2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f2500a779d5f3aad651def772ed44c2"><td class="memItemLeft" align="right" valign="top">vtkSmartPointer&lt; vtkSTLReader &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_filters.html#a1f2500a779d5f3aad651def772ed44c2">reader_Local</a> = vtkSmartPointer&lt;vtkSTLReader&gt;::New()</td></tr>
+<tr class="memdesc:a1f2500a779d5f3aad651def772ed44c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is a locally created reader that is overwriting by the renderwindow from the mainwindow.  <a href="#a1f2500a779d5f3aad651def772ed44c2">More...</a><br/></td></tr>
 <tr class="separator:a1f2500a779d5f3aad651def772ed44c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a038a43d6dae24b080cd439b9a93c2b6a"><td class="memItemLeft" align="right" valign="top">vtkSmartPointer&lt; vtkDataSetMapper &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_filters.html#a038a43d6dae24b080cd439b9a93c2b6a">mapper_Local</a> = vtkSmartPointer&lt;vtkDataSetMapper&gt;::New()</td></tr>
+<tr class="memdesc:a038a43d6dae24b080cd439b9a93c2b6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is a locally created mapper that is overwriting by the renderwindow from the mainwindow.  <a href="#a038a43d6dae24b080cd439b9a93c2b6a">More...</a><br/></td></tr>
 <tr class="separator:a038a43d6dae24b080cd439b9a93c2b6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e2484a875b56c9d360c286f0358f093"><td class="memItemLeft" align="right" valign="top">vtkSmartPointer&lt; vtkRenderer &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_filters.html#a2e2484a875b56c9d360c286f0358f093">renderer_Local</a> = vtkSmartPointer&lt;vtkRenderer&gt;::New()</td></tr>
+<tr class="separator:a2e2484a875b56c9d360c286f0358f093"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa1cabd8f7089b27338bb550289f61424"><td class="memItemLeft" align="right" valign="top">std::vector&lt; vtkSmartPointer<br class="typebreak"/>
 &lt; vtkDataSetMapper &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_filters.html#aa1cabd8f7089b27338bb550289f61424">ListOfMappers_Local</a></td></tr>
+<tr class="memdesc:aa1cabd8f7089b27338bb550289f61424"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is a list of all the Mappers, Each mapper hold one cell and has one actor acting in it.  <a href="#aa1cabd8f7089b27338bb550289f61424">More...</a><br/></td></tr>
 <tr class="separator:aa1cabd8f7089b27338bb550289f61424"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a342f11fc75be819e1a3ee6e35e63c8b8"><td class="memItemLeft" align="right" valign="top">std::vector&lt; vtkSmartPointer<br class="typebreak"/>
+&lt; vtkShrinkFilter &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_filters.html#a342f11fc75be819e1a3ee6e35e63c8b8">ListOfShrink_Filters</a></td></tr>
+<tr class="memdesc:a342f11fc75be819e1a3ee6e35e63c8b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This list of Shrink <a class="el" href="class_filters.html" title="The Filters class enables the model to be manipulated. Revertering all changes when the window is clo...">Filters</a> each takes one input and has one output. Data from the Mapper and back into the Mapper. There is one Filter for each Mapper.  <a href="#a342f11fc75be819e1a3ee6e35e63c8b8">More...</a><br/></td></tr>
+<tr class="separator:a342f11fc75be819e1a3ee6e35e63c8b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19c2af2406693db9aef0882fb5d90fad"><td class="memItemLeft" align="right" valign="top">std::vector&lt; vtkSmartPointer<br class="typebreak"/>
+&lt; vtkClipDataSet &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_filters.html#a19c2af2406693db9aef0882fb5d90fad">ListOfClipper_Filters</a></td></tr>
+<tr class="memdesc:a19c2af2406693db9aef0882fb5d90fad"><td class="mdescLeft">&#160;</td><td class="mdescRight">This list of Cliper <a class="el" href="class_filters.html" title="The Filters class enables the model to be manipulated. Revertering all changes when the window is clo...">Filters</a> each takes one input and has one output. Data from the Mapper and back into the Mapper. There is one Filter for each Mapper.  <a href="#a19c2af2406693db9aef0882fb5d90fad">More...</a><br/></td></tr>
+<tr class="separator:a19c2af2406693db9aef0882fb5d90fad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab5872353ac70f28c54f60b2ed1eebaf4"><td class="memItemLeft" align="right" valign="top">vtkSmartPointer&lt; vtkClipDataSet &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_filters.html#ab5872353ac70f28c54f60b2ed1eebaf4">Clipper_Filter</a> = vtkSmartPointer&lt;vtkClipDataSet&gt;::New()</td></tr>
+<tr class="memdesc:ab5872353ac70f28c54f60b2ed1eebaf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Required vtkSmartpointer for appling the Clipper Filter.  <a href="#ab5872353ac70f28c54f60b2ed1eebaf4">More...</a><br/></td></tr>
 <tr class="separator:ab5872353ac70f28c54f60b2ed1eebaf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afa64c0646c767552e42d3a3ee6d67636"><td class="memItemLeft" align="right" valign="top">vtkSmartPointer&lt; vtkShrinkFilter &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_filters.html#afa64c0646c767552e42d3a3ee6d67636">Shrink_Filter</a> = vtkSmartPointer&lt;vtkShrinkFilter&gt;::New()</td></tr>
+<tr class="memdesc:afa64c0646c767552e42d3a3ee6d67636"><td class="mdescLeft">&#160;</td><td class="mdescRight">Required vtkSmartpointer for appling the Shrink Filter.  <a href="#afa64c0646c767552e42d3a3ee6d67636">More...</a><br/></td></tr>
 <tr class="separator:afa64c0646c767552e42d3a3ee6d67636"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a85c4823f1eca33cc5fd21b7058fccc0e"><td class="memItemLeft" align="right" valign="top">vtkSmartPointer&lt; vtkPlane &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_filters.html#a85c4823f1eca33cc5fd21b7058fccc0e">planeLeft</a> = vtkSmartPointer&lt;vtkPlane&gt;::New()</td></tr>
+<tr class="memdesc:a85c4823f1eca33cc5fd21b7058fccc0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Required vtkSmartpointer for creating a plane that is used in the Clipper Filter.  <a href="#a85c4823f1eca33cc5fd21b7058fccc0e">More...</a><br/></td></tr>
 <tr class="separator:a85c4823f1eca33cc5fd21b7058fccc0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>The <a class="el" href="class_filters.html" title="The Filters class enables the model to be manipulated. Revertering all changes when the window is clo...">Filters</a> class enables the model to be manipulated. Revertering all changes when the window is closed. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ad937dc3d79a2620b6f58f46503bb372f"></a>
 <div class="memitem">
 <div class="memproto">
@@ -181,6 +233,8 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Blank constuctor (empty) </p>
+
 </div>
 </div>
 <a class="anchor" id="a717800f33242186f26b85bdb59bb1ed7"></a>
@@ -196,10 +250,12 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Blank destructor (empty) </p>
+
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a859187f1da4b2eef236b13891fe541ff"></a>
+<a class="anchor" id="a2e1792e96fdaba2ebb1a385753bbedf7"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -207,19 +263,25 @@ Private Attributes</h2></td></tr>
           <td class="memname">void Filters::Open_Dialog </td>
           <td>(</td>
           <td class="paramtype">vtkSmartPointer&lt; vtkSTLReader &gt; &amp;&#160;</td>
-          <td class="paramname"><em>Passedreader</em>, </td>
+          <td class="paramname"><em>aReader</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">vtkSmartPointer&lt; vtkDataSetMapper &gt; &amp;&#160;</td>
-          <td class="paramname"><em>Passmapper</em>, </td>
+          <td class="paramname"><em>aMapper</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">vtkSmartPointer&lt; vtkGenericOpenGLRenderWindow &gt; &amp;&#160;</td>
-          <td class="paramname"><em>PassedWindow</em>&#160;</td>
+          <td class="paramname"><em>aWindow</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &amp;&#160;</td>
+          <td class="paramname"><em>PassedFilterWindowOpenStatus</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -229,23 +291,37 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>This function is called from the parent window, this function is overloaded in other files. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">PassedFilterWindowOpenStatus</td><td>this ensures that only one window can be opened at a time. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
-<a class="anchor" id="afbefaeddb0f7c93b76f37563f9c6c668"></a>
+<a class="anchor" id="a97576777762595f56905ee5237e12ef2"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Filters::open </td>
+          <td class="memname">void Filters::Open_Dialog </td>
           <td>(</td>
           <td class="paramtype">std::vector&lt; vtkSmartPointer&lt; vtkDataSetMapper &gt;&gt; &amp;&#160;</td>
-          <td class="paramname"><em>ListOfMappers</em>, </td>
+          <td class="paramname"><em>aListOfMappers</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">vtkSmartPointer&lt; vtkGenericOpenGLRenderWindow &gt; &amp;&#160;</td>
-          <td class="paramname"><em>PassedWindow</em>&#160;</td>
+          <td class="paramname"><em>aWindow</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &amp;&#160;</td>
+          <td class="paramname"><em>PassedFilterWindowOpenStatus</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -254,6 +330,8 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>This function is call from the parent window, it allows for filtering where a reader is not available. </p>
 
 </div>
 </div>
@@ -279,6 +357,14 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>This function turns regular checkboxes into grouped radio buttons. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">CheckBox_Number</td><td>this number is required for the for the filter to know which case of the switch statement to enter. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a class="anchor" id="a9db80153f4899b9a34faa9e3715ecda1"></a>
@@ -302,6 +388,8 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Turns on and off the Shrink filter. </p>
 
 </div>
 </div>
@@ -327,9 +415,11 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Turns on and off the Clipper Filter. </p>
+
 </div>
 </div>
-<a class="anchor" id="a9c2553642bf4563474d5fb44b14d19fc"></a>
+<a class="anchor" id="ae364754a1bb42363eb28f260bc050de8"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -337,7 +427,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void Filters::on_X_valueChanged </td>
+          <td class="memname">void Filters::on_X_Origin_valueChanged </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>value</em></td><td>)</td>
@@ -351,9 +441,11 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>This creates an X-Coordinate in 3D space that initializes a plane where the clipping begins. </p>
+
 </div>
 </div>
-<a class="anchor" id="a1189e8d2f788871cb2a48745d5c35f60"></a>
+<a class="anchor" id="a03cde7cfefe3aeb5e02171e4ad685a2c"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -361,7 +453,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void Filters::on_Y_valueChanged </td>
+          <td class="memname">void Filters::on_Y_Origin_valueChanged </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>value</em></td><td>)</td>
@@ -375,9 +467,11 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>This creates an Y-Coordinate in 3D space that initializes a plane where the clipping begins. </p>
+
 </div>
 </div>
-<a class="anchor" id="a456066594954159e45433b7829c8bd54"></a>
+<a class="anchor" id="a17376e1206ae395ad0de7d98a900c485"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -385,7 +479,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void Filters::on_Z_valueChanged </td>
+          <td class="memname">void Filters::on_Z_Origin_valueChanged </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>value</em></td><td>)</td>
@@ -398,6 +492,163 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>This creates an Z-Coordinate in 3D space that initializes a plane where the clipping begins. </p>
+
+</div>
+</div>
+<a class="anchor" id="a1cad506e5036a63c8788d0b3ba315d45"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Filters::on_X_Normal_valueChanged </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Changes the direction of the clipping in the X-Axis direction. </p>
+
+</div>
+</div>
+<a class="anchor" id="ae8889d8579e5e9f363a5368312c28944"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Filters::on_Y_Normal_valueChanged </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Changes the direction of the clipping in the Y-Axis direction. </p>
+
+</div>
+</div>
+<a class="anchor" id="a3919c02a71b9e04b081a05c928a45b42"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Filters::on_Z_Normal_valueChanged </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Changes the direction of the clipping in the Z-Axis direction. </p>
+
+</div>
+</div>
+<a class="anchor" id="ae6d6d9a6c4a86c859826bf88d2da104c"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Filters::on_Scale_valueChanged </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Changes how much shrinking is applied to the model. </p>
+
+</div>
+</div>
+<a class="anchor" id="a08f973e7c386f503957d54c0fc860493"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Filters::on_Close_clicked </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Runs the close procedures for the <a class="el" href="class_filters.html" title="The Filters class enables the model to be manipulated. Revertering all changes when the window is clo...">Filters</a> window. Reverting the model and resetting the Filter Window Open Status. </p>
+
+</div>
+</div>
+<a class="anchor" id="a9c9e3bf796b201b5f926844ab3b947f4"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Filters::closeEvent </td>
+          <td>(</td>
+          <td class="paramtype">QCloseEvent *&#160;</td>
+          <td class="paramname"><em>event</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>This is a standard close even for a window. inside of this close even calls the function on_close_clicked() </p>
 
 </div>
 </div>
@@ -422,7 +673,7 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a62e3ef88294dcaac4f0580812c99b067"></a>
+<a class="anchor" id="ac51f1f02a2eec171d17ff34aadf71da6"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -430,7 +681,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool Filters::OpenMethod = true</td>
+          <td class="memname">bool* Filters::FilterWindowOpenStatus</td>
         </tr>
       </table>
   </td>
@@ -439,6 +690,28 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ac033a7fe980b873f45428b6864d6fa2a"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Filters::FileTypeSTL = true</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>This Bool tracks the file type loaded for Filtering. </p>
 
 </div>
 </div>
@@ -480,6 +753,8 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>This is a locally created reader that is overwriting by the renderwindow from the mainwindow. </p>
+
 </div>
 </div>
 <a class="anchor" id="a038a43d6dae24b080cd439b9a93c2b6a"></a>
@@ -491,6 +766,28 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">vtkSmartPointer&lt;vtkDataSetMapper&gt; Filters::mapper_Local = vtkSmartPointer&lt;vtkDataSetMapper&gt;::New()</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>This is a locally created mapper that is overwriting by the renderwindow from the mainwindow. </p>
+
+</div>
+</div>
+<a class="anchor" id="a2e2484a875b56c9d360c286f0358f093"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">vtkSmartPointer&lt;vtkRenderer&gt; Filters::renderer_Local = vtkSmartPointer&lt;vtkRenderer&gt;::New()</td>
         </tr>
       </table>
   </td>
@@ -520,6 +817,52 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>This is a list of all the Mappers, Each mapper hold one cell and has one actor acting in it. </p>
+
+</div>
+</div>
+<a class="anchor" id="a342f11fc75be819e1a3ee6e35e63c8b8"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;vtkSmartPointer&lt;vtkShrinkFilter&gt; &gt; Filters::ListOfShrink_Filters</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>This list of Shrink <a class="el" href="class_filters.html" title="The Filters class enables the model to be manipulated. Revertering all changes when the window is clo...">Filters</a> each takes one input and has one output. Data from the Mapper and back into the Mapper. There is one Filter for each Mapper. </p>
+
+</div>
+</div>
+<a class="anchor" id="a19c2af2406693db9aef0882fb5d90fad"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;vtkSmartPointer&lt;vtkClipDataSet&gt; &gt; Filters::ListOfClipper_Filters</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>This list of Cliper <a class="el" href="class_filters.html" title="The Filters class enables the model to be manipulated. Revertering all changes when the window is clo...">Filters</a> each takes one input and has one output. Data from the Mapper and back into the Mapper. There is one Filter for each Mapper. </p>
+
 </div>
 </div>
 <a class="anchor" id="ab5872353ac70f28c54f60b2ed1eebaf4"></a>
@@ -539,6 +882,8 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Required vtkSmartpointer for appling the Clipper Filter. </p>
 
 </div>
 </div>
@@ -560,6 +905,8 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Required vtkSmartpointer for appling the Shrink Filter. </p>
+
 </div>
 </div>
 <a class="anchor" id="a85c4823f1eca33cc5fd21b7058fccc0e"></a>
@@ -579,6 +926,8 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Required vtkSmartpointer for creating a plane that is used in the Clipper Filter. </p>
 
 </div>
 </div>

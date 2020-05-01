@@ -1,8 +1,7 @@
 var searchData=
 [
-  ['reader',['reader',['../class_main_window.html#af9de6c5cd3d77a5ae9be169f06152607',1,'MainWindow']]],
-  ['reader_5flocal',['reader_Local',['../class_filters.html#a1f2500a779d5f3aad651def772ed44c2',1,'Filters']]],
-  ['renderer',['renderer',['../class_main_window.html#a0886430bf0d0de4d3e3d892d535ea052',1,'MainWindow']]],
-  ['renderwindow',['renderWindow',['../class_edit___light.html#a65f673ff411a58ce1fc18595ee362aac',1,'Edit_Light::renderWindow()'],['../class_main_window.html#a74028a929c64ac0436e962017971dee6',1,'MainWindow::renderWindow()']]],
-  ['renderwindow_5flocal',['renderWindow_Local',['../class_filters.html#a17c3507892137823a0261802fbee0a2a',1,'Filters']]]
+  ['planeleft',['planeLeft',['../class_filters.html#a85c4823f1eca33cc5fd21b7058fccc0e',1,'Filters']]],
+  ['pointcoordinates',['pointCoordinates',['../class_main_window.html#a1c46b450aa66101f3133b87bb6623e72',1,'MainWindow']]],
+  ['points',['points',['../class_main_window.html#a0669d72fa0486f96ddaba795634dbec4',1,'MainWindow']]],
+  ['polydata',['polydata',['../class_main_window.html#adc050ed464211dbb1f93ec6c8ce9f87e',1,'MainWindow']]]
 ];

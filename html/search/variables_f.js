@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['vertices',['Vertices',['../class_cell.html#aa692cf845eba03c79998a6a161fb132f',1,'Cell']]],
-  ['verticesorder',['VerticesOrder',['../class_cell.html#a5604bbf9be9ec492981fd78652345a1d',1,'Cell']]]
+  ['ug',['ug',['../class_main_window.html#a093a8f1796a5736cc6a2a5515fef60fd',1,'MainWindow']]],
+  ['ui',['ui',['../class_edit___light.html#a268475b9e960d50a0d1568332b8189cd',1,'Edit_Light::ui()'],['../class_filters.html#a2e72d2addc397b62c509e28ae3f997a3',1,'Filters::ui()'],['../class_main_window.html#a35466a70ed47252a0191168126a352a5',1,'MainWindow::ui()']]]
 ];

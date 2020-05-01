@@ -28,6 +28,5 @@ var searchData=
   ['setvector',['SetVector',['../class_vectors.html#a1c8095eb64c22de6d0e1bd65c8c32973',1,'Vectors']]],
   ['setx_5fvector',['SetX_Vector',['../class_vectors.html#aebbe43c30fc5300345e8f510ecfde78d',1,'Vectors']]],
   ['sety_5fvector',['SetY_Vector',['../class_vectors.html#a3af5ab411892becf592a1681e8020d57',1,'Vectors']]],
-  ['setz_5fvector',['SetZ_Vector',['../class_vectors.html#a87114b549e2db9e74edf1d9f926dff99',1,'Vectors']]],
-  ['statusupdatemessage',['statusUpdateMessage',['../class_main_window.html#a86443ea744fda3e9bad328c2fd1c3d6b',1,'MainWindow']]]
+  ['setz_5fvector',['SetZ_Vector',['../class_vectors.html#a87114b549e2db9e74edf1d9f926dff99',1,'Vectors']]]
 ];

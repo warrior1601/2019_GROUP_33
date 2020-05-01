@@ -113,7 +113,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a824e781c0c3a691cfd614acb5f05bf4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor.  <a href="#a824e781c0c3a691cfd614acb5f05bf4b">More...</a><br/></td></tr>
 <tr class="separator:a824e781c0c3a691cfd614acb5f05bf4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aae26d47c68855190ec70512046d7bac6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_matrix3x3.html#aae26d47c68855190ec70512046d7bac6">Matrix3x3</a> (void)</td></tr>
-<tr class="memdesc:aae26d47c68855190ec70512046d7bac6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Blank constructor that adds the appropriate number of columns and rows and assigns the values to 0.  <a href="#aae26d47c68855190ec70512046d7bac6">More...</a><br/></td></tr>
+<tr class="memdesc:aae26d47c68855190ec70512046d7bac6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Blank constructor that adds the appropriate number of columns and rows and assigns all values to 0.  <a href="#aae26d47c68855190ec70512046d7bac6">More...</a><br/></td></tr>
 <tr class="separator:aae26d47c68855190ec70512046d7bac6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aac1bbdc21dd593699c7879a7a9d18d6c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_matrix3x3.html#aac1bbdc21dd593699c7879a7a9d18d6c">~Matrix3x3</a> (void)</td></tr>
 <tr class="memdesc:aac1bbdc21dd593699c7879a7a9d18d6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Blank destructor (empty)  <a href="#aac1bbdc21dd593699c7879a7a9d18d6c">More...</a><br/></td></tr>
@@ -231,7 +231,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a3e9cabbf0280cdfa5fc616ed185aef48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns data point 9. See detailed description for image.  <a href="#a3e9cabbf0280cdfa5fc616ed185aef48">More...</a><br/></td></tr>
 <tr class="separator:a3e9cabbf0280cdfa5fc616ed185aef48"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a97a12fea57e3c1b00af4d192827c3280"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_matrix3x3.html#a97a12fea57e3c1b00af4d192827c3280">Initialise_As_Rotation_Matrix</a> (double Rotation_In_Degrees, char Axis_Of_Rotation)</td></tr>
-<tr class="memdesc:a97a12fea57e3c1b00af4d192827c3280"><td class="mdescLeft">&#160;</td><td class="mdescRight">A rotation matrix translates a vectors such that it would appear to have rotated along Axis_Of_Rotation by an amount equal to Rotation_In_Degrees. Note that the centre of rotation is the origin and that positive Rotation_In_Degrees will result in clockwise rotation and a negative Rotation_In_Degrees counter-clockwise rotation. See <a href="https://en.wikipedia.org/wiki/Rotation_matrix">https://en.wikipedia.org/wiki/Rotation_matrix</a> for more info.  <a href="#a97a12fea57e3c1b00af4d192827c3280">More...</a><br/></td></tr>
+<tr class="memdesc:a97a12fea57e3c1b00af4d192827c3280"><td class="mdescLeft">&#160;</td><td class="mdescRight">A rotation matrix translates a vectors such that it would appear to have rotated along Axis_Of_Rotation by an amount equal to Rotation_In_Degrees.  <a href="#a97a12fea57e3c1b00af4d192827c3280">More...</a><br/></td></tr>
 <tr class="separator:a97a12fea57e3c1b00af4d192827c3280"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab13a59ae542216c07a92878d08f2c5c8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_matrix3x3.html#ab13a59ae542216c07a92878d08f2c5c8">Transpose_Matrix</a> (void)</td></tr>
 <tr class="memdesc:ab13a59ae542216c07a92878d08f2c5c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transposes matrix3x3 and overwrites the matrix3x3 calling the function with the result.  <a href="#ab13a59ae542216c07a92878d08f2c5c8">More...</a><br/></td></tr>
@@ -240,6 +240,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a920ae9044b653bc4c8786fb80770ddbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the determinant of matrix3x3 using Sarrus' Rule. See (<a href="https://en.wikipedia.org/wiki/Rule_of_Sarrus">https://en.wikipedia.org/wiki/Rule_of_Sarrus</a>) for more info.  <a href="#a920ae9044b653bc4c8786fb80770ddbf">More...</a><br/></td></tr>
 <tr class="separator:a920ae9044b653bc4c8786fb80770ddbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a065ea3c460f8b87bb73fa7962dbec3fd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_matrix3x3.html#a065ea3c460f8b87bb73fa7962dbec3fd">Inverse_Matrix</a> (void)</td></tr>
+<tr class="memdesc:a065ea3c460f8b87bb73fa7962dbec3fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the inverse of matrix3x3 and overwrites the matrix3x3 calling the function with the result.  Note that if there is no inverse, then an error message will be displayed to the console. The method is as follows: replace each element in matrix3x3 by it's co-factor; trasnpose the matirx; and divide matrix data by its determinant.  <a href="#a065ea3c460f8b87bb73fa7962dbec3fd">More...</a><br/></td></tr>
 <tr class="separator:a065ea3c460f8b87bb73fa7962dbec3fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
@@ -365,7 +366,7 @@ Matrix numbering</div></div>
       </table>
 </div><div class="memdoc">
 
-<p>Blank constructor that adds the appropriate number of columns and rows and assigns the values to 0. </p>
+<p>Blank constructor that adds the appropriate number of columns and rows and assigns all values to 0. </p>
 
 </div>
 </div>
@@ -1078,7 +1079,8 @@ Matrix numbering</div></div>
       </table>
 </div><div class="memdoc">
 
-<p>A rotation matrix translates a vectors such that it would appear to have rotated along Axis_Of_Rotation by an amount equal to Rotation_In_Degrees. Note that the centre of rotation is the origin and that positive Rotation_In_Degrees will result in clockwise rotation and a negative Rotation_In_Degrees counter-clockwise rotation. See <a href="https://en.wikipedia.org/wiki/Rotation_matrix">https://en.wikipedia.org/wiki/Rotation_matrix</a> for more info. </p>
+<p>A rotation matrix translates a vectors such that it would appear to have rotated along Axis_Of_Rotation by an amount equal to Rotation_In_Degrees. </p>
+<p>Note that the centre of rotation is the origin and that positive Rotation_In_Degrees will result in clockwise rotation and a negative Rotation_In_Degrees counter-clockwise rotation. See <a href="https://en.wikipedia.org/wiki/Rotation_matrix">https://en.wikipedia.org/wiki/Rotation_matrix</a> for more info </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">Rotation_In_Degrees</td><td>This is how much rotation is required </td></tr>
@@ -1138,7 +1140,8 @@ Matrix numbering</div></div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Finds the inverse of matrix3x3 and overwrites the matrix3x3 calling the function with the result. Note that if there is no inverse, then an error message will be displayed to the console. The method is as follows: replace each element in matrix3x3 by it's co-factor; trasnpose the matirx; and divide matrix data by its determinant. </p>
+
+<p>Finds the inverse of matrix3x3 and overwrites the matrix3x3 calling the function with the result.  Note that if there is no inverse, then an error message will be displayed to the console. The method is as follows: replace each element in matrix3x3 by it's co-factor; trasnpose the matirx; and divide matrix data by its determinant. </p>
 
 </div>
 </div>
