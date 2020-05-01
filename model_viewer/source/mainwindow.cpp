@@ -23,6 +23,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     std::string FilePath = fileName.toUtf8().constData();
     std::ifstream myFile(FilePath);
 
+    Init_CameraLight();
+
     reader->SetFileName(FilePath.data());
     mapper->SetInputConnection( reader->GetOutputPort() );
     reader->Update();
@@ -686,7 +688,7 @@ void MainWindow::on_SaveModelButton_released()
 {
     if (LoadedFileType == true)
     {   //Saveing an STL file is not needed at this point because there is no manipulation of STL data
-        QMessageBox::critical(this, "Uncoded Error", "Save function only works on loaded MOD/TXT files");
+        QMessageBox::critical(this, "Runtime Error", "Save function only works on models loaded from .MOD/.TXT files");
     }
     else
     {
@@ -1119,6 +1121,9 @@ void MainWindow::on_Tetra_Highlight_stateChanged(int state)
         }
         renderWindow->Render();
     }
+
+    else
+      ui->Tetra_Highlight->setCheckState(Qt::Unchecked);
 }
 
 void MainWindow::on_Pyramid_Highlight_stateChanged(int state)
@@ -1140,6 +1145,9 @@ void MainWindow::on_Pyramid_Highlight_stateChanged(int state)
         }
         renderWindow->Render();
     }
+
+    else
+      ui->Pyramid_Highlight->setCheckState(Qt::Unchecked);
 }
 
 void MainWindow::on_Hexahedron_Highlight_stateChanged(int state)
@@ -1161,6 +1169,9 @@ void MainWindow::on_Hexahedron_Highlight_stateChanged(int state)
         }
         renderWindow->Render();
     }
+
+    else
+      ui->Hexahedron_Highlight->setCheckState(Qt::Unchecked);
 }
 
 void MainWindow::on_Highlight_released()
