@@ -9,7 +9,7 @@ project( Observer VERSION 1.2.1)
 # Boolean to adjust want you want to build
 set( BUILD_MODEL_TEST_CODE 	TRUE )
 set( BUILD_OBSERVER 		TRUE )
-set( BUILD_INSTALLERS		TRUE )
+set( BUILD_INSTALLERS		FALSE)
 
 # All booleans require the model library
 if ( ${BUILD_MODEL_TEST_CODE} )
