@@ -192,7 +192,6 @@ private:
     Model ModelOne; ///< @brief This sotres a model when it is loaded
 
     std::vector<vtkLight_WithName> ListOfLights; ///< @brief This is a list of the vtkLights_withname
-    std::vector<std::array<double, 3>> pointCoordinates; ///< @brief This list stores the points used in a loaded model
     //Having a list of actors separately allows for ensuring the correct actor is modified when highlighting a cell type
     std::vector< vtkSmartPointer<vtkActor> > ListOfActors_tetra; ///< @brief This is a list of all the actors present on tetrahedrons
     std::vector< vtkSmartPointer<vtkActor> > ListOfActors_pyramid; ///< @brief This is a list of all the actors present on pyramids

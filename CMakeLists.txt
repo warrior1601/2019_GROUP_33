@@ -8,8 +8,8 @@ project( Observer VERSION 1.2.1)
 
 # Boolean to adjust want you want to build
 set( BUILD_MODEL_TEST_CODE 	TRUE )
-set( BUILD_OBSERVER 		FALSE)
-set( BUILD_INSTALLERS		FALSE)
+set( BUILD_OBSERVER 		FALSE) #Note for paul set this to TRUE to build
+set( BUILD_INSTALLERS		FALSE) #Note for paul set this to TRUE to build
 
 # All booleans require the model library
 if ( ${BUILD_MODEL_TEST_CODE} )
@@ -187,5 +187,6 @@ if( ${BUILD_INSTALLERS} )
 
     # Must be after the last CPACK macros
     include(CPack)
+    include (InstallRequiredSystemLibraries)
 
 endif()
