@@ -25,7 +25,7 @@ Observer is a three dimensional model viewer, where a model is a shape that is m
 ![alt text](https://github.com/warrior1601/2019_GROUP_33/blob/master/model_viewer/images/5.PNG "Observer shrink filter screen")
 
 #### MacOS
-![alt text](https://github.com/warrior1601/2019_GROUP_33/blob/master/model_viewer/images/6.PNG "Observer axes bounding box screen")
-![alt text](https://github.com/warrior1601/2019_GROUP_33/blob/master/model_viewer/images/7.PNG "Observer measuring tool screen")
-![alt text](https://github.com/warrior1601/2019_GROUP_33/blob/master/model_viewer/images/8.PNG "Observer model statistics screen")
-![alt text](https://github.com/warrior1601/2019_GROUP_33/blob/master/model_viewer/images/9.PNG "Observer cell statistics screen")
+![alt text](https://github.com/warrior1601/2019_GROUP_33/blob/master/model_viewer/images/6.png "Observer axes bounding box screen")
+![alt text](https://github.com/warrior1601/2019_GROUP_33/blob/master/model_viewer/images/7.png "Observer measuring tool screen")
+![alt text](https://github.com/warrior1601/2019_GROUP_33/blob/master/model_viewer/images/8.png "Observer model statistics screen")
+![alt text](https://github.com/warrior1601/2019_GROUP_33/blob/master/model_viewer/images/9.png "Observer cell statistics screen")
