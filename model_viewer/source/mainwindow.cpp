@@ -71,7 +71,7 @@ void  MainWindow::Init_CameraLight()
 
 void MainWindow::on_Change_Object_Color_released()
 {   //Opens Dialog Box to allow the use to chose a color
-    QColor Color = QColorDialog::getColor(Qt::white,this,"Choose Color");
+    QColor Color = QColorDialog::getColor(Qt::white,this,"Choose Model Colour");
     //checks to ensure that the selector color is valid
     if(Color.isValid())
     {   //converts the QColor to RGB values ranging from 0.0 through 1.0 to be used by SetColor function
@@ -139,7 +139,7 @@ QString MainWindow::InputQString()
 
 void MainWindow::on_Change_Back_Ground_Color_released()
 {
-    QColor Color = QColorDialog::getColor(Qt::white,this,"Choose Back Ground Color");
+    QColor Color = QColorDialog::getColor(Qt::white,this,"Choose Background Colour");
     if(Color.isValid())
     {
         double red = Color.redF();
