@@ -1104,6 +1104,8 @@ void MainWindow::on_Tetra_Highlight_stateChanged(int state)
 {   //This function only works on MOD/STL files. It highlights a selected file. Only one Cell of all types can be highlighted at a time
     if (LoadedFileType == false)
     {
+      if(ListOfActors_tetra.size() != 0)
+      {
         if (state == 2)
         {   //This stores the current value so that it can be set back to its original colour
             ListOfActors_tetra[(ui->List_Of_Tetras->currentIndex())]->GetProperty()->GetColor(Temp_Tetra_color_red, Temp_Tetra_color_green, Temp_Tetra_color_blue);
@@ -1120,6 +1122,10 @@ void MainWindow::on_Tetra_Highlight_stateChanged(int state)
             ui->List_Of_Tetras->setEnabled(true);
         }
         renderWindow->Render();
+      }
+
+      else
+        ui->Tetra_Highlight->setCheckState(Qt::Unchecked);
     }
 
     else
@@ -1130,6 +1136,8 @@ void MainWindow::on_Pyramid_Highlight_stateChanged(int state)
 {
     if (LoadedFileType == false)
     {
+      if(ListOfActors_pyramid.size() != 0)
+      {
         if (state == 2)
         {
             ListOfActors_pyramid[(ui->List_Of_Pyramids->currentIndex())]->GetProperty()->GetColor(Temp_Pyramid_color_red, Temp_Pyramid_color_green, Temp_Pyramid_color_blue);
@@ -1144,6 +1152,10 @@ void MainWindow::on_Pyramid_Highlight_stateChanged(int state)
             ui->List_Of_Pyramids->setEnabled(true);
         }
         renderWindow->Render();
+      }
+
+      else
+        ui->Pyramid_Highlight->setCheckState(Qt::Unchecked);
     }
 
     else
@@ -1154,6 +1166,8 @@ void MainWindow::on_Hexahedron_Highlight_stateChanged(int state)
 {
     if (LoadedFileType == false)
     {
+      if(ListOfActors_hexahedron.size() != 0)
+      {
         if (state == 2)
         {
             ListOfActors_hexahedron[(ui->List_Of_Hexahedrons->currentIndex())]->GetProperty()->GetColor(Temp_Hexahedron_color_red, Temp_Hexahedron_color_green, Temp_Hexahedron_color_blue);
@@ -1168,7 +1182,11 @@ void MainWindow::on_Hexahedron_Highlight_stateChanged(int state)
             ui->List_Of_Hexahedrons->setEnabled(true);
         }
         renderWindow->Render();
-    }
+      }
+
+      else
+        ui->Hexahedron_Highlight->setCheckState(Qt::Unchecked);
+   }
 
     else
       ui->Hexahedron_Highlight->setCheckState(Qt::Unchecked);
@@ -1184,6 +1202,16 @@ void MainWindow::on_Highlight_released()
             Highlight_red = Color.redF();
             Highlight_green = Color.greenF();
             Highlight_blue = Color.blueF();
+
+            if (Qt::Checked == ui->Tetra_Highlight->checkState() )
+              ListOfActors_tetra[(ui->List_Of_Tetras->currentIndex())]->GetProperty()->SetColor(Highlight_red, Highlight_green, Highlight_blue);
+
+            if (Qt::Checked == ui->Pyramid_Highlight->checkState() )
+              ListOfActors_pyramid[(ui->List_Of_Pyramids->currentIndex())]->GetProperty()->SetColor(Highlight_red, Highlight_green, Highlight_blue);
+
+            if (Qt::Checked == ui->Hexahedron_Highlight->checkState() )
+              ListOfActors_hexahedron[(ui->List_Of_Hexahedrons->currentIndex())]->GetProperty()->SetColor(Highlight_red, Highlight_green, Highlight_blue);
+
             renderWindow->Render();
         }
     }
@@ -1417,26 +1445,4 @@ void MainWindow::on_deleteshowAxes_released()
 {
     renderer->RemoveActor(AxesActor);
     renderWindow->Render();
-}
-
-void MainWindow::on_Cell_Colour_released()
-{  //This wil change the highlighted cell to it highlighted colour
-    if (Qt::Checked == ui->Tetra_Highlight->checkState() )
-    {
-        Temp_Tetra_color_red = Highlight_red;
-        Temp_Tetra_color_green = Highlight_green;
-        Temp_Tetra_color_blue = Highlight_blue;
-    }
-    if (Qt::Checked == ui->Pyramid_Highlight->checkState() )
-    {
-        Temp_Pyramid_color_red = Highlight_red;
-        Temp_Pyramid_color_green = Highlight_green;
-        Temp_Pyramid_color_blue = Highlight_blue;
-    }
-    if (Qt::Checked == ui->Hexahedron_Highlight->checkState() )
-    {
-        Temp_Hexahedron_color_red = Highlight_red;
-        Temp_Hexahedron_color_green = Highlight_green;
-        Temp_Hexahedron_color_blue = Highlight_blue;
-    }
 }
