@@ -166,9 +166,6 @@ private slots:
     /** @brief This funcion will remove the length,width and hight of the object
      */
     void on_deleteshowAxes_released();
-    /** @brief This will change the color of the selected cell to the Highlighted color
-     */
-    void on_Cell_Colour_released();
 
 private:
 //-------Private Functions--------//
@@ -188,9 +185,9 @@ private:
     Edit_Light *Edit_LightDialog; ///< @brief This is a pointer to the Edit light dialog box
     Filters *filters; ///< @brief This is a pointer to the filters dialog box
 
-    double Highlight_red = 0; ///< @brief This stores the red value that user has selected for highlighting cells
-    double Highlight_green = 0; ///< @brief This stores the green value that user has selected for highlighting cells
-    double Highlight_blue = 0; ///< @brief This stores the blue value that user has selected for highlighting cells
+    double Highlight_red = 255; ///< @brief This stores the red value that user has selected for highlighting cells
+    double Highlight_green = 255; ///< @brief This stores the green value that user has selected for highlighting cells
+    double Highlight_blue = 255; ///< @brief This stores the blue value that user has selected for highlighting cells
 
     Model ModelOne; ///< @brief This sotres a model when it is loaded
 
