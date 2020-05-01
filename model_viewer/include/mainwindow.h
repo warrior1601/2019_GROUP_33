@@ -166,9 +166,6 @@ private slots:
     /** @brief This funcion will remove the length,width and hight of the object
      */
     void on_deleteshowAxes_released();
-    /** @brief This will change the color of the selected cell to the Highlighted color
-     */
-    void on_Cell_Colour_released();
 
 private:
 //-------Private Functions--------//

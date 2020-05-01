@@ -17,4 +17,15 @@ Observer is a three dimensional model viewer, where a model is a shape that is m
   * [Wiki](https://github.com/warrior1601/2019_GROUP_33/wiki)
 
 # Screenshots
-- do this last for both macos and windows and update installers
+#### Windows
+![alt text](https://github.com/RefreshedMoose/2019_GROUP_33/blob/master/model_viewer/images/1.PNG "Observer start up screen")
+![alt text](https://github.com/RefreshedMoose/2019_GROUP_33/blob/master/model_viewer/images/2.PNG "Observer edit light screen")
+![alt text](https://github.com/RefreshedMoose/2019_GROUP_33/blob/master/model_viewer/images/3.PNG "Observer edit model colour screen")
+![alt text](https://github.com/RefreshedMoose/2019_GROUP_33/blob/master/model_viewer/images/4.PNG "Observer clipper filter screen")
+![alt text](https://github.com/RefreshedMoose/2019_GROUP_33/blob/master/model_viewer/images/5.PNG "Observer shrink filter screen")
+
+#### MacOS
+![alt text](https://github.com/RefreshedMoose/2019_GROUP_33/blob/master/model_viewer/images/6.png "Observer axes bounding box screen")
+![alt text](https://github.com/RefreshedMoose/2019_GROUP_33/blob/master/model_viewer/images/7.png "Observer measuring tool screen")
+![alt text](https://github.com/RefreshedMoose/2019_GROUP_33/blob/master/model_viewer/images/8.png "Observer model statistics screen")
+![alt text](https://github.com/RefreshedMoose/2019_GROUP_33/blob/master/model_viewer/images/9.png "Observer cell statistics screen")
