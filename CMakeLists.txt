@@ -8,8 +8,8 @@ project( Observer VERSION 1.2.1)
 
 # Boolean to adjust want you want to build
 set( BUILD_MODEL_TEST_CODE 	TRUE )
-set( BUILD_OBSERVER 		FALSE) #Note for paul set this to TRUE to build
-set( BUILD_INSTALLERS		FALSE) #Note for paul set this to TRUE to build
+set( BUILD_OBSERVER 		TRUE ) #Note for Paul set this to TRUE to build
+set( BUILD_INSTALLERS		TRUE ) #Note for Paul set this to TRUE to build
 
 # All booleans require the model library
 if ( ${BUILD_MODEL_TEST_CODE} )
@@ -21,8 +21,8 @@ endif()
 if ( ${BUILD_OBSERVER} OR ${BUILD_INSTALLERS} )
     add_subdirectory ( model_viewer )
     #These two lines set the path for QT and VTK dll files transfered below. Might need changed based on personal settings
-    #set(CMAKE_DIR "C:/Qt/5.12.5/msvc2017_64") 
-    #set(VTK_DIR "C:/VTK-8.2.0/build")
+    #set(CMAKE_DIR "C:/Qt/5.12.5/msvc2017_64")  # This is the Path for Jed Paterson installer. It may be different on your machine
+    #set(VTK_DIR "C:/VTK-8.2.0/build") # This is the Path for Jed Paterson installer. It may be different on your machine
 endif()
 
 # Installer code
@@ -72,7 +72,8 @@ if( ${BUILD_INSTALLERS} )
         COMPONENT libraries
         )
 
-    install(FILES	${CMAKE_DIR}/bin/Qt5Cored.dll
+    install(FILES
+        ${CMAKE_DIR}/bin/Qt5Cored.dll
         ${CMAKE_DIR}/bin/Qt5Guid.dll
         ${CMAKE_DIR}/bin/Qt5Widgetsd.dll
         ${VTK_DIR}/bin/Debug/vtkRenderingGL2PSOpenGL2-8.2.dll
@@ -124,6 +125,9 @@ if( ${BUILD_INSTALLERS} )
         ${VTK_DIR}/bin/Debug/vtksys-8.2.dll
         ${VTK_DIR}/bin/Debug/vtktiff-8.2.dll
         ${VTK_DIR}/bin/Debug/vtkzlib-8.2.dll
+        C:/Windows/System32/MSVCP140D.dll  # in order for this to build CMD need to be ran as admin
+        C:/Windows/System32/VCRUNTIME140D.dll # in order for this to build CMD need to be ran as admin
+	
         DESTINATION bin
         COMPONENT libraries
         )
