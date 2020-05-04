@@ -6,10 +6,10 @@ cmake_minimum_required( VERSION 3.9.2 )
 # The name of the project and its curent version
 project( Observer VERSION 1.2.1)
 
-# Boolean to adjust want you want to build
+# Boolean to adjust want you want to build for Travis to build and run Doxygen comment only set BUILD_MODEL_TEST_CODE to TRUE
 set( BUILD_MODEL_TEST_CODE 	TRUE )
-set( BUILD_OBSERVER 		TRUE ) #Note for Paul set this to TRUE to build
-set( BUILD_INSTALLERS		TRUE ) #Note for Paul set this to TRUE to build
+set( BUILD_OBSERVER 		FALSE ) #Note for Paul set this to TRUE to build
+set( BUILD_INSTALLERS		FALSE ) #Note for Paul set this to TRUE to build
 
 # All booleans require the model library
 if ( ${BUILD_MODEL_TEST_CODE} )
