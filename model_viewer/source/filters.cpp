@@ -29,8 +29,8 @@ void Filters::Open_Dialog(vtkSmartPointer<vtkSTLReader> &aReader,
                           vtkSmartPointer<vtkGenericOpenGLRenderWindow> &aWindow,
                           bool &PassedFilterWindowOpenStatus)
 {
-    // Sets the Local smart pointer used to render the image on th MainWindow
-    // now Render()  can be called.
+    //Sets the Local smart pointer used to render the image on the MainWindow
+    //so now Render() can be called.
     FilterWindowOpenStatus = &PassedFilterWindowOpenStatus;
     renderWindow_Local = aWindow;
     reader_Local = aReader;
@@ -66,16 +66,16 @@ void Filters::closeEvent(QCloseEvent *event)
     on_Close_clicked();
 }
 
-// This appies the shrink Filter to the image on the MainWindow
+//This appies the shrink Filter to the image on the MainWindow
 void Filters::on_Shrink_Filter_toggled(bool Shrink_Filter_Status)
 {
     //Filtering for STL files
     if((Shrink_Filter_Status == true ) && (FileTypeSTL == true))
     {
-        // When this function is called it ensures that all other fillters are
-        // No longer being applied
+        //When this function is called it ensures that all other fillters are
+        //No longer being applied
         checked_Box_Status_Updater(1);
-        // establishing the pipeline for filtering
+        //Establishing the pipeline for filtering
         Shrink_Filter->SetInputConnection( reader_Local->GetOutputPort() );
         Shrink_Filter->SetShrinkFactor(double(ui->Scale->value())/100.00);
         Shrink_Filter->Update();
@@ -83,17 +83,17 @@ void Filters::on_Shrink_Filter_toggled(bool Shrink_Filter_Status)
     }
     else if ((Shrink_Filter_Status == false ) && (FileTypeSTL == true))
     {
-        // discontects the filter from the pipeline
+        //Discontects the filter from the pipeline
         mapper_Local->SetInputConnection( reader_Local->GetOutputPort() );
     }
-    //FIltering for MOD/TXT files
+    //Filtering for MOD/TXT files
     if((Shrink_Filter_Status == true ) && (FileTypeSTL == false))
     {
         checked_Box_Status_Updater(1);
         ListOfShrink_Filters.clear(); // This ensures all the previous filters are deleted
         for (unsigned int i = 0; i < ListOfMappers_Local.size(); i++)
         {   //This creates a filter for each mapper. Each mapper has its own data (One Cell)
-            //The reason for this is beacuse each mapper has its own actor determining color
+            //The reason for this is beacuse each mapper has its own actor determining colour
             vtkSmartPointer<vtkShrinkFilter> Shrink_Filters = vtkSmartPointer<vtkShrinkFilter>::New();
             ListOfShrink_Filters.push_back(Shrink_Filters);
             //Estabishing the pipeling from the Data in the mapper back to the mapper for display
@@ -115,10 +115,10 @@ void Filters::on_Shrink_Filter_toggled(bool Shrink_Filter_Status)
     }
     renderWindow_Local->Render();
 }
-// This applies the Clipping Filter to the image on the MainWindow
+//This applies the Clipping Filter to the image on the MainWindow
 void Filters::on_Clipper_Filter_toggled(bool Clipper_Filter_Status)
 {
-    // This is the Plane where clipping will occur. If clipping be sure to know which direction your normal faces, that diection will be clipped
+    //This is the Plane where clipping will occur. If clipping be sure to know which direction your normal faces, that diection will be clipped
     planeLeft->SetOrigin(double(ui->X_Origin->value()/10.0), double(ui->Y_Origin->value()/10.0), double(ui->Z_Origin->value()/10.0));
     planeLeft->SetNormal(double(ui->X_Normal->value()/10.0), double(ui->Y_Normal->value()/10.0), double(ui->Z_Normal->value()/10.0));
     //Filtering for STL files
@@ -151,6 +151,7 @@ void Filters::on_Clipper_Filter_toggled(bool Clipper_Filter_Status)
     {
         //This is not the correct way to return the data to is unchanged state
         //But it is unlikely that an image will be this close to the edge of a double's range/capacity
+        //Will need to be addressed in futures upgrades
         planeLeft->SetOrigin(double(1e250), double(1e250), double(1e250));
         planeLeft->SetNormal(double(-1e250), double(-1e250), double(-1e250));
 
@@ -182,7 +183,7 @@ void Filters::on_Scale_valueChanged(int value)
 
 void Filters::on_X_Origin_valueChanged(int value)
 {
-    // This sets the Clipping Filter's X-Domain loaction
+    //This sets the Clipping Filter's X-Domain location
     double* Filter_Scroll = planeLeft->GetOrigin();
     planeLeft->SetOrigin(double (value)/10.00, Filter_Scroll[1], Filter_Scroll[2]);
     renderWindow_Local->Render();
@@ -190,7 +191,7 @@ void Filters::on_X_Origin_valueChanged(int value)
 
 void Filters::on_Y_Origin_valueChanged(int value)
 {
-    // This sets the Clipping Filter's Y-Domain loaction
+    //This sets the Clipping Filter's Y-Domain loaction
     double* Filter_Scroll = planeLeft->GetOrigin();
     planeLeft->SetOrigin(Filter_Scroll[0], double (value)/10.00 ,Filter_Scroll[2]);
     renderWindow_Local->Render();
@@ -198,7 +199,7 @@ void Filters::on_Y_Origin_valueChanged(int value)
 
 void Filters::on_Z_Origin_valueChanged(int value)
 {
-    // This sets the Clipping Filter's Z-Domain loaction
+    //This sets the Clipping Filter's Z-Domain loaction
     double* Filter_Scroll = planeLeft->GetOrigin();
     planeLeft->SetOrigin(Filter_Scroll[0], Filter_Scroll[1], double (value)/10.00);
     renderWindow_Local->Render();
@@ -206,7 +207,7 @@ void Filters::on_Z_Origin_valueChanged(int value)
 
 void Filters::on_X_Normal_valueChanged(int value)
 {
-    // This sets the Clipping Filter's X-Domain loaction
+    //This sets the Clipping Filter's X-Domain loaction
     double* Filter_Scroll = planeLeft->GetNormal();
     planeLeft->SetNormal(double (value)/10.00, Filter_Scroll[1], Filter_Scroll[2]);
     renderWindow_Local->Render();
@@ -214,7 +215,7 @@ void Filters::on_X_Normal_valueChanged(int value)
 
 void Filters::on_Y_Normal_valueChanged(int value)
 {
-    // This sets the Clipping Filter's Y-Domain loaction
+    //This sets the Clipping Filter's Y-Domain loaction
     double* Filter_Scroll = planeLeft->GetNormal();
     planeLeft->SetNormal(Filter_Scroll[0], double (value)/10.00 ,Filter_Scroll[2]);
     renderWindow_Local->Render();
@@ -222,18 +223,18 @@ void Filters::on_Y_Normal_valueChanged(int value)
 
 void Filters::on_Z_Normal_valueChanged(int value)
 {
-    // This sets the Clipping Filter's Z-Domain loaction
+    //This sets the Clipping Filter's Z-Domain loaction
     double* Filter_Scroll = planeLeft->GetNormal();
     planeLeft->SetNormal(Filter_Scroll[0], Filter_Scroll[1], double (value)/10.00);
     renderWindow_Local->Render();
 }
-// When this function is called it ensures all other Filters are decatiated
+//When this function is called it ensures all other Filters are decatiated
 void Filters::checked_Box_Status_Updater(int CheckBox_Number)
 {
-    // The Switch statement checks the number being passed and applied the desired change
+    //The Switch statement checks the number being passed and applied the desired change
     switch (CheckBox_Number)
     {
-    // When Adding more filters add them to each case for their turn off value
+    //When Adding more filters add them to each case for their turn off value
     case 0 : ui->Clipper_Filter->setCheckState(Qt::Unchecked);
         ui->Shrink_Filter->setCheckState(Qt::Unchecked);
         break;

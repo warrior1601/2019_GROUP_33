@@ -98,11 +98,11 @@ void MainWindow::on_Add_Light_released()
     vtkLight_WithName light;
     light.SetName(InputQString());
     ListOfLights.push_back(light);
-    // This checks to ensure a name has been given to the light
-    // With out this check clicking the cancel button would cause the program to crash
+    //This checks to ensure a name has been given to the light
+    //With out this check clicking the cancel button would cause the program to crash
     if(light.GetName().isEmpty() == false)
     {
-        // This establishes default settings for an added light
+        //This establishes default settings for an added light
         ui->Light_ComboBox->addItem(light.GetName());
         light.light->SetLightTypeToSceneLight();
         light.light->SetPosition( 5, 5, 15 );
@@ -132,7 +132,7 @@ QString MainWindow::InputQString()
                                          tr("Light Name"), &ok);
     if (ok && !text.isEmpty())
         return (text);
-    // This keeps the window from crashing when nothing is returned from the input
+    //This keeps the window from crashing when nothing is returned from the input
     else
         return(0);
 }
@@ -151,13 +151,12 @@ void MainWindow::on_Change_Back_Ground_Color_released()
     renderWindow->Render();
 }
 
-//One comment to look at in this function
 void MainWindow::on_Reset_Camera_released()
 {
     double* CameraLocation = renderer->GetActiveCamera()->GetPosition();
     std::cout << "Camera Location: " << CameraLocation[0] << " " << CameraLocation[1] << " " << CameraLocation[2] << std::endl;
     renderer->ResetCamera();
-    //attach camera loaction to the scroll bars need to get pitch, roll, athmith yaw, elevation from teh camera
+    //attach camera loaction to the scroll bars need to get pitch, roll, azimuth, yaw, elevation from the camera
     ui->Horizontal_Shift->setValue(0);
     ui->Vertical_Shift->setValue(0);
     ui->X_Camera_Pos->setValue(0);
@@ -181,7 +180,7 @@ void MainWindow::on_Apply_Filters_released()
             filters->Open_Dialog(reader, mapper, renderWindow, FilterWindowOpenStatus);
         }
     }
-    else // This is for MOD/TXT files.
+    else //This is for MOD/TXT files.
     {
         FilterWindowOpenStatus = true;
         filters =new Filters(this);
@@ -233,7 +232,6 @@ void MainWindow::on_Vertical_Shift_valueChanged(int arg1)
     {
         renderer->GetActiveCamera()->Pitch(double (arg1));
     }
-
     else
     {
         arg1 = arg1-Last_Value_Pitch;
@@ -265,11 +263,10 @@ void MainWindow::on_Horizontal_Shift_valueChanged(int arg1)
 }
 
 void MainWindow::on_LoadModelButton_released()
-{
+{   //This ensures no error occurs when there was a previously loaded model
     ui->Tetra_Highlight->setCheckState(Qt::Unchecked);
     ui->Pyramid_Highlight->setCheckState(Qt::Unchecked);
     ui->Hexahedron_Highlight->setCheckState(Qt::Unchecked);
-
 
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open Model File"), "../example_models",
                                                     tr("Model Files(*.stl *.txt *.mod)"));
@@ -297,7 +294,7 @@ void MainWindow::on_LoadModelButton_released()
         ui->List_Of_Tetras->clear();
         ui->List_Of_Hexahedrons->update();
         ui->List_Of_Hexahedrons->clear();
-        Init_CameraLight();
+        Init_CameraLight(); //This need to be called again since the renderer has changed
 
         //finds the file extension
         std::size_t found = FilePath.find_last_of(".");
@@ -339,7 +336,7 @@ void MainWindow::on_LoadModelButton_released()
 
             for (unsigned int i = 0; i < ModelOne.Get_Vectors().size(); i++)
             {
-                //loading of the vectors into points to be used by the stlwriter
+                //Loading of the vectors into points to be used by the stlwriter
                 double Data[] = { ModelOne.Get_Vectors()[i].GetXVector(),
                                   ModelOne.Get_Vectors()[i].GetYVector(),
                                   ModelOne.Get_Vectors()[i].GetZVector()};
@@ -347,7 +344,8 @@ void MainWindow::on_LoadModelButton_released()
             }
 
             for (unsigned int i = 0; i < ModelOne.Get_Cell_Order().size(); i++)
-            {   //This creates a Mapper for each cell. This is required so eaxh cell can have a different actor color is the most used property of the actor in this project
+            {   //This creates a Mapper for each cell. This is required so eaxh cell can have a different actor. Colour is the most used property of the actor in this project
+                //But future upgrades will enable the the texture aspect of the actor
                 vtkSmartPointer<vtkDataSetMapper> mapper = vtkSmartPointer<vtkDataSetMapper>::New();
                 ListOfMappers.push_back(mapper);
 
@@ -428,7 +426,7 @@ void MainWindow::on_LoadModelButton_released()
 
                     ListOfActors_tetra[tetra_count]->GetProperty()->SetColor(Red_remapped,Green_remapped,Blue_remapped);
                     renderer->AddActor(ListOfActors_tetra[tetra_count]);
-                    //This addes the cell to a Combo Box so that it can be selected for stats from a different button
+                    //This adds the cell to a Combo Box so that it can be selected for stats from a different button
                     ui->List_Of_Tetras->addItem("Tetrahedron "  + (QString::number(tetra_count + 1)) );
 
                     tetra_count++;
@@ -510,7 +508,6 @@ void MainWindow::on_LoadModelButton_released()
                     int Green = 0;
                     std::istringstream(RGB_Green) >> std::hex >> Green;
                     double Green_remapped = (0.0 + (1.0 - 0.0) * ((Green - 0.0) / (255 - 0.0)));
-
 
                     int Blue = 0;
                     std::istringstream(RGB_Blue) >> std::hex >> Blue;
@@ -667,7 +664,6 @@ void MainWindow::on_LoadModelButton_released()
                 polydata->SetPoints(points);
             }
         }
-
         //This process is the same for both STL and MOD/TXT files
         renderer->ResetCameraClippingRange();
         renderer->SetBackground( colors->GetColor3d("Black").GetData() );
@@ -965,8 +961,8 @@ void MainWindow::on_SaveLightsButton_released()
     if (filestr.is_open())
     {   //This line will be the first line written in the file. Upon opening there will be a check for this line
         //If not then the file will be ignored
-        psbuf = filestr.rdbuf();        // get file's streambuf
-        std::cout.rdbuf(psbuf);         // assign streambuf to cout
+        psbuf = filestr.rdbuf(); //Get file's streambuf
+        std::cout.rdbuf(psbuf);  //Assign streambuf to cout
         std::cout << "List Of Lights" << std::endl;
         for(int i = 0; i <ListOfLights.size(); i++)
         {
@@ -983,7 +979,7 @@ void MainWindow::on_SaveLightsButton_released()
 
 void MainWindow::on_Edit_Light_clicked()
 {
-    // This ensures a light has been created before t can be selected to be edited
+    //This ensures a light has been created before it can be selected to be edited
     if(ui->Light_ComboBox->currentIndex() > -1)
     {
         Edit_LightDialog =new Edit_Light(this);
@@ -994,10 +990,8 @@ void MainWindow::on_Edit_Light_clicked()
 }
 
 void MainWindow::on_Delete_Light_released()
-{
-    // There will be a recall of Deleted light function to recover
-    // Accidentally deleted lights during the users current session
-    // Also, A save&load list of lights function will be added
+{   //There will be a recall of Deleted light function to recover
+    //Accidentally deleted lights during the users current session
     int LightToDelete = ui->Light_ComboBox->currentIndex();
     if(ui->Light_ComboBox->currentIndex() > 0)
     {
@@ -1050,7 +1044,7 @@ void MainWindow::SetLightData(double *Data, std::string currentLine)
 
 void MainWindow::on_AddRulerPushButton_released()
 {
-    //adds a distance widget (Ruler)
+    //Adds a distance widget (Ruler)
     distanceWidget = vtkSmartPointer<vtkDistanceWidget>::New();
     distanceWidget->SetInteractor(ui->Display_Window->GetRenderWindow()->GetInteractor());
     distanceWidget->CreateDefaultRepresentation();
@@ -1110,7 +1104,7 @@ void MainWindow::on_Tetra_Highlight_stateChanged(int state)
         {   //This stores the current value so that it can be set back to its original colour
             ListOfActors_tetra[(ui->List_Of_Tetras->currentIndex())]->GetProperty()->GetColor(Temp_Tetra_color_red, Temp_Tetra_color_green, Temp_Tetra_color_blue);
             ListOfActors_tetra[(ui->List_Of_Tetras->currentIndex())]->GetProperty()->SetColor(Highlight_red, Highlight_green, Highlight_blue);
-            //This prevents the user from changing Cells while a checkbox is checked.
+            //This prevents the user from changing cells while a checkbox is checked.
             ui->List_Of_Tetras->setEnabled(false);
             // This ensures that the other checkboxes are unchecked. This prevents an error for ocurring
             ui->Pyramid_Highlight->setCheckState(Qt::Unchecked);
@@ -1123,11 +1117,9 @@ void MainWindow::on_Tetra_Highlight_stateChanged(int state)
         }
         renderWindow->Render();
       }
-
       else
         ui->Tetra_Highlight->setCheckState(Qt::Unchecked);
     }
-
     else
       ui->Tetra_Highlight->setCheckState(Qt::Unchecked);
 }
@@ -1153,11 +1145,9 @@ void MainWindow::on_Pyramid_Highlight_stateChanged(int state)
         }
         renderWindow->Render();
       }
-
       else
         ui->Pyramid_Highlight->setCheckState(Qt::Unchecked);
     }
-
     else
       ui->Pyramid_Highlight->setCheckState(Qt::Unchecked);
 }
@@ -1183,11 +1173,9 @@ void MainWindow::on_Hexahedron_Highlight_stateChanged(int state)
         }
         renderWindow->Render();
       }
-
       else
         ui->Hexahedron_Highlight->setCheckState(Qt::Unchecked);
    }
-
     else
       ui->Hexahedron_Highlight->setCheckState(Qt::Unchecked);
 }
@@ -1258,7 +1246,7 @@ void MainWindow::on_Cell_Statistics_released()
 
                         std::vector<Vectors> Vertices = Test->Get_Vertices();
                         //Strickly two stream buffers might not be needed but if the buffer is flushed after each use
-                        //Doing it this way helps keep it clear what belongs to each buffer
+                        //Doing it this way helps keep it clear what data belongs to each buffer
                         std::stringstream buffer_2;
                         std::streambuf *old_2 = std::cout.rdbuf(buffer_2.rdbuf());
 
@@ -1285,7 +1273,7 @@ void MainWindow::on_Cell_Statistics_released()
         }
 
         if(ui->Pyramid_Highlight->checkState() == 2)
-        {   //Same as Tetra but with Tetra cell functions
+        {   //Same as Tetra but with Pyramid cell functions
             Statistics.setWindowTitle("Highlight Pyramid Statistics");
 
             int Pyramid_count = 0;
@@ -1345,7 +1333,7 @@ void MainWindow::on_Cell_Statistics_released()
         }
 
         if(ui->Hexahedron_Highlight->checkState() == 2)
-        {   //Same as Tetra but with Tetra cell functions
+        {   //Same as Tetra but with Hexahedron cell functions
             Statistics.setWindowTitle("Highlight Hexahedron Statistics");
 
             int Hexahedron_count = 0;
@@ -1408,24 +1396,22 @@ void MainWindow::on_Cell_Statistics_released()
 
 void MainWindow::on_showAxes_released()
 {
-    //get bounds from actor
     if (LoadedFileType == true)
-    {   //Finds the bounds for a STL file
+    {   //Finds the boundaries for a STL file
         AxesActor->SetBounds(actor->GetBounds());
     }
     else
-    {   //Finds the bounds for the polydata loaded from teh MOD/TXT file
+    {   //Finds the boundaries for the polydata loaded from teh MOD/TXT file
         AxesActor->SetBounds(polydata->GetBounds());
     }
-
     AxesActor->SetCamera(renderer->GetActiveCamera());
 
-    //show the line grid
+    //Shows the grid
     AxesActor->DrawXGridlinesOn();
     AxesActor->DrawYGridlinesOn();
     AxesActor->DrawZGridlinesOn();
 
-    //set the axes color as white
+    //Sets the axes colour as white.Future upgrade should allow the user to change this colour
     AxesActor->GetXAxesGridlinesProperty()->SetColor(0.5,0.5,0.5);
     AxesActor->GetYAxesGridlinesProperty()->SetColor(0.5,0.5,0.5);
     AxesActor->GetZAxesGridlinesProperty()->SetColor(0.5,0.5,0.5);
@@ -1434,7 +1420,7 @@ void MainWindow::on_showAxes_released()
     AxesActor->YAxisMinorTickVisibilityOff();
     AxesActor->ZAxisMinorTickVisibilityOff();
 
-    //Set grid line location
+    //Sets the grid line location
     AxesActor->SetGridLineLocation(2);
 
     renderer->AddActor(AxesActor);

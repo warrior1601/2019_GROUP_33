@@ -1,6 +1,6 @@
 //--------------------edit_light.cpp--------------------//
 // edit_light.cpp
-// WorkSheet 6 Computing Project
+// Computing Project
 // Edited By Jedidiah Paterson on 02/22/2020.
 // Copyright @ 2020 Jedidiah Paterson. All right reserved.
 // This File contains the implemetations of defined functions
