@@ -30,10 +30,6 @@ Warning: ignoring unsupported tag `PLANTUML_INCLUDE_PATH  =' at line 2517, file 
 /home/travis/build/warrior1601/2019_GROUP_33/model/include/Matrix.hpp:5: warning: the name `This' supplied as the second argument in the \file statement is not an input file
 /home/travis/build/warrior1601/2019_GROUP_33/model/include/Model.hpp:5: warning: the name `This' supplied as the second argument in the \file statement is not an input file
 /home/travis/build/warrior1601/2019_GROUP_33/model/include/Testing_File_Functions.h:5: warning: the name `This' supplied as the second argument in the \file statement is not an input file
-/home/travis/build/warrior1601/2019_GROUP_33/model_viewer/include/edit_light.h:6: warning: the name `This' supplied as the second argument in the \file statement is not an input file
-/home/travis/build/warrior1601/2019_GROUP_33/model_viewer/include/filters.h:6: warning: the name `This' supplied as the second argument in the \file statement is not an input file
-/home/travis/build/warrior1601/2019_GROUP_33/model_viewer/include/mainwindow.h:6: warning: the name `file' supplied as the second argument in the \file statement is not an input file
-/home/travis/build/warrior1601/2019_GROUP_33/model_viewer/include/vtklight_withname.h:5: warning: the name `This' supplied as the second argument in the \file statement is not an input file
 /home/travis/build/warrior1601/2019_GROUP_33/model/include/Matrix.hpp:17: warning: the name `Matrix3x3.hpp' supplied as the argument of the \class, \struct, \union, or \include command is not an input file
 /home/travis/build/warrior1601/2019_GROUP_33/model_viewer/include/mainwindow.h:65: warning: the name `MainWindow.h' supplied as the argument of the \class, \struct, \union, or \include command is not an input file
 /home/travis/build/warrior1601/2019_GROUP_33/model_viewer/include/vtklight_withname.h:19: warning: the name `vtkLight_WithName.h' supplied as the argument of the \class, \struct, \union, or \include command is not an input file
@@ -191,5 +187,5 @@ Generating file index...
 Generating file member index...
 Generating example index...
 finalizing index lists...
-lookup cache used 353/65536 hits=1412 misses=363
+lookup cache used 354/65536 hits=1413 misses=364
 finished...
