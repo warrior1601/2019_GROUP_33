@@ -5,7 +5,7 @@
 #ifndef DOUBLE_EQUALITY_FUNCTION_H
 #define DOUBLE_EQUALITY_FUNCTION_H
 
-/** @file These functions help determine if a double is equal to another
+/** @file double_equality_function.h These functions help determine if a double is equal to another
  * double value by using a relative difference so that it can be
  * compared to the machines "double epsilon" value.
  * warning to the console Just because (a == b) and (b == c) does not mean (a == c)

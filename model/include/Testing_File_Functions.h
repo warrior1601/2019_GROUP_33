@@ -2,7 +2,7 @@
 //  Computing Project
 //  Created by Jedidiah Paterson on 23/03/2020.
 //  Copyright @ 2020 Jedidiah Paterson. All rights reserved.
-/** @file This File contains functions that are only used in the
+/** @file Testing_File_Functions.h This File contains functions that are only used in the
  * testing of the Model/Cell/Matrix/Vectors/Material code.
  * @author Jedidiah Paterson
  */

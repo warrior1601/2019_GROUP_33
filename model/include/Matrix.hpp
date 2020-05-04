@@ -2,7 +2,7 @@
 //  Computing Project
 //  Created by Junaid Afzal on 24/11/2019.
 
-/** @file This header file contains the class Matrix3x3. The Matrix3x3 class has a
+/** @file Matrix.hpp This header file contains the class Matrix3x3. The Matrix3x3 class has a
  *  single floating-point 2D array and represents a 3x3 matrix. It is a required
  *  variable for the rotation members functions of Cell and Model classes.
  *  @author Junaid Afzal
@@ -14,7 +14,7 @@
 #include "Vectors.h"
 #include <vector>
 
-/** @class Matrix3x3 Matrix3x3.hpp "Matrix3x3.hpp"
+/** @class Matrix3x3 Matrix.hpp "Matrix.hpp"
  *  @brief A 3x3 matrix with private members of a single floating-point 2D array.
  *  @details This class has numerous operator overloads for both scalars and other
  *  matrix3x3 objects; abilities to initialise the matrix3x3 as a rotation matrix for cells;

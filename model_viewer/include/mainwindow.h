@@ -62,7 +62,7 @@
 namespace Ui {
 class MainWindow;
 }
-/** @class MainWindow MainWindow.h "mainwindow.h"
+/** @class MainWindow mainwindow.h "mainwindow.h"
  *  @brief The main window class contains the display window for the model as well as several buttons that allow the user to
  *  manipulate the model that they are viewing.
  */

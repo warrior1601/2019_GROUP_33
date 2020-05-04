@@ -2,8 +2,7 @@
 //  Computing Project
 //  Created by Jedidiah Paterson on 27/11/2019.
 
-/** @file
- *  This header file contains the class Vectors. The Vectors class has the
+/** @file Vectors.h This header file contains the class Vectors. The Vectors class has the
  *  members X_Coord, Y_Coord and Z_Coord and represents a point in 3D space. It is
  *  a required member variable of the Cell and Model classes.
  *  @author Jedidiah Paterson

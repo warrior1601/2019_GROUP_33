@@ -16,7 +16,7 @@
 #include <vtkLight.h>
 #include <vtkSmartPointer.h>
 
-/** @class vtkLight_WithName vtkLight_WithName.h "vtklight_withname.h"
+/** @class vtkLight_WithName vtklight_withname.h "vtklight_withname.h"
  *  @brief This class couples a string with the vtkLight class. Allowing the user to name the lights in the vtkLightCollection
  */
 class vtkLight_WithName

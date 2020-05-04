@@ -2,8 +2,7 @@
 //  Computing Project
 //  Created by Chayanis Kulanumphol on 27/11/2019.
 
-/** @file
- *  This header file contains the class Material. The Material class has the
+/** @file Material.h This header file contains the class Material. The Material class has the
  *  members ID, Density, Colour, and Name and represnts the material of a particular
  *  cell. It is a required member variable of the Cell and Model classes.
  *  @author Chayanis Kulanumphol

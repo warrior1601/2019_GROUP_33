@@ -2,7 +2,7 @@
 //  Computing Project
 //  Created by Junaid Afzal on 16/11/2019.
 
-/** @file This header file contains the Model class which has the private member variables
+/** @file Model.hpp This header file contains the Model class which has the private member variables
  *  of manyMaterials, containing a list of all the materials; manyVectors, containing a
  *  list of all the vectors; manyCells, containing a list of all the cells; and cellOrder,
  *  containing a list of the order in which the different types cells were created

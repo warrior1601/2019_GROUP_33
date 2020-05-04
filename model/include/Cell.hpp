@@ -2,7 +2,7 @@
 //  Computing Project
 //  Created by Junaid Afzal on 10/11/2019.
 
-/** @file This header file contains the parent class Cell and the sub-classes
+/** @file Cell.hpp This header file contains the parent class Cell and the sub-classes
  *  Tetrahedron, Pyramid and Hexahedron. The cell represents an abstraction of all
  *  shapes and has the private member variables of Vertices containing all the vertices
  *  of the cell; aVerticesOrder which is a variable used only by the model class; and
