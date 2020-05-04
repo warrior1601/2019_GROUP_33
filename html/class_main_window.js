@@ -42,7 +42,6 @@ var class_main_window =
     [ "Highlight_blue", "class_main_window.html#a8e4479884101478f35342aeba4e0296e", null ],
     [ "ModelOne", "class_main_window.html#a842d6ab2dd8bf6898fbfed5c4ab40daf", null ],
     [ "ListOfLights", "class_main_window.html#a7a518ef9b90689b6d576b209ee878d2f", null ],
-    [ "pointCoordinates", "class_main_window.html#a1c46b450aa66101f3133b87bb6623e72", null ],
     [ "ListOfActors_tetra", "class_main_window.html#a14c81baf3801dddc98372eee7f20ea7b", null ],
     [ "ListOfActors_pyramid", "class_main_window.html#ac74e495a85e7bd3c618851fcea2bf439", null ],
     [ "ListOfActors_hexahedron", "class_main_window.html#accb7fd6cbc37958e4fde3f97015328cf", null ],
