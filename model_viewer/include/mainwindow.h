@@ -3,7 +3,7 @@
 // Created by Jedidiah Paterson on 02/22/2020.
 // Copyright @ 2020 Jedidiah Paterson. All rights reserved.
 
-/** @file file contains the function that allow a model to be loaded and manipulated.
+/** @file mainwindow.h This file contains the function that allow a model to be loaded and manipulated.
  * Currently suppoorting .MOD/.TXT/.STL files only.
  * @author Jedidiah Paterson
  */

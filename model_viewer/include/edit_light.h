@@ -3,7 +3,7 @@
 //Created by Jedidiah Paterson on 02/22/2020.
 //Copyright @ 2020 Jedidiah Paterson. All rights reserved.
 
-/** @file This file contains a list of functions and variable that are connected
+/** @file edit_light.h This file contains a list of functions and variable that are connected
  * to the buttons on the edit_light.ui window. These function on the object
  * that is presented on MainWindow. This file is designed to allow for future updates
  * and additions.

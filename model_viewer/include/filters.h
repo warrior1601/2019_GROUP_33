@@ -3,7 +3,7 @@
 // Created by Jedidiah Paterson on 02/22/2020.
 // Copyright @ 2020 Jedidiah Paterson. All rights reserved.
 
-/** @file This file contains a list of functions and variable that are connected
+/** @file filters.h This file contains a list of functions and variable that are connected
  * To the buttons on the filters.ui window. These functions apply filters to the
  * model that is present on the MainWindow. This file is
  * Designed to allow for future updates and additions to filtering functions

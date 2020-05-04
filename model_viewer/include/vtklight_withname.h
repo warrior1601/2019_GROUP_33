@@ -2,7 +2,7 @@
 // Computing Project
 // Created By Jedidiah Paterson on 02/22/2020
 // Copyright @ 2020 Jedidiah Paterson. All rights reserved.
-/** @file This file contains members of a class of the same name.
+/** @file vtklight_withname.h This file contains members of a class of the same name.
  * This class helps the users see what light they are editing
  * Allowing them to name the light as the user sees fit.
  * @author Jedidiah Paterson
