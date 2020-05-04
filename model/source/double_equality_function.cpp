@@ -6,7 +6,7 @@
 //  This File contains the functions that are need in order
 //  to test that two doubles are equal to each other.
 //  NOTE Just because (a == b) and (b == c) does not mean
-// (a == c)
+//  (a == c)
 
 #include <cmath>
 #include "double_equality_function.h"

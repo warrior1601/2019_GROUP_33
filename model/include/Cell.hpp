@@ -29,11 +29,9 @@ public:
     /** @brief Blank constructor (empty)
      */
     Cell(void);
-
     /** @brief Blank destructor (empty)
      */
     ~Cell(void);
-
 
     //Custom std::cout function
     /** @brief Displays the vertices, in order, and the material of cell by
@@ -41,45 +39,36 @@ public:
      */
     friend std::ostream& operator<< (std::ostream& Output, const Cell& aCell);
 
-
     //Custom operator function
     /** @brief Overwrites the member variables of the cell calling the function
      *  with the values of aCell member variables
      */
     Cell& operator= (const Cell& aCell);
-
     /** @brief Checks to see if two cells are equal returns true if they are
      */
     bool operator==(Cell& aCell);
-
 
     //Set functions
     /** @brief Sets the Vertices of cell
      */
     void Set_Vertices(const std::vector<Vectors>& aVertices);
-
     /** @brief Sets the VerticesOrder of cell
      */
     void Set_Vertices_Order(const std::vector<int>& aVerticesOrder);
-
     /** @brief Sets the theMaterial of cell
      */
     void Set_Material(const Material& aMaterial);
-
 
     //Get function
     /** @brief Returns the Vertices of cell
      */
     std::vector<Vectors> Get_Vertices(void);
-
     /** @brief Returns the VerticesOrder of cell
      */
     std::vector<int> Get_Vertices_Order(void);
-
     /** @brief Returns the theMaterial of cell
      */
     Material Get_Material(void);
-
 
     //Cell specific functions
     /** @brief Returns -1. Note that this should never be
@@ -87,19 +76,16 @@ public:
      *  message will be displayed on the console.
      */
     virtual double Get_Volume(void);
-
     /** @brief Returns -1. Note that this should never be
      *  called should be re-defined for every sub-class. If it is called an error
      *  message will be displayed on the console.
      */
     virtual double Get_Weight(void);
-
     /** @brief Returns a vectors with the co-ordinates (-1,-1,-1). Note that this should never be
      *  called should be re-defined for every sub-class. If it is called an error
      *  message will be displayed on the console.
      */
     virtual Vectors Get_Centre_Of_Gravity(void);
-
     /** @brief Translates all vertices of cell such that it appear that the cell has been rotated by Rotation_In_Degrees
      *  amount of degrees around the Axis_Of_Rotation about the point Centre_Of_Rotation.
      *  @details \n This is achieved by first translating the cell such that its position to the origin after translation is the same as its position to the
@@ -116,14 +102,10 @@ public:
     void Rotate(double Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Centre_Of_Rotation);
 
 private:
-    std::vector<Vectors> Vertices;          ///< This is a list of vectors (points/vertices/corners) that make up the cell
+    std::vector<Vectors> Vertices;          ///< @brief This is a list of vectors (points/vertices/corners) that make up the cell
     std::vector<int> VerticesOrder;         ///< @brief This is a variable required by the model in order for the model to keep track of which vectors from its own vectors list are being used in this particular cell - thus this will contain all the vectors IDs. @details For example if VectorsOrder[1] = 5 then Vectors V1 get its value from the 5th element in models vectors list as position in models vectors list = vectors ID. VectorsOrder exists to allow the model class to keep track of which IDs the Vectors get their values from.
-    Material theMaterial;                   ///< This is the material the cell is made up of
+    Material theMaterial;                   ///< @brief This is the material the cell is made up of
 };
-
-
-
-
 
 /** @class Tetrahedron Cell.hpp "Cell.hpp"
  *  @brief A sub-class of cell with all its private members being inherited from the cell class
@@ -132,7 +114,6 @@ private:
  *  \image html tetrahedron.png "Tetrahedron Vertices Number Ordering" width=500cm
  *  @warning No error checking for negative densities
  */
-
 class Tetrahedron:public Cell {
 public:
     //Constructors and destructor
@@ -146,29 +127,22 @@ public:
      *  @warning No error checking for whether aVertices or aVerticesOrder is a valid size
      */
     Tetrahedron(const std::vector<Vectors>& aVertices, const std::vector<int>& aVerticesOrder, const Material& aMaterial);
-
-
     /** @brief Blank constructor which adjust the size of Vertices to 4 but leaves each index empty; uses std::vector constructor
      *  for VerticesOrder to initialise; and material constructor to initialise theMaterial.
      */
     Tetrahedron(void);
-
     /** @brief Standard empty destructor
      */
     ~Tetrahedron(void);
-
-
 
     //Tetrahedron specific functions
     /** @brief Returns volume of tetrahedron using the triple scalar product formula
      */
     virtual double Get_Volume(void);
-
     /** @brief Returns the weight of tetrahedron by multiplying volume of pyrmaid by density of theMaterial
      *  @warning No error checking for negative densities
      */
     virtual double Get_Weight(void);
-
     /** @brief Returns the centre of gravity by using centroid of tetrahedron formula which, assuming uniform density, is
      * the average of each co-ordinate - i.e. average of all x components of vertices, average of all y components of vertices etc
      */
@@ -183,10 +157,6 @@ public:
     //         V0
 };
 
-
-
-
-
 /** @class Pyramid Cell.hpp "Cell.hpp"
  *  @brief A sub-class of cell with all its private members being inherited from the cell class
  *  @details This class can calculate its volume, weight and centre of Gravity
@@ -194,7 +164,6 @@ public:
  *  \image html pyramid.png "Pyramid Vertices Number Ordering" width=500cm
  *  @warning No error checking for negative densities
  */
-
 class Pyramid:public Cell {
 public:
     //Constructors and destructor
@@ -208,26 +177,21 @@ public:
      *  @warning No error checking for whether aVertices or aVerticesOrder is a valid size
      */
     Pyramid(const std::vector<Vectors>& aVertices, const std::vector<int>& aVerticesOrder, const Material& aMaterial);
-
     /** @brief Blank constructor which adjust the size of Vertices to 5 but leaves each index empty; uses std::vector constructor
      *  for VerticesOrder to initialise; and material constructor to initialise theMaterial.
      */
     Pyramid(void);
-
     /** @brief Standard empty destructor
      */
     ~Pyramid(void);
-
     /** @brief Returns the volume of the pyramid by splitting it in half diagonally along V0 - V2 "line"
      *  to create two tetrahedrons and summing the volumes of all of them.
      */
     virtual double Get_Volume(void);
-
     /** @brief Returns the weight of pyramid by multiplying volume of pyramid by density of theMaterial
      *  @warning No error checking for negative densities
      */
     virtual double Get_Weight(void);
-
      /** @brief Returns the centre of gravity of pyramid by splitting it in half diagonally along V0 - V2 "line"
       *  to create two tetrahedrons and finding centre of gravity of each.
       *  @details Since the two tetrahedrons have equal  volume and density, they will have equal weight and therefore the
@@ -244,10 +208,6 @@ public:
     //    V0         V1
 };
 
-
-
-
-
 /** @class Hexahedron Cell.hpp "Cell.hpp"
  *  @brief A sub-class of cell with all its private members being inherited from the cell class
  *  @details This class can calculate its volume, weight and centre of Gravity
@@ -255,7 +215,6 @@ public:
  *  \image html hexahedron.png "Hexahedron Vertices Number Ordering" width=500cm
  *  @warning No error checking for negative densities
  */
-
 class Hexahedron:public Cell {
 public:
     //Constructors and destructor
@@ -269,27 +228,22 @@ public:
      *  @warning No error checking for whether aVertices or aVerticesOrder is a valid size
      */
     Hexahedron(const std::vector<Vectors>& aVertices, const std::vector<int>& aVerticesOrder, const Material& aMaterial);
-
     /** @brief Blank constructor which adjust the size of Vertices to 8 but leaves each index empty; uses std::vector constructor
      *  for VerticesOrder to initialise; and material constructor to initialise theMaterial.
      */
     Hexahedron(void);
-
     /** @brief Standard empty destructor
      */
     ~Hexahedron(void);
-
     /** @brief Returns the volume of hexahedron by splitting it in to three pyramids and
      *  summing the volumes of all of them.
      *  @details See http://mathcentral.uregina.ca/QQ/database/QQ.09.06/siva1.html for more info
      */
     virtual double Get_Volume(void);
-
     /** @brief Returns the weight of hexahedron by multiplying volume of hexahedron by density of theMaterial
      *  @warning No error checking for negative densities
      */
     virtual double Get_Weight(void);
-
     /** @brief Returns the centre of gravity of hexahedron by splitting it in to three pyramids and find centre of gravity of each.
      *  @details Since the three pyramids have equal volume and density, they
      *  will have equal weight and therefore the centre of gravity of hexahedron will be the average/midpoint

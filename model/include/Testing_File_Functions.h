@@ -2,8 +2,7 @@
 //  Computing Project
 //  Created by Jedidiah Paterson on 23/03/2020.
 //  Copyright @ 2020 Jedidiah Paterson. All rights reserved.
-/**
- * @file This File contains functions that are only used in the
+/** @file This File contains functions that are only used in the
  * testing of the Model/Cell/Matrix/Vectors/Material code.
  * @author Jedidiah Paterson
  */
@@ -24,11 +23,8 @@ template <class T>
 unsigned int Testing (T aItem, T bItem)
 {
   return (aItem == bItem) ? 0 : 1;
-  // put in equal testing after all operator over loads a created
 }
-
 //-------------------Material Required Code-------------------//
-
 template <class M, class I, class D, class C, class N>
 /** @brief Testing is a function that gets passed aMaterial and and the expected
  * values for its members and checks for equality.
@@ -68,7 +64,6 @@ unsigned int Testing (V aVectors,  U X, U Y, U Z)
 }
 
 //-------------------Cell Required Code-------------------//
-
 template <class C, class V, class I, class M>
 /** @brief Testing function is usd to test if a Cell and its sub classes
  * have been set up properly
@@ -221,10 +216,8 @@ unsigned int Testing(C aCell, D aVolume, D aWeight, V aVectors_Center_of_Cell)
 }
 
 //-------------------Matrix3x3 Required Code-------------------//
-
 template <class M, class D>
-/**
- * @brief Testing determins if te Matrix3x3 values were set correctly
+/** @brief Testing determines if the Matrix3x3 values were set correctly
  * @returns a 0 if the test is successful
  */
 unsigned int Testing(M aMatrix3x3, D One, D Two, D Three, D Four, D Five, D Six, D Seven, D Eight, D Nine)
@@ -260,7 +253,6 @@ unsigned int Testing(M aMatrix3x3, D One, D Two, D Three, D Four, D Five, D Six,
 }
 
 //-------------------Model Required Code-------------------//
-
 template <class M>
 /** @brief Testing test to see a model and its members have been initilized correctly
  * @returns a 0 if no error in equality is detected

@@ -34,20 +34,17 @@ public:
     /** @brief Blank constructor that assigns ID to 0; Density to 0; Colour to "N/A"; and Name to "N/A".
      */
     Material();
-
     /** @brief This will assign the identification number of the material and all
      *  other unassigned values to their blank constructor equivalent
      *  @param ID is the identification number for the material
      */
     Material(int ID);
-
     /** @brief This will assign the identification number and density of the material and all
      *  other unassigned values to their blank constructor equivalent
      *  @param ID is the identification number for the material
      *  @param Density is the density of the Material
      */
     Material(int ID, double Density);
-
     /** @brief This will assign the identification number, density and colour
      *  of the material and all other unassigned values to their blank constructor equivalent
      *  @param ID is the identification number for the material
@@ -55,7 +52,6 @@ public:
      *  @param Colour is the colour of the material
      */
     Material(int ID, double Density, const std::string &Colour);
-
     /** @brief Full constructor
      *  @param ID is the identification number for the material
      *  @param Density is the density of the Material
@@ -63,35 +59,25 @@ public:
      *  @param Name is the name of the material
      */
     Material(int ID, double Density, const std::string &Colour, const std::string &Name);
-
     /** @brief Blank destructor (empty)
      */
     ~Material();
-
-
-
 //-------------Set Functions-----------//
     /** @brief Sets the identification number of the material
      */
     void SetID(int ID);
-
     /** @brief Sets the density of the material
      */
     void SetDensity(double Density);
-
     /** @brief Sets the colour of the material
      */
     void SetColour(const std::string &Colour);
-
     /** @brief Sets the name of the material
      */
     void SetName(const std::string &Name);
-
     /** @brief Sets all member variables of the material
      */
     void SetMaterial(int ID, double Density, const std::string &Colour,const std::string &Name);
-
-
 
 //-------------Get Functions-----------//
     /** @brief Returns the identification number of the material
@@ -111,11 +97,9 @@ public:
     std::string GetName();
 
 //-----Operator Overload Functions-----//
-    /**
-     * @brief Returns true if their is equality
+    /** @brief Returns true if their is equality
      */
     bool operator==(const Material& IsEqual);
-
 
 //-----------Friend Functions----------//
     /** @brief Displays the values of all member variables of the material
@@ -123,10 +107,10 @@ public:
     friend std::ostream& operator<< (std::ostream& Output, const Material& Material);
 
 private:
-  int ID;                 ///< Identification number for the material, when used by the model class this value will be NOT be negative
-  double Density;         ///< Density of the material
-  std::string Colour;     ///< Colour of the material, when used by the model class this string will contain 3 two digit hexadecimal numbers
-  std::string Name;       ///< Name of the material
+  int ID;                 ///< @brief Identification number for the material, when used by the model class this value will be NOT be negative
+  double Density;         ///< @brief Density of the material
+  std::string Colour;     ///< @brief Colour of the material, when used by the model class this string will contain 3 two digit hexadecimal numbers
+  std::string Name;       ///< @brief Name of the material
 };
 
 #endif // MATERIAL_H_INCLUDED

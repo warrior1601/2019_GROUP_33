@@ -50,8 +50,6 @@ Material::Material(int ID, double Density, const std::string &Colour, const std:
 
 Material::~Material() {}
 
-
-
 //-------------Set Functions-----------//
 void Material::SetID(int ID)
 {
@@ -80,8 +78,6 @@ void Material::SetMaterial(int ID, double Density, const std::string &Colour, co
     this->Colour = Colour;
     this->Name = Name;
 }
-
-
 
 //-------------Get Functions-----------//
 int Material::GetID()
@@ -125,7 +121,6 @@ bool Material::operator==(const Material& aMaterial)
        return false;
     }
 }
-
 
 //-----------Friend Functions----------//
 std::ostream& operator<< (std::ostream& Output, const Material& aMaterial)

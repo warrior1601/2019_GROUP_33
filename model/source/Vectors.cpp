@@ -37,8 +37,6 @@ Vectors::Vectors(double aX_Coord, double aY_Coord, double aZ_Coord)
 
 Vectors::~Vectors() {}
 
-
-
 //-------------Set Functions-----------//
 void Vectors::SetX_Vector(double aX_Coord)
 {
@@ -62,8 +60,6 @@ void Vectors::SetVector(double aX_Coord, double aY_Coord, double aZ_Coord)
     Z_Coord = aZ_Coord;
 }
 
-
-
 //-------------Get Functions-----------//
 double Vectors::GetXVector()
 {
@@ -79,8 +75,6 @@ double Vectors::GetZVector()
 {
     return (Z_Coord);
 }
-
-
 
 //-----Operator Overload Functions-----//
 Vectors Vectors::operator=(const Vectors& Copy)
@@ -178,7 +172,6 @@ bool Vectors::operator==(const Vectors& aVectors)
        return false;
     }
 }
-
 
 //-------Special Member Functions------//
 double Vectors::Scalar_Product(const Vectors& aVectors)

@@ -22,10 +22,6 @@ Model::Model(void) { }
 
 Model::~Model(void) { }
 
-
-
-
-
 //Custom std::cout function
 std::ostream& operator<< (std::ostream& Output, const Model& aModel)
 {
@@ -60,10 +56,6 @@ std::ostream& operator<< (std::ostream& Output, const Model& aModel)
 
     return Output;
 }
-
-
-
-
 
 //Custom operator function
 Model& Model::operator = (const Model& aModel)
@@ -127,8 +119,6 @@ bool Model::operator== (Model& aModel)
     return true;
 }
 
-
-
 //Set functions
 void Model::Set_Materials(const std::vector<Material>& someMaterials) { manyMaterials = someMaterials; }
 
@@ -138,10 +128,6 @@ void Model::Set_Cells(const std::vector<Cell*>& someCells) { manyCells = someCel
 
 void Model::Set_Cell_Order(const std::string& someCellOrder) { cellOrder = someCellOrder; }
 
-
-
-
-
 //Get functions
 std::vector<Material> Model::Get_Materials(void) { return manyMaterials; }
 
@@ -150,10 +136,6 @@ std::vector<Vectors> Model::Get_Vectors(void) { return manyVectors; }
 std::vector<Cell*> Model::Get_Cells(void) { return manyCells; }
 
 std::string Model::Get_Cell_Order(void) { return cellOrder; }
-
-
-
-
 
 //Model specific functions
 void Model::Load_Model(const std::string& FilePath)
@@ -930,9 +912,6 @@ void Model::Rotate(double Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Ce
             manyVectors[CurrentVectorsOrder[j]] = CurrentVertices[j];
     }
 }
-
-
-
 
 //Private Member Functions
 std::vector<int> Model::Get_Vectors_Being_Used(void)

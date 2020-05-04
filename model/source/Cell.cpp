@@ -15,10 +15,6 @@ Cell::Cell(void) { }
 
 Cell::~Cell(void) { }
 
-
-
-
-
 //Custom std::cout function
 std::ostream& operator<< (std::ostream& Output, const Cell& aCell)
 {
@@ -31,10 +27,6 @@ std::ostream& operator<< (std::ostream& Output, const Cell& aCell)
 
     return Output;
 }
-
-
-
-
 
 //Custom operator function
 Cell& Cell::operator = (const Cell& aCell)
@@ -86,8 +78,6 @@ bool Cell::operator == (Cell& aCell)
  return true;
 }
 
-
-
 //Set functions
 void Cell::Set_Vertices(const std::vector<Vectors>& aVertices) { Vertices = aVertices; }
 
@@ -95,20 +85,12 @@ void Cell::Set_Vertices_Order(const std::vector<int>& aVectorsOrder) { VerticesO
 
 void Cell::Set_Material(const Material& aMaterial) { theMaterial = aMaterial; }
 
-
-
-
-
 //Get functions
 std::vector<Vectors> Cell::Get_Vertices(void) { return Vertices; }
 
 std::vector<int> Cell::Get_Vertices_Order(void) { return VerticesOrder; }
 
 Material Cell::Get_Material(void) { return theMaterial;  }
-
-
-
-
 
 //Cell specific functions
 double Cell::Get_Volume(void)
@@ -152,15 +134,6 @@ void Cell::Rotate(double Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Cen
     //                                                                          ^^^^^^^^^^^^
 }
 
-
-
-
-
-
-
-
-
-
 //------------------------------------------------------------------------TETRAHEDRON MEMBER FUNCTIONS------------------------------------------------------------------------//
 
 //Constructors and destructor
@@ -186,10 +159,6 @@ Tetrahedron::Tetrahedron(void)
 }
 
 Tetrahedron::~Tetrahedron(void) { }
-
-
-
-
 
 //Tetrahedron specific functions
 double Tetrahedron::Get_Volume(void)
@@ -241,15 +210,6 @@ Vectors Tetrahedron::Get_Centre_Of_Gravity(void)
     return Centroid;
 }
 
-
-
-
-
-
-
-
-
-
 //------------------------------------------------------------------------PYRAMID MEMBER FUNCTIONS------------------------------------------------------------------------//
 
 //Constructors and destructor
@@ -276,10 +236,6 @@ Pyramid::Pyramid(void)
 }
 
 Pyramid::~Pyramid(void) { }
-
-
-
-
 
 //Pyramid specific functions
 double Pyramid::Get_Volume(void)
@@ -356,15 +312,6 @@ Vectors Pyramid::Get_Centre_Of_Gravity(void)
     return newCOG;
 }
 
-
-
-
-
-
-
-
-
-
 //------------------------------------------------------------------------HEXAHEDRON MEMBER FUNCTIONS------------------------------------------------------------------------//
 
 //Constructors and destructor
@@ -394,10 +341,6 @@ Hexahedron::Hexahedron(void)
 }
 
 Hexahedron::~Hexahedron(void) { }
-
-
-
-
 
 //Hexahedron specific functions
 double Hexahedron::Get_Volume(void)

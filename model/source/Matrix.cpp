@@ -51,10 +51,6 @@ Matrix3x3::Matrix3x3(void)
 
 Matrix3x3::~Matrix3x3(void) { }
 
-
-
-
-
 //Custom std::cout function
 std::ostream& operator<< (std::ostream& Output, const Matrix3x3& aMatrix3x3)
 {
@@ -65,10 +61,6 @@ std::ostream& operator<< (std::ostream& Output, const Matrix3x3& aMatrix3x3)
 
     return Output;
 }
-
-
-
-
 
 //Custom operator functions
 Matrix3x3& Matrix3x3::operator = (const Matrix3x3& aMatrix3x3)
@@ -165,10 +157,6 @@ Vectors Matrix3x3::operator* (const Vectors& aVectors)
     return VectorsMultiplication;
 }
 
-
-
-
-
 Matrix3x3 Matrix3x3::operator+ (const double& aNumber)
 {
     Matrix3x3 NumberAddition;
@@ -213,10 +201,6 @@ Matrix3x3 Matrix3x3::operator/ (const double& aNumber)
     return NumberDivision;
 }
 
-
-
-
-
 Matrix3x3& Matrix3x3::operator+= (const Matrix3x3& aMatrix3x3)
 {
     for (unsigned int i = 0; i < 3; i++)        //Loops through all rows
@@ -247,10 +231,6 @@ Matrix3x3& Matrix3x3::operator*= (const Matrix3x3& aMatrix3x3)
 
     return *this;
 }
-
-
-
-
 
 Matrix3x3 Matrix3x3::operator+= (const double& aNumber)
 {
@@ -288,10 +268,6 @@ Matrix3x3 Matrix3x3::operator/= (const double& aNumber)
     return *this;
 }
 
-
-
-
-
 //Set functions
 void Matrix3x3::Set_MatrixData(std::vector< std::vector<double> >& aMatrixData) { MatrixData = aMatrixData; }
 
@@ -313,10 +289,6 @@ void Matrix3x3::Set_Matrix_Data_8(const double& aMatrixNumber) { MatrixData[2][1
 
 void Matrix3x3::Set_Matrix_Data_9(const double& aMatrixNumber) { MatrixData[2][2] = aMatrixNumber; }
 
-
-
-
-
 //Get functions
 std::vector< std::vector<double> > Matrix3x3::Get_MatrixData(void) { return MatrixData; }
 
@@ -337,10 +309,6 @@ double Matrix3x3::Get_Matrix_Data_7(void) { return MatrixData[2][0]; }
 double Matrix3x3::Get_Matrix_Data_8(void) { return MatrixData[2][1]; }
 
 double Matrix3x3::Get_Matrix_Data_9(void) { return MatrixData[2][2]; }
-
-
-
-
 
 //Matrix3x3 specific functions
 void Matrix3x3::Initialise_As_Rotation_Matrix(double Rotation_In_Degrees, char Axis_Of_Rotation)

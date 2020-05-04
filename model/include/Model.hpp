@@ -2,8 +2,7 @@
 //  Computing Project
 //  Created by Junaid Afzal on 16/11/2019.
 
-/** @file
- *  This header file contains the Model class which has the private member variables
+/** @file This header file contains the Model class which has the private member variables
  *  of manyMaterials, containing a list of all the materials; manyVectors, containing a
  *  list of all the vectors; manyCells, containing a list of all the cells; and cellOrder,
  *  containing a list of the order in which the different types cells were created
@@ -40,16 +39,12 @@ public:
     /** @brief Copy constructor
      */
     Model(const Model& aModel);
-
     /** @brief Blank constructor (empty)
      */
     Model(void);
-
     /** @brief Blank destructor (empty)
      */
     ~Model(void);
-
-
 
     //Custom std::cout function
     /** @brief Displays all the materials, using material display function; all the vectors,
@@ -58,73 +53,56 @@ public:
      */
     friend std::ostream& operator<< (std::ostream& Output, const Model& aModel);
 
-
-
     //Custom operator functions
     /** @brief Overwrites the member variables of the model calling the function
      *  with the values of aModel member variables
      */
     Model& operator= (const Model& aModel);
-
     /** @brief Returns true if they are equal
      */
     bool operator== ( Model& aModel);
-
 
     //Set functions
     /** @brief Sets the material list of the model
      */
     void Set_Materials(const std::vector<Material>& someMaterials);
-
     /** @brief Sets the vectors list of the model
      */
     void Set_Vectors(const std::vector<Vectors>& someVectors);
-
     /** @brief Sets the cell list of the model
      */
     void Set_Cells(const std::vector<Cell*>& someCells);
-
     /** @brief Sets the cell order list of the model
      */
     void Set_Cell_Order(const std::string& someCellOrder);
-
 
     //Get functions
     /** @brief Returns the material list of the model
      */
     std::vector<Material> Get_Materials(void);
-
     /** @brief Returns the vectors list of the model
      */
     std::vector<Vectors> Get_Vectors(void);
-
     /** @brief Returns the cell list of the model
      */
     std::vector<Cell*> Get_Cells(void);
-
     /** @brief Returns the cell order list of the model
      */
     std::string Get_Cell_Order(void);
-
-
 
     //Model specific functions
     /** @brief Loads a model from a proprietary file format. See detailed description for more info on the file format used
      */
     void Load_Model(const std::string& FilePath);
-
     /** @brief Saves a model to a proprietary file format. See detailed description for more info on the file format used
      */
     void Save_Model(const std::string& FilePath);
-
     /** @brief Returns the volume of the model by summing all the volumes of all the Cell(s) in the model
      */
     double Get_Volume(void);
-
     /** @brief Returns the weight of the model by summing all the weights of all the Cell(s) in the model
      */
     double Get_Weight(void);
-
     /** @brief Returns a vectors containing the centre of gravity of model
      *  @details First it finds all centre of gravities of all cells and their corresponding weight. Then it takes two centre of gravities and
      *  treat is as a fulcrum problem where you try to find the point in space where you would place the fulcrum to
@@ -132,17 +110,14 @@ public:
      *  the two weights. This process is repeated until only one centre of gravity is left.
      */
     Vectors Get_Centre_Of_Gravity(void);
-
     /** @brief Returns a vectors containing the geometric centre by finding the most negative x,y,z co-ordinates
      *  and the most positive x,y,z co-ordinates and finding the midpoint
      */
     Vectors Get_Geometric_Centre(void);
-
     /** @brief Returns a vectors containing the overall dimensions by finding the most negative x,y,z co-ordinates
      *  and the most postive x,y,z co-ordinates and finding the difference
      */
     Vectors Get_Overall_Dimensions(void);
-
     /** @brief Translates all vertices of all cells such that it appears that the model has been rotated by Rotation_In_Degrees
      *  amount of degrees around the Axis_Of_Rotation about the point Centre_Of_Rotation.
      *  @details This is achieved by executing the Rotate member function, of every cell, on every cell and updating the manyVectors list
@@ -153,13 +128,13 @@ public:
     void Rotate(double Rotation_In_Degrees, char Axis_Of_Rotation, Vectors Centre_Of_Rotation);
 
 private:
-    std::vector<Material> manyMaterials;           ///< The list of materials in model, where manyMaterials index position = Material ID
-    std::vector<Vectors> manyVectors;              ///< The list of vectors in model, where manyVectors index position = Vectors ID
-    std::vector<Cell*> manyCells;                  ///< The list of cells in model, where manyCells index postion = Cell ID
-    std::string cellOrder;                         ///< The list representing the order in which the different types cells were created from the load file so that the save file can be saved with minimal changes
+    std::vector<Material> manyMaterials;           ///< @brief The list of materials in model, where manyMaterials index position = Material ID
+    std::vector<Vectors> manyVectors;              ///< @brief The list of vectors in model, where manyVectors index position = Vectors ID
+    std::vector<Cell*> manyCells;                  ///< @brief The list of cells in model, where manyCells index postion = Cell ID
+    std::string cellOrder;                         ///< @brief The list representing the order in which the different types cells were created from the load file so that the save file can be saved with minimal changes
 
-    std::vector<int> Get_Vectors_Being_Used(void); ///< Returns the vectors from manyVectors being used in cells and is a required function for Get_Geometric_Centre() and Get_Overall_Dimensions()
-    std::vector<Vectors> Get_Min_Max(void);        ///< Returns the most positive and most negative vectors and is required function for Get_Geometric_Centre() and Get_Overall_Dimensions()
+    std::vector<int> Get_Vectors_Being_Used(void); ///< @brief Returns the vectors from manyVectors being used in cells and is a required function for Get_Geometric_Centre() and Get_Overall_Dimensions()
+    std::vector<Vectors> Get_Min_Max(void);        ///< @brief Returns the most positive and most negative vectors and is required function for Get_Geometric_Centre() and Get_Overall_Dimensions()
 };
 
 #endif // Model_hpp
