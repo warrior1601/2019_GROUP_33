@@ -25,14 +25,6 @@ Warning: ignoring unsupported tag `DOCBOOK_PROGRAMLISTING =' at line 2093, file 
 Warning: ignoring unsupported tag `PLANTUML_JAR_PATH      =' at line 2507, file /home/travis/build/warrior1601/2019_GROUP_33/Doxyfile
 Warning: ignoring unsupported tag `PLANTUML_CFG_FILE      =' at line 2512, file /home/travis/build/warrior1601/2019_GROUP_33/Doxyfile
 Warning: ignoring unsupported tag `PLANTUML_INCLUDE_PATH  =' at line 2517, file /home/travis/build/warrior1601/2019_GROUP_33/Doxyfile
-/home/travis/build/warrior1601/2019_GROUP_33/model/include/Cell.hpp:5: warning: the name `This' supplied as the second argument in the \file statement is not an input file
-/home/travis/build/warrior1601/2019_GROUP_33/model/include/double_equality_function.h:8: warning: the name `These' supplied as the second argument in the \file statement is not an input file
-/home/travis/build/warrior1601/2019_GROUP_33/model/include/Matrix.hpp:5: warning: the name `This' supplied as the second argument in the \file statement is not an input file
-/home/travis/build/warrior1601/2019_GROUP_33/model/include/Model.hpp:5: warning: the name `This' supplied as the second argument in the \file statement is not an input file
-/home/travis/build/warrior1601/2019_GROUP_33/model/include/Testing_File_Functions.h:5: warning: the name `This' supplied as the second argument in the \file statement is not an input file
-/home/travis/build/warrior1601/2019_GROUP_33/model/include/Matrix.hpp:17: warning: the name `Matrix3x3.hpp' supplied as the argument of the \class, \struct, \union, or \include command is not an input file
-/home/travis/build/warrior1601/2019_GROUP_33/model_viewer/include/mainwindow.h:65: warning: the name `MainWindow.h' supplied as the argument of the \class, \struct, \union, or \include command is not an input file
-/home/travis/build/warrior1601/2019_GROUP_33/model_viewer/include/vtklight_withname.h:19: warning: the name `vtkLight_WithName.h' supplied as the argument of the \class, \struct, \union, or \include command is not an input file
 Searching for include files...
 Searching for example files...
 Searching for images...
@@ -114,7 +106,7 @@ Counting data structures...
 Resolving user defined references...
 Finding anchors and sections in the documentation...
 Transferring function r/home/travis/build/warrior1601/2019_GROUP_33/model/include/Matrix.hpp:200: warning: Found unknown command `\detials'
-/home/travis/build/warrior1601/2019_GROUP_33/model/include/Vectors.h:120: warning: Found unknown command `\deyails'
+/home/travis/build/warrior1601/2019_GROUP_33/model/include/Vectors.h:119: warning: Found unknown command `\deyails'
 /home/travis/build/warrior1601/2019_GROUP_33/model_viewer/include/filters.h:51: warning: The following parameters of Filters::Open_Dialog(vtkSmartPointer< vtkSTLReader > &aReader, vtkSmartPointer< vtkDataSetMapper > &aMapper, vtkSmartPointer< vtkGenericOpenGLRenderWindow > &aWindow, bool &PassedFilterWindowOpenStatus) are not documented:
   parameter 'aReader'
   parameter 'aMapper'
@@ -124,8 +116,8 @@ Transferring function r/home/travis/build/warrior1601/2019_GROUP_33/model/includ
   parameter 'aWindow'
 /home/travis/build/warrior1601/2019_GROUP_33/model/include/Matrix.hpp:200: warning: Found unknown command `\detials'
 /home/travis/build/warrior1601/2019_GROUP_33/model/include/Matrix.hpp:200: warning: Found unknown command `\detials'
-/home/travis/build/warrior1601/2019_GROUP_33/model/include/Vectors.h:120: warning: Found unknown command `\deyails'
-/home/travis/build/warrior1601/2019_GROUP_33/model/include/Vectors.h:120: warning: Found unknown command `\deyails'
+/home/travis/build/warrior1601/2019_GROUP_33/model/include/Vectors.h:119: warning: Found unknown command `\deyails'
+/home/travis/build/warrior1601/2019_GROUP_33/model/include/Vectors.h:119: warning: Found unknown command `\deyails'
 eferences...
 Combining using relations...
 Adding members to index pages...
