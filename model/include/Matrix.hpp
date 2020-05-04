@@ -197,7 +197,7 @@ public:
      */
     double Get_Determinant(void);
     /** @brief Finds the inverse of matrix3x3 and overwrites the matrix3x3 calling the function with the result.
-     *  @detials Note that if there is no inverse, then an error message will be displayed to the console.
+     *  @details Note that if there is no inverse, then an error message will be displayed to the console.
      *  The method is as follows: replace each element in matrix3x3 by it's co-factor;
      *  trasnpose the matirx; and divide matrix data by its determinant.
      */

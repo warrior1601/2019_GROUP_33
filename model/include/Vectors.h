@@ -116,7 +116,7 @@ public:
      */
     double Get_Magnitude(void);
     /** @brief Returns the distance between aVectors and the vectors calling the function
-     *  @deyails This is done by creating a difference vectors whose member variables is the difference in the member
+     *  @details This is done by creating a difference vectors whose member variables is the difference in the member
      *  variables of aVectors and the vectors calling the function. Then the magnitude of the
      *  difference vector is returned as the distance.
      */
